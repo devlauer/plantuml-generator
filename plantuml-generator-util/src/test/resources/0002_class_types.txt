@@ -1,0 +1,17 @@
+@startuml
+
+abstract class de.elnarion.test.domain.t0002.AbstractClass {
+}
+
+annotation de.elnarion.test.domain.t0002.NormalAnnotation
+
+class de.elnarion.test.domain.t0002.NormalClass {
+}
+
+enumde.elnarion.test.domain.t0002.NormalEnum {
+}
+
+interface de.elnarion.test.domain.t0002.NormalInterface {
+}
+
+@enduml

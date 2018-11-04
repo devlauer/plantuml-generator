@@ -1,0 +1,29 @@
+@startuml
+
+abstract class de.elnarion.test.domain.t0005.MethodTestClass {
+	{field} +stringWithField : String
+	{method} +doSynchronized () : void <<synchronized>> 
+	{method} +getStringWithoutField () : String
+	{method} +setStringWithoutField ( paramString1 : String ) : void
+	{method} -testMethod () : void
+	{method}  {abstract} +testMethodAbstract () : void
+	{method}  {abstract} +testMethodDeprecated () : void <<deprecated>> 
+	{method}  {static} -testMethodPrivateStatic () : void
+	{method} #testMethodProtected () : void
+	{method}  {static} #testMethodProtectedStatic () : void
+	{method} +testMethodPublic () : void
+	{method}  {static} +testMethodPublicStatic () : void
+	{method} +testMethodSynchronizedAndDeprecated () : void <<deprecated>>  <<synchronized>> 
+	{method} +testMethodWithPackageParameters ( paramLogger1 : java.util.logging.Logger , paramBigInteger2 : java.math.BigInteger ) : void
+	{method} -testMethodWithReturn () : String
+	{method} -testMethodWithReturnAndMultipleParameters ( paramString1 : String , paramString2 : String ) : String
+	{method} -testMethodWithReturnAndParameter ( paramString1 : String ) : String
+	{method} -testMethodWithoutReturnAndMultipleParameters ( paramString1 : String , paramint2 : int ) : void
+	{method} ~testMethodWithoutVisibility () : void
+	{method}  {static} ~testMethodWithoutVisibilityStatic () : void
+	{method} -testOverload ( paramLong1 : Long ) : void
+	{method} -testOverload ( paramString1 : String ) : void
+	{method} -testOverload ( paramint1 : int ) : void
+}
+
+@enduml

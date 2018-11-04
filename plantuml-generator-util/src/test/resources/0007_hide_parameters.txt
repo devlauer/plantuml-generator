@@ -1,0 +1,33 @@
+@startuml
+
+class de.elnarion.test.domain.t0007.ClassA {
+	{field} +fieldA : String
+	{field} +fieldB : String
+	{method} +testMethod () : void
+	{method} +testMethod2 () : void
+}
+
+class de.elnarion.test.domain.t0007.ClassB {
+}
+
+class de.elnarion.test.domain.t0007.ClassC {
+	{field} +fieldA : String
+	{field} +fieldB : String
+	{method} +testMethod () : void
+	{method} +testMethod2 () : void
+}
+
+class de.elnarion.test.domain.t0007.ClassD {
+}
+
+de.elnarion.test.domain.t0007.ClassB --  de.elnarion.test.domain.t0007.ClassA : testA
+de.elnarion.test.domain.t0007.ClassB --  de.elnarion.test.domain.t0007.ClassB : testB
+de.elnarion.test.domain.t0007.ClassD --  de.elnarion.test.domain.t0007.ClassC : testC
+de.elnarion.test.domain.t0007.ClassD --  de.elnarion.test.domain.t0007.ClassD : testD
+
+hide fields
+hide methods
+hide de.elnarion.test.domain.t0007.ClassB
+hide de.elnarion.test.domain.t0007.ClassC
+
+@enduml

@@ -1,0 +1,19 @@
+@startuml
+
+class de.elnarion.test.domain.t0004.TestFieldClass {
+	{field} {static} -LOGGER : java.util.logging.Logger
+	{field} -log : java.util.logging.Logger
+	{field} -plantUMLUtilWithPackage : de.elnarion.util.plantuml.generator.PlantUMLUtil
+	{field} {static} -testStringStaticPrivate : String
+	{field} {static} #testStringStaticProtected : String
+	{field} {static} +testStringStaticPublic : String
+	{field} {static} ~testStringStaticWithoutVisibility : String
+	{field} -testStringWithGetter : String
+	{field} +testStringWithGetterAndSetter : String
+	{field} -testStringWithSetter : String
+	{field} #testStringWithVisibilityProtected : String
+	{field} +testStringWithVisibilityPublic : String
+	{field} ~testStringWithoutVisibility : String
+}
+
+@enduml

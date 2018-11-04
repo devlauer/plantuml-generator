@@ -1,0 +1,82 @@
+@startuml
+
+interface org.apache.commons.io.monitor.FileAlterationListener {
+	{method}  {abstract} +onDirectoryChange ( paramFile1 : java.io.File ) : void
+	{method}  {abstract} +onDirectoryCreate ( paramFile1 : java.io.File ) : void
+	{method}  {abstract} +onDirectoryDelete ( paramFile1 : java.io.File ) : void
+	{method}  {abstract} +onFileChange ( paramFile1 : java.io.File ) : void
+	{method}  {abstract} +onFileCreate ( paramFile1 : java.io.File ) : void
+	{method}  {abstract} +onFileDelete ( paramFile1 : java.io.File ) : void
+	{method}  {abstract} +onStart ( paramFileAlterationObserver1 : org.apache.commons.io.monitor.FileAlterationObserver ) : void
+	{method}  {abstract} +onStop ( paramFileAlterationObserver1 : org.apache.commons.io.monitor.FileAlterationObserver ) : void
+}
+
+class org.apache.commons.io.monitor.FileAlterationListenerAdaptor {
+	{method} +onDirectoryChange ( paramFile1 : java.io.File ) : void
+	{method} +onDirectoryCreate ( paramFile1 : java.io.File ) : void
+	{method} +onDirectoryDelete ( paramFile1 : java.io.File ) : void
+	{method} +onFileChange ( paramFile1 : java.io.File ) : void
+	{method} +onFileCreate ( paramFile1 : java.io.File ) : void
+	{method} +onFileDelete ( paramFile1 : java.io.File ) : void
+	{method} +onStart ( paramFileAlterationObserver1 : org.apache.commons.io.monitor.FileAlterationObserver ) : void
+	{method} +onStop ( paramFileAlterationObserver1 : org.apache.commons.io.monitor.FileAlterationObserver ) : void
+}
+
+class org.apache.commons.io.monitor.FileAlterationMonitor {
+	{field} -interval : long
+	{field} -running : boolean
+	{field} -thread : Thread
+	{field} -threadFactory : java.util.concurrent.ThreadFactory
+	{method} +addObserver ( paramFileAlterationObserver1 : org.apache.commons.io.monitor.FileAlterationObserver ) : void
+	{method} +removeObserver ( paramFileAlterationObserver1 : org.apache.commons.io.monitor.FileAlterationObserver ) : void
+	{method} +run () : void
+	{method} +start () : void <<synchronized>> 
+	{method} +stop () : void <<synchronized>> 
+	{method} +stop ( paramlong1 : long ) : void <<synchronized>> 
+}
+
+class org.apache.commons.io.monitor.FileAlterationObserver {
+	{field} -comparator : java.util.Comparator
+	{field} -fileFilter : java.io.FileFilter
+	{field} {static} -serialVersionUID : long
+	{method} +addListener ( paramFileAlterationListener1 : org.apache.commons.io.monitor.FileAlterationListener ) : void
+	{method} +checkAndNotify () : void
+	{method} -checkAndNotify ( paramFileEntry1 : org.apache.commons.io.monitor.FileEntry , paramFileEntry;2 : [Lorg.apache.commons.io.monitor.FileEntry; , paramFile;3 : [Ljava.io.File; ) : void
+	{method} -createFileEntry ( paramFileEntry1 : org.apache.commons.io.monitor.FileEntry , paramFile2 : java.io.File ) : org.apache.commons.io.monitor.FileEntry
+	{method} +destroy () : void
+	{method} -doCreate ( paramFileEntry1 : org.apache.commons.io.monitor.FileEntry ) : void
+	{method} -doDelete ( paramFileEntry1 : org.apache.commons.io.monitor.FileEntry ) : void
+	{method} -doListFiles ( paramFile1 : java.io.File , paramFileEntry2 : org.apache.commons.io.monitor.FileEntry ) : [Lorg.apache.commons.io.monitor.FileEntry;
+	{method} -doMatch ( paramFileEntry1 : org.apache.commons.io.monitor.FileEntry , paramFile2 : java.io.File ) : void
+	{method} +getDirectory () : java.io.File
+	{method} +initialize () : void
+	{method} -listFiles ( paramFile1 : java.io.File ) : [Ljava.io.File;
+	{method} +removeListener ( paramFileAlterationListener1 : org.apache.commons.io.monitor.FileAlterationListener ) : void
+	{method} +toString () : String
+}
+
+class org.apache.commons.io.monitor.FileEntry {
+	{field} {static} ~EMPTY_ENTRIES : [Lorg.apache.commons.io.monitor.FileEntry;
+	{field} +children : [Lorg.apache.commons.io.monitor.FileEntry;
+	{field} +directory : boolean
+	{field} +exists : boolean
+	{field} -file : java.io.File
+	{field} +lastModified : long
+	{field} +length : long
+	{field} +name : String
+	{field} {static} -serialVersionUID : long
+	{method} +getLevel () : int
+	{method} +newChildInstance ( paramFile1 : java.io.File ) : org.apache.commons.io.monitor.FileEntry
+	{method} +refresh ( paramFile1 : java.io.File ) : boolean
+}
+
+org.apache.commons.io.monitor.FileAlterationListenerAdaptor ..|>  org.apache.commons.io.monitor.FileAlterationListener
+org.apache.commons.io.monitor.FileAlterationMonitor "1" o-- "0..*"  org.apache.commons.io.monitor.FileAlterationObserver : observers
+org.apache.commons.io.monitor.FileAlterationObserver "1" o-- "0..*"  org.apache.commons.io.monitor.FileAlterationListener : listeners
+org.apache.commons.io.monitor.FileAlterationObserver --  org.apache.commons.io.monitor.FileEntry : rootEntry
+org.apache.commons.io.monitor.FileEntry --  org.apache.commons.io.monitor.FileEntry : parent
+
+hide fields
+hide methods
+
+@enduml

@@ -1,0 +1,33 @@
+@startuml
+
+class de.elnarion.maven.plugin.plantuml.generator.test.domain.BaseAbstractClass {
+	{method} +doSomething () : void
+	{method} +doSomethingElse () : void
+	{method} +doSomethingWithParameter ( paramString1 : String ) : void
+	{method} +doSomethingWithReturnValue () : String
+}
+
+interface de.elnarion.maven.plugin.plantuml.generator.test.domain.BaseInterface {
+	{method}  {abstract} +doSomething () : void
+	{method}  {abstract} +doSomethingWithParameter ( paramString1 : String ) : void
+	{method}  {abstract} +doSomethingWithReturnValue () : String
+}
+
+class de.elnarion.maven.plugin.plantuml.generator.test.domain.ChildA {
+}
+
+class de.elnarion.maven.plugin.plantuml.generator.test.domain.ChildB {
+}
+
+class de.elnarion.maven.plugin.plantuml.generator.test.domain.Util {
+}
+
+de.elnarion.maven.plugin.plantuml.generator.test.domain.BaseAbstractClass ..|>  de.elnarion.maven.plugin.plantuml.generator.test.domain.BaseInterface
+de.elnarion.maven.plugin.plantuml.generator.test.domain.ChildA --|>  de.elnarion.maven.plugin.plantuml.generator.test.domain.BaseAbstractClass
+de.elnarion.maven.plugin.plantuml.generator.test.domain.ChildB --  de.elnarion.maven.plugin.plantuml.generator.test.domain.Util : util
+de.elnarion.maven.plugin.plantuml.generator.test.domain.ChildB --|>  de.elnarion.maven.plugin.plantuml.generator.test.domain.BaseAbstractClass
+
+hide fields
+hide methods
+
+@enduml

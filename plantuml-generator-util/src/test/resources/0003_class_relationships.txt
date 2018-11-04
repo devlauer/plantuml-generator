@@ -18,9 +18,9 @@ class de.elnarion.test.domain.t0003.ClassB {
 de.elnarion.test.domain.t0003.ClassA "1" o-- "0..*"  de.elnarion.test.domain.t0003.ClassB : classBList
 de.elnarion.test.domain.t0003.ClassA "1" o-- "0..*"  de.elnarion.test.domain.t0003.ClassB : classBSet
 de.elnarion.test.domain.t0003.ClassA --|>  de.elnarion.test.domain.t0003.BaseClass
-de.elnarion.test.domain.t0003.ClassB --  de.elnarion.test.domain.t0003.ClassA : classAInstance
-de.elnarion.test.domain.t0003.ClassB --  de.elnarion.test.domain.t0003.ClassA : classAInstanceProtected
-de.elnarion.test.domain.t0003.ClassB --  de.elnarion.test.domain.t0003.ClassA : classAInstancePublic
+de.elnarion.test.domain.t0003.ClassB -->  de.elnarion.test.domain.t0003.ClassA : classAInstance
+de.elnarion.test.domain.t0003.ClassB -->  de.elnarion.test.domain.t0003.ClassA : classAInstanceProtected
+de.elnarion.test.domain.t0003.ClassB -->  de.elnarion.test.domain.t0003.ClassA : classAInstancePublic
 de.elnarion.test.domain.t0003.ClassB ..|>  de.elnarion.test.domain.t0003.BaseInterface
 
 @enduml

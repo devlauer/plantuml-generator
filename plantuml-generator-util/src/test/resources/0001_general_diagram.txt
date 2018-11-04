@@ -24,7 +24,7 @@ class de.elnarion.test.domain.t0001.Util {
 
 de.elnarion.test.domain.t0001.BaseAbstractClass ..|>  de.elnarion.test.domain.t0001.BaseInterface
 de.elnarion.test.domain.t0001.ChildA --|>  de.elnarion.test.domain.t0001.BaseAbstractClass
-de.elnarion.test.domain.t0001.ChildB --  de.elnarion.test.domain.t0001.Util : util
+de.elnarion.test.domain.t0001.ChildB -->  de.elnarion.test.domain.t0001.Util : util
 de.elnarion.test.domain.t0001.ChildB --|>  de.elnarion.test.domain.t0001.BaseAbstractClass
 
 hide de.elnarion.test.domain.ChildB

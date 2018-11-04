@@ -20,10 +20,10 @@ class de.elnarion.test.domain.t0007.ClassC {
 class de.elnarion.test.domain.t0007.ClassD {
 }
 
-de.elnarion.test.domain.t0007.ClassB --  de.elnarion.test.domain.t0007.ClassA : testA
-de.elnarion.test.domain.t0007.ClassB --  de.elnarion.test.domain.t0007.ClassB : testB
-de.elnarion.test.domain.t0007.ClassD --  de.elnarion.test.domain.t0007.ClassC : testC
-de.elnarion.test.domain.t0007.ClassD --  de.elnarion.test.domain.t0007.ClassD : testD
+de.elnarion.test.domain.t0007.ClassB -->  de.elnarion.test.domain.t0007.ClassA : testA
+de.elnarion.test.domain.t0007.ClassB -->  de.elnarion.test.domain.t0007.ClassB : testB
+de.elnarion.test.domain.t0007.ClassD -->  de.elnarion.test.domain.t0007.ClassC : testC
+de.elnarion.test.domain.t0007.ClassD -->  de.elnarion.test.domain.t0007.ClassD : testD
 
 hide fields
 hide methods

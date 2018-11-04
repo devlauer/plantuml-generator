@@ -9,7 +9,7 @@ class de.elnarion.test.domain.t0006.pck1.ClassB {
 class de.elnarion.test.domain.t0006.pck2.ClassC {
 }
 
-de.elnarion.test.domain.t0006.pck1.ClassA --  de.elnarion.test.domain.t0006.pck1.ClassB : classB
-de.elnarion.test.domain.t0006.pck1.ClassB --  de.elnarion.test.domain.t0006.pck2.ClassC : classc
+de.elnarion.test.domain.t0006.pck1.ClassA -->  de.elnarion.test.domain.t0006.pck1.ClassB : classB
+de.elnarion.test.domain.t0006.pck1.ClassB -->  de.elnarion.test.domain.t0006.pck2.ClassC : classc
 
 @enduml

@@ -24,7 +24,7 @@ class de.elnarion.maven.plugin.plantuml.generator.test.domain.Util {
 
 de.elnarion.maven.plugin.plantuml.generator.test.domain.BaseAbstractClass ..|>  de.elnarion.maven.plugin.plantuml.generator.test.domain.BaseInterface
 de.elnarion.maven.plugin.plantuml.generator.test.domain.ChildA --|>  de.elnarion.maven.plugin.plantuml.generator.test.domain.BaseAbstractClass
-de.elnarion.maven.plugin.plantuml.generator.test.domain.ChildB --  de.elnarion.maven.plugin.plantuml.generator.test.domain.Util : util
+de.elnarion.maven.plugin.plantuml.generator.test.domain.ChildB -->  de.elnarion.maven.plugin.plantuml.generator.test.domain.Util : util
 de.elnarion.maven.plugin.plantuml.generator.test.domain.ChildB --|>  de.elnarion.maven.plugin.plantuml.generator.test.domain.BaseAbstractClass
 
 hide fields

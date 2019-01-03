@@ -8,6 +8,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -622,9 +623,10 @@ public class PlantUMLClassDiagramGenerator {
 			Type[] actualTypeArguments = ((ParameterizedType) genericType).getActualTypeArguments();
 			if (actualTypeArguments != null) {
 				for (Type typeArgument : actualTypeArguments) {
-					if (includeClass((Class<?>) typeArgument)) {
+					Class<?> typeArgumentClass = getClassForType(typeArgument);
+					if (((typeArgumentClass != null) && includeClass(typeArgumentClass))) {
 						UMLRelationship relationship = new UMLRelationship("1", "0..*", paramField.getName(),
-								paramField.getDeclaringClass().getName(), ((Class<?>) typeArgument).getName(),
+								paramField.getDeclaringClass().getName(), (typeArgumentClass).getName(),
 								RelationshipType.AGGREGATION);
 						addRelationship(paramUmlClass, relationship);
 						isRelationshipAggregation = true;
@@ -633,6 +635,26 @@ public class PlantUMLClassDiagramGenerator {
 			}
 		}
 		return isRelationshipAggregation;
+	}
+
+	/**
+	 * Gets the class for type.
+	 *
+	 * @param paramType the type argument
+	 * @return Class - the class for type
+	 */
+	private Class<?> getClassForType(Type paramType) {
+		Class<?> typeArgumentClass = null;
+		if (paramType instanceof ParameterizedType) {
+			if (((ParameterizedType) paramType).getRawType() instanceof Class<?>) {
+				typeArgumentClass = (Class<?>) ((ParameterizedType) paramType).getRawType();
+			}
+		} else if (paramType instanceof Class<?>) {
+			typeArgumentClass = (Class<?>) paramType;
+		} else if (paramType instanceof TypeVariable<?>) {
+			// Nothing to do ignore type variables
+		}
+		return typeArgumentClass;
 	}
 
 	/**

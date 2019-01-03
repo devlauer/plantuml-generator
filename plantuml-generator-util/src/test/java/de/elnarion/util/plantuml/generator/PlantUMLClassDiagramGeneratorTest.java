@@ -170,6 +170,29 @@ public class PlantUMLClassDiagramGeneratorTest {
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
 	}
 
+
+	/**
+	 * Test 0010 test parameterized aggregation type.
+	 *
+	 * @throws IOException            Signals that an I/O exception has occurred.
+	 * @throws ClassNotFoundException
+	 */
+	@Test
+	public void test0010ParameterizedAggregationType() throws IOException, ClassNotFoundException {
+		List<String> scanpackages = new ArrayList<>();
+		scanpackages.add("de.elnarion.test.domain.t0010");
+		List<String> hideClasses = new ArrayList<>();
+		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(this.getClass().getClassLoader(),
+				scanpackages, hideClasses, true, true);
+		String result = generator.generateDiagramText();
+		String expectedDiagramText = IOUtils
+				.toString(this.getClass().getClassLoader().getResource("0010_parameterized_aggregation_type.txt"), "utf-8");
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+	}
+	
+	
 	/**
 	 * Test custom classloader.
 	 *

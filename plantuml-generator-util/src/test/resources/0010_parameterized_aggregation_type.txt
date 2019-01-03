@@ -1,0 +1,42 @@
+@startuml
+
+abstract class de.elnarion.test.domain.t0010.AbstractTestClass {
+	{field} +kSet : java.util.Set
+	{field} +persistentClass : Class
+	{field} +sessionFactory : String
+	{field} +testSet : java.util.Set
+}
+
+
+interface de.elnarion.test.domain.t0010.BaseInterface {
+}
+
+
+interface de.elnarion.test.domain.t0010.ExtendedInterface {
+}
+
+
+class de.elnarion.test.domain.t0010.GenericType {
+	{field} +asdf : Object
+}
+
+
+class de.elnarion.test.domain.t0010.MyClass {
+}
+
+
+class de.elnarion.test.domain.t0010.TestClass {
+}
+
+
+
+
+de.elnarion.test.domain.t0010.ExtendedInterface ..|>  de.elnarion.test.domain.t0010.BaseInterface
+de.elnarion.test.domain.t0010.MyClass ..|>  de.elnarion.test.domain.t0010.ExtendedInterface
+de.elnarion.test.domain.t0010.TestClass "1" o-- "0..*"  de.elnarion.test.domain.t0010.AbstractTestClass : testSet2
+de.elnarion.test.domain.t0010.TestClass --|>  de.elnarion.test.domain.t0010.AbstractTestClass
+
+hide fields
+hide methods
+
+@enduml

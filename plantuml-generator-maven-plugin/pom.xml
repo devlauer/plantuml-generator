@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>de.elnarion.util</groupId>
 		<artifactId>plantuml-generator</artifactId>
-		<version>0.9.2</version>
+		<version>0.9.3-SNAPSHOT</version>
 	</parent>
 	<groupId>de.elnarion.maven</groupId>
 	<artifactId>plantuml-generator-maven-plugin</artifactId>

@@ -33,6 +33,9 @@ import de.elnarion.util.plantuml.generator.classdiagram.UMLField;
 import de.elnarion.util.plantuml.generator.classdiagram.UMLMethod;
 import de.elnarion.util.plantuml.generator.classdiagram.UMLRelationship;
 import de.elnarion.util.plantuml.generator.classdiagram.VisibilityType;
+import io.github.classgraph.ClassGraph;
+import io.github.classgraph.ClassInfoList;
+import io.github.classgraph.ScanResult;
 
 /**
  * This class provides the ability to generate a PlantUML class diagram out of a
@@ -81,33 +84,77 @@ public class PlantUMLClassDiagramGenerator {
 	private static final String CLASS_ENDING = ".class";
 	private ClassLoader destinationClassloader;
 	private List<String> scanPackages;
+	private String blacklistRegexp;
+	private String whitelistRegexp;
 	private List<String> hideClasses;
 	private boolean hideFields;
 	private boolean hideMethods;
 	private Map<String, UMLClass> classes;
-	Map<UMLClass, List<UMLRelationship>> classesAndRelationships;
+	private List<Class<?>> resolvedClasses = new ArrayList<>();
+	private Map<UMLClass, List<UMLRelationship>> classesAndRelationships;
 
 	/**
 	 * Instantiates a new Plant UML diagram generator.
 	 *
-	 * @param paramClassloader  - ClassLoader - the ClassLoader used for loading all
-	 *                          diagram classes
-	 * @param paramScanPackages - List&lt;String&gt; - all the packages which
-	 *                          directly contained classes are the base for the
-	 *                          class diagram
-	 * @param paramHideClasses  - List&lt;String&gt; - the full qualified class
-	 *                          names which should be hidden in the resulting
-	 *                          diagram (they are not excluded from the diagram,
-	 *                          they are just hidden)
-	 * @param paramHideFields   - boolean - true, if fields should be hidden, false,
-	 *                          if not
-	 * @param paramHideMethods  - boolean - true, if methods should be hidden,
-	 *                          false, if not
+	 * @param paramClassloader     ClassLoader - the ClassLoader used for loading
+	 *                             all diagram classes
+	 * @param paramScanPackages    List&lt;String&gt; - all the packages which
+	 *                             directly contained classes are the base for the
+	 *                             class diagram
+	 * @param paramBlacklistRegexp String - regular expression used to reduce the
+	 *                             amount of classes defined by the packages to scan
+	 * @param paramHideClasses     List&lt;String&gt; - the full qualified class
+	 *                             names which should be hidden in the resulting
+	 *                             diagram (they are not excluded from the diagram,
+	 *                             they are just hidden)
+	 * @param paramHideFields      boolean - true, if fields should be hidden,
+	 *                             false, if not
+	 * @param paramHideMethods     boolean - true, if methods should be hidden,
+	 *                             false, if not
 	 */
 	public PlantUMLClassDiagramGenerator(ClassLoader paramClassloader, List<String> paramScanPackages,
-			List<String> paramHideClasses, boolean paramHideFields, boolean paramHideMethods) {
+			String paramBlacklistRegexp, List<String> paramHideClasses, boolean paramHideFields,
+			boolean paramHideMethods) {
 		destinationClassloader = paramClassloader;
 		scanPackages = paramScanPackages;
+		blacklistRegexp = paramBlacklistRegexp;
+		whitelistRegexp = null;
+		hideClasses = paramHideClasses;
+		hideFields = paramHideFields;
+		hideMethods = paramHideMethods;
+		classesAndRelationships = new HashMap<>();
+		classes = new HashMap<>();
+	}
+
+	/**
+	 * Instantiates a new plant UML class diagram generator.
+	 *
+	 * @param paramClassloader     ClassLoader - the ClassLoader used for loading
+	 *                             all diagram classes
+	 * @param paramWhitelistRegexp Regular expression used to define all classes
+	 *                             which should be part of the diagram (alternative
+	 *                             to scan packages definition)
+	 * @param paramHideClasses     List&lt;String&gt; - the full qualified class
+	 *                             names which should be hidden in the resulting
+	 *                             diagram (they are not excluded from the diagram,
+	 *                             they are just hidden)
+	 * @param paramHideFields      boolean - true, if fields should be hidden,
+	 *                             false, if not
+	 * @param paramHideMethods     boolean - true, if methods should be hidden,
+	 *                             false, if not
+	 * @param paramScanPackages    List&lt;String&gt; - all the packages which
+	 *                             should be used as basis for the whitelist scan
+	 */
+	public PlantUMLClassDiagramGenerator(ClassLoader paramClassloader, String paramWhitelistRegexp,
+			List<String> paramHideClasses, boolean paramHideFields, boolean paramHideMethods,
+			List<String> paramScanPackages) {
+		destinationClassloader = paramClassloader;
+		blacklistRegexp = null;
+		if (paramScanPackages != null)
+			scanPackages = paramScanPackages;
+		else
+			scanPackages = new ArrayList<>();
+		whitelistRegexp = paramWhitelistRegexp;
 		hideClasses = paramHideClasses;
 		hideFields = paramHideFields;
 		hideMethods = paramHideMethods;
@@ -126,16 +173,11 @@ public class PlantUMLClassDiagramGenerator {
 	 *                                class information
 	 */
 	public String generateDiagramText() throws ClassNotFoundException, IOException {
-		List<Class<?>> resolvedClasses = new ArrayList<>();
+		resolvedClasses.clear();
 		// read all classes from directories or jars
-		resolvedClasses.addAll(getAllClassesInScanPackages());
+		resolvedClasses.addAll(getAllDiagramClasses());
 		// sort all classes for a reliable sorted result
-		Collections.sort(resolvedClasses, new Comparator<Class<?>>() {
-			@Override
-			public int compare(Class<?> o1, Class<?> o2) {
-				return o1.getName().compareTo(o2.getName());
-			}
-		});
+		Collections.sort(resolvedClasses, (o1, o2) -> o1.getName().compareTo(o2.getName()));
 		// map java classes to UMLClass, UMLField, UMLMethod and UMLRelationship objects
 		for (Class<?> clazz : resolvedClasses) {
 			mapToDomainClasses(clazz);
@@ -150,12 +192,7 @@ public class PlantUMLClassDiagramGenerator {
 		List<UMLClass> listToCompare = new ArrayList<>();
 		listToCompare.addAll(classes.values());
 		// because the ordered list could be changed in between, sort the list
-		Collections.sort(listToCompare, new Comparator<UMLClass>() {
-			@Override
-			public int compare(UMLClass o1, UMLClass o2) {
-				return o1.getName().compareTo(o2.getName());
-			}
-		});
+		Collections.sort(listToCompare, (o1, o2) -> o1.getName().compareTo(o2.getName()));
 		Collection<UMLClass> classesList = listToCompare;
 		List<UMLRelationship> relationships = new ArrayList<>();
 		// add all class information to the diagram (includes field and method
@@ -171,12 +208,7 @@ public class PlantUMLClassDiagramGenerator {
 		builder.append(System.lineSeparator());
 		builder.append(System.lineSeparator());
 		// because the ordered list could be changed in between, sort the list
-		Collections.sort(relationships, new Comparator<UMLRelationship>() {
-			@Override
-			public int compare(UMLRelationship o1, UMLRelationship o2) {
-				return o1.getDiagramText().compareTo(o2.getDiagramText());
-			}
-		});
+		Collections.sort(relationships, (o1, o2) -> o1.getDiagramText().compareTo(o2.getDiagramText()));
 		// add all class relationships to the diagram
 		for (UMLRelationship relationship : relationships) {
 			builder.append(relationship.getDiagramText());
@@ -322,7 +354,8 @@ public class PlantUMLClassDiagramGenerator {
 	 *                             which should be linked to the {@link UMLClass}
 	 */
 	private void addRelationship(UMLClass paramUmlClass, UMLRelationship paramUmlRelationship) {
-		List<UMLRelationship> relationshipList = classesAndRelationships.get(paramUmlClass);
+		List<UMLRelationship> relationshipList = classesAndRelationships.computeIfAbsent(paramUmlClass,
+				k -> new ArrayList<>());
 		if (relationshipList == null) {
 			relationshipList = new ArrayList<>();
 			classesAndRelationships.put(paramUmlClass, relationshipList);
@@ -658,6 +691,36 @@ public class PlantUMLClassDiagramGenerator {
 	}
 
 	/**
+	 * Gets the all classes for the diagram depending on the regular expressions or
+	 * defined packages.
+	 *
+	 * @return Set - all classes for the diagramm
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws IOException            Signals that an I/O exception has occurred.
+	 */
+	private Set<Class<?>> getAllDiagramClasses() throws ClassNotFoundException, IOException {
+		if (whitelistRegexp == null)
+			return getAllClassesInScanPackages();
+		else
+			return getAllClassesFromWhiteList();
+	}
+
+	/**
+	 * Reads all classes from classpath which match the given whitelist regular
+	 * expression and are children of the given packages to scan
+	 *
+	 * @return the all classes from white list
+	 */
+	private Set<Class<?>> getAllClassesFromWhiteList() {
+		try (ScanResult scanResult = new ClassGraph().overrideClassLoaders(destinationClassloader).enableClassInfo()
+				.whitelistPackages((String[]) scanPackages.toArray(new String[scanPackages.size()])).scan()) {
+			ClassInfoList allClasses = scanResult.getAllClasses();
+			ClassInfoList result = allClasses.filter(ci -> ci.getName().matches(whitelistRegexp));
+			return new HashSet<>(result.loadClasses());
+		}
+	}
+
+	/**
 	 * Gets the all classes which are contained in the scanned packages.
 	 *
 	 * @return Set&lt;Class&lt;?&gt;&gt; - all classes in scanned packages
@@ -674,7 +737,31 @@ public class PlantUMLClassDiagramGenerator {
 			}
 			resultSet.addAll(classesList);
 		}
+		if (blacklistRegexp != null) {
+			resultSet = applyBlacklistRegExp(resultSet);
+		}
 		return resultSet;
+	}
+
+	/**
+	 * Returns all classes of the given set which do not match the given blacklist
+	 * regular expression.
+	 *
+	 * @param paramClassesToCheck Set - all classes which should be checked with the
+	 *                            blacklist regular expression
+	 * @return Set - all classes passed in reduced by the blacklist regular
+	 *         expression
+	 */
+	private Set<Class<?>> applyBlacklistRegExp(Set<Class<?>> paramClassesToCheck) {
+		Set<Class<?>> resultClasses = new HashSet<>();
+		if (paramClassesToCheck != null && !paramClassesToCheck.isEmpty()) {
+			for (Class<?> classToCheck : paramClassesToCheck) {
+				if (!classToCheck.getName().matches(blacklistRegexp)) {
+					resultClasses.add(classToCheck);
+				}
+			}
+		}
+		return resultClasses;
 	}
 
 	/**
@@ -684,12 +771,7 @@ public class PlantUMLClassDiagramGenerator {
 	 * @return true, if class is a member of the scanned packages
 	 */
 	private boolean includeClass(Class<?> paramClass) {
-		Package packageElement = paramClass.getPackage();
-		String packageName = "";
-		if (packageElement != null) {
-			packageName = packageElement.getName();
-		}
-		return (scanPackages.contains(packageName)) ? Boolean.TRUE : Boolean.FALSE;
+		return resolvedClasses.contains(paramClass);
 	}
 
 	/**

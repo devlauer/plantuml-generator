@@ -52,9 +52,33 @@ public class PlantUMLGeneratorMojo extends AbstractMojo {
 	@Parameter(property = PREFIX + "hideMethodsDirectory", defaultValue = "false", required = false)
 	private boolean hideMethods;
 
+	/** The enable asciidoc wrapper. */
+	@Parameter(property = PREFIX + "enableAsciidocWrapper", defaultValue = "false", required = false)
+	private boolean enableAsciidocWrapper;
+
 	/** The scan packages. */
 	@Parameter(property = PREFIX + "scanPackages", defaultValue = "", required = true)
 	private List<String> scanPackages;
+
+	/** The whitelist regular expression for the scan packages. */
+	@Parameter(property = PREFIX + "whitelistRegexp", defaultValue = "", required = false)
+	private String whitelistRegexp;
+
+	/** The asciidoc diagram name. */
+	@Parameter(property = PREFIX + "asciidocDiagramName", defaultValue = "", required = false)
+	private String asciidocDiagramName;
+
+	/** The asciidoc diagram image type. */
+	@Parameter(property = PREFIX + "asciidocDiagramImageFormat", defaultValue = "png", required = false)
+	private String asciidocDiagramImageFormat;
+
+	/** The asciidoc diagram block delimiter. */
+	@Parameter(property = PREFIX + "asciidocDiagramBlockDelimiter", defaultValue = "----", required = false)
+	private String asciidocDiagramBlockDelimiter;
+
+	/** The blacklist regular expression for the scan packages. */
+	@Parameter(property = PREFIX + "blacklistRegexp", defaultValue = "", required = false)
+	private String blacklistRegexp;
 
 	/** The hide classes. */
 	@Parameter(property = PREFIX + "hideClasses", defaultValue = "", required = false)
@@ -68,6 +92,12 @@ public class PlantUMLGeneratorMojo extends AbstractMojo {
 	@Component
 	private MavenProject project;
 
+	/**
+	 * Execute.
+	 *
+	 * @throws MojoExecutionException the mojo execution exception
+	 * @throws MojoFailureException   the mojo failure exception
+	 */
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -78,9 +108,19 @@ public class PlantUMLGeneratorMojo extends AbstractMojo {
 		getLog().info("Starting plantuml generation ");
 		try {
 			ClassLoader loader = getCompileClassLoader();
-			PlantUMLClassDiagramGenerator classDiagramGenerator = new PlantUMLClassDiagramGenerator(loader,
-					scanPackages, hideClasses, hideFields, hideMethods);
+			PlantUMLClassDiagramGenerator classDiagramGenerator;
+			if (whitelistRegexp == null || "".equals(whitelistRegexp)) {
+				classDiagramGenerator = new PlantUMLClassDiagramGenerator(loader, scanPackages,
+						((blacklistRegexp != null && !"".equals(blacklistRegexp)) ? blacklistRegexp : null),
+						hideClasses, hideFields, hideMethods);
+			} else {
+				classDiagramGenerator = new PlantUMLClassDiagramGenerator(loader, whitelistRegexp, hideClasses,
+						hideFields, hideMethods, scanPackages);
+			}
 			String classDiagramText = classDiagramGenerator.generateDiagramText();
+			if (enableAsciidocWrapper) {
+				classDiagramText = createAsciidocWrappedDiagramText(classDiagramText);
+			}
 			getLog().debug("diagram text:");
 			getLog().debug(classDiagramText);
 			getLog().info("Diagram generated.");
@@ -99,6 +139,32 @@ public class PlantUMLGeneratorMojo extends AbstractMojo {
 			getLog().error("Exception:" + e.getMessage());
 			getLog().error(e);
 		}
+	}
+
+	/**
+	 * Wraps a plantuml diagram text by an asciidoc diagram block.
+	 *
+	 * @param paramClassDiagramTextToWrap the class diagram text
+	 * @return the asciidoc plantuml diagram block
+	 */
+	private String createAsciidocWrappedDiagramText(String paramClassDiagramTextToWrap) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("[plantuml,");
+		if (asciidocDiagramName != null && !"".equals(asciidocDiagramName))
+			builder.append(asciidocDiagramName);
+		else
+			builder.append(outputFilename + "." + asciidocDiagramImageFormat);
+		builder.append(",");
+		builder.append(asciidocDiagramImageFormat);
+		builder.append("]");
+		builder.append(System.lineSeparator());
+		builder.append(asciidocDiagramBlockDelimiter);
+		builder.append(System.lineSeparator());
+		builder.append(paramClassDiagramTextToWrap);
+		builder.append(System.lineSeparator());
+		builder.append(asciidocDiagramBlockDelimiter);
+		paramClassDiagramTextToWrap = builder.toString();
+		return paramClassDiagramTextToWrap;
 	}
 
 	/**
@@ -264,6 +330,42 @@ public class PlantUMLGeneratorMojo extends AbstractMojo {
 	}
 
 	/**
+	 * Gets the whitelist regexp.
+	 *
+	 * @return the whitelist regexp
+	 */
+	public String getWhitelistRegexp() {
+		return whitelistRegexp;
+	}
+
+	/**
+	 * Sets the whitelist regexp.
+	 *
+	 * @param whitelistRegexp the new whitelist regexp
+	 */
+	public void setWhitelistRegexp(String whitelistRegexp) {
+		this.whitelistRegexp = whitelistRegexp;
+	}
+
+	/**
+	 * Gets the blacklist regexp.
+	 *
+	 * @return the blacklist regexp
+	 */
+	public String getBlacklistRegexp() {
+		return blacklistRegexp;
+	}
+
+	/**
+	 * Sets the blacklist regexp.
+	 *
+	 * @param blacklistRegexp the new blacklist regexp
+	 */
+	public void setBlacklistRegexp(String blacklistRegexp) {
+		this.blacklistRegexp = blacklistRegexp;
+	}
+
+	/**
 	 * Gets the compile class loader.
 	 *
 	 * @return ClassLoader - the compile class loader
@@ -286,6 +388,78 @@ public class PlantUMLGeneratorMojo extends AbstractMojo {
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unable to load project runtime !", e);
 		}
+	}
+
+	/**
+	 * Checks if is enable asciidoc wrapper.
+	 *
+	 * @return true, if is enable asciidoc wrapper
+	 */
+	public boolean isEnableAsciidocWrapper() {
+		return enableAsciidocWrapper;
+	}
+
+	/**
+	 * Sets the enable asciidoc wrapper.
+	 *
+	 * @param enableAsciidocWrapper the new enable asciidoc wrapper
+	 */
+	public void setEnableAsciidocWrapper(boolean enableAsciidocWrapper) {
+		this.enableAsciidocWrapper = enableAsciidocWrapper;
+	}
+
+	/**
+	 * Gets the asciidoc diagram name.
+	 *
+	 * @return the asciidoc diagram name
+	 */
+	public String getAsciidocDiagramName() {
+		return asciidocDiagramName;
+	}
+
+	/**
+	 * Sets the asciidoc diagram name.
+	 *
+	 * @param asciidocDiagramName the new asciidoc diagram name
+	 */
+	public void setAsciidocDiagramName(String asciidocDiagramName) {
+		this.asciidocDiagramName = asciidocDiagramName;
+	}
+
+	/**
+	 * Gets the asciidoc diagram image type.
+	 *
+	 * @return the asciidoc diagram image type
+	 */
+	public String getAsciidocDiagramImageFormat() {
+		return asciidocDiagramImageFormat;
+	}
+
+	/**
+	 * Sets the asciidoc diagram image type.
+	 *
+	 * @param asciidocDiagramImageFormat the new asciidoc diagram image type
+	 */
+	public void setAsciidocDiagramImageFormat(String asciidocDiagramImageFormat) {
+		this.asciidocDiagramImageFormat = asciidocDiagramImageFormat;
+	}
+
+	/**
+	 * Gets the asciidoc diagram block delimiter.
+	 *
+	 * @return the asciidoc diagram block delimiter
+	 */
+	public String getAsciidocDiagramBlockDelimiter() {
+		return asciidocDiagramBlockDelimiter;
+	}
+
+	/**
+	 * Sets the asciidoc diagram block delimiter.
+	 *
+	 * @param asciidocDiagramBlockDelimiter the new asciidoc diagram block delimiter
+	 */
+	public void setAsciidocDiagramBlockDelimiter(String asciidocDiagramBlockDelimiter) {
+		this.asciidocDiagramBlockDelimiter = asciidocDiagramBlockDelimiter;
 	}
 
 }

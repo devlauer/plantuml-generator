@@ -32,7 +32,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 		List<String> hideClasses = new ArrayList<>();
 		hideClasses.add("de.elnarion.test.domain.ChildB");
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(this.getClass().getClassLoader(),
-				scanpackages, hideClasses, false, false);
+				scanpackages, null, hideClasses, false, false);
 		String result = generator.generateDiagramText();
 		String expectedDiagramText = IOUtils
 				.toString(this.getClass().getClassLoader().getResource("0001_general_diagram.txt"), "utf-8");
@@ -53,7 +53,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 		scanpackages.add("de.elnarion.test.domain.t0002");
 		List<String> hideClasses = new ArrayList<>();
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(this.getClass().getClassLoader(),
-				scanpackages, hideClasses, false, false);
+				scanpackages, null, hideClasses, false, false);
 		String result = generator.generateDiagramText();
 		String expectedDiagramText = IOUtils
 				.toString(this.getClass().getClassLoader().getResource("0002_class_types.txt"), "utf-8");
@@ -74,7 +74,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 		scanpackages.add("de.elnarion.test.domain.t0003");
 		List<String> hideClasses = new ArrayList<>();
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(this.getClass().getClassLoader(),
-				scanpackages, hideClasses, false, false);
+				scanpackages, null, hideClasses, false, false);
 		String result = generator.generateDiagramText();
 		String expectedDiagramText = IOUtils
 				.toString(this.getClass().getClassLoader().getResource("0003_class_relationships.txt"), "utf-8");
@@ -95,7 +95,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 		scanpackages.add("de.elnarion.test.domain.t0004");
 		List<String> hideClasses = new ArrayList<>();
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(this.getClass().getClassLoader(),
-				scanpackages, hideClasses, false, false);
+				scanpackages, null, hideClasses, false, false);
 		String result = generator.generateDiagramText();
 		String expectedDiagramText = IOUtils
 				.toString(this.getClass().getClassLoader().getResource("0004_class_fields.txt"), "utf-8");
@@ -116,7 +116,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 		scanpackages.add("de.elnarion.test.domain.t0005");
 		List<String> hideClasses = new ArrayList<>();
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(this.getClass().getClassLoader(),
-				scanpackages, hideClasses, false, false);
+				scanpackages, null, hideClasses, false, false);
 		String result = generator.generateDiagramText();
 		String expectedDiagramText = IOUtils
 				.toString(this.getClass().getClassLoader().getResource("0005_class_methods.txt"), "utf-8");
@@ -138,7 +138,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 		scanpackages.add("de.elnarion.test.domain.t0006.pck2");
 		List<String> hideClasses = new ArrayList<>();
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(this.getClass().getClassLoader(),
-				scanpackages, hideClasses, false, false);
+				scanpackages, null, hideClasses, false, false);
 		String result = generator.generateDiagramText();
 		String expectedDiagramText = IOUtils
 				.toString(this.getClass().getClassLoader().getResource("0006_different_packages.txt"), "utf-8");
@@ -161,7 +161,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 		hideClasses.add("de.elnarion.test.domain.t0007.ClassB");
 		hideClasses.add("de.elnarion.test.domain.t0007.ClassC");
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(this.getClass().getClassLoader(),
-				scanpackages, hideClasses, true, true);
+				scanpackages, null, hideClasses, true, true);
 		String result = generator.generateDiagramText();
 		String expectedDiagramText = IOUtils
 				.toString(this.getClass().getClassLoader().getResource("0007_hide_parameters.txt"), "utf-8");
@@ -169,7 +169,6 @@ public class PlantUMLClassDiagramGeneratorTest {
 		assertNotNull(expectedDiagramText);
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
 	}
-
 
 	/**
 	 * Test 0010 test parameterized aggregation type.
@@ -183,16 +182,15 @@ public class PlantUMLClassDiagramGeneratorTest {
 		scanpackages.add("de.elnarion.test.domain.t0010");
 		List<String> hideClasses = new ArrayList<>();
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(this.getClass().getClassLoader(),
-				scanpackages, hideClasses, true, true);
+				scanpackages, null, hideClasses, true, true);
 		String result = generator.generateDiagramText();
-		String expectedDiagramText = IOUtils
-				.toString(this.getClass().getClassLoader().getResource("0010_parameterized_aggregation_type.txt"), "utf-8");
+		String expectedDiagramText = IOUtils.toString(
+				this.getClass().getClassLoader().getResource("0010_parameterized_aggregation_type.txt"), "utf-8");
 		assertNotNull(result);
 		assertNotNull(expectedDiagramText);
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
 	}
-	
-	
+
 	/**
 	 * Test custom classloader.
 	 *
@@ -211,7 +209,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 		List<String> scanpackages = new ArrayList<>();
 		scanpackages.add("de.elnarion.maven.plugin.plantuml.generator.test.domain");
 		List<String> hideClasses = new ArrayList<>();
-		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(classLoader, scanpackages,
+		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(classLoader, scanpackages, null,
 				hideClasses, true, true);
 		String result = generator.generateDiagramText();
 		String expectedDiagramText = IOUtils.toString(this.getClass().getClassLoader().getResource(filename), "utf-8");
@@ -232,7 +230,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 		scanpackages.add("org.apache.commons.io.monitor");
 		List<String> hideClasses = new ArrayList<>();
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(this.getClass().getClassLoader(),
-				scanpackages, hideClasses, true, true);
+				scanpackages, null, hideClasses, true, true);
 		String result = generator.generateDiagramText();
 		String expectedDiagramText = IOUtils.toString(this.getClass().getClassLoader().getResource(filename), "utf-8");
 		assertNotNull(result);
@@ -240,4 +238,44 @@ public class PlantUMLClassDiagramGeneratorTest {
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
 	}
 
+	/**
+	 * Test classes contained in a package in a jar.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testJarPackageWithBlacklist() throws Exception {
+		String filename = "0011_jar_test_blacklist.txt";
+		List<String> scanpackages = new ArrayList<>();
+		scanpackages.add("org.apache.commons.io.monitor");
+		List<String> hideClasses = new ArrayList<>();
+		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(this.getClass().getClassLoader(),
+				scanpackages, ".*FileEn.*", hideClasses, true, true);
+		String result = generator.generateDiagramText();
+		String expectedDiagramText = IOUtils.toString(this.getClass().getClassLoader().getResource(filename), "utf-8");
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+	}
+
+	/**
+	 * Test classes contained in a package in a jar.
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testJarPackageWithWithelist() throws Exception {
+		String filename = "0012_jar_whitelist.txt";
+		List<String> scanpackages = new ArrayList<>();
+		scanpackages.add("org.apache.commons.io.monitor");
+		List<String> hideClasses = new ArrayList<>();
+		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(this.getClass().getClassLoader(),
+				".*FileAl.*", hideClasses, true, true,null);
+		String result = generator.generateDiagramText();
+		String expectedDiagramText = IOUtils.toString(this.getClass().getClassLoader().getResource(filename), "utf-8");
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+	}
+	
 }

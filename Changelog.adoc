@@ -3,6 +3,14 @@
 .unreleased
 * nothing
 
+.1.0.0 - 2019-09-30
+* Added whitelist parameter (feature request #4)
+* Added blacklist parameter (feature request #4)
+* Added configuration for asciidoc diagram block 
+generation (feature request #3)
+* Changed contructor parameters 
+* *Switched to Java 8 (Java 7 no longer supported)* 
+
 .0.9.2 - 2019-01-03
 * Fixed TypeVariable and ParameterizedType bug
 

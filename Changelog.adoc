@@ -1,7 +1,14 @@
 = Changelog
 
 .unreleased
-* nothing
+* Added blacklist field parameter to PlantUMLGenerator
+* Added blacklist method parameter to PlantUMLGenerator
+* Added remove field parameter to PlantUMLGenerator
+* Added remove method parameter to PlantUMLGenerator
+* Added maximum visibility field parameter to PlantUMLGenerator
+* Added maximum visibility method parameter to PlantUMLGenerator
+* Switched PlantUMLGenerator configuration to separate PlantUMLConfig class
+* Added PlantUMLConfigBuilder
 
 .1.0.0 - 2019-09-30
 * Added whitelist parameter (feature request #4)

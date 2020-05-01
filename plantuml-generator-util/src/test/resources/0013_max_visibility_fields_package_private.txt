@@ -1,0 +1,10 @@
+@startuml
+
+class de.elnarion.test.domain.t0013.Testclass {
+	{field} ~test2 : long
+	{field} #test3 : long
+	{field} +test4 : long
+	{field} +test5 : long
+}
+
+@enduml

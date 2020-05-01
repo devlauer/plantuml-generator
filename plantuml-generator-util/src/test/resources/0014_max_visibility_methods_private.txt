@@ -1,0 +1,10 @@
+@startuml
+
+class de.elnarion.test.domain.t0014.Testclass {
+	{method} -doSomething1() : void
+	{method} ~doSomething2() : void
+	{method} #doSomething3() : void
+	{method} +doSomething4() : void
+}
+
+@enduml

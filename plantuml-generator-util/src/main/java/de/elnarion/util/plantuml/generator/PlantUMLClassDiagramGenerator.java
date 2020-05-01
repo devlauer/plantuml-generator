@@ -32,6 +32,8 @@ import de.elnarion.util.plantuml.generator.classdiagram.UMLField;
 import de.elnarion.util.plantuml.generator.classdiagram.UMLMethod;
 import de.elnarion.util.plantuml.generator.classdiagram.UMLRelationship;
 import de.elnarion.util.plantuml.generator.classdiagram.VisibilityType;
+import de.elnarion.util.plantuml.generator.config.PlantUMLConfig;
+import de.elnarion.util.plantuml.generator.config.PlantUMLConfigBuilder;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfoList;
 import io.github.classgraph.ScanResult;
@@ -81,16 +83,10 @@ import io.github.classgraph.ScanResult;
 public class PlantUMLClassDiagramGenerator {
 
 	private static final String CLASS_ENDING = ".class";
-	private final ClassLoader destinationClassloader;
-	private List<String> scanPackages;
-	private final String blacklistRegexp;
-	private final String whitelistRegexp;
-	private final List<String> hideClasses;
-	private final boolean hideFields;
-	private final boolean hideMethods;
-	private final Map<String, UMLClass> classes;
-	private final List<Class<?>> resolvedClasses = new ArrayList<>();
-	private final Map<UMLClass, List<UMLRelationship>> classesAndRelationships;
+	private PlantUMLConfig plantUMLConfig;
+	private Map<String, UMLClass> classes;
+	private List<Class<?>> resolvedClasses = new ArrayList<>();
+	private Map<UMLClass, List<UMLRelationship>> classesAndRelationships;
 
 	/**
 	 * Instantiates a new Plant UML diagram generator.
@@ -114,15 +110,9 @@ public class PlantUMLClassDiagramGenerator {
 	public PlantUMLClassDiagramGenerator(final ClassLoader paramClassloader, final List<String> paramScanPackages,
 			final String paramBlacklistRegexp, final List<String> paramHideClasses, final boolean paramHideFields,
 			final boolean paramHideMethods) {
-		destinationClassloader = paramClassloader;
-		scanPackages = paramScanPackages;
-		blacklistRegexp = paramBlacklistRegexp;
-		whitelistRegexp = null;
-		hideClasses = paramHideClasses;
-		hideFields = paramHideFields;
-		hideMethods = paramHideMethods;
-		classesAndRelationships = new HashMap<>();
-		classes = new HashMap<>();
+		this(new PlantUMLConfigBuilder(paramBlacklistRegexp, paramScanPackages).withHideFieldsParameter(paramHideFields)
+				.withClassLoader(paramClassloader).withHideMethods(paramHideMethods).withHideClasses(paramHideClasses)
+				.build());
 	}
 
 	/**
@@ -147,16 +137,13 @@ public class PlantUMLClassDiagramGenerator {
 	public PlantUMLClassDiagramGenerator(final ClassLoader paramClassloader, final String paramWhitelistRegexp,
 			final List<String> paramHideClasses, final boolean paramHideFields, final boolean paramHideMethods,
 			final List<String> paramScanPackages) {
-		destinationClassloader = paramClassloader;
-		blacklistRegexp = null;
-		if (paramScanPackages != null)
-			scanPackages = paramScanPackages;
-		else
-			scanPackages = new ArrayList<>();
-		whitelistRegexp = paramWhitelistRegexp;
-		hideClasses = paramHideClasses;
-		hideFields = paramHideFields;
-		hideMethods = paramHideMethods;
+		this(new PlantUMLConfigBuilder(paramScanPackages, paramWhitelistRegexp).withHideFieldsParameter(paramHideFields)
+				.withClassLoader(paramClassloader).withHideMethods(paramHideMethods).withHideClasses(paramHideClasses)
+				.build());
+	}
+
+	public PlantUMLClassDiagramGenerator(final PlantUMLConfig paramPlantUMLConfig) {
+		plantUMLConfig = paramPlantUMLConfig;
 		classesAndRelationships = new HashMap<>();
 		classes = new HashMap<>();
 	}
@@ -237,16 +224,16 @@ public class PlantUMLClassDiagramGenerator {
 	private void addHideToggles(final StringBuilder paramBuilder, final Collection<UMLClass> paramClassesList,
 			final List<UMLRelationship> relationships) {
 		if ((paramClassesList != null && !paramClassesList.isEmpty()) || (!relationships.isEmpty())) {
-			if (hideFields) {
+			if (plantUMLConfig.isHideFields()) {
 				paramBuilder.append(System.lineSeparator());
 				paramBuilder.append("hide fields");
 			}
-			if (hideMethods) {
+			if (plantUMLConfig.isHideMethods()) {
 				paramBuilder.append(System.lineSeparator());
 				paramBuilder.append("hide methods");
 			}
-			if (hideClasses != null && !hideClasses.isEmpty()) {
-				for (final String hideClass : hideClasses) {
+			if (plantUMLConfig.getHideClasses() != null && !plantUMLConfig.getHideClasses().isEmpty()) {
+				for (final String hideClass : plantUMLConfig.getHideClasses()) {
 					paramBuilder.append(System.lineSeparator());
 					paramBuilder.append("hide ");
 					paramBuilder.append(hideClass);
@@ -427,14 +414,25 @@ public class PlantUMLClassDiagramGenerator {
 				// ignore normal getters and setters
 				if ((methodName.startsWith("get") || methodName.startsWith("set") || methodName.startsWith("is"))
 						&& paramDeclaredFields != null && isGetterOrSetterMethod(method, paramDeclaredFields)) {
-					continue;
+					continue; 
 				}
+				// Do not add method if they should be ignored/removed
+				if (plantUMLConfig.isRemoveMethods())
+					continue;
+				// if there is a blacklist for method and the method name matches it, then
+				// ignore/remove the field
+				if (plantUMLConfig.getMethodBlacklistRegexp() != null
+						&& methodName.matches(plantUMLConfig.getMethodBlacklistRegexp()))
+					continue;
 				String returnType = method.getReturnType().getName();
 				returnType = removeJavaLangPackage(returnType);
 				final Class<?>[] parameterTypes = method.getParameterTypes();
 				final Map<String, String> parameters = convertToParameterStringMap(parameterTypes);
 				final int modifier = method.getModifiers();
 				final VisibilityType visibilityType = getVisibility(modifier);
+				// check if method should be visible by maximum visibility
+				if (!visibilityOk(plantUMLConfig.getMaxVisibilityMethods(), visibilityType))
+					continue;
 				final ClassifierType classifierType = getClassifier(modifier);
 				final List<String> stereotypes = new ArrayList<>();
 				if (method.isAnnotationPresent(Deprecated.class)) {
@@ -570,15 +568,15 @@ public class PlantUMLClassDiagramGenerator {
 	 * If a field has a getter an a setter method its visibility is upgraded to
 	 * public.
 	 *
-	 * @param paramDeclaredFields  - Field[] - the Field objects which are the base
+	 * @param paramDeclaredFields  Field[] - the Field objects which are the base
 	 *                             for the {@link UMLField} or
 	 *                             {@link UMLRelationship} objects.
-	 * @param paramDeclaredMethods - Method[] - the method objects of the java class
+	 * @param paramDeclaredMethods Method[] - the method objects of the java class
 	 *                             corresponding to the given {@link UMLClass}
 	 *                             object
-	 * @param paramUmlClass        - {@link UMLClass} - the uml class objects to
-	 *                             which the {@link UMLField} or
-	 *                             {@link UMLRelationship} objects should be added
+	 * @param paramUmlClass        {@link UMLClass} - the uml class objects to which
+	 *                             the {@link UMLField} or {@link UMLRelationship}
+	 *                             objects should be added
 	 */
 	private void addFields(final Field[] paramDeclaredFields, final Method[] paramDeclaredMethods,
 			final UMLClass paramUmlClass) {
@@ -593,19 +591,84 @@ public class PlantUMLClassDiagramGenerator {
 							field.getDeclaringClass().getName(), type.getName(), RelationshipType.DIRECTED_ASSOCIATION);
 					addRelationship(paramUmlClass, relationship);
 				} else {
-					final int modifier = field.getModifiers();
-					final ClassifierType classifierType = getClassifier(modifier);
-					VisibilityType visibilityType = getVisibility(modifier);
-					if (hasGetterAndSetterMethod(field.getName(), paramDeclaredMethods)) {
-						visibilityType = VisibilityType.PUBLIC;
-					}
-					final UMLField umlField = new UMLField(classifierType, visibilityType, field.getName(),
-							removeJavaLangPackage(type.getName()));
-					paramUmlClass.addField(umlField);
+					addFieldToUMLClass(paramUmlClass, field, type, paramDeclaredMethods);
 				}
 			}
 		}
 
+	}
+
+	/**
+	 * Creates {@link UMLField} object for the given field if the field should be
+	 * added to the diagram (blacklist-check,remove-check,visibility-check).
+	 * 
+	 * @param paramUmlClass        {@link UMLClass} - the uml class to which the
+	 *                             {@link UMLField} should be added
+	 * @param field                Field - the field objects which are basse for the
+	 *                             {@link UMLField}
+	 * @param type                 Class - the type of the field
+	 * @param paramDeclaredMethods Method[] - the method objects of the java class
+	 *                             corresponding to the given {@link UMLClass}
+	 *                             object
+	 */
+	private void addFieldToUMLClass(final UMLClass paramUmlClass, final java.lang.reflect.Field field,
+			final Class<?> type, Method[] paramDeclaredMethods) {
+		// Do not add field if they should be ignored/removed
+		if (plantUMLConfig.isRemoveFields())
+			return;
+		// if there is a blacklist for field and the field name matches it, then
+		// ignore/remove the field
+		if (plantUMLConfig.getFieldBlacklistRegexp() != null
+				&& field.getName().matches(plantUMLConfig.getFieldBlacklistRegexp()))
+			return;
+		final int modifier = field.getModifiers();
+		final ClassifierType classifierType = getClassifier(modifier);
+		VisibilityType visibilityType = getVisibility(modifier);
+		if (hasGetterAndSetterMethod(field.getName(), paramDeclaredMethods)) {
+			visibilityType = VisibilityType.PUBLIC;
+		}
+		// check if field should be visible by maximum visibility
+		if (!visibilityOk(plantUMLConfig.getMaxVisibilityFields(), visibilityType))
+			return;
+		final UMLField umlField = new UMLField(classifierType, visibilityType, field.getName(),
+				removeJavaLangPackage(type.getName()));
+		paramUmlClass.addField(umlField);
+	}
+
+	/**
+	 * Checks if the given visibilityType of a field or method should lead to an
+	 * appreance on the diagram according to the configured maximum visibility.
+	 * 
+	 * @param maxVisibilityFields {@link VisibilityType} - the configured maximum
+	 *                            visibility to check against
+	 * @param visibilityType      {@link VisibilityType} - the visibility of a field
+	 *                            or method which could be part of the diagram
+	 * @return boolean - if the field or method should be visible on the diagram
+	 */
+	private boolean visibilityOk(VisibilityType maxVisibilityFields, VisibilityType visibilityType) {
+		if (maxVisibilityFields != null) {
+			// if maximum is public only public is allowed as visibility type
+			if (maxVisibilityFields.equals(VisibilityType.PUBLIC)
+					&& !visibilityType.equals(VisibilityType.PUBLIC))
+				return false;
+			// if maximum is protected only public and protected are allowed
+			if (maxVisibilityFields.equals(VisibilityType.PROTECTED)
+					&& !(visibilityType.equals(VisibilityType.PUBLIC)
+							|| visibilityType.equals(VisibilityType.PROTECTED)))
+				return false;
+			// if maximum is package_private then only public, package_private and protected
+			// are
+			// allowed
+			if (maxVisibilityFields.equals(VisibilityType.PACKAGE_PRIVATE)
+					&& !(visibilityType.equals(VisibilityType.PUBLIC)
+							|| visibilityType.equals(VisibilityType.PACKAGE_PRIVATE)
+							|| visibilityType.equals(VisibilityType.PROTECTED)))
+				return false;
+		}
+		// everything else like maximum private or no defined maximum visibility leads
+		// to
+		// an ok check
+		return true;
 	}
 
 	/**
@@ -701,7 +764,7 @@ public class PlantUMLClassDiagramGenerator {
 	 * @throws IOException            Signals that an I/O exception has occurred.
 	 */
 	private Set<Class<?>> getAllDiagramClasses() throws ClassNotFoundException, IOException {
-		if (whitelistRegexp == null)
+		if (plantUMLConfig.getWhitelistRegexp() == null)
 			return getAllClassesInScanPackages();
 		else
 			return getAllClassesFromWhiteList();
@@ -714,10 +777,13 @@ public class PlantUMLClassDiagramGenerator {
 	 * @return the all classes from white list
 	 */
 	private Set<Class<?>> getAllClassesFromWhiteList() {
-		try (ScanResult scanResult = new ClassGraph().overrideClassLoaders(destinationClassloader).enableClassInfo()
-				.whitelistPackages((String[]) scanPackages.toArray(new String[scanPackages.size()])).scan()) {
+		try (ScanResult scanResult = new ClassGraph().overrideClassLoaders(plantUMLConfig.getDestinationClassloader())
+				.enableClassInfo().whitelistPackages((String[]) plantUMLConfig.getScanPackages()
+						.toArray(new String[plantUMLConfig.getScanPackages().size()]))
+				.scan()) {
 			final ClassInfoList allClasses = scanResult.getAllClasses();
-			final ClassInfoList result = allClasses.filter(ci -> ci.getName().matches(whitelistRegexp));
+			final ClassInfoList result = allClasses
+					.filter(ci -> ci.getName().matches(plantUMLConfig.getWhitelistRegexp()));
 			return new HashSet<>(result.loadClasses());
 		}
 	}
@@ -732,14 +798,14 @@ public class PlantUMLClassDiagramGenerator {
 	 */
 	private Set<Class<?>> getAllClassesInScanPackages() throws ClassNotFoundException, IOException {
 		Set<Class<?>> resultSet = new HashSet<>();
-		for (final String scanpackage : scanPackages) {
-			final List<Class<?>> classesList = getClasses(scanpackage, destinationClassloader);
+		for (final String scanpackage : plantUMLConfig.getScanPackages()) {
+			final List<Class<?>> classesList = getClasses(scanpackage, plantUMLConfig.getDestinationClassloader());
 			if (classesList.isEmpty()) {
 				throw new ClassNotFoundException("No classes found for package " + scanpackage);
 			}
 			resultSet.addAll(classesList);
 		}
-		if (blacklistRegexp != null) {
+		if (plantUMLConfig.getBlacklistRegexp() != null) {
 			resultSet = applyBlacklistRegExp(resultSet);
 		}
 		return resultSet;
@@ -758,7 +824,7 @@ public class PlantUMLClassDiagramGenerator {
 		final Set<Class<?>> resultClasses = new HashSet<>();
 		if (paramClassesToCheck != null && !paramClassesToCheck.isEmpty()) {
 			for (final Class<?> classToCheck : paramClassesToCheck) {
-				if (!classToCheck.getName().matches(blacklistRegexp)) {
+				if (!classToCheck.getName().matches(plantUMLConfig.getBlacklistRegexp())) {
 					resultClasses.add(classToCheck);
 				}
 			}
@@ -798,7 +864,12 @@ public class PlantUMLClassDiagramGenerator {
 			} else if (resource.getProtocol().equals("jar")) {
 				// strip out only the
 				// JAR file
-				final String jarPath = resource.getPath().substring(6, resource.getPath().indexOf('!'));
+				String resourcePath = resource.getPath();
+				String jarPath;
+				if (resourcePath.startsWith("file:"))
+					jarPath = resourcePath.substring(5, resourcePath.indexOf('!'));
+				else
+					jarPath = resource.getPath().substring(6, resource.getPath().indexOf('!'));
 				final JarFile jar = new JarFile(URLDecoder.decode(jarPath, "UTF-8"));
 				jars.add(jar);
 			}

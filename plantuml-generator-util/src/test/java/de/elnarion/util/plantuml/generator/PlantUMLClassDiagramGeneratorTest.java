@@ -12,6 +12,10 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
+import de.elnarion.util.plantuml.generator.classdiagram.VisibilityType;
+import de.elnarion.util.plantuml.generator.config.PlantUMLConfig;
+import de.elnarion.util.plantuml.generator.config.PlantUMLConfigBuilder;
+
 /**
  * The Class PlantUMLClassDiagramGeneratorTest tests the
  * {@link PlantUMLClassDiagramGenerator}.
@@ -277,5 +281,181 @@ public class PlantUMLClassDiagramGeneratorTest {
 		assertNotNull(expectedDiagramText);
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
 	}
-	
+
+	@Test
+	public void test0013MaxVisibilityFields() throws Exception{
+		String filename = "0013_max_visibility_fields_public.txt";
+		URL testResourceURL = this.getClass().getClassLoader().getResource(filename);
+		String testResourceURLString = testResourceURL.toString();
+		String testClassPath = testResourceURLString.substring(0, testResourceURLString.length() - filename.length())
+				+ "../../src/test/classes/";
+		URL[] classesURLs = new URL[] { new URL(testClassPath) };
+		URLClassLoader classLoader = new URLClassLoader(classesURLs);
+		classLoader.loadClass("de.elnarion.test.domain.t0013.Testclass");
+		List<String> scanpackages = new ArrayList<>();
+		scanpackages.add("de.elnarion.test.domain.t0013");
+		PlantUMLConfig config = new PlantUMLConfigBuilder(scanpackages).withClassLoader(classLoader).withMaximumFieldVisibility(VisibilityType.PUBLIC).build();
+		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
+		String result = generator.generateDiagramText();
+		String expectedDiagramText = IOUtils.toString(this.getClass().getClassLoader().getResource(filename), "utf-8");
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+		config = new PlantUMLConfigBuilder(scanpackages).withClassLoader(classLoader).withMaximumFieldVisibility(VisibilityType.PROTECTED).build();
+		generator = new PlantUMLClassDiagramGenerator(config);
+		result = generator.generateDiagramText();
+		filename = "0013_max_visibility_fields_protected.txt";
+		expectedDiagramText = IOUtils.toString(this.getClass().getClassLoader().getResource(filename), "utf-8");
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+		config = new PlantUMLConfigBuilder(scanpackages).withClassLoader(classLoader).withMaximumFieldVisibility(VisibilityType.PACKAGE_PRIVATE).build();
+		generator = new PlantUMLClassDiagramGenerator(config);
+		result = generator.generateDiagramText();
+		filename = "0013_max_visibility_fields_package_private.txt";
+		expectedDiagramText = IOUtils.toString(this.getClass().getClassLoader().getResource(filename), "utf-8");
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+		config = new PlantUMLConfigBuilder(scanpackages).withClassLoader(classLoader).withMaximumFieldVisibility(VisibilityType.PRIVATE).build();
+		generator = new PlantUMLClassDiagramGenerator(config);
+		result = generator.generateDiagramText();
+		filename = "0013_max_visibility_fields_private.txt";
+		expectedDiagramText = IOUtils.toString(this.getClass().getClassLoader().getResource(filename), "utf-8");
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+	}
+
+	@Test
+	public void test0014MaxVisibilityMethods() throws Exception{
+		String filename = "0014_max_visibility_methods_public.txt";
+		URL testResourceURL = this.getClass().getClassLoader().getResource(filename);
+		String testResourceURLString = testResourceURL.toString();
+		String testClassPath = testResourceURLString.substring(0, testResourceURLString.length() - filename.length())
+				+ "../../src/test/classes/";
+		URL[] classesURLs = new URL[] { new URL(testClassPath) };
+		URLClassLoader classLoader = new URLClassLoader(classesURLs);
+		classLoader.loadClass("de.elnarion.test.domain.t0014.Testclass");
+		List<String> scanpackages = new ArrayList<>();
+		scanpackages.add("de.elnarion.test.domain.t0014");
+		PlantUMLConfig config = new PlantUMLConfigBuilder(scanpackages).withClassLoader(classLoader).withMaximumMethodVisibility(VisibilityType.PUBLIC).build();
+		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
+		String result = generator.generateDiagramText();
+		String expectedDiagramText = IOUtils.toString(this.getClass().getClassLoader().getResource(filename), "utf-8");
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+		config = new PlantUMLConfigBuilder(scanpackages).withClassLoader(classLoader).withMaximumMethodVisibility(VisibilityType.PROTECTED).build();
+		generator = new PlantUMLClassDiagramGenerator(config);
+		result = generator.generateDiagramText();
+		filename = "0014_max_visibility_methods_protected.txt";
+		expectedDiagramText = IOUtils.toString(this.getClass().getClassLoader().getResource(filename), "utf-8");
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+		config = new PlantUMLConfigBuilder(scanpackages).withClassLoader(classLoader).withMaximumMethodVisibility(VisibilityType.PACKAGE_PRIVATE).build();
+		generator = new PlantUMLClassDiagramGenerator(config);
+		result = generator.generateDiagramText();
+		filename = "0014_max_visibility_methods_package_private.txt";
+		expectedDiagramText = IOUtils.toString(this.getClass().getClassLoader().getResource(filename), "utf-8");
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+		config = new PlantUMLConfigBuilder(scanpackages).withClassLoader(classLoader).withMaximumMethodVisibility(VisibilityType.PRIVATE).build();
+		generator = new PlantUMLClassDiagramGenerator(config);
+		result = generator.generateDiagramText();
+		filename = "0014_max_visibility_methods_private.txt";
+		expectedDiagramText = IOUtils.toString(this.getClass().getClassLoader().getResource(filename), "utf-8");
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+	}	
+
+	@Test
+	public void test0015RemoveMethods() throws Exception{
+		String filename = "0015_remove_methods.txt";
+		URL testResourceURL = this.getClass().getClassLoader().getResource(filename);
+		String testResourceURLString = testResourceURL.toString();
+		String testClassPath = testResourceURLString.substring(0, testResourceURLString.length() - filename.length())
+				+ "../../src/test/classes/";
+		URL[] classesURLs = new URL[] { new URL(testClassPath) };
+		URLClassLoader classLoader = new URLClassLoader(classesURLs);
+		classLoader.loadClass("de.elnarion.test.domain.t0015.Testclass1");
+		classLoader.loadClass("de.elnarion.test.domain.t0015.Testclass2");
+		List<String> scanpackages = new ArrayList<>();
+		scanpackages.add("de.elnarion.test.domain.t0015");
+		PlantUMLConfig config = new PlantUMLConfigBuilder(scanpackages).withClassLoader(classLoader).withRemoveMethods(true).build();
+		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
+		String result = generator.generateDiagramText();
+		String expectedDiagramText = IOUtils.toString(this.getClass().getClassLoader().getResource(filename), "utf-8");
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+	}		
+
+	@Test
+	public void test0016RemoveFields() throws Exception{
+		String filename = "0016_remove_fields.txt";
+		URL testResourceURL = this.getClass().getClassLoader().getResource(filename);
+		String testResourceURLString = testResourceURL.toString();
+		String testClassPath = testResourceURLString.substring(0, testResourceURLString.length() - filename.length())
+				+ "../../src/test/classes/";
+		URL[] classesURLs = new URL[] { new URL(testClassPath) };
+		URLClassLoader classLoader = new URLClassLoader(classesURLs);
+		classLoader.loadClass("de.elnarion.test.domain.t0016.Testclass1");
+		classLoader.loadClass("de.elnarion.test.domain.t0016.Testclass2");
+		List<String> scanpackages = new ArrayList<>();
+		scanpackages.add("de.elnarion.test.domain.t0016");
+		PlantUMLConfig config = new PlantUMLConfigBuilder(scanpackages).withClassLoader(classLoader).withRemoveFields(true).build();
+		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
+		String result = generator.generateDiagramText();
+		String expectedDiagramText = IOUtils.toString(this.getClass().getClassLoader().getResource(filename), "utf-8");
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+	}		
+
+	@Test
+	public void test0017BlacklistMethods() throws Exception{
+		String filename = "0017_blacklist_methods.txt";
+		URL testResourceURL = this.getClass().getClassLoader().getResource(filename);
+		String testResourceURLString = testResourceURL.toString();
+		String testClassPath = testResourceURLString.substring(0, testResourceURLString.length() - filename.length())
+				+ "../../src/test/classes/";
+		URL[] classesURLs = new URL[] { new URL(testClassPath) };
+		URLClassLoader classLoader = new URLClassLoader(classesURLs);
+		classLoader.loadClass("de.elnarion.test.domain.t0017.Testclass1");
+		List<String> scanpackages = new ArrayList<>();
+		scanpackages.add("de.elnarion.test.domain.t0017");
+		PlantUMLConfig config = new PlantUMLConfigBuilder(scanpackages).withClassLoader(classLoader).withMethodBlacklistRegexp(".*doSomething1.*").build();
+		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
+		String result = generator.generateDiagramText();
+		String expectedDiagramText = IOUtils.toString(this.getClass().getClassLoader().getResource(filename), "utf-8");
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+	}		
+
+	@Test
+	public void test0018BlacklistFields() throws Exception{
+		String filename = "0018_blacklist_fields.txt";
+		URL testResourceURL = this.getClass().getClassLoader().getResource(filename);
+		String testResourceURLString = testResourceURL.toString();
+		String testClassPath = testResourceURLString.substring(0, testResourceURLString.length() - filename.length())
+				+ "../../src/test/classes/";
+		URL[] classesURLs = new URL[] { new URL(testClassPath) };
+		URLClassLoader classLoader = new URLClassLoader(classesURLs);
+		classLoader.loadClass("de.elnarion.test.domain.t0018.Testclass1");
+		List<String> scanpackages = new ArrayList<>();
+		scanpackages.add("de.elnarion.test.domain.t0018");
+		PlantUMLConfig config = new PlantUMLConfigBuilder(scanpackages).withClassLoader(classLoader).withFieldBlacklistRegexp("test1").build();
+		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
+		String result = generator.generateDiagramText();
+		String expectedDiagramText = IOUtils.toString(this.getClass().getClassLoader().getResource(filename), "utf-8");
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+	}		
+
 }

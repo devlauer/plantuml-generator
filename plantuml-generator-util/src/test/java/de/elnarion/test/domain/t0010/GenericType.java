@@ -14,7 +14,6 @@ public class GenericType<T> {
 	 * Instantiates a new generic type.
 	 */
 	public GenericType() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

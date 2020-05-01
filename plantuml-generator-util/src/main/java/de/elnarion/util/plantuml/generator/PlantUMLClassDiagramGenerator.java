@@ -14,7 +14,6 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -82,16 +81,16 @@ import io.github.classgraph.ScanResult;
 public class PlantUMLClassDiagramGenerator {
 
 	private static final String CLASS_ENDING = ".class";
-	private ClassLoader destinationClassloader;
+	private final ClassLoader destinationClassloader;
 	private List<String> scanPackages;
-	private String blacklistRegexp;
-	private String whitelistRegexp;
-	private List<String> hideClasses;
-	private boolean hideFields;
-	private boolean hideMethods;
-	private Map<String, UMLClass> classes;
-	private List<Class<?>> resolvedClasses = new ArrayList<>();
-	private Map<UMLClass, List<UMLRelationship>> classesAndRelationships;
+	private final String blacklistRegexp;
+	private final String whitelistRegexp;
+	private final List<String> hideClasses;
+	private final boolean hideFields;
+	private final boolean hideMethods;
+	private final Map<String, UMLClass> classes;
+	private final List<Class<?>> resolvedClasses = new ArrayList<>();
+	private final Map<UMLClass, List<UMLRelationship>> classesAndRelationships;
 
 	/**
 	 * Instantiates a new Plant UML diagram generator.
@@ -112,9 +111,9 @@ public class PlantUMLClassDiagramGenerator {
 	 * @param paramHideMethods     boolean - true, if methods should be hidden,
 	 *                             false, if not
 	 */
-	public PlantUMLClassDiagramGenerator(ClassLoader paramClassloader, List<String> paramScanPackages,
-			String paramBlacklistRegexp, List<String> paramHideClasses, boolean paramHideFields,
-			boolean paramHideMethods) {
+	public PlantUMLClassDiagramGenerator(final ClassLoader paramClassloader, final List<String> paramScanPackages,
+			final String paramBlacklistRegexp, final List<String> paramHideClasses, final boolean paramHideFields,
+			final boolean paramHideMethods) {
 		destinationClassloader = paramClassloader;
 		scanPackages = paramScanPackages;
 		blacklistRegexp = paramBlacklistRegexp;
@@ -145,9 +144,9 @@ public class PlantUMLClassDiagramGenerator {
 	 * @param paramScanPackages    List&lt;String&gt; - all the packages which
 	 *                             should be used as basis for the whitelist scan
 	 */
-	public PlantUMLClassDiagramGenerator(ClassLoader paramClassloader, String paramWhitelistRegexp,
-			List<String> paramHideClasses, boolean paramHideFields, boolean paramHideMethods,
-			List<String> paramScanPackages) {
+	public PlantUMLClassDiagramGenerator(final ClassLoader paramClassloader, final String paramWhitelistRegexp,
+			final List<String> paramHideClasses, final boolean paramHideFields, final boolean paramHideMethods,
+			final List<String> paramScanPackages) {
 		destinationClassloader = paramClassloader;
 		blacklistRegexp = null;
 		if (paramScanPackages != null)
@@ -179,27 +178,27 @@ public class PlantUMLClassDiagramGenerator {
 		// sort all classes for a reliable sorted result
 		Collections.sort(resolvedClasses, (o1, o2) -> o1.getName().compareTo(o2.getName()));
 		// map java classes to UMLClass, UMLField, UMLMethod and UMLRelationship objects
-		for (Class<?> clazz : resolvedClasses) {
+		for (final Class<?> clazz : resolvedClasses) {
 			mapToDomainClasses(clazz);
 		}
 		// build the Plant UML String by calling the corresponding method on all
 		// PlantUMLDiagramElements
-		StringBuilder builder = new StringBuilder();
+		final StringBuilder builder = new StringBuilder();
 		builder.append("@startuml");
 		builder.append(System.lineSeparator());
 		builder.append(System.lineSeparator());
 
-		List<UMLClass> listToCompare = new ArrayList<>();
+		final List<UMLClass> listToCompare = new ArrayList<>();
 		listToCompare.addAll(classes.values());
 		// because the ordered list could be changed in between, sort the list
 		Collections.sort(listToCompare, (o1, o2) -> o1.getName().compareTo(o2.getName()));
-		Collection<UMLClass> classesList = listToCompare;
-		List<UMLRelationship> relationships = new ArrayList<>();
+		final Collection<UMLClass> classesList = listToCompare;
+		final List<UMLRelationship> relationships = new ArrayList<>();
 		// add all class information to the diagram (includes field and method
 		// information)
 		// because of the full qualified class names packages are added automatically
 		// and need not be added manually
-		for (UMLClass clazz : classesList) {
+		for (final UMLClass clazz : classesList) {
 			relationships.addAll(classesAndRelationships.get(clazz));
 			builder.append(clazz.getDiagramText());
 			builder.append(System.lineSeparator());
@@ -210,7 +209,7 @@ public class PlantUMLClassDiagramGenerator {
 		// because the ordered list could be changed in between, sort the list
 		Collections.sort(relationships, (o1, o2) -> o1.getDiagramText().compareTo(o2.getDiagramText()));
 		// add all class relationships to the diagram
-		for (UMLRelationship relationship : relationships) {
+		for (final UMLRelationship relationship : relationships) {
 			builder.append(relationship.getDiagramText());
 			builder.append(System.lineSeparator());
 		}
@@ -235,8 +234,8 @@ public class PlantUMLClassDiagramGenerator {
 	 * @param relationships    - List&lt;{@link UMLRelationship}&gt; - the list of
 	 *                         all relationships in the class diagram
 	 */
-	private void addHideToggles(StringBuilder paramBuilder, Collection<UMLClass> paramClassesList,
-			List<UMLRelationship> relationships) {
+	private void addHideToggles(final StringBuilder paramBuilder, final Collection<UMLClass> paramClassesList,
+			final List<UMLRelationship> relationships) {
 		if ((paramClassesList != null && !paramClassesList.isEmpty()) || (!relationships.isEmpty())) {
 			if (hideFields) {
 				paramBuilder.append(System.lineSeparator());
@@ -247,7 +246,7 @@ public class PlantUMLClassDiagramGenerator {
 				paramBuilder.append("hide methods");
 			}
 			if (hideClasses != null && !hideClasses.isEmpty()) {
-				for (String hideClass : hideClasses) {
+				for (final String hideClass : hideClasses) {
 					paramBuilder.append(System.lineSeparator());
 					paramBuilder.append("hide ");
 					paramBuilder.append(hideClass);
@@ -262,12 +261,12 @@ public class PlantUMLClassDiagramGenerator {
 	 * @param paramClassObject - Class&lt;?&gt; - the java class object to be
 	 *                         processed
 	 */
-	private void mapToDomainClasses(Class<?> paramClassObject) {
+	private void mapToDomainClasses(final Class<?> paramClassObject) {
 		if (!includeClass(paramClassObject)) {
 			return;
 		}
 
-		int modifiers = paramClassObject.getModifiers();
+		final int modifiers = paramClassObject.getModifiers();
 		VisibilityType visibilityType = VisibilityType.PUBLIC;
 		if (Modifier.isPrivate(modifiers)) {
 			visibilityType = VisibilityType.PRIVATE;
@@ -285,10 +284,10 @@ public class PlantUMLClassDiagramGenerator {
 			classType = ClassType.ABSTRACT_CLASS;
 		}
 
-		UMLClass umlClass = new UMLClass(visibilityType, classType, new ArrayList<UMLField>(),
+		final UMLClass umlClass = new UMLClass(visibilityType, classType, new ArrayList<UMLField>(),
 				new ArrayList<de.elnarion.util.plantuml.generator.classdiagram.UMLMethod>(), paramClassObject.getName(),
 				new ArrayList<String>());
-		List<UMLRelationship> relationships = new ArrayList<>();
+		final List<UMLRelationship> relationships = new ArrayList<>();
 		classesAndRelationships.put(umlClass, relationships);
 		classes.put(paramClassObject.getName(), umlClass);
 
@@ -313,10 +312,11 @@ public class PlantUMLClassDiagramGenerator {
 	 * @param paramUmlClass    - {@link UMLClass} - the UML class object where the
 	 *                         field information should be added
 	 */
-	private void addEnumConstants(Class<?> paramClassObject, UMLClass paramUmlClass) {
-		Object[] enumConstants = paramClassObject.getEnumConstants();
-		for (Object enumConstant : enumConstants) {
-			UMLField field = new UMLField(ClassifierType.NONE, VisibilityType.PUBLIC, enumConstant.toString(), null);
+	private void addEnumConstants(final Class<?> paramClassObject, final UMLClass paramUmlClass) {
+		final Object[] enumConstants = paramClassObject.getEnumConstants();
+		for (final Object enumConstant : enumConstants) {
+			final UMLField field = new UMLField(ClassifierType.NONE, VisibilityType.PUBLIC, enumConstant.toString(),
+					null);
 			paramUmlClass.addField(field);
 		}
 	}
@@ -331,13 +331,13 @@ public class PlantUMLClassDiagramGenerator {
 	 * @param umlClass         - {@link UMLClass} - the UML class from which the
 	 *                         relationship starts from
 	 */
-	private void addAnnotationRelationship(Class<?> paramClassObject, UMLClass umlClass) {
-		Annotation[] annotations = paramClassObject.getAnnotations();
+	private void addAnnotationRelationship(final Class<?> paramClassObject, final UMLClass umlClass) {
+		final Annotation[] annotations = paramClassObject.getAnnotations();
 		if (annotations != null) {
-			for (Annotation annotation : annotations) {
+			for (final Annotation annotation : annotations) {
 				if (includeClass(annotation.getClass())) {
-					UMLRelationship relationship = new UMLRelationship(null, null, null, paramClassObject.getName(),
-							annotation.getClass().getName(), RelationshipType.ASSOCIATION);
+					final UMLRelationship relationship = new UMLRelationship(null, null, null,
+							paramClassObject.getName(), annotation.getClass().getName(), RelationshipType.ASSOCIATION);
 					addRelationship(umlClass, relationship);
 				}
 			}
@@ -353,7 +353,7 @@ public class PlantUMLClassDiagramGenerator {
 	 * @param paramUmlRelationship - {@link UMLRelationship} - the relationship
 	 *                             which should be linked to the {@link UMLClass}
 	 */
-	private void addRelationship(UMLClass paramUmlClass, UMLRelationship paramUmlRelationship) {
+	private void addRelationship(final UMLClass paramUmlClass, final UMLRelationship paramUmlRelationship) {
 		List<UMLRelationship> relationshipList = classesAndRelationships.computeIfAbsent(paramUmlClass,
 				k -> new ArrayList<>());
 		if (relationshipList == null) {
@@ -372,13 +372,13 @@ public class PlantUMLClassDiagramGenerator {
 	 * @param paramUmlClass    - {@link UMLClass} - the UML class from which the
 	 *                         relationship starts from
 	 */
-	private void addInterfaceRelationship(Class<?> paramClassObject, UMLClass paramUmlClass) {
-		Class<?>[] interfaces = paramClassObject.getInterfaces();
+	private void addInterfaceRelationship(final Class<?> paramClassObject, final UMLClass paramUmlClass) {
+		final Class<?>[] interfaces = paramClassObject.getInterfaces();
 		if (interfaces != null) {
-			for (Class<?> interfaceElement : interfaces) {
+			for (final Class<?> interfaceElement : interfaces) {
 				if (includeClass(interfaceElement)) {
-					UMLRelationship relationship = new UMLRelationship(null, null, null, paramClassObject.getName(),
-							interfaceElement.getName(), RelationshipType.REALIZATION);
+					final UMLRelationship relationship = new UMLRelationship(null, null, null,
+							paramClassObject.getName(), interfaceElement.getName(), RelationshipType.REALIZATION);
 					addRelationship(paramUmlClass, relationship);
 				}
 			}
@@ -394,10 +394,10 @@ public class PlantUMLClassDiagramGenerator {
 	 * @param paramUmlClass    - {@link UMLClass} - the UML class from which the
 	 *                         relationship starts from
 	 */
-	private void addSuperClassRelationship(Class<?> paramClassObject, UMLClass paramUmlClass) {
-		Class<?> superClass = paramClassObject.getSuperclass();
+	private void addSuperClassRelationship(final Class<?> paramClassObject, final UMLClass paramUmlClass) {
+		final Class<?> superClass = paramClassObject.getSuperclass();
 		if (superClass != null && includeClass(superClass)) {
-			UMLRelationship relationship = new UMLRelationship(null, null, null, paramClassObject.getName(),
+			final UMLRelationship relationship = new UMLRelationship(null, null, null, paramClassObject.getName(),
 					superClass.getName(), RelationshipType.INHERITANCE);
 			addRelationship(paramUmlClass, relationship);
 		}
@@ -419,10 +419,11 @@ public class PlantUMLClassDiagramGenerator {
 	 * @param paramUmlClass        - {@link UMLClass} - the uml class where the
 	 *                             {@link UMLMethod} objects should be added
 	 */
-	private void addMethods(Method[] paramDeclaredMethods, Field[] paramDeclaredFields, UMLClass paramUmlClass) {
+	private void addMethods(final Method[] paramDeclaredMethods, final Field[] paramDeclaredFields,
+			final UMLClass paramUmlClass) {
 		if (paramDeclaredMethods != null) {
-			for (Method method : paramDeclaredMethods) {
-				String methodName = method.getName();
+			for (final Method method : paramDeclaredMethods) {
+				final String methodName = method.getName();
 				// ignore normal getters and setters
 				if ((methodName.startsWith("get") || methodName.startsWith("set") || methodName.startsWith("is"))
 						&& paramDeclaredFields != null && isGetterOrSetterMethod(method, paramDeclaredFields)) {
@@ -430,19 +431,19 @@ public class PlantUMLClassDiagramGenerator {
 				}
 				String returnType = method.getReturnType().getName();
 				returnType = removeJavaLangPackage(returnType);
-				Class<?>[] parameterTypes = method.getParameterTypes();
-				Map<String, String> parameters = convertToParameterStringMap(parameterTypes);
-				int modifier = method.getModifiers();
-				VisibilityType visibilityType = getVisibility(modifier);
-				ClassifierType classifierType = getClassifier(modifier);
-				List<String> stereotypes = new ArrayList<>();
+				final Class<?>[] parameterTypes = method.getParameterTypes();
+				final Map<String, String> parameters = convertToParameterStringMap(parameterTypes);
+				final int modifier = method.getModifiers();
+				final VisibilityType visibilityType = getVisibility(modifier);
+				final ClassifierType classifierType = getClassifier(modifier);
+				final List<String> stereotypes = new ArrayList<>();
 				if (method.isAnnotationPresent(Deprecated.class)) {
 					stereotypes.add("deprecated");
 				}
 				if (Modifier.isSynchronized(modifier)) {
 					stereotypes.add("synchronized");
 				}
-				de.elnarion.util.plantuml.generator.classdiagram.UMLMethod umlMethod = new de.elnarion.util.plantuml.generator.classdiagram.UMLMethod(
+				final de.elnarion.util.plantuml.generator.classdiagram.UMLMethod umlMethod = new de.elnarion.util.plantuml.generator.classdiagram.UMLMethod(
 						classifierType, visibilityType, returnType, methodName, parameters, stereotypes);
 				paramUmlClass.addMethod(umlMethod);
 			}
@@ -471,7 +472,7 @@ public class PlantUMLClassDiagramGenerator {
 	 *                      type
 	 * @return {@link ClassifierType} - the classifier type
 	 */
-	private ClassifierType getClassifier(int paramModifier) {
+	private ClassifierType getClassifier(final int paramModifier) {
 		ClassifierType classifierType = ClassifierType.NONE;
 		if (Modifier.isStatic(paramModifier)) {
 			if (Modifier.isAbstract(paramModifier)) {
@@ -493,7 +494,7 @@ public class PlantUMLClassDiagramGenerator {
 	 *                      type
 	 * @return {@link VisibilityType} - the visibility type
 	 */
-	private VisibilityType getVisibility(int paramModifier) {
+	private VisibilityType getVisibility(final int paramModifier) {
 		VisibilityType visibilityType = VisibilityType.PACKAGE_PRIVATE;
 		if (Modifier.isPublic(paramModifier)) {
 			visibilityType = VisibilityType.PUBLIC;
@@ -516,11 +517,11 @@ public class PlantUMLClassDiagramGenerator {
 	 *                            types which should be processed
 	 * @return Map&lt;String,String&gt; - the result
 	 */
-	private Map<String, String> convertToParameterStringMap(Class<?>[] paramParameterTypes) {
-		Map<String, String> parameters = new LinkedHashMap<>();
+	private Map<String, String> convertToParameterStringMap(final Class<?>[] paramParameterTypes) {
+		final Map<String, String> parameters = new LinkedHashMap<>();
 		if (paramParameterTypes != null) {
 			int counter = 1;
-			for (Class<?> parameter : paramParameterTypes) {
+			for (final Class<?> parameter : paramParameterTypes) {
 				String parameterName = parameter.getName();
 				if (parameterName.lastIndexOf('.') > 0) {
 					parameterName = parameterName.substring(parameterName.lastIndexOf('.') + 1, parameterName.length());
@@ -540,7 +541,7 @@ public class PlantUMLClassDiagramGenerator {
 	 * @param paramDeclaredFields - Field[] - the declared fields used for the check
 	 * @return true, if is getter or setter method
 	 */
-	private boolean isGetterOrSetterMethod(Method paramMethod, Field[] paramDeclaredFields) {
+	private boolean isGetterOrSetterMethod(final Method paramMethod, final Field[] paramDeclaredFields) {
 		String methodName = paramMethod.getName();
 		if (methodName.startsWith("get")) {
 			methodName = methodName.substring(3, methodName.length());
@@ -549,8 +550,8 @@ public class PlantUMLClassDiagramGenerator {
 		} else if (methodName.startsWith("set")) {
 			methodName = methodName.substring(3, methodName.length());
 		}
-		for (Field field : paramDeclaredFields) {
-			String fieldName = field.getName();
+		for (final Field field : paramDeclaredFields) {
+			final String fieldName = field.getName();
 			if (fieldName.equalsIgnoreCase(methodName)) {
 				return true;
 			}
@@ -579,25 +580,26 @@ public class PlantUMLClassDiagramGenerator {
 	 *                             which the {@link UMLField} or
 	 *                             {@link UMLRelationship} objects should be added
 	 */
-	private void addFields(Field[] paramDeclaredFields, Method[] paramDeclaredMethods, UMLClass paramUmlClass) {
+	private void addFields(final Field[] paramDeclaredFields, final Method[] paramDeclaredMethods,
+			final UMLClass paramUmlClass) {
 		if (paramDeclaredFields != null) {
-			for (java.lang.reflect.Field field : paramDeclaredFields) {
-				Class<?> type = field.getType();
-				boolean relationshipAdded = addAggregationRelationship(paramUmlClass, field);
+			for (final java.lang.reflect.Field field : paramDeclaredFields) {
+				final Class<?> type = field.getType();
+				final boolean relationshipAdded = addAggregationRelationship(paramUmlClass, field);
 				if (relationshipAdded) {
 					// do nothing - skip processing
 				} else if (includeClass(type)) {
-					UMLRelationship relationship = new UMLRelationship(null, null, field.getName(),
+					final UMLRelationship relationship = new UMLRelationship(null, null, field.getName(),
 							field.getDeclaringClass().getName(), type.getName(), RelationshipType.DIRECTED_ASSOCIATION);
 					addRelationship(paramUmlClass, relationship);
 				} else {
-					int modifier = field.getModifiers();
-					ClassifierType classifierType = getClassifier(modifier);
+					final int modifier = field.getModifiers();
+					final ClassifierType classifierType = getClassifier(modifier);
 					VisibilityType visibilityType = getVisibility(modifier);
 					if (hasGetterAndSetterMethod(field.getName(), paramDeclaredMethods)) {
 						visibilityType = VisibilityType.PUBLIC;
 					}
-					UMLField umlField = new UMLField(classifierType, visibilityType, field.getName(),
+					final UMLField umlField = new UMLField(classifierType, visibilityType, field.getName(),
 							removeJavaLangPackage(type.getName()));
 					paramUmlClass.addField(umlField);
 				}
@@ -614,15 +616,15 @@ public class PlantUMLClassDiagramGenerator {
 	 *                             the check
 	 * @return true, if successful
 	 */
-	private boolean hasGetterAndSetterMethod(String paramFieldName, Method[] paramDeclaredMethods) {
-		String getterMethodName = "get" + paramFieldName;
-		String setterMethodName = "set" + paramFieldName;
-		String isMethodName = "is" + paramFieldName;
+	private boolean hasGetterAndSetterMethod(final String paramFieldName, final Method[] paramDeclaredMethods) {
+		final String getterMethodName = "get" + paramFieldName;
+		final String setterMethodName = "set" + paramFieldName;
+		final String isMethodName = "is" + paramFieldName;
 		boolean hasGetterMethod = false;
 		boolean hasSetterMethod = false;
 		if (paramDeclaredMethods != null) {
-			for (Method method : paramDeclaredMethods) {
-				String methodName = method.getName();
+			for (final Method method : paramDeclaredMethods) {
+				final String methodName = method.getName();
 				if (methodName.equalsIgnoreCase(getterMethodName) || methodName.equalsIgnoreCase(isMethodName)) {
 					hasGetterMethod = true;
 				} else if (methodName.equalsIgnoreCase(setterMethodName)) {
@@ -646,19 +648,19 @@ public class PlantUMLClassDiagramGenerator {
 	 *                      processed
 	 * @return true, if an aggregation relationship was created and added
 	 */
-	private boolean addAggregationRelationship(UMLClass paramUmlClass, Field paramField) {
-		Type type = paramField.getType();
-		Type genericType = paramField.getGenericType();
+	private boolean addAggregationRelationship(final UMLClass paramUmlClass, final Field paramField) {
+		final Type type = paramField.getType();
+		final Type genericType = paramField.getGenericType();
 		boolean isRelationshipAggregation = false;
 		if (Collection.class.isAssignableFrom((Class<?>) type) && genericType instanceof ParameterizedType
 				&& (((ParameterizedType) genericType).getRawType().equals(Set.class)
 						|| ((ParameterizedType) genericType).getRawType().equals(List.class))) {
-			Type[] actualTypeArguments = ((ParameterizedType) genericType).getActualTypeArguments();
+			final Type[] actualTypeArguments = ((ParameterizedType) genericType).getActualTypeArguments();
 			if (actualTypeArguments != null) {
-				for (Type typeArgument : actualTypeArguments) {
-					Class<?> typeArgumentClass = getClassForType(typeArgument);
+				for (final Type typeArgument : actualTypeArguments) {
+					final Class<?> typeArgumentClass = getClassForType(typeArgument);
 					if (((typeArgumentClass != null) && includeClass(typeArgumentClass))) {
-						UMLRelationship relationship = new UMLRelationship("1", "0..*", paramField.getName(),
+						final UMLRelationship relationship = new UMLRelationship("1", "0..*", paramField.getName(),
 								paramField.getDeclaringClass().getName(), (typeArgumentClass).getName(),
 								RelationshipType.AGGREGATION);
 						addRelationship(paramUmlClass, relationship);
@@ -676,7 +678,7 @@ public class PlantUMLClassDiagramGenerator {
 	 * @param paramType the type argument
 	 * @return Class - the class for type
 	 */
-	private Class<?> getClassForType(Type paramType) {
+	private Class<?> getClassForType(final Type paramType) {
 		Class<?> typeArgumentClass = null;
 		if (paramType instanceof ParameterizedType) {
 			if (((ParameterizedType) paramType).getRawType() instanceof Class<?>) {
@@ -714,8 +716,8 @@ public class PlantUMLClassDiagramGenerator {
 	private Set<Class<?>> getAllClassesFromWhiteList() {
 		try (ScanResult scanResult = new ClassGraph().overrideClassLoaders(destinationClassloader).enableClassInfo()
 				.whitelistPackages((String[]) scanPackages.toArray(new String[scanPackages.size()])).scan()) {
-			ClassInfoList allClasses = scanResult.getAllClasses();
-			ClassInfoList result = allClasses.filter(ci -> ci.getName().matches(whitelistRegexp));
+			final ClassInfoList allClasses = scanResult.getAllClasses();
+			final ClassInfoList result = allClasses.filter(ci -> ci.getName().matches(whitelistRegexp));
 			return new HashSet<>(result.loadClasses());
 		}
 	}
@@ -730,8 +732,8 @@ public class PlantUMLClassDiagramGenerator {
 	 */
 	private Set<Class<?>> getAllClassesInScanPackages() throws ClassNotFoundException, IOException {
 		Set<Class<?>> resultSet = new HashSet<>();
-		for (String scanpackage : scanPackages) {
-			List<Class<?>> classesList = getClasses(scanpackage, destinationClassloader);
+		for (final String scanpackage : scanPackages) {
+			final List<Class<?>> classesList = getClasses(scanpackage, destinationClassloader);
 			if (classesList.isEmpty()) {
 				throw new ClassNotFoundException("No classes found for package " + scanpackage);
 			}
@@ -752,10 +754,10 @@ public class PlantUMLClassDiagramGenerator {
 	 * @return Set - all classes passed in reduced by the blacklist regular
 	 *         expression
 	 */
-	private Set<Class<?>> applyBlacklistRegExp(Set<Class<?>> paramClassesToCheck) {
-		Set<Class<?>> resultClasses = new HashSet<>();
+	private Set<Class<?>> applyBlacklistRegExp(final Set<Class<?>> paramClassesToCheck) {
+		final Set<Class<?>> resultClasses = new HashSet<>();
 		if (paramClassesToCheck != null && !paramClassesToCheck.isEmpty()) {
-			for (Class<?> classToCheck : paramClassesToCheck) {
+			for (final Class<?> classToCheck : paramClassesToCheck) {
 				if (!classToCheck.getName().matches(blacklistRegexp)) {
 					resultClasses.add(classToCheck);
 				}
@@ -770,7 +772,7 @@ public class PlantUMLClassDiagramGenerator {
 	 * @param paramClass - Class&lt;?&gt; - the class to be checked
 	 * @return true, if class is a member of the scanned packages
 	 */
-	private boolean includeClass(Class<?> paramClass) {
+	private boolean includeClass(final Class<?> paramClass) {
 		return resolvedClasses.contains(paramClass);
 	}
 
@@ -783,29 +785,29 @@ public class PlantUMLClassDiagramGenerator {
 	 * @throws ClassNotFoundException - the class was not found by the class loader
 	 * @throws IOException            - signals that an I/O exception has occurred
 	 */
-	private List<Class<?>> getClasses(String packageName, ClassLoader paramClassLoader)
+	private List<Class<?>> getClasses(final String packageName, final ClassLoader paramClassLoader)
 			throws ClassNotFoundException, IOException {
-		String path = packageName.replace('.', '/');
-		Enumeration<URL> resources = paramClassLoader.getResources(path);
-		List<File> dirs = new ArrayList<>();
-		List<JarFile> jars = new ArrayList<>();
+		final String path = packageName.replace('.', '/');
+		final Enumeration<URL> resources = paramClassLoader.getResources(path);
+		final List<File> dirs = new ArrayList<>();
+		final List<JarFile> jars = new ArrayList<>();
 		while (resources.hasMoreElements()) {
-			URL resource = resources.nextElement();
+			final URL resource = resources.nextElement();
 			if (resource.getProtocol().equals("file")) {
 				dirs.add(new File(resource.getFile()));
 			} else if (resource.getProtocol().equals("jar")) {
 				// strip out only the
 				// JAR file
-				String jarPath = resource.getPath().substring(6, resource.getPath().indexOf('!'));
-				JarFile jar = new JarFile(URLDecoder.decode(jarPath, "UTF-8"));
+				final String jarPath = resource.getPath().substring(6, resource.getPath().indexOf('!'));
+				final JarFile jar = new JarFile(URLDecoder.decode(jarPath, "UTF-8"));
 				jars.add(jar);
 			}
 		}
-		ArrayList<Class<?>> classesList = new ArrayList<>();
-		for (File directory : dirs) {
+		final ArrayList<Class<?>> classesList = new ArrayList<>();
+		for (final File directory : dirs) {
 			classesList.addAll(findClasses(directory, packageName, paramClassLoader));
 		}
-		for (JarFile jarFile : jars) {
+		for (final JarFile jarFile : jars) {
 			classesList.addAll(findClassesInJar(jarFile, packageName, paramClassLoader));
 		}
 		return classesList;
@@ -821,15 +823,15 @@ public class PlantUMLClassDiagramGenerator {
 	 *         package in the given jar file
 	 * @throws ClassNotFoundException - the class not found by the classloader
 	 */
-	private Collection<? extends Class<?>> findClassesInJar(JarFile paramJarFile, String paramPackageName,
-			ClassLoader classloader) throws ClassNotFoundException {
-		List<Class<?>> classesList = new ArrayList<>();
-		Enumeration<JarEntry> jarEntries = paramJarFile.entries();
+	private Collection<? extends Class<?>> findClassesInJar(final JarFile paramJarFile, final String paramPackageName,
+			final ClassLoader classloader) throws ClassNotFoundException {
+		final List<Class<?>> classesList = new ArrayList<>();
+		final Enumeration<JarEntry> jarEntries = paramJarFile.entries();
 		while (jarEntries.hasMoreElements()) {
-			JarEntry entry = jarEntries.nextElement();
-			String entryPath = entry.getName().replaceAll("/", ".");
+			final JarEntry entry = jarEntries.nextElement();
+			final String entryPath = entry.getName().replaceAll("/", ".");
 			if (entryPath.endsWith(CLASS_ENDING)) {
-				String className = entryPath.substring(0, entryPath.length() - CLASS_ENDING.length());
+				final String className = entryPath.substring(0, entryPath.length() - CLASS_ENDING.length());
 				String entryPackage = className;
 				if (entryPackage.contains(".")) {
 					entryPackage = entryPackage.substring(0, entryPackage.lastIndexOf('.'));
@@ -854,14 +856,14 @@ public class PlantUMLClassDiagramGenerator {
 	 *         given base directory
 	 * @throws ClassNotFoundException - the class was not found by the classloader
 	 */
-	private List<Class<?>> findClasses(File directory, String packageName, ClassLoader classloader)
+	private List<Class<?>> findClasses(final File directory, final String packageName, final ClassLoader classloader)
 			throws ClassNotFoundException {
-		List<Class<?>> classesList = new ArrayList<>();
+		final List<Class<?>> classesList = new ArrayList<>();
 		if (!directory.exists()) {
 			return classesList;
 		}
-		File[] files = directory.listFiles();
-		for (File file : files) {
+		final File[] files = directory.listFiles();
+		for (final File file : files) {
 			if (file.isDirectory()) {
 				assert !file.getName().contains(".");
 				classesList.addAll(findClasses(file, packageName + "." + file.getName(), classloader));

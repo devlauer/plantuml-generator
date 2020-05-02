@@ -99,7 +99,7 @@ If you use maven as build tool this is easy, just add the following dependency:
 <dependency>
 	<groupId>de.elnarion.util</groupId>
 	<artifactId>plantuml-generator-util</artifactId>
-	<version>1.1.1</version>
+	<version>1.1.2</version>
 </dependency>		
 ----
 to your pom.xml
@@ -178,7 +178,7 @@ asciidoc diagram block - default is "----"; optional
 <plugin>
   <artifactId>plantuml-generator-maven-plugin</artifactId>
   <groupId>de.elnarion.maven</groupId>
-  <version>1.1.1</version>
+  <version>1.1.2</version>
   <executions>
 	<execution>
 		<id>generate-simple-diagram</id>
@@ -206,7 +206,7 @@ asciidoc diagram block - default is "----"; optional
 <plugin>
   <artifactId>plantuml-generator-maven-plugin</artifactId>
   <groupId>de.elnarion.maven</groupId>
-  <version>1.1.1</version>
+  <version>1.1.2</version>
   <executions>
 	<execution>
 		<id>generate-simple-diagram</id>
@@ -236,7 +236,7 @@ asciidoc diagram block - default is "----"; optional
 <plugin>
   <artifactId>plantuml-generator-maven-plugin</artifactId>
   <groupId>de.elnarion.maven</groupId>
-  <version>1.1.1</version>
+  <version>1.1.2</version>
   <executions>
 	<execution>
 		<id>generate-simple-diagram</id>
@@ -261,7 +261,7 @@ packages to scan:
 <plugin>
   <artifactId>plantuml-generator-maven-plugin</artifactId>
   <groupId>de.elnarion.maven</groupId>
-  <version>1.1.1</version>
+  <version>1.1.2</version>
   <executions>
 	<execution>
 		<id>generate-simple-diagram</id>
@@ -292,7 +292,7 @@ and all fields to hide:
 <plugin>
   <artifactId>plantuml-generator-maven-plugin</artifactId>
   <groupId>de.elnarion.maven</groupId>
-  <version>1.1.1</version>
+  <version>1.1.2</version>
   <executions>
 	<execution>
 		<id>generate-simple-diagram</id>
@@ -334,7 +334,7 @@ and all fields to hide:
 <plugin>
   <artifactId>plantuml-generator-maven-plugin</artifactId>
   <groupId>de.elnarion.maven</groupId>
-  <version>1.1.1</version>
+  <version>1.1.2</version>
   <executions>
 	<execution>
 		<id>generate-simple-diagram</id>

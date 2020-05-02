@@ -2,6 +2,10 @@
 
 .Unreleased
 
+.1.1.2 - 2020-05-02
+* Fixed whitelist error in maven plugin
+* Updated documentation to current version
+
 .1.1.1 - 2020-05-02
 * Fixed maven plugin default values
 * Added check to config

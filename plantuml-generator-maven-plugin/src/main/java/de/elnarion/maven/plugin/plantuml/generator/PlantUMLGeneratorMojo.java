@@ -104,19 +104,19 @@ public class PlantUMLGeneratorMojo extends AbstractMojo {
 	private boolean removeFields;
 
 	/** The remove methods. */
-	@Parameter(property = PREFIX + "fieldBlacklistRegexp", defaultValue = "false", required = false)
+	@Parameter(property = PREFIX + "fieldBlacklistRegexp", defaultValue = "", required = false)
 	private String fieldBlacklistRegexp = null;
 
 	/** The remove methods. */
-	@Parameter(property = PREFIX + "methodBlacklistRegexp", defaultValue = "false", required = false)
+	@Parameter(property = PREFIX + "methodBlacklistRegexp", defaultValue = "", required = false)
 	private String methodBlacklistRegexp = null;
 
 	/** The remove methods. */
-	@Parameter(property = PREFIX + "maxVisibilityFields", defaultValue = "false", required = false)
+	@Parameter(property = PREFIX + "maxVisibilityFields", defaultValue = "PRIVATE", required = false)
 	private VisibilityType maxVisibilityFields = VisibilityType.PRIVATE;
 
 	/** The remove methods. */
-	@Parameter(property = PREFIX + "maxVisibilityMethods", defaultValue = "false", required = false)
+	@Parameter(property = PREFIX + "maxVisibilityMethods", defaultValue = "PRIVATE", required = false)
 	private VisibilityType maxVisibilityMethods = VisibilityType.PRIVATE;
 
 	/** The descriptor. */

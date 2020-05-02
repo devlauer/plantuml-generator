@@ -87,7 +87,8 @@ public class PlantUMLConfigBuilder {
      * @return PlantUMLConfigBuilder
      */
     public PlantUMLConfigBuilder withFieldBlacklistRegexp(String paramBlacklistFieldRegexp) {
-        plantUMLConfig.setFieldBlacklistRegexp(paramBlacklistFieldRegexp);
+        if (paramBlacklistFieldRegexp != null && paramBlacklistFieldRegexp.length() > 0)
+            plantUMLConfig.setFieldBlacklistRegexp(paramBlacklistFieldRegexp);
         return this;
     }
 
@@ -96,7 +97,8 @@ public class PlantUMLConfigBuilder {
      * @return PlantUMLConfigBuilder
      */
     public PlantUMLConfigBuilder withMethodBlacklistRegexp(String paramBlacklistMethodRegexp) {
-        plantUMLConfig.setMethodBlacklistRegexp(paramBlacklistMethodRegexp);
+        if (paramBlacklistMethodRegexp != null && paramBlacklistMethodRegexp.length() > 0)
+            plantUMLConfig.setMethodBlacklistRegexp(paramBlacklistMethodRegexp);
         return this;
     }
 

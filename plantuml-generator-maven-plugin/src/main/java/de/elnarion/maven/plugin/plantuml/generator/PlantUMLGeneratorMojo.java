@@ -150,7 +150,7 @@ public class PlantUMLGeneratorMojo extends AbstractMojo {
 						((blacklistRegexp != null && !"".equals(blacklistRegexp)) ? blacklistRegexp : null),
 						scanPackages);
 			} else {
-				configBuilder = new PlantUMLConfigBuilder(whitelistRegexp, scanPackages);
+				configBuilder = new PlantUMLConfigBuilder(scanPackages,whitelistRegexp);
 			}
 			configBuilder.withClassLoader(loader).withHideClasses(hideClasses).withHideFieldsParameter(hideFields)
 					.withHideMethods(hideMethods).addFieldClassifiersToIgnore(fieldClassifierListToIgnore)

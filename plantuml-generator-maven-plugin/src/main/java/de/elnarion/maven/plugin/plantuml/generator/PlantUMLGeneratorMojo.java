@@ -20,6 +20,9 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 
 import de.elnarion.util.plantuml.generator.PlantUMLClassDiagramGenerator;
+import de.elnarion.util.plantuml.generator.classdiagram.ClassifierType;
+import de.elnarion.util.plantuml.generator.classdiagram.VisibilityType;
+import de.elnarion.util.plantuml.generator.config.PlantUMLConfigBuilder;
 
 /**
  * This Mojo is used as maven frontend of the PlantUMLClassDiagramGenerator in
@@ -49,7 +52,7 @@ public class PlantUMLGeneratorMojo extends AbstractMojo {
 	private boolean hideFields;
 
 	/** The hide methods. */
-	@Parameter(property = PREFIX + "hideMethodsDirectory", defaultValue = "false", required = false)
+	@Parameter(property = PREFIX + "hideMethods", defaultValue = "false", required = false)
 	private boolean hideMethods;
 
 	/** The enable asciidoc wrapper. */
@@ -84,6 +87,38 @@ public class PlantUMLGeneratorMojo extends AbstractMojo {
 	@Parameter(property = PREFIX + "hideClasses", defaultValue = "", required = false)
 	private List<String> hideClasses;
 
+	/** the list of all field classifiers to ignore. */
+	@Parameter(property = PREFIX + "fieldClassifierListToIgnore", defaultValue = "", required = false)
+	private List<ClassifierType> fieldClassifierListToIgnore;
+
+	/** the list of all method classifiers to ignore. */
+	@Parameter(property = PREFIX + "methodClassifierListToIgnore", defaultValue = "", required = false)
+	private List<ClassifierType> methodClassifierListToIgnore;
+
+	/** The remove methods. */
+	@Parameter(property = PREFIX + "removeMethods", defaultValue = "false", required = false)
+	private boolean removeMethods;
+
+	/** The remove methods. */
+	@Parameter(property = PREFIX + "removeFields", defaultValue = "false", required = false)
+	private boolean removeFields;
+
+	/** The remove methods. */
+	@Parameter(property = PREFIX + "fieldBlacklistRegexp", defaultValue = "false", required = false)
+	private String fieldBlacklistRegexp = null;
+
+	/** The remove methods. */
+	@Parameter(property = PREFIX + "methodBlacklistRegexp", defaultValue = "false", required = false)
+	private String methodBlacklistRegexp = null;
+
+	/** The remove methods. */
+	@Parameter(property = PREFIX + "maxVisibilityFields", defaultValue = "false", required = false)
+	private VisibilityType maxVisibilityFields = VisibilityType.PRIVATE;
+
+	/** The remove methods. */
+	@Parameter(property = PREFIX + "maxVisibilityMethods", defaultValue = "false", required = false)
+	private VisibilityType maxVisibilityMethods = VisibilityType.PRIVATE;
+
 	/** The descriptor. */
 	@Parameter(defaultValue = "${plugin}", readonly = true)
 	private PluginDescriptor descriptor;
@@ -109,14 +144,21 @@ public class PlantUMLGeneratorMojo extends AbstractMojo {
 		try {
 			ClassLoader loader = getCompileClassLoader();
 			PlantUMLClassDiagramGenerator classDiagramGenerator;
+			PlantUMLConfigBuilder configBuilder;
 			if (whitelistRegexp == null || "".equals(whitelistRegexp)) {
-				classDiagramGenerator = new PlantUMLClassDiagramGenerator(loader, scanPackages,
+				configBuilder = new PlantUMLConfigBuilder(
 						((blacklistRegexp != null && !"".equals(blacklistRegexp)) ? blacklistRegexp : null),
-						hideClasses, hideFields, hideMethods);
+						scanPackages);
 			} else {
-				classDiagramGenerator = new PlantUMLClassDiagramGenerator(loader, whitelistRegexp, hideClasses,
-						hideFields, hideMethods, scanPackages);
+				configBuilder = new PlantUMLConfigBuilder(whitelistRegexp, scanPackages);
 			}
+			configBuilder.withClassLoader(loader).withHideClasses(hideClasses).withHideFieldsParameter(hideFields)
+					.withHideMethods(hideMethods).addFieldClassifiersToIgnore(fieldClassifierListToIgnore)
+					.addMethodClassifiersToIgnore(methodClassifierListToIgnore).withRemoveFields(removeFields)
+					.withRemoveMethods(removeMethods).withFieldBlacklistRegexp(fieldBlacklistRegexp)
+					.withMethodBlacklistRegexp(methodBlacklistRegexp).withMaximumFieldVisibility(maxVisibilityFields)
+					.withMaximumMethodVisibility(maxVisibilityMethods);
+			classDiagramGenerator = new PlantUMLClassDiagramGenerator(configBuilder.build());
 			String classDiagramText = classDiagramGenerator.generateDiagramText();
 			if (enableAsciidocWrapper) {
 				classDiagramText = createAsciidocWrappedDiagramText(classDiagramText);

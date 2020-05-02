@@ -119,6 +119,32 @@ add this plugin specific configuration:
   simple toggle to hide field information in the Plant UML diagram; optional
 * *hideMethods* - 
   simple toggle to hide method information in the Plant UML diagram; optional
+* *removeFields* -
+  simple toggle to remove all field information in the Plant UML diagram; optional
+* *removeMethods* - 
+  simple toggle to remove all method information in the Plant UML diagram; optional
+* *fieldBlacklistRegexp* -
+  a regular expression to remove special fields from the diagram; optional
+* *methodBlacklistRegexp* -
+  a regular expression to remove special methods from the diagram; optional
+* *maxVisibilityFields* -
+  a toggle to remove fields with a special visibility; if you set it to
+  ** public - only public fields will be displayed
+  ** protected - only public and protected fields will be displayed
+  ** package_private - only public, protected and package_private fields will be displayed
+  ** private - all fields will be displayed
+  if not removed or ignored by other parameters
+* *maxVisibilityMethods* -
+  a toggle to remove methods with a special visibility; if you set it to
+  ** public - only public methods will be displayed
+  ** protected - only public and protected methods will be displayed
+  ** package_private - only public, protected and package_private methods will be displayed
+  ** private - all methods will be displayed
+  if not removed or ignored by other parameters
+* *fieldClassifierListToIgnore* -
+  a list of classifiers which mark fields as to be ignored during the creation of the diagram
+* *methodClassifierListToIgnore* -
+  a list of classifiers which mark methods as to be ignored during the creation of the diagram
 * *scanPackages* -
   a string list of all packages which should be used to generate the class diagram; 
   required in conjunction with the blacklist regular expression and optional with the

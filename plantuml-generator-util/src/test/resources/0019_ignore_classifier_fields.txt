@@ -1,0 +1,13 @@
+@startuml
+
+abstract class de.elnarion.test.domain.t0019.Testclass {
+	{field} +test10 : String
+	{field} -test2 : String
+	{field} -test3 : String
+	{field} #test4 : String
+	{field} #test6 : String
+	{field} #test7 : String
+	{field} +test9 : String
+}
+
+@enduml

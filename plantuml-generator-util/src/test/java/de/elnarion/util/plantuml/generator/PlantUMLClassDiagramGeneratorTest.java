@@ -12,6 +12,7 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
+import de.elnarion.util.plantuml.generator.classdiagram.ClassifierType;
 import de.elnarion.util.plantuml.generator.classdiagram.VisibilityType;
 import de.elnarion.util.plantuml.generator.config.PlantUMLConfig;
 import de.elnarion.util.plantuml.generator.config.PlantUMLConfigBuilder;
@@ -458,4 +459,45 @@ public class PlantUMLClassDiagramGeneratorTest {
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
 	}		
 
+	@Test
+	public void test0019IgnoreClassifierFields() throws Exception{
+		String filename = "0019_ignore_classifier_fields.txt";
+		URL testResourceURL = this.getClass().getClassLoader().getResource(filename);
+		String testResourceURLString = testResourceURL.toString();
+		String testClassPath = testResourceURLString.substring(0, testResourceURLString.length() - filename.length())
+				+ "../../src/test/classes/";
+		URL[] classesURLs = new URL[] { new URL(testClassPath) };
+		URLClassLoader classLoader = new URLClassLoader(classesURLs);
+		classLoader.loadClass("de.elnarion.test.domain.t0019.Testclass");
+		List<String> scanpackages = new ArrayList<>();
+		scanpackages.add("de.elnarion.test.domain.t0019");
+		PlantUMLConfig config = new PlantUMLConfigBuilder(scanpackages).withClassLoader(classLoader).addFieldClassifierToIgnore(ClassifierType.STATIC).build();
+		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
+		String result = generator.generateDiagramText();
+		String expectedDiagramText = IOUtils.toString(this.getClass().getClassLoader().getResource(filename), "utf-8");
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+	}		
+
+	@Test
+	public void test0020IgnoreClassifierMethods() throws Exception{
+		String filename = "0020_ignore_classifier_methods.txt";
+		URL testResourceURL = this.getClass().getClassLoader().getResource(filename);
+		String testResourceURLString = testResourceURL.toString();
+		String testClassPath = testResourceURLString.substring(0, testResourceURLString.length() - filename.length())
+				+ "../../src/test/classes/";
+		URL[] classesURLs = new URL[] { new URL(testClassPath) };
+		URLClassLoader classLoader = new URLClassLoader(classesURLs);
+		classLoader.loadClass("de.elnarion.test.domain.t0020.Testclass");
+		List<String> scanpackages = new ArrayList<>();
+		scanpackages.add("de.elnarion.test.domain.t0020");
+		PlantUMLConfig config = new PlantUMLConfigBuilder(scanpackages).withClassLoader(classLoader).addMethodClassifierToIgnore(ClassifierType.STATIC).build();
+		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
+		String result = generator.generateDiagramText();
+		String expectedDiagramText = IOUtils.toString(this.getClass().getClassLoader().getResource(filename), "utf-8");
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+	}			
 }

@@ -2,6 +2,7 @@ package de.elnarion.util.plantuml.generator.config;
 
 import java.util.List;
 
+import de.elnarion.util.plantuml.generator.classdiagram.ClassifierType;
 import de.elnarion.util.plantuml.generator.classdiagram.VisibilityType;
 
 public class PlantUMLConfigBuilder {
@@ -106,6 +107,30 @@ public class PlantUMLConfigBuilder {
 
     public PlantUMLConfigBuilder withMaximumFieldVisibility(VisibilityType paramVisibility) {
         plantUMLConfig.setMaxVisibilityFields(paramVisibility);
+        return this;
+    }
+
+    public PlantUMLConfigBuilder addFieldClassifierToIgnore(ClassifierType paramClassifier) {
+        if (paramClassifier != null)
+            plantUMLConfig.getFieldClassifierToIgnore().add(paramClassifier);
+        return this;
+    }
+
+    public PlantUMLConfigBuilder addFieldClassifiersToIgnore(List<ClassifierType> paramClassiferList) {
+        if (paramClassiferList != null)
+            plantUMLConfig.getFieldClassifierToIgnore().addAll(paramClassiferList);
+        return this;
+    }
+
+    public PlantUMLConfigBuilder addMethodClassifierToIgnore(ClassifierType paramClassifier) {
+        if (paramClassifier != null)
+            plantUMLConfig.getMethodClassifierToIgnore().add(paramClassifier);
+        return this;
+    }
+
+    public PlantUMLConfigBuilder addMethodClassifiersToIgnore(List<ClassifierType> paramClassiferList) {
+        if (paramClassiferList != null)
+            plantUMLConfig.getMethodClassifierToIgnore().addAll(paramClassiferList);
         return this;
     }
 

@@ -1,0 +1,13 @@
+@startuml
+
+abstract class de.elnarion.test.domain.t0020.Testclass {
+	{method}  {abstract} +doSomething () : void
+}
+
+interface de.elnarion.test.domain.t0020.Testinterface {
+	{method}  {abstract} +doSomething () : void
+	{method}  {abstract} +doSomething2 () : void
+	{method} +doSomething3 () : void
+}
+
+@enduml

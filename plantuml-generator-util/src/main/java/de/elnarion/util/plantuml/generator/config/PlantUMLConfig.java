@@ -3,31 +3,49 @@ package de.elnarion.util.plantuml.generator.config;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.elnarion.util.plantuml.generator.classdiagram.ClassifierType;
 import de.elnarion.util.plantuml.generator.classdiagram.VisibilityType;
 
 public class PlantUMLConfig {
 
-	private ClassLoader destinationClassloader=null;
-	private List<String> scanPackages=new ArrayList<>();
-	private String blacklistRegexp=null;
-	private String whitelistRegexp=null;
-	private List<String> hideClasses=null;
-	private boolean hideFields=false;
-	private boolean hideMethods=false;
-	private boolean removeFields=false;
-	private boolean removeMethods=false;
-	private String fieldBlacklistRegexp=null;
-	private String methodBlacklistRegexp=null;  
+	private ClassLoader destinationClassloader = null;
+	private List<String> scanPackages = new ArrayList<>();
+	private String blacklistRegexp = null;
+	private String whitelistRegexp = null;
+	private List<String> hideClasses = null;
+	private boolean hideFields = false;
+	private boolean hideMethods = false;
+	private boolean removeFields = false;
+	private boolean removeMethods = false;
+	private String fieldBlacklistRegexp = null;
+	private String methodBlacklistRegexp = null;
 	private VisibilityType maxVisibilityFields = VisibilityType.PRIVATE;
-	private VisibilityType maxVisibilityMethods = VisibilityType.PRIVATE;  
-    
-    protected PlantUMLConfig()
-    {
-        // default constructor with protected visibility because of corresponding builder
-    }
+	private VisibilityType maxVisibilityMethods = VisibilityType.PRIVATE;
+	private List<ClassifierType> fieldClassifierToIgnore = new ArrayList<>();
+	private List<ClassifierType> methodClassifierToIgnore = new ArrayList<>();
 
-	
-	/** 
+	protected PlantUMLConfig() {
+		// default constructor with protected visibility because of corresponding
+		// builder
+	}
+
+	public List<ClassifierType> getMethodClassifierToIgnore() {
+		return methodClassifierToIgnore;
+	}
+
+	public void setMethodClassifierToIgnore(List<ClassifierType> methodClassifierToIgnore) {
+		this.methodClassifierToIgnore = methodClassifierToIgnore;
+	}
+
+	public List<ClassifierType> getFieldClassifierToIgnore() {
+		return fieldClassifierToIgnore;
+	}
+
+	public void setFieldClassifierToIgnore(List<ClassifierType> fieldClassifierToIgnore) {
+		this.fieldClassifierToIgnore = fieldClassifierToIgnore;
+	}
+
+	/**
 	 * @return ClassLoader
 	 */
 	public ClassLoader getDestinationClassloader() {

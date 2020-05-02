@@ -414,7 +414,7 @@ public class PlantUMLClassDiagramGenerator {
 				// ignore normal getters and setters
 				if ((methodName.startsWith("get") || methodName.startsWith("set") || methodName.startsWith("is"))
 						&& paramDeclaredFields != null && isGetterOrSetterMethod(method, paramDeclaredFields)) {
-					continue; 
+					continue;
 				}
 				// Do not add method if they should be ignored/removed
 				if (plantUMLConfig.isRemoveMethods())
@@ -434,6 +434,8 @@ public class PlantUMLClassDiagramGenerator {
 				if (!visibilityOk(plantUMLConfig.getMaxVisibilityMethods(), visibilityType))
 					continue;
 				final ClassifierType classifierType = getClassifier(modifier);
+				if (plantUMLConfig.getMethodClassifierToIgnore().contains(classifierType))
+					continue;
 				final List<String> stereotypes = new ArrayList<>();
 				if (method.isAnnotationPresent(Deprecated.class)) {
 					stereotypes.add("deprecated");
@@ -623,6 +625,8 @@ public class PlantUMLClassDiagramGenerator {
 			return;
 		final int modifier = field.getModifiers();
 		final ClassifierType classifierType = getClassifier(modifier);
+		if (plantUMLConfig.getFieldClassifierToIgnore().contains(classifierType))
+			return;
 		VisibilityType visibilityType = getVisibility(modifier);
 		if (hasGetterAndSetterMethod(field.getName(), paramDeclaredMethods)) {
 			visibilityType = VisibilityType.PUBLIC;
@@ -648,13 +652,11 @@ public class PlantUMLClassDiagramGenerator {
 	private boolean visibilityOk(VisibilityType maxVisibilityFields, VisibilityType visibilityType) {
 		if (maxVisibilityFields != null) {
 			// if maximum is public only public is allowed as visibility type
-			if (maxVisibilityFields.equals(VisibilityType.PUBLIC)
-					&& !visibilityType.equals(VisibilityType.PUBLIC))
+			if (maxVisibilityFields.equals(VisibilityType.PUBLIC) && !visibilityType.equals(VisibilityType.PUBLIC))
 				return false;
 			// if maximum is protected only public and protected are allowed
-			if (maxVisibilityFields.equals(VisibilityType.PROTECTED)
-					&& !(visibilityType.equals(VisibilityType.PUBLIC)
-							|| visibilityType.equals(VisibilityType.PROTECTED)))
+			if (maxVisibilityFields.equals(VisibilityType.PROTECTED) && !(visibilityType.equals(VisibilityType.PUBLIC)
+					|| visibilityType.equals(VisibilityType.PROTECTED)))
 				return false;
 			// if maximum is package_private then only public, package_private and protected
 			// are

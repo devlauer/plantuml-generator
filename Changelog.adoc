@@ -7,6 +7,8 @@
 * Added remove method parameter to PlantUMLGenerator
 * Added maximum visibility field parameter to PlantUMLGenerator
 * Added maximum visibility method parameter to PlantUMLGenerator
+* Added parameter to ignore fields by their classifier to PlantUMLGenerator
+* Added parameter to ignore methods by their classifier to PlantUMLGenerator
 * Switched PlantUMLGenerator configuration to separate PlantUMLConfig class
 * Added PlantUMLConfigBuilder
 

@@ -1,6 +1,9 @@
 = Changelog
 
 .Unreleased
+* Switched classloading and scanning completely to
+io.github.classgraph
+* Added new functionality for JPA annotations
 
 .1.1.2 - 2020-05-02
 * Fixed whitelist error in maven plugin

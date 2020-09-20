@@ -18,7 +18,7 @@ public class UMLClass implements PlantUMLDiagramElement {
 	private ClassType classType;
 	private List<UMLField> fields;
 	private List<UMLMethod> methods;
-	private List<String> stereotypes;
+	private List<UMLStereotype> stereotypes;
 
 	/**
 	 * Instantiates a new UML class.
@@ -30,11 +30,11 @@ public class UMLClass implements PlantUMLDiagramElement {
 	 * @param paramMethods        - List&lt;{@link UMLMethod}&gt; - the uml method
 	 *                            information list
 	 * @param paramName           - String - the class name
-	 * @param paramStereotypes    - List&lt;String&gt; - the stereotypes of the
-	 *                            class
+	 * @param paramStereotypes    - List&lt;UMLStereotype&gt; - the stereotypes of
+	 *                            the class
 	 */
 	public UMLClass(VisibilityType paramVisibilityType, ClassType paramClassType, List<UMLField> paramFields,
-			List<UMLMethod> paramMethods, String paramName, List<String> paramStereotypes) {
+			List<UMLMethod> paramMethods, String paramName, List<UMLStereotype> paramStereotypes) {
 		visibilityType = paramVisibilityType;
 		classType = paramClassType;
 		name = paramName;
@@ -48,7 +48,7 @@ public class UMLClass implements PlantUMLDiagramElement {
 	 *
 	 * @return List - the stereotypes
 	 */
-	public List<String> getStereotypes() {
+	public List<UMLStereotype> getStereotypes() {
 		return stereotypes;
 	}
 
@@ -136,10 +136,10 @@ public class UMLClass implements PlantUMLDiagramElement {
 
 	private void addStereotypes(StringBuilder builder) {
 		if (stereotypes != null) {
-			for (String stereotype : stereotypes) {
-				builder.append(" <<");
-				builder.append(stereotype);
-				builder.append(" >> ");
+			for (UMLStereotype stereotype : stereotypes) {
+				builder.append(" ");
+				builder.append(stereotype.getDiagramText());
+				builder.append(" ");
 			}
 		}
 	}

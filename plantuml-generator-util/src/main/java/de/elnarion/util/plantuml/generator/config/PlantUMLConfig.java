@@ -17,6 +17,7 @@ public class PlantUMLConfig {
 	private boolean hideMethods = false;
 	private boolean removeFields = false;
 	private boolean removeMethods = false;
+	private boolean addJPAAnnotations = false;
 	private String fieldBlacklistRegexp = null;
 	private String methodBlacklistRegexp = null;
 	private VisibilityType maxVisibilityFields = VisibilityType.PRIVATE;
@@ -250,6 +251,14 @@ public class PlantUMLConfig {
 	 */
 	public void setMaxVisibilityMethods(VisibilityType maxVisibilityMethods) {
 		this.maxVisibilityMethods = maxVisibilityMethods;
+	}
+
+	public boolean isAddJPAAnnotations() {
+		return addJPAAnnotations;
+	}
+
+	public void setAddJPAAnnotations(boolean addJPAAnnotations) {
+		this.addJPAAnnotations = addJPAAnnotations;
 	}
 
 }

@@ -1,0 +1,41 @@
+[plantuml,test,png]
+----
+@startuml
+
+class de.elnarion.test.domain.t0021.Family <<Entity>>  {
+	{field} +description : String
+	{field} +@Id id : int
+}
+
+
+class de.elnarion.test.domain.t0021.Job <<Entity>>  {
+	{field} +@Id id : int
+	{field} +jobDescr : String
+	{field} +salery : double
+}
+
+
+class de.elnarion.test.domain.t0021.Person <<Entity>>  {
+	{field} +firstName : String
+	{field} +@Id id : String
+	{field} +lastName : String
+	{field} +@Transient nonsenseField : String
+}
+
+
+class de.elnarion.test.domain.t0021.Todo <<Entity>>  {
+	{field} +description : String
+	{field} +@Id id : Long
+}
+
+
+
+
+de.elnarion.test.domain.t0021.Family "1" o-- "0..*"  de.elnarion.test.domain.t0021.Person :  @OneToMany\nmembers
+de.elnarion.test.domain.t0021.Person "1" o-- "0..*"  de.elnarion.test.domain.t0021.Job :  @OneToMany\njobList
+de.elnarion.test.domain.t0021.Person -->  de.elnarion.test.domain.t0021.Family :  @ManyToOne\nfamily
+
+
+@enduml
+
+----

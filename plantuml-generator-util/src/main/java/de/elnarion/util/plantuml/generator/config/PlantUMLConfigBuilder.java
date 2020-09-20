@@ -45,6 +45,11 @@ public class PlantUMLConfigBuilder {
         plantUMLConfig.setHideMethods(paramHideMethods);
         return this;
     }
+    
+    public PlantUMLConfigBuilder withJPAAnnotations(boolean paramAddJPAAnnotations) {
+    	plantUMLConfig.setAddJPAAnnotations(paramAddJPAAnnotations);
+    	return this;
+    }
 
     /**
      * @param paramHideFields

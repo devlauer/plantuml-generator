@@ -1,5 +1,7 @@
 package de.elnarion.util.plantuml.generator.classdiagram;
 
+import java.util.List;
+
 /**
  * The Class UMLRelationship encapsulates all information needed for creating a
  * diagram text for a uml relationship object..
@@ -12,6 +14,7 @@ public class UMLRelationship implements PlantUMLDiagramElement {
 	private String fromName;
 	private String toName;
 	private RelationshipType relationshiptype;
+	private List<String> annotations;
 
 	/**
 	 * Instantiates a new UML relationship.
@@ -29,15 +32,19 @@ public class UMLRelationship implements PlantUMLDiagramElement {
 	 *                              relationship ends (to)
 	 * @param paramRelationshipType - {@link RelationshipType} - the type of this
 	 *                              relationship
+	 * @param paramAnnotations      - List - a list of annotations for this
+	 *                              relationship
 	 */
 	public UMLRelationship(String paramFromMultiplicity, String paramToMultiplicity, String paramName,
-			String paramFromName, String paramToName, RelationshipType paramRelationshipType) {
+			String paramFromName, String paramToName, RelationshipType paramRelationshipType,
+			List<String> paramAnnotations) {
 		fromMultiplicity = paramFromMultiplicity;
 		toMultiplicity = paramToMultiplicity;
 		name = paramName;
 		fromName = paramFromName;
 		toName = paramToName;
 		relationshiptype = paramRelationshipType;
+		annotations = paramAnnotations;
 	}
 
 	/**
@@ -135,11 +142,33 @@ public class UMLRelationship implements PlantUMLDiagramElement {
 		}
 		builder.append(" ");
 		builder.append(toName);
-		if (name != null) {
+		if(annotations!=null&&!annotations.isEmpty())
+		{
+			builder.append(" : ");
+			for(String annotation:annotations)
+			{
+				builder.append(" ");
+				builder.append(annotation);
+			}
+			if(name!=null)
+			{
+				builder.append("\\n");
+				builder.append(name);
+			}
+		}
+		else if (name != null) {
 			builder.append(" : ");
 			builder.append(name);
 		}
 		return builder.toString();
+	}
+
+	public List<String> getAnnotations() {
+		return annotations;
+	}
+
+	public void setAnnotations(List<String> annotations) {
+		this.annotations = annotations;
 	}
 
 }

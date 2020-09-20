@@ -100,6 +100,10 @@ public class PlantUMLGeneratorMojo extends AbstractMojo {
 	private boolean removeMethods;
 
 	/** The remove methods. */
+	@Parameter(property = PREFIX + "addJPAAnnotations", defaultValue = "false", required = false)
+	private boolean addJPAAnnotations;
+
+	/** The remove methods. */
 	@Parameter(property = PREFIX + "removeFields", defaultValue = "false", required = false)
 	private boolean removeFields;
 
@@ -150,14 +154,14 @@ public class PlantUMLGeneratorMojo extends AbstractMojo {
 						((blacklistRegexp != null && !"".equals(blacklistRegexp)) ? blacklistRegexp : null),
 						scanPackages);
 			} else {
-				configBuilder = new PlantUMLConfigBuilder(scanPackages,whitelistRegexp);
+				configBuilder = new PlantUMLConfigBuilder(scanPackages, whitelistRegexp);
 			}
 			configBuilder.withClassLoader(loader).withHideClasses(hideClasses).withHideFieldsParameter(hideFields)
 					.withHideMethods(hideMethods).addFieldClassifiersToIgnore(fieldClassifierListToIgnore)
 					.addMethodClassifiersToIgnore(methodClassifierListToIgnore).withRemoveFields(removeFields)
 					.withRemoveMethods(removeMethods).withFieldBlacklistRegexp(fieldBlacklistRegexp)
 					.withMethodBlacklistRegexp(methodBlacklistRegexp).withMaximumFieldVisibility(maxVisibilityFields)
-					.withMaximumMethodVisibility(maxVisibilityMethods);
+					.withMaximumMethodVisibility(maxVisibilityMethods).withJPAAnnotations(addJPAAnnotations);
 			classDiagramGenerator = new PlantUMLClassDiagramGenerator(configBuilder.build());
 			String classDiagramText = classDiagramGenerator.generateDiagramText();
 			if (enableAsciidocWrapper) {
@@ -502,6 +506,14 @@ public class PlantUMLGeneratorMojo extends AbstractMojo {
 	 */
 	public void setAsciidocDiagramBlockDelimiter(String asciidocDiagramBlockDelimiter) {
 		this.asciidocDiagramBlockDelimiter = asciidocDiagramBlockDelimiter;
+	}
+
+	public boolean isAddJPAAnnotations() {
+		return addJPAAnnotations;
+	}
+
+	public void setAddJPAAnnotations(boolean addJPAAnnotations) {
+		this.addJPAAnnotations = addJPAAnnotations;
 	}
 
 }

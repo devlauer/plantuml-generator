@@ -168,6 +168,8 @@ default is outputFilename + "." + asciidocDiagramImageType;optional
 * *asciidocDiagramBlockDelimiter* - defines the block delimiter of the  
 asciidoc diagram block - default is "----"; optional 
 (only used when enableAsciidocWrapper is true);
+* *addJPAAnnotations* - a boolean to express if JPA-annotations should be shown in
+the diagram; optional - Default false
   
 .Here are some configuration examples:
 

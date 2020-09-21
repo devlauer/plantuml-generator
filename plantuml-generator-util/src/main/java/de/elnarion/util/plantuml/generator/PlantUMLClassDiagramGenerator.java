@@ -347,12 +347,12 @@ public class PlantUMLClassDiagramGenerator {
 		try {
 			Method nameMethod = annotation.getClass().getMethod("name");
 			if (nameMethod != null) {
-				builder.append("(");
+				builder.append("(\"");
 				Object nameObject = nameMethod.invoke(annotation);
 				if (nameObject instanceof String) {
 					builder.append(nameObject);
 				}
-				builder.append(")");
+				builder.append("\")");
 			}
 		} catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException e) {

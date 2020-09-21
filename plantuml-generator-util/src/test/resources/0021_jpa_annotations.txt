@@ -1,5 +1,3 @@
-[plantuml,test,png]
-----
 @startuml
 
 class de.elnarion.test.domain.t0021.Family <<Entity>>  {
@@ -23,9 +21,16 @@ class de.elnarion.test.domain.t0021.Person <<Entity>>  {
 }
 
 
-class de.elnarion.test.domain.t0021.Todo <<Entity>>  {
-	{field} +description : String
-	{field} +@Id id : Long
+class de.elnarion.test.domain.t0021.Todo <<Entity>>  <<Table (schema=SCHEMA,name=TABLENAME)>>  {
+	{field} +@Column("DESCR") description : String
+	{field} +@Column("IDX") @Id id : Long
+}
+
+
+enum de.elnarion.test.domain.t0021.TodoStateEnum {
+	{field} +CLOSED
+	{field} +IN_PROGRESS
+	{field} +OPEN
 }
 
 
@@ -34,8 +39,7 @@ class de.elnarion.test.domain.t0021.Todo <<Entity>>  {
 de.elnarion.test.domain.t0021.Family "1" o-- "0..*"  de.elnarion.test.domain.t0021.Person :  @OneToMany\nmembers
 de.elnarion.test.domain.t0021.Person "1" o-- "0..*"  de.elnarion.test.domain.t0021.Job :  @OneToMany\njobList
 de.elnarion.test.domain.t0021.Person -->  de.elnarion.test.domain.t0021.Family :  @ManyToOne\nfamily
+de.elnarion.test.domain.t0021.Todo -->  de.elnarion.test.domain.t0021.TodoStateEnum :  @Column("STATE")\nstate
 
 
 @enduml
-
-----

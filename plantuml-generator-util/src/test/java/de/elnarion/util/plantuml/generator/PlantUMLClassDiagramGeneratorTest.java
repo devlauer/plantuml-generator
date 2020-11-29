@@ -530,4 +530,22 @@ public class PlantUMLClassDiagramGeneratorTest {
 		assertNotNull(expectedDiagramText);
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
 	}
+
+	@Test
+	public void test0022PrivateFinalFields() throws Exception {
+		String filename = "0022_private_final_field.txt";
+		List<String> scanpackages = new ArrayList<>();
+		scanpackages.add("de.elnarion.test.domain.t0022");
+		PlantUMLConfig config = new PlantUMLConfigBuilder(".*\\$.*|com.xx.common.converter.BeanConverter|.*\\.metamodel\\..*",scanpackages)
+				.withClassLoader(this.getClass().getClassLoader()).withHideMethods(false).withHideFieldsParameter(false)
+				.withMaximumFieldVisibility(VisibilityType.PRIVATE).withMaximumMethodVisibility(VisibilityType.PUBLIC)
+				.withMethodBlacklistRegexp("(hashCode|equals)").build();
+		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
+		String result = generator.generateDiagramText();
+		String expectedDiagramText = IOUtils.toString(this.getClass().getClassLoader().getResource(filename), "utf-8");
+		assertNotNull(result);
+		System.out.println(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+	}
 }

@@ -1,0 +1,19 @@
+@startuml
+
+class de.elnarion.test.domain.t0022.TestPrivateFinalObject {
+	{field} -PRIVATE_CONSTANT : String
+	{field} -PRIVATE_CONSTANT_INT : int
+	{field} #PROTECTED_CONSTANT : String
+	{field} #PROTECTED_CONSTANT_INT : int
+	{field} +PUBLIC_CONSTANT : String
+	{field} +PUBLIC_CONSTANT_INT : int
+	{field} -nonconstant : String
+	{field} -nonconstant2 : int
+	{field} #nonconstant2Protected : int
+	{field} +nonconstant2Public : int
+	{field} #nonconstantProtected : String
+	{field} +nonconstantPublic : String
+	{method} +doSomething () : void
+}
+
+@enduml

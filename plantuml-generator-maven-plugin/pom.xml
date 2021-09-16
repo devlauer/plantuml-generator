@@ -109,7 +109,6 @@
 							<settingsFile>src/it/settings.xml</settingsFile>
 							<addTestClassPath>true</addTestClassPath>
 							<goals>
-								<goal>clean</goal>
 								<goal>install</goal>
 							</goals>
 						</configuration>

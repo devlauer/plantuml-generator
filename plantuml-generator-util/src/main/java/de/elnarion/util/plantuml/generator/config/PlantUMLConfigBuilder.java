@@ -141,6 +141,12 @@ public class PlantUMLConfigBuilder {
         return this;
     }
 
+    public PlantUMLConfigBuilder addAdditionalPlantUmlConfigs(List<String> additionalPlantUmlConfigs) {
+        if (additionalPlantUmlConfigs != null)
+            plantUMLConfig.getAdditionalPlantUmlConfigs().addAll(additionalPlantUmlConfigs);
+        return this;
+    }
+
     /**
      * @return PlantUMLConfig
      */

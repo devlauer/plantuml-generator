@@ -514,4 +514,31 @@ public class PlantUMLClassDiagramGeneratorTest {
 		assertNotNull(expectedDiagramText);
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
 	}
+
+	/**
+	 * Test generate diagram with a normal test case with different linked classes and additional PlantUML configs
+	 * and compares the result with the text of the file 0023_additional-plant-uml-configs.txt.
+	 *
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
+	@Test
+	public void test0023GenerateDiagramWithAdditionalPlantUmlConfigs() throws IOException, ClassNotFoundException {
+		List<String> scanPackages = new ArrayList<>();
+		scanPackages.add("de.elnarion.test.domain.t0023");
+		List<String> additionalPlantUmlConfigs = new ArrayList<>();
+		additionalPlantUmlConfigs.add("left to right direction");
+		additionalPlantUmlConfigs.add("scale 2/3");
+		PlantUMLConfig config = new PlantUMLConfigBuilder(scanPackages)
+				.withClassLoader(classLoader)
+				.addAdditionalPlantUmlConfigs(additionalPlantUmlConfigs)
+				.build();
+		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
+		String result = generator.generateDiagramText();
+		String expectedDiagramText = IOUtils
+				.toString(classLoader.getResource("0023_additional-plant-uml-configs.txt"), "utf-8");
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+	}
 }

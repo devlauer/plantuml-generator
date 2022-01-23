@@ -123,6 +123,10 @@ public class PlantUMLGeneratorMojo extends AbstractMojo {
 	@Parameter(property = PREFIX + "maxVisibilityMethods", defaultValue = "PRIVATE", required = false)
 	private VisibilityType maxVisibilityMethods = VisibilityType.PRIVATE;
 
+	/** Additional PlantUML configs. */
+	@Parameter(property = PREFIX + "additionalPlantUmlConfigs", defaultValue = "", required = false)
+	private List<String> additionalPlantUmlConfigs;
+
 	/** The descriptor. */
 	@Parameter(defaultValue = "${plugin}", readonly = true)
 	private PluginDescriptor descriptor;
@@ -161,7 +165,8 @@ public class PlantUMLGeneratorMojo extends AbstractMojo {
 					.addMethodClassifiersToIgnore(methodClassifierListToIgnore).withRemoveFields(removeFields)
 					.withRemoveMethods(removeMethods).withFieldBlacklistRegexp(fieldBlacklistRegexp)
 					.withMethodBlacklistRegexp(methodBlacklistRegexp).withMaximumFieldVisibility(maxVisibilityFields)
-					.withMaximumMethodVisibility(maxVisibilityMethods).withJPAAnnotations(addJPAAnnotations);
+					.withMaximumMethodVisibility(maxVisibilityMethods).withJPAAnnotations(addJPAAnnotations)
+					.addAdditionalPlantUmlConfigs(additionalPlantUmlConfigs);
 			classDiagramGenerator = new PlantUMLClassDiagramGenerator(configBuilder.build());
 			String classDiagramText = classDiagramGenerator.generateDiagramText();
 			if (enableAsciidocWrapper) {

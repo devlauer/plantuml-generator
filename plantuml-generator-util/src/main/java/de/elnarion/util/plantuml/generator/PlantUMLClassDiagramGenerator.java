@@ -170,6 +170,16 @@ public class PlantUMLClassDiagramGenerator {
 		builder.append(System.lineSeparator());
 		builder.append(System.lineSeparator());
 
+		if (!plantUMLConfig.getAdditionalPlantUmlConfigs().isEmpty()) {
+			plantUMLConfig.getAdditionalPlantUmlConfigs()
+					.forEach(additionalPlantUmlConfig -> {
+						builder.append(additionalPlantUmlConfig);
+						builder.append(System.lineSeparator());
+					});
+			builder.append(System.lineSeparator());
+			builder.append(System.lineSeparator());
+		}
+
 		final List<UMLClass> listToCompare = new ArrayList<>();
 		listToCompare.addAll(classes.values());
 		// because the ordered list could be changed in between, sort the list

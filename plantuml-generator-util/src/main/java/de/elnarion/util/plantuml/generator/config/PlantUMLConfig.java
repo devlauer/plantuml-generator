@@ -1,6 +1,7 @@
 package de.elnarion.util.plantuml.generator.config;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import de.elnarion.util.plantuml.generator.classdiagram.ClassifierType;
@@ -24,6 +25,7 @@ public class PlantUMLConfig {
 	private VisibilityType maxVisibilityMethods = VisibilityType.PRIVATE;
 	private List<ClassifierType> fieldClassifierToIgnore = new ArrayList<>();
 	private List<ClassifierType> methodClassifierToIgnore = new ArrayList<>();
+	private List<String> additionalPlantUmlConfigs = new ArrayList<>();
 
 	protected PlantUMLConfig() {
 		// default constructor with protected visibility because of corresponding
@@ -261,4 +263,10 @@ public class PlantUMLConfig {
 		this.addJPAAnnotations = addJPAAnnotations;
 	}
 
+	/**
+	 * @return List<String>
+	 */
+	public List<String> getAdditionalPlantUmlConfigs() {
+		return additionalPlantUmlConfigs;
+	}
 }

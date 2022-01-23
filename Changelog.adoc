@@ -1,7 +1,11 @@
 = Changelog
 
 .Unreleased
+
+.1.3.0 - 2022-01-23
 * Update JUnit to 4.13.1
+* allow for additional PlantUML configs (pull request #20)
+* fix failing tests and refactor for more readibility (pull request #19)
 
 .1.2.0 - 2020-09-21
 * Switched classloading and scanning completely to

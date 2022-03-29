@@ -2,6 +2,10 @@
 
 .Unreleased
 
+.1.4.0 - 2022-03-29
+* added new JPA Stereotype and tagged values for MappedSuperclass, 
+Index and  UniqueConstraint (feature request #23)
+
 .1.3.0 - 2022-01-23
 * Update JUnit to 4.13.1
 * allow for additional PlantUML configs (pull request #20)

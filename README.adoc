@@ -171,7 +171,12 @@ default is outputFilename + "." + asciidocDiagramImageType;optional
 asciidoc diagram block - default is ``----``; optional 
 (only used when enableAsciidocWrapper is true);
 * *addJPAAnnotations* - a boolean to express if JPA-annotations should be shown in
-the diagram; optional - Default ``false``
+the diagram; optional - Default ``false`` +
+Currently implemented JPA Annotations are javax.persistence.Column, javax.persistence.Id, javax.persistence.Transient, 
+javax.persistence.OneToOne, javax.persistence.OneToMany, javax.persistence.ManyToMany, javax.persistence.ManyToOne,
+javax.persistence.Entity, javax.persistence.Table, javax.persistence.MappedSuperclass, javax.persistence.Index and
+javax.persistence.UniqueConstraint +
+Index, UniqueConstraint, Tablename and Tableschema are show as tagged values in a separate compartment
   
 .Here are some configuration examples:
 

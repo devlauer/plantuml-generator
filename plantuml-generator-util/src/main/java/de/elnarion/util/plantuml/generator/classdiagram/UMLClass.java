@@ -106,6 +106,7 @@ public class UMLClass implements PlantUMLDiagramElement {
 		addStereotypes(builder);
 		if (!isAnnotation) {
 			builder.append(" {");
+			addStereotypeTaggedValues(builder);
 			builder.append(System.lineSeparator());
 			if (fields != null && !fields.isEmpty()) {
 				Collections.sort(fields, new Comparator<UMLField>() {
@@ -140,6 +141,26 @@ public class UMLClass implements PlantUMLDiagramElement {
 				builder.append(" ");
 				builder.append(stereotype.getDiagramText());
 				builder.append(" ");
+			}
+			
+		}
+	}
+
+	private void addStereotypeTaggedValues(StringBuilder builder) {
+		if (stereotypes != null) {
+			boolean addedTaggedValues = false;
+			for (UMLStereotype stereotype : stereotypes) {
+				
+				if(stereotype.hasTaggedValues())
+				{
+					builder.append(stereotype.getTaggedValueCompartment());
+					addedTaggedValues=true;
+				}
+			}
+			if(addedTaggedValues)
+			{
+				builder.append(System.lineSeparator());
+				builder.append("--");
 			}
 		}
 	}

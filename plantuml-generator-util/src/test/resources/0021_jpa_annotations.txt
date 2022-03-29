@@ -1,5 +1,24 @@
 @startuml
 
+class de.elnarion.test.domain.t0021.Address <<Entity>>  {
+}
+
+
+class de.elnarion.test.domain.t0021.Employee <<MappedSuperclass>>  {
+	{field} +@Id empId : Integer
+	{field} #version : Integer
+}
+
+
+class de.elnarion.test.domain.t0021.FTEmployee <<Entity>>  <<Table>>  {
+ {TableIndexes=\n\tIndex (unique=[true],columnList=[salaray,empId] )\n\tIndex (unique=[false],columnList=[version] )\n}
+ {TableUniqueConstraints=\n\tUniqueConstraint (columnNames=[empId] )\n\tUniqueConstraint (columnNames=[empId,version] )\n}
+ {TableName=FTEmployee}
+--
+	{field} +salary : Integer
+}
+
+
 class de.elnarion.test.domain.t0021.Family <<Entity>>  {
 	{field} +description : String
 	{field} +@Id id : int
@@ -21,7 +40,10 @@ class de.elnarion.test.domain.t0021.Person <<Entity>>  {
 }
 
 
-class de.elnarion.test.domain.t0021.Todo <<Entity>>  <<Table (schema=SCHEMA,name=TABLENAME)>>  {
+class de.elnarion.test.domain.t0021.Todo <<Entity>>  <<Table>>  {
+ {TableSchema=SCHEMA}
+ {TableName=TABLENAME}
+--
 	{field} +@Column("DESCR") description : String
 	{field} +@Column("IDX") @Id id : Long
 }
@@ -36,6 +58,8 @@ enum de.elnarion.test.domain.t0021.TodoStateEnum {
 
 
 
+de.elnarion.test.domain.t0021.Employee -->  de.elnarion.test.domain.t0021.Address :  @ManyToOne\naddress
+de.elnarion.test.domain.t0021.FTEmployee --|>  de.elnarion.test.domain.t0021.Employee
 de.elnarion.test.domain.t0021.Family "1" o-- "0..*"  de.elnarion.test.domain.t0021.Person :  @OneToMany\nmembers
 de.elnarion.test.domain.t0021.Person "1" o-- "0..*"  de.elnarion.test.domain.t0021.Job :  @OneToMany\njobList
 de.elnarion.test.domain.t0021.Person -->  de.elnarion.test.domain.t0021.Family :  @ManyToOne\nfamily

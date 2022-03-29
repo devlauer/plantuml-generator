@@ -2,6 +2,7 @@ package de.elnarion.util.plantuml.generator;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -171,11 +172,10 @@ public class PlantUMLClassDiagramGenerator {
 		builder.append(System.lineSeparator());
 
 		if (!plantUMLConfig.getAdditionalPlantUmlConfigs().isEmpty()) {
-			plantUMLConfig.getAdditionalPlantUmlConfigs()
-					.forEach(additionalPlantUmlConfig -> {
-						builder.append(additionalPlantUmlConfig);
-						builder.append(System.lineSeparator());
-					});
+			plantUMLConfig.getAdditionalPlantUmlConfigs().forEach(additionalPlantUmlConfig -> {
+				builder.append(additionalPlantUmlConfig);
+				builder.append(System.lineSeparator());
+			});
 			builder.append(System.lineSeparator());
 			builder.append(System.lineSeparator());
 		}
@@ -305,6 +305,8 @@ public class PlantUMLClassDiagramGenerator {
 						"javax.persistence.Entity", "Entity");
 				addStereoTypesForAnnotationClass(paramClassObject, stereotypes, destinationClassloader,
 						"javax.persistence.Table", "Table");
+				addStereoTypesForAnnotationClass(paramClassObject, stereotypes, destinationClassloader,
+						"javax.persistence.MappedSuperclass", "MappedSuperclass");
 			} catch (ClassNotFoundException | SecurityException | IllegalArgumentException e) {
 				// ignore all exceptions
 			}
@@ -318,29 +320,117 @@ public class PlantUMLClassDiagramGenerator {
 		Annotation[] annotations = paramClassObject.getAnnotations();
 		for (Annotation annotation : annotations) {
 			if (tableAnnotation.isAssignableFrom(annotation.getClass())) {
-				addAnnotationStereotype(stereotypes, annotation, annotationName);
+				addAnnotationStereotype(stereotypes, annotation, annotationName, destinationClassloader);
 			}
 		}
 	}
 
-	private void addAnnotationStereotype(List<UMLStereotype> stereotypes, Annotation annotation,
-			String annotationName) {
-		Map<String, String> attributes = new HashMap<>();
+	private void addAnnotationStereotype(List<UMLStereotype> stereotypes, Annotation annotation, String annotationName,
+			ClassLoader destinationClassloader) {
+		Map<String, List<String>> attributes = new HashMap<>();
 		// only for @Table
-		addAttributeIfExists(annotation, attributes, "name");
-		// only for @Table
-		addAttributeIfExists(annotation, attributes, "schema");
+		if (annotationName != null && "Table".equals(annotationName)) {
+			addAttributeIfExists(annotation, attributes, "name");
+			addAttributeIfExists(annotation, attributes, "schema");
+			addAttributeObjectListIfExists(annotation, attributes, "javax.persistence.Index", "indexes",
+					destinationClassloader);
+			addAttributeObjectListIfExists(annotation, attributes, "javax.persistence.UniqueConstraint",
+					"uniqueConstraints", destinationClassloader);
+		}
 		UMLStereotype stereotype = new UMLStereotype(annotationName, attributes);
 		stereotypes.add(stereotype);
 	}
 
-	private void addAttributeIfExists(Annotation annotation, Map<String, String> attributes, String methodname) {
+	private void addAttributeObjectListIfExists(Annotation annotation, Map<String, List<String>> attributes,
+			String annotationClassName, String methodName, ClassLoader destinationClassloader) {
+		try {
+			Method nameMethod = annotation.getClass().getMethod(methodName);
+			if (nameMethod != null) {
+				Class<?> valueAnnotation = destinationClassloader.loadClass(annotationClassName);
+				Object nameObject = nameMethod.invoke(annotation);
+				if (nameObject != null && nameObject.getClass().isArray()
+						&& nameObject.getClass().getComponentType().equals(valueAnnotation)) {
+					List<String> values = addAnnotationArrayToAttributeList(valueAnnotation, nameObject);
+					if (!values.isEmpty())
+						attributes.put(methodName, values);
+				}
+			}
+		} catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| ClassNotFoundException e) {
+			// ignore, because method is not found or can not be called or has illegal
+			// arguments
+		}
+	}
+
+	private List<String> addAnnotationArrayToAttributeList(Class<?> valueAnnotation, Object nameObject)
+			throws IllegalAccessException, InvocationTargetException {
+		List<String> values = new ArrayList<>();
+		int length = Array.getLength(nameObject);
+		for (int i = 0; i < length; i++) {
+			Object arrayElement = Array.get(nameObject, i);
+			StringBuilder elementStringBuilder = new StringBuilder();
+			Method[] methods = valueAnnotation.getDeclaredMethods();
+			if (methods.length > 0) {
+				addMethodArrayValueString(valueAnnotation, arrayElement, elementStringBuilder, methods);
+			}
+			values.add(elementStringBuilder.toString());
+		}
+		return values;
+	}
+
+	private void addMethodArrayValueString(Class<?> valueAnnotation, Object arrayElement,
+			StringBuilder elementStringBuilder, Method[] methods)
+			throws IllegalAccessException, InvocationTargetException {
+		elementStringBuilder.append(valueAnnotation.getSimpleName());
+		elementStringBuilder.append(" (");
+		boolean firstTime = true;
+		for (Method method : methods) {
+			String name = method.getName();
+			if (method.getParameterCount() == 0) {
+				firstTime = addMethodValueString(arrayElement, elementStringBuilder, firstTime, method, name);
+			}
+		}
+		elementStringBuilder.append(" )");
+	}
+
+	private boolean addMethodValueString(Object arrayElement, StringBuilder elementStringBuilder, boolean firstTime,
+			Method method, String name) throws IllegalAccessException, InvocationTargetException {
+		Object result = method.invoke(arrayElement);
+		if ((result instanceof String && !((String) result).isEmpty())
+				|| (!(result instanceof String) && result != null)) {
+			if (!firstTime)
+				elementStringBuilder.append(",");
+			elementStringBuilder.append(name);
+			elementStringBuilder.append("=[");
+			if (result.getClass().isArray()) {
+				handleMethodArrayResultString(elementStringBuilder, result);
+			} else {
+				elementStringBuilder.append(result);
+			}
+			elementStringBuilder.append("]");
+			firstTime = false;
+		}
+		return firstTime;
+	}
+
+	private void handleMethodArrayResultString(StringBuilder elementStringBuilder, Object result) {
+		int resultLength = Array.getLength(result);
+		for (int j = 0; j < resultLength; j++) {
+			if (j > 0)
+				elementStringBuilder.append(",");
+			elementStringBuilder.append(Array.get(result, j));
+		}
+	}
+
+	private void addAttributeIfExists(Annotation annotation, Map<String, List<String>> attributes, String methodname) {
 		try {
 			Method nameMethod = annotation.getClass().getMethod(methodname);
 			if (nameMethod != null) {
 				Object nameObject = nameMethod.invoke(annotation);
 				if (nameObject instanceof String && !((String) nameObject).isEmpty()) {
-					attributes.put(methodname, (String) nameObject);
+					List<String> values = new ArrayList<>();
+					values.add((String) nameObject);
+					attributes.put(methodname, values);
 				}
 			}
 		} catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException
@@ -760,7 +850,7 @@ public class PlantUMLClassDiagramGenerator {
 			Annotation[] annotations = field.getAnnotations();
 			for (Annotation annotation : annotations) {
 				if (columnAnnotation.isAssignableFrom(annotation.getClass())) {
-					annotationStringList.add(getColumnAnnotationString(annotation,columnAnnotation.getSimpleName()));
+					annotationStringList.add(getColumnAnnotationString(annotation, columnAnnotation.getSimpleName()));
 					foundAnnotation = true;
 				}
 			}
@@ -770,7 +860,8 @@ public class PlantUMLClassDiagramGenerator {
 						annotations = declaredMethod.getAnnotations();
 						for (Annotation annotation : annotations) {
 							if (columnAnnotation.isAssignableFrom(annotation.getClass())) {
-								annotationStringList.add(getColumnAnnotationString(annotation,columnAnnotation.getSimpleName()));
+								annotationStringList
+										.add(getColumnAnnotationString(annotation, columnAnnotation.getSimpleName()));
 							}
 						}
 					}
@@ -927,7 +1018,7 @@ public class PlantUMLClassDiagramGenerator {
 	private Set<Class<?>> getAllClassesFromWhiteList() {
 		try (ScanResult scanResult = new ClassGraph().overrideClassLoaders(plantUMLConfig.getDestinationClassloader())
 				.enableClassInfo()
-				.whitelistPackages(
+				.acceptPackages(
 						plantUMLConfig.getScanPackages().toArray(new String[plantUMLConfig.getScanPackages().size()]))
 				.scan()) {
 			final ClassInfoList allClasses = scanResult.getAllClasses();
@@ -946,7 +1037,7 @@ public class PlantUMLClassDiagramGenerator {
 
 		try (ScanResult scanResult = new ClassGraph().overrideClassLoaders(plantUMLConfig.getDestinationClassloader())
 				.enableClassInfo()
-				.whitelistPackages(
+				.acceptPackages(
 						plantUMLConfig.getScanPackages().toArray(new String[plantUMLConfig.getScanPackages().size()]))
 				.scan()) {
 			final ClassInfoList allClasses = scanResult.getAllClasses();

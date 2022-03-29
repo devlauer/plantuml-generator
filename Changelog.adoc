@@ -2,6 +2,9 @@
 
 .Unreleased
 
+.1.4.1 - 2022-03-29
+* bugfix because of release error
+
 .1.4.0 - 2022-03-29
 * added new JPA Stereotype and tagged values for MappedSuperclass, 
 Index and  UniqueConstraint (feature request #23)

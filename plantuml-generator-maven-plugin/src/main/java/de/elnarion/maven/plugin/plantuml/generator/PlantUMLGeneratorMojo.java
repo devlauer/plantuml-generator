@@ -239,8 +239,7 @@ public class PlantUMLGeneratorMojo extends AbstractMojo {
 		builder.append(System.lineSeparator());
 		builder.append("```");
 		builder.append(System.lineSeparator());
-		paramClassDiagramTextToWrap = builder.toString();
-		return paramClassDiagramTextToWrap;
+		return builder.toString();
 	}
 
 	/**

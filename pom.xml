@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.elnarion.util</groupId>
 	<artifactId>plantuml-generator</artifactId>
-	<version>1.5.0</version>
+	<version>1.5.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>${project.groupId}:${project.artifactId}</name>
@@ -46,7 +46,7 @@
 		<connection>scm:git:ssh://git@github.com/devlauer/plantuml-generator.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/devlauer/plantuml-generator.git</developerConnection>
 		<url>https://github.com/devlauer/plantuml-generator/tree/master</url>
-		<tag>plantuml-generator-1.5.0</tag>
+		<tag>HEAD</tag>
 	</scm>
 
 	<distributionManagement>

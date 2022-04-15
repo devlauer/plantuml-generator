@@ -59,6 +59,10 @@ public class PlantUMLGeneratorMojo extends AbstractMojo {
 	@Parameter(property = PREFIX + "enableAsciidocWrapper", defaultValue = "false", required = false)
 	private boolean enableAsciidocWrapper;
 
+	/** The enable asciidoc wrapper. */
+	@Parameter(property = PREFIX + "enableMarkdownWrapper", defaultValue = "false", required = false)
+	private boolean enableMarkdownWrapper;
+
 	/** The scan packages. */
 	@Parameter(property = PREFIX + "scanPackages", defaultValue = "", required = true)
 	private List<String> scanPackages;
@@ -172,6 +176,9 @@ public class PlantUMLGeneratorMojo extends AbstractMojo {
 			if (enableAsciidocWrapper) {
 				classDiagramText = createAsciidocWrappedDiagramText(classDiagramText);
 			}
+			if (enableMarkdownWrapper) {
+				classDiagramText = createMarkdownWrappedDiagramText(classDiagramText);
+			}
 			getLog().debug("diagram text:");
 			getLog().debug(classDiagramText);
 			getLog().info("Diagram generated.");
@@ -216,6 +223,23 @@ public class PlantUMLGeneratorMojo extends AbstractMojo {
 		builder.append(asciidocDiagramBlockDelimiter);
 		paramClassDiagramTextToWrap = builder.toString();
 		return paramClassDiagramTextToWrap;
+	}
+
+	/**
+	 * Wraps a plantuml diagram text by an markdown diagram block.
+	 *
+	 * @param paramClassDiagramTextToWrap the class diagram text
+	 * @return the markdown plantuml diagram block
+	 */
+	private String createMarkdownWrappedDiagramText(String paramClassDiagramTextToWrap) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("```plantuml");
+		builder.append(System.lineSeparator());
+		builder.append(paramClassDiagramTextToWrap);
+		builder.append(System.lineSeparator());
+		builder.append("```");
+		builder.append(System.lineSeparator());
+		return builder.toString();
 	}
 
 	/**
@@ -457,6 +481,24 @@ public class PlantUMLGeneratorMojo extends AbstractMojo {
 	 */
 	public void setEnableAsciidocWrapper(boolean enableAsciidocWrapper) {
 		this.enableAsciidocWrapper = enableAsciidocWrapper;
+	}
+
+	/**
+	 * Checks if is enable markdown wrapper.
+	 *
+	 * @return true, if is enable markdown wrapper
+	 */
+	public boolean isEnableMarkdowncWrapper() {
+		return enableMarkdownWrapper;
+	}
+
+	/**
+	 * Sets the enable markdown wrapper.
+	 *
+	 * @param enableMarkdownWrapper the new enable markdown wrapper
+	 */
+	public void setEnableMarkdownWrapper(boolean enableMarkdownWrapper) {
+		this.enableMarkdownWrapper = enableMarkdownWrapper;
 	}
 
 	/**

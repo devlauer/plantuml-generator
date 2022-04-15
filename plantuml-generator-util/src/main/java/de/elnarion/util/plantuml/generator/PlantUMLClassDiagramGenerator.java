@@ -1,5 +1,7 @@
 package de.elnarion.util.plantuml.generator;
 
+import static java.util.Collections.sort;
+
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
@@ -19,6 +21,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import de.elnarion.util.plantuml.generator.classdiagram.ClassType;
 import de.elnarion.util.plantuml.generator.classdiagram.ClassifierType;
@@ -327,7 +330,7 @@ public class PlantUMLClassDiagramGenerator {
 
 	private void addAnnotationStereotype(List<UMLStereotype> stereotypes, Annotation annotation, String annotationName,
 			ClassLoader destinationClassloader) {
-		Map<String, List<String>> attributes = new HashMap<>();
+		Map<String, List<String>> attributes = new TreeMap<>();
 		// only for @Table
 		if (annotationName != null && "Table".equals(annotationName)) {
 			addAttributeIfExists(annotation, attributes, "name");
@@ -351,8 +354,10 @@ public class PlantUMLClassDiagramGenerator {
 				if (nameObject != null && nameObject.getClass().isArray()
 						&& nameObject.getClass().getComponentType().equals(valueAnnotation)) {
 					List<String> values = addAnnotationArrayToAttributeList(valueAnnotation, nameObject);
-					if (!values.isEmpty())
+					if (!values.isEmpty()){
+						sort(values);
 						attributes.put(methodName, values);
+					}
 				}
 			}
 		} catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException

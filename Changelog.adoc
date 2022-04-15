@@ -2,6 +2,9 @@
 
 .Unreleased
 
+.1.5.1 - 2022-04-15
+* bugfix because of release error
+
 .1.5.0 - 2022-04-15
 * added support for markdown wrapper in the maven 
 plugin (pull request #24)

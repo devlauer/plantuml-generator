@@ -2,6 +2,9 @@
 
 .Unreleased
 
+.1.5.2 - 2022-04-15
+* bugfix sort tagged values due to test failures with different java versions
+
 .1.5.1 - 2022-04-15
 * bugfix because of release error
 

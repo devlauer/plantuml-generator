@@ -2,6 +2,13 @@
 
 .Unreleased
 
+.1.5.3 - 2022-09-25
+* updated junit
+* updated commons-io
+* updated classgraph
+* removed sysout from testcases
+* fixed sorting problem in JPA annotation strings
+
 .1.5.3 - 2022-04-15
 * bugfix because of release error
 

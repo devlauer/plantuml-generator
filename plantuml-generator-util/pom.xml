@@ -17,7 +17,7 @@
 		<dependency>
 			<groupId>io.github.classgraph</groupId>
 			<artifactId>classgraph</artifactId>
-			<version>4.8.90</version>
+			<version>4.8.149</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.persistence</groupId>

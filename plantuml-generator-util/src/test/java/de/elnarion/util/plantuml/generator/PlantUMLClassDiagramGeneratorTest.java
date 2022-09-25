@@ -489,7 +489,6 @@ public class PlantUMLClassDiagramGeneratorTest {
 		String result = generator.generateDiagramText();
 		String expectedDiagramText = IOUtils.toString(classLoader.getResource(filename), StandardCharsets.UTF_8);
 		assertNotNull(result);
-		System.out.println(result);
 		assertNotNull(expectedDiagramText);
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
 	}

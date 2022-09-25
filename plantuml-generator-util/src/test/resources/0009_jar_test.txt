@@ -11,6 +11,7 @@ interface org.apache.commons.io.monitor.FileAlterationListener {
 	{method}  {abstract} +onStop ( paramFileAlterationObserver1 : org.apache.commons.io.monitor.FileAlterationObserver ) : void
 }
 
+
 class org.apache.commons.io.monitor.FileAlterationListenerAdaptor {
 	{method} +onDirectoryChange ( paramFile1 : java.io.File ) : void
 	{method} +onDirectoryCreate ( paramFile1 : java.io.File ) : void
@@ -22,7 +23,9 @@ class org.apache.commons.io.monitor.FileAlterationListenerAdaptor {
 	{method} +onStop ( paramFileAlterationObserver1 : org.apache.commons.io.monitor.FileAlterationObserver ) : void
 }
 
+
 class org.apache.commons.io.monitor.FileAlterationMonitor {
+	{field} {static} -EMPTY_ARRAY : [Lorg.apache.commons.io.monitor.FileAlterationObserver;
 	{field} -interval : long
 	{field} -running : boolean
 	{field} -thread : Thread
@@ -34,6 +37,7 @@ class org.apache.commons.io.monitor.FileAlterationMonitor {
 	{method} +stop () : void <<synchronized>> 
 	{method} +stop ( paramlong1 : long ) : void <<synchronized>> 
 }
+
 
 class org.apache.commons.io.monitor.FileAlterationObserver {
 	{field} -comparator : java.util.Comparator
@@ -55,8 +59,9 @@ class org.apache.commons.io.monitor.FileAlterationObserver {
 	{method} +toString () : String
 }
 
+
 class org.apache.commons.io.monitor.FileEntry {
-	{field} {static} ~EMPTY_ENTRIES : [Lorg.apache.commons.io.monitor.FileEntry;
+	{field} {static} ~EMPTY_FILE_ENTRY_ARRAY : [Lorg.apache.commons.io.monitor.FileEntry;
 	{field} +children : [Lorg.apache.commons.io.monitor.FileEntry;
 	{field} +directory : boolean
 	{field} +exists : boolean
@@ -69,6 +74,9 @@ class org.apache.commons.io.monitor.FileEntry {
 	{method} +newChildInstance ( paramFile1 : java.io.File ) : org.apache.commons.io.monitor.FileEntry
 	{method} +refresh ( paramFile1 : java.io.File ) : boolean
 }
+
+
+
 
 org.apache.commons.io.monitor.FileAlterationListenerAdaptor ..|>  org.apache.commons.io.monitor.FileAlterationListener
 org.apache.commons.io.monitor.FileAlterationMonitor "1" o-- "0..*"  org.apache.commons.io.monitor.FileAlterationObserver : observers

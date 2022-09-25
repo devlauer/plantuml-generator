@@ -25,6 +25,7 @@ class org.apache.commons.io.monitor.FileAlterationListenerAdaptor {
 
 
 class org.apache.commons.io.monitor.FileAlterationMonitor {
+	{field} {static} -EMPTY_ARRAY : [Lorg.apache.commons.io.monitor.FileAlterationObserver;
 	{field} -interval : long
 	{field} -running : boolean
 	{field} -thread : Thread

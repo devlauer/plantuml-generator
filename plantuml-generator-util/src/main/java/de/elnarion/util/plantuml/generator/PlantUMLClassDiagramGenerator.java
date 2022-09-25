@@ -388,23 +388,27 @@ public class PlantUMLClassDiagramGenerator {
 			throws IllegalAccessException, InvocationTargetException {
 		elementStringBuilder.append(valueAnnotation.getSimpleName());
 		elementStringBuilder.append(" (");
-		boolean firstTime = true;
+		List<String> methodAttributesString = new ArrayList<>();
 		for (Method method : methods) {
 			String name = method.getName();
 			if (method.getParameterCount() == 0) {
-				firstTime = addMethodValueString(arrayElement, elementStringBuilder, firstTime, method, name);
+				String methodValueString = createMethodValueString(arrayElement, method, name);
+				if(methodValueString!=null&&!methodValueString.isEmpty()) {
+					methodAttributesString.add(methodValueString);
+				}
 			}
 		}
+		sort(methodAttributesString);
+		elementStringBuilder.append(String.join(",", methodAttributesString));
 		elementStringBuilder.append(" )");
 	}
 
-	private boolean addMethodValueString(Object arrayElement, StringBuilder elementStringBuilder, boolean firstTime,
+	private String createMethodValueString(Object arrayElement,  
 			Method method, String name) throws IllegalAccessException, InvocationTargetException {
 		Object result = method.invoke(arrayElement);
+		StringBuilder elementStringBuilder = new StringBuilder();
 		if ((result instanceof String && !((String) result).isEmpty())
 				|| (!(result instanceof String) && result != null)) {
-			if (!firstTime)
-				elementStringBuilder.append(",");
 			elementStringBuilder.append(name);
 			elementStringBuilder.append("=[");
 			if (result.getClass().isArray()) {
@@ -413,9 +417,9 @@ public class PlantUMLClassDiagramGenerator {
 				elementStringBuilder.append(result);
 			}
 			elementStringBuilder.append("]");
-			firstTime = false;
+			
 		}
-		return firstTime;
+		return elementStringBuilder.toString();
 	}
 
 	private void handleMethodArrayResultString(StringBuilder elementStringBuilder, Object result) {

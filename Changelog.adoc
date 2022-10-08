@@ -1,6 +1,7 @@
 = Changelog
 
 .Unreleased
+* fixed sonarqube hint
 
 .1.5.3 - 2022-09-25
 * updated junit

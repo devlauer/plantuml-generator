@@ -1,7 +1,6 @@
 package de.elnarion.util.plantuml.generator.config;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import de.elnarion.util.plantuml.generator.classdiagram.ClassifierType;

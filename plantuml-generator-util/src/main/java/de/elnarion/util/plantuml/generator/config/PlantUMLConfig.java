@@ -6,48 +6,109 @@ import java.util.List;
 import de.elnarion.util.plantuml.generator.classdiagram.ClassifierType;
 import de.elnarion.util.plantuml.generator.classdiagram.VisibilityType;
 
+/**
+ * The Class PlantUMLConfig.
+ */
 public class PlantUMLConfig {
 
+	/** The destination classloader. */
 	private ClassLoader destinationClassloader = null;
+	
+	/** The scan packages. */
 	private List<String> scanPackages = new ArrayList<>();
+	
+	/** The blacklist regexp. */
 	private String blacklistRegexp = null;
+	
+	/** The whitelist regexp. */
 	private String whitelistRegexp = null;
+	
+	/** The hide classes. */
 	private List<String> hideClasses = null;
+	
+	/** The hide fields. */
 	private boolean hideFields = false;
+	
+	/** The hide methods. */
 	private boolean hideMethods = false;
+	
+	/** The remove fields. */
 	private boolean removeFields = false;
+	
+	/** The remove methods. */
 	private boolean removeMethods = false;
+	
+	/** The add JPA annotations. */
 	private boolean addJPAAnnotations = false;
+	
+	/** The field blacklist regexp. */
 	private String fieldBlacklistRegexp = null;
+	
+	/** The method blacklist regexp. */
 	private String methodBlacklistRegexp = null;
+	
+	/** The max visibility fields. */
 	private VisibilityType maxVisibilityFields = VisibilityType.PRIVATE;
+	
+	/** The max visibility methods. */
 	private VisibilityType maxVisibilityMethods = VisibilityType.PRIVATE;
+	
+	/** The field classifier to ignore. */
 	private List<ClassifierType> fieldClassifierToIgnore = new ArrayList<>();
+	
+	/** The method classifier to ignore. */
 	private List<ClassifierType> methodClassifierToIgnore = new ArrayList<>();
+	
+	/** The additional plant uml configs. */
 	private List<String> additionalPlantUmlConfigs = new ArrayList<>();
 
+	/**
+	 * Instantiates a new plant UML config.
+	 */
 	protected PlantUMLConfig() {
 		// default constructor with protected visibility because of corresponding
 		// builder
 	}
 
+	/**
+	 * Gets the method classifier to ignore.
+	 *
+	 * @return the method classifier to ignore
+	 */
 	public List<ClassifierType> getMethodClassifierToIgnore() {
 		return methodClassifierToIgnore;
 	}
 
+	/**
+	 * Sets the method classifier to ignore.
+	 *
+	 * @param methodClassifierToIgnore the new method classifier to ignore
+	 */
 	public void setMethodClassifierToIgnore(List<ClassifierType> methodClassifierToIgnore) {
 		this.methodClassifierToIgnore = methodClassifierToIgnore;
 	}
 
+	/**
+	 * Gets the field classifier to ignore.
+	 *
+	 * @return the field classifier to ignore
+	 */
 	public List<ClassifierType> getFieldClassifierToIgnore() {
 		return fieldClassifierToIgnore;
 	}
 
+	/**
+	 * Sets the field classifier to ignore.
+	 *
+	 * @param fieldClassifierToIgnore the new field classifier to ignore
+	 */
 	public void setFieldClassifierToIgnore(List<ClassifierType> fieldClassifierToIgnore) {
 		this.fieldClassifierToIgnore = fieldClassifierToIgnore;
 	}
 
 	/**
+	 * Gets the destination classloader.
+	 *
 	 * @return ClassLoader
 	 */
 	public ClassLoader getDestinationClassloader() {
@@ -55,8 +116,10 @@ public class PlantUMLConfig {
 	}
 
 	
-	/** 
-	 * @param destinationClassloader
+	/**
+	 *  
+	 *
+	 * @param destinationClassloader the new destination classloader
 	 */
 	protected void setDestinationClassloader(ClassLoader destinationClassloader) {
 		this.destinationClassloader = destinationClassloader;
@@ -64,15 +127,17 @@ public class PlantUMLConfig {
 
 	
 	/** 
-	 * @return List<String>
+	 * @return List
 	 */
 	public List<String> getScanPackages() {
 		return scanPackages;
 	}
 
 	
-	/** 
-	 * @param scanPackages
+	/**
+	 *  
+	 *
+	 * @param scanPackages the new scan packages
 	 */
 	protected void setScanPackages(List<String> scanPackages) {
 		this.scanPackages = scanPackages;
@@ -87,8 +152,10 @@ public class PlantUMLConfig {
 	}
 
 	
-	/** 
-	 * @param blacklistRegexp
+	/**
+	 *  
+	 *
+	 * @param blacklistRegexp the new blacklist regexp
 	 */
 	protected void setBlacklistRegexp(String blacklistRegexp) {
 		this.blacklistRegexp = blacklistRegexp;
@@ -103,8 +170,10 @@ public class PlantUMLConfig {
 	}
 
 	
-	/** 
-	 * @param whitelistRegexp
+	/**
+	 *  
+	 *
+	 * @param whitelistRegexp the new whitelist regexp
 	 */
 	protected void setWhitelistRegexp(String whitelistRegexp) {
 		this.whitelistRegexp = whitelistRegexp;
@@ -112,15 +181,17 @@ public class PlantUMLConfig {
 
 	
 	/** 
-	 * @return List<String>
+	 * @return List
 	 */
 	public List<String> getHideClasses() {
 		return hideClasses;
 	}
 
 	
-	/** 
-	 * @param hideClasses
+	/**
+	 *  
+	 *
+	 * @param hideClasses the new hide classes
 	 */
 	protected void setHideClasses(List<String> hideClasses) {
 		this.hideClasses = hideClasses;
@@ -135,8 +206,10 @@ public class PlantUMLConfig {
 	}
 
 	
-	/** 
-	 * @param hideFields
+	/**
+	 *  
+	 *
+	 * @param hideFields the new hide fields
 	 */
 	protected void setHideFields(boolean hideFields) {
 		this.hideFields = hideFields;
@@ -151,8 +224,10 @@ public class PlantUMLConfig {
 	}
 
 	
-	/** 
-	 * @param hideMethods
+	/**
+	 *  
+	 *
+	 * @param hideMethods the new hide methods
 	 */
 	protected void setHideMethods(boolean hideMethods) {
 		this.hideMethods = hideMethods;
@@ -167,8 +242,10 @@ public class PlantUMLConfig {
 	}
 
 	
-	/** 
-	 * @param removeFields
+	/**
+	 *  
+	 *
+	 * @param removeFields the new removes the fields
 	 */
 	protected void setRemoveFields(boolean removeFields) {
 		this.removeFields = removeFields;
@@ -183,8 +260,10 @@ public class PlantUMLConfig {
 	}
 
 	
-	/** 
-	 * @param removeMethods
+	/**
+	 *  
+	 *
+	 * @param removeMethods the new removes the methods
 	 */
 	protected void setRemoveMethods(boolean removeMethods) {
 		this.removeMethods = removeMethods;
@@ -199,8 +278,10 @@ public class PlantUMLConfig {
 	}
 
 	
-	/** 
-	 * @param fieldBlacklistRegexp
+	/**
+	 *  
+	 *
+	 * @param fieldBlacklistRegexp the new field blacklist regexp
 	 */
 	protected void setFieldBlacklistRegexp(String fieldBlacklistRegexp) {
 		this.fieldBlacklistRegexp = fieldBlacklistRegexp;
@@ -215,8 +296,10 @@ public class PlantUMLConfig {
 	}
 
 	
-	/** 
-	 * @param methodBlacklistRegexp
+	/**
+	 *  
+	 *
+	 * @param methodBlacklistRegexp the new method blacklist regexp
 	 */
 	protected void setMethodBlacklistRegexp(String methodBlacklistRegexp) {
 		this.methodBlacklistRegexp = methodBlacklistRegexp;
@@ -231,8 +314,10 @@ public class PlantUMLConfig {
 	}
 
 	
-	/** 
-	 * @param maxVisibilityFields
+	/**
+	 *  
+	 *
+	 * @param maxVisibilityFields the new max visibility fields
 	 */
 	public void setMaxVisibilityFields(VisibilityType maxVisibilityFields) {
 		this.maxVisibilityFields = maxVisibilityFields;
@@ -247,23 +332,37 @@ public class PlantUMLConfig {
 	}
 
 	
-	/** 
-	 * @param maxVisibilityMethods
+	/**
+	 *  
+	 *
+	 * @param maxVisibilityMethods the new max visibility methods
 	 */
 	public void setMaxVisibilityMethods(VisibilityType maxVisibilityMethods) {
 		this.maxVisibilityMethods = maxVisibilityMethods;
 	}
 
+	/**
+	 * Checks if is adds the JPA annotations.
+	 *
+	 * @return true, if is adds the JPA annotations
+	 */
 	public boolean isAddJPAAnnotations() {
 		return addJPAAnnotations;
 	}
 
+	/**
+	 * Sets the adds the JPA annotations.
+	 *
+	 * @param addJPAAnnotations the new adds the JPA annotations
+	 */
 	public void setAddJPAAnnotations(boolean addJPAAnnotations) {
 		this.addJPAAnnotations = addJPAAnnotations;
 	}
 
 	/**
-	 * @return List<String>
+	 * Gets the additional plant uml configs.
+	 *
+	 * @return List
 	 */
 	public List<String> getAdditionalPlantUmlConfigs() {
 		return additionalPlantUmlConfigs;

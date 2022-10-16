@@ -1,7 +1,8 @@
 package de.elnarion.util.plantuml.generator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
 import java.net.URL;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import de.elnarion.util.plantuml.generator.classdiagram.ClassifierType;
 import de.elnarion.util.plantuml.generator.classdiagram.VisibilityType;
@@ -22,7 +23,7 @@ import de.elnarion.util.plantuml.generator.config.PlantUMLConfigBuilder;
  * The Class PlantUMLClassDiagramGeneratorTest tests the
  * {@link PlantUMLClassDiagramGenerator}.
  */
-public class PlantUMLClassDiagramGeneratorTest {
+class PlantUMLClassDiagramGeneratorTest {
 
 	private ClassLoader classLoader = this.getClass().getClassLoader();
 
@@ -34,7 +35,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 	 * @throws ClassNotFoundException
 	 */
 	@Test
-	public void test0001GenerateDiagram() throws IOException, ClassNotFoundException {
+	void test0001GenerateDiagram() throws IOException, ClassNotFoundException {
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0001");
 		List<String> hideClasses = new ArrayList<>();
@@ -56,7 +57,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 	 * @throws ClassNotFoundException
 	 */
 	@Test
-	public void test0002ClassTypes() throws IOException, ClassNotFoundException {
+	void test0002ClassTypes() throws IOException, ClassNotFoundException {
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0002");
 		List<String> hideClasses = new ArrayList<>();
@@ -77,7 +78,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 	 * @throws ClassNotFoundException
 	 */
 	@Test
-	public void test0003ClassRelationships() throws IOException, ClassNotFoundException {
+	void test0003ClassRelationships() throws IOException, ClassNotFoundException {
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0003");
 		List<String> hideClasses = new ArrayList<>();
@@ -98,7 +99,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 	 * @throws ClassNotFoundException
 	 */
 	@Test
-	public void test0004ClassFields() throws IOException, ClassNotFoundException {
+	void test0004ClassFields() throws IOException, ClassNotFoundException {
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0004");
 		List<String> hideClasses = new ArrayList<>();
@@ -119,7 +120,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 	 * @throws ClassNotFoundException
 	 */
 	@Test
-	public void test0005ClassMethods() throws IOException, ClassNotFoundException {
+	void test0005ClassMethods() throws IOException, ClassNotFoundException {
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0005");
 		List<String> hideClasses = new ArrayList<>();
@@ -140,7 +141,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 	 * @throws ClassNotFoundException
 	 */
 	@Test
-	public void test0006DifferentPackages() throws IOException, ClassNotFoundException {
+	void test0006DifferentPackages() throws IOException, ClassNotFoundException {
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0006.pck1");
 		scanPackages.add("de.elnarion.test.domain.t0006.pck2");
@@ -162,7 +163,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 	 * @throws ClassNotFoundException
 	 */
 	@Test
-	public void test0007HideParameters() throws IOException, ClassNotFoundException {
+	void test0007HideParameters() throws IOException, ClassNotFoundException {
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0007");
 		List<String> hideClasses = new ArrayList<>();
@@ -184,7 +185,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 	 * @throws Exception the exception
 	 */
 	@Test
-	public void test0008Classloader() throws Exception {
+	void test0008Classloader() throws Exception {
 		String filename = "0008_classloader_test.txt";
 		String testClassPath = "file:///" + System.getProperty("user.dir") + "/src/test/classes/";
 		URL[] classesURLs = new URL[] { new URL(testClassPath) };
@@ -208,7 +209,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 	 * @throws Exception the exception
 	 */
 	@Test
-	public void test0009JarPackage() throws Exception {
+	void test0009JarPackage() throws Exception {
 		String filename = "0009_jar_test.txt";
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("org.apache.commons.io.monitor");
@@ -229,7 +230,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 	 * @throws ClassNotFoundException
 	 */
 	@Test
-	public void test0010ParameterizedAggregationType() throws IOException, ClassNotFoundException {
+	void test0010ParameterizedAggregationType() throws IOException, ClassNotFoundException {
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0010");
 		List<String> hideClasses = new ArrayList<>();
@@ -249,7 +250,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 	 * @throws Exception the exception
 	 */
 	@Test
-	public void test0011JarPackageWithBlacklist() throws Exception {
+	void test0011JarPackageWithBlacklist() throws Exception {
 		String filename = "0011_jar_test_blacklist.txt";
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("org.apache.commons.io.monitor");
@@ -269,11 +270,11 @@ public class PlantUMLClassDiagramGeneratorTest {
 	 * @throws Exception the exception
 	 */
 	@Test
-	public void test0012JarPackageWithWhitelist() throws Exception {
+	void test0012JarPackageWithWhitelist() throws Exception {
 		String filename = "0012_jar_whitelist.txt";
 		List<String> hideClasses = new ArrayList<>();
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(classLoader,
-				".*FileAl.*", hideClasses, true, true, null);
+				"org\\.apache\\.commons\\.io.*FileAl.*", hideClasses, true, true, null);
 		String result = generator.generateDiagramText();
 		String expectedDiagramText = IOUtils.toString(classLoader.getResource(filename), StandardCharsets.UTF_8);
 		assertNotNull(result);
@@ -282,7 +283,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 	}
 
 	@Test
-	public void test0013MaxVisibilityFields() throws Exception {
+	void test0013MaxVisibilityFields() throws Exception {
 		String filename = "0013_max_visibility_fields_public.txt";
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0013");
@@ -328,7 +329,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 	}
 
 	@Test
-	public void test0014MaxVisibilityMethods() throws Exception {
+	void test0014MaxVisibilityMethods() throws Exception {
 		String filename = "0014_max_visibility_methods_public.txt";
 		classLoader.loadClass("de.elnarion.test.domain.t0014.Testclass");
 		List<String> scanPackages = new ArrayList<>();
@@ -375,7 +376,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 	}
 
 	@Test
-	public void test0015RemoveMethods() throws Exception {
+	void test0015RemoveMethods() throws Exception {
 		String filename = "0015_remove_methods.txt";
 		classLoader.loadClass("de.elnarion.test.domain.t0015.Testclass1");
 		classLoader.loadClass("de.elnarion.test.domain.t0015.Testclass2");
@@ -393,7 +394,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 	}
 
 	@Test
-	public void test0016RemoveFields() throws Exception {
+	void test0016RemoveFields() throws Exception {
 		String filename = "0016_remove_fields.txt";
 		classLoader.loadClass("de.elnarion.test.domain.t0016.Testclass1");
 		classLoader.loadClass("de.elnarion.test.domain.t0016.Testclass2");
@@ -411,7 +412,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 	}
 
 	@Test
-	public void test0017BlacklistMethods() throws Exception {
+	void test0017BlacklistMethods() throws Exception {
 		String filename = "0017_blacklist_methods.txt";
 		classLoader.loadClass("de.elnarion.test.domain.t0017.Testclass1");
 		List<String> scanPackages = new ArrayList<>();
@@ -428,7 +429,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 	}
 
 	@Test
-	public void test0018BlacklistFields() throws Exception {
+	void test0018BlacklistFields() throws Exception {
 		String filename = "0018_blacklist_fields.txt";
 		classLoader.loadClass("de.elnarion.test.domain.t0018.Testclass1");
 		List<String> scanPackages = new ArrayList<>();
@@ -445,7 +446,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 	}
 
 	@Test
-	public void test0019IgnoreClassifierFields() throws Exception {
+	void test0019IgnoreClassifierFields() throws Exception {
 		String filename = "0019_ignore_classifier_fields.txt";
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0019");
@@ -461,7 +462,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 	}
 
 	@Test
-	public void test0020IgnoreClassifierMethods() throws Exception {
+	void test0020IgnoreClassifierMethods() throws Exception {
 		String filename = "0020_ignore_classifier_methods.txt";
 		classLoader.loadClass("de.elnarion.test.domain.t0020.Testclass");
 		List<String> scanPackages = new ArrayList<>();
@@ -478,7 +479,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 	}
 
 	@Test
-	public void test0021JPAAnnotations() throws Exception {
+	void test0021JPAAnnotations() throws Exception {
 		String filename = "0021_jpa_annotations.txt";
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0021");
@@ -494,7 +495,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 	}
 
 	@Test
-	public void test0022PrivateFinalFields() throws Exception {
+	void test0022PrivateFinalFields() throws Exception {
 		String filename = "0022_private_final_field.txt";
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0022");
@@ -521,7 +522,7 @@ public class PlantUMLClassDiagramGeneratorTest {
 	 * @throws ClassNotFoundException
 	 */
 	@Test
-	public void test0023GenerateDiagramWithAdditionalPlantUmlConfigs() throws IOException, ClassNotFoundException {
+	void test0023GenerateDiagramWithAdditionalPlantUmlConfigs() throws IOException, ClassNotFoundException {
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0023");
 		List<String> additionalPlantUmlConfigs = new ArrayList<>();

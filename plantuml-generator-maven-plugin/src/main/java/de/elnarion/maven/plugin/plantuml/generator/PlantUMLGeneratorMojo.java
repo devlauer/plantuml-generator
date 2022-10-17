@@ -22,7 +22,7 @@ import org.apache.maven.project.MavenProject;
 import de.elnarion.util.plantuml.generator.PlantUMLClassDiagramGenerator;
 import de.elnarion.util.plantuml.generator.classdiagram.ClassifierType;
 import de.elnarion.util.plantuml.generator.classdiagram.VisibilityType;
-import de.elnarion.util.plantuml.generator.config.PlantUMLConfigBuilder;
+import de.elnarion.util.plantuml.generator.config.PlantUMLClassDiagramConfigBuilder;
 
 /**
  * This Mojo is used as maven frontend of the PlantUMLClassDiagramGenerator in
@@ -156,13 +156,13 @@ public class PlantUMLGeneratorMojo extends AbstractMojo {
 		try {
 			ClassLoader loader = getCompileClassLoader();
 			PlantUMLClassDiagramGenerator classDiagramGenerator;
-			PlantUMLConfigBuilder configBuilder;
+			PlantUMLClassDiagramConfigBuilder configBuilder;
 			if (whitelistRegexp == null || "".equals(whitelistRegexp)) {
-				configBuilder = new PlantUMLConfigBuilder(
+				configBuilder = new PlantUMLClassDiagramConfigBuilder(
 						((blacklistRegexp != null && !"".equals(blacklistRegexp)) ? blacklistRegexp : null),
 						scanPackages);
 			} else {
-				configBuilder = new PlantUMLConfigBuilder(scanPackages, whitelistRegexp);
+				configBuilder = new PlantUMLClassDiagramConfigBuilder(scanPackages, whitelistRegexp);
 			}
 			configBuilder.withClassLoader(loader).withHideClasses(hideClasses).withHideFieldsParameter(hideFields)
 					.withHideMethods(hideMethods).addFieldClassifiersToIgnore(fieldClassifierListToIgnore)

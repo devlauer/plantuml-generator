@@ -2,7 +2,8 @@ package de.elnarion.test.domain.t0013;
 
 public class Testclass {
 
-    private long test1;
+    @SuppressWarnings("unused")
+	private long test1;
     long test2;
     protected long test3;
     public long test4;

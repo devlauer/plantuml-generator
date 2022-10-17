@@ -32,8 +32,8 @@ import de.elnarion.util.plantuml.generator.classdiagram.UMLMethod;
 import de.elnarion.util.plantuml.generator.classdiagram.UMLRelationship;
 import de.elnarion.util.plantuml.generator.classdiagram.UMLStereotype;
 import de.elnarion.util.plantuml.generator.classdiagram.VisibilityType;
-import de.elnarion.util.plantuml.generator.config.PlantUMLConfig;
-import de.elnarion.util.plantuml.generator.config.PlantUMLConfigBuilder;
+import de.elnarion.util.plantuml.generator.config.PlantUMLClassDiagramConfig;
+import de.elnarion.util.plantuml.generator.config.PlantUMLClassDiagramConfigBuilder;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfoList;
 import io.github.classgraph.ScanResult;
@@ -82,7 +82,7 @@ import io.github.classgraph.ScanResult;
  */
 public class PlantUMLClassDiagramGenerator {
 
-	private PlantUMLConfig plantUMLConfig;
+	private PlantUMLClassDiagramConfig plantUMLConfig;
 	private Map<String, UMLClass> classes;
 	private List<Class<?>> resolvedClasses = new ArrayList<>();
 	private Map<UMLClass, List<UMLRelationship>> classesAndRelationships;
@@ -109,7 +109,7 @@ public class PlantUMLClassDiagramGenerator {
 	public PlantUMLClassDiagramGenerator(final ClassLoader paramClassloader, final List<String> paramScanPackages,
 			final String paramBlacklistRegexp, final List<String> paramHideClasses, final boolean paramHideFields,
 			final boolean paramHideMethods) {
-		this(new PlantUMLConfigBuilder(paramBlacklistRegexp, paramScanPackages).withHideFieldsParameter(paramHideFields)
+		this(new PlantUMLClassDiagramConfigBuilder(paramBlacklistRegexp, paramScanPackages).withHideFieldsParameter(paramHideFields)
 				.withClassLoader(paramClassloader).withHideMethods(paramHideMethods).withHideClasses(paramHideClasses)
 				.build());
 	}
@@ -136,12 +136,12 @@ public class PlantUMLClassDiagramGenerator {
 	public PlantUMLClassDiagramGenerator(final ClassLoader paramClassloader, final String paramWhitelistRegexp,
 			final List<String> paramHideClasses, final boolean paramHideFields, final boolean paramHideMethods,
 			final List<String> paramScanPackages) {
-		this(new PlantUMLConfigBuilder(paramScanPackages, paramWhitelistRegexp).withHideFieldsParameter(paramHideFields)
+		this(new PlantUMLClassDiagramConfigBuilder(paramScanPackages, paramWhitelistRegexp).withHideFieldsParameter(paramHideFields)
 				.withClassLoader(paramClassloader).withHideMethods(paramHideMethods).withHideClasses(paramHideClasses)
 				.build());
 	}
 
-	public PlantUMLClassDiagramGenerator(final PlantUMLConfig paramPlantUMLConfig) {
+	public PlantUMLClassDiagramGenerator(final PlantUMLClassDiagramConfig paramPlantUMLConfig) {
 		plantUMLConfig = paramPlantUMLConfig;
 		classesAndRelationships = new HashMap<>();
 		classes = new HashMap<>();

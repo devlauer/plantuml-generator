@@ -9,7 +9,7 @@ import de.elnarion.util.plantuml.generator.classdiagram.VisibilityType;
 /**
  * The Class PlantUMLConfig.
  */
-public class PlantUMLConfig {
+public class PlantUMLClassDiagramConfig {
 
 	/** The destination classloader. */
 	private ClassLoader destinationClassloader = null;
@@ -65,7 +65,7 @@ public class PlantUMLConfig {
 	/**
 	 * Instantiates a new plant UML config.
 	 */
-	protected PlantUMLConfig() {
+	protected PlantUMLClassDiagramConfig() {
 		// default constructor with protected visibility because of corresponding
 		// builder
 	}

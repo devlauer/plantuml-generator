@@ -1,0 +1,25 @@
+@startuml
+
+participant CallerA
+participant CallerB
+
+activate CallerA
+	CallerA -> CallerB : callSomething
+	activate CallerB
+		CallerB -> CallerB : privateMethodCall
+		activate CallerB
+			CallerB --> CallerB : void
+		deactivate CallerB
+		CallerB -> CallerB : protectedMethodCall
+		activate CallerB
+			CallerB --> CallerB : void
+		deactivate CallerB
+		CallerB --> CallerA : void
+	deactivate CallerB
+	CallerA -> CallerB : callSomethingElse
+	activate CallerB
+		CallerB --> CallerA : void
+	deactivate CallerB
+deactivate CallerA
+
+@enduml

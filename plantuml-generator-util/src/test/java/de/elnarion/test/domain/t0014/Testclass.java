@@ -2,7 +2,8 @@ package de.elnarion.test.domain.t0014;
 
 public class Testclass {
 
-    private void doSomething1(){
+    @SuppressWarnings("unused")
+	private void doSomething1(){
 
     }
 

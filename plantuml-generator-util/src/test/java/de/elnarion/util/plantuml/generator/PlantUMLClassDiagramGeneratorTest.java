@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test;
 
 import de.elnarion.util.plantuml.generator.classdiagram.ClassifierType;
 import de.elnarion.util.plantuml.generator.classdiagram.VisibilityType;
-import de.elnarion.util.plantuml.generator.config.PlantUMLConfig;
-import de.elnarion.util.plantuml.generator.config.PlantUMLConfigBuilder;
+import de.elnarion.util.plantuml.generator.config.PlantUMLClassDiagramConfig;
+import de.elnarion.util.plantuml.generator.config.PlantUMLClassDiagramConfigBuilder;
 
 /**
  * The Class PlantUMLClassDiagramGeneratorTest tests the
@@ -287,7 +287,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		String filename = "0013_max_visibility_fields_public.txt";
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0013");
-		PlantUMLConfig config = new PlantUMLConfigBuilder(scanPackages)
+		PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
 				.withClassLoader(classLoader)
 				.withMaximumFieldVisibility(VisibilityType.PUBLIC).build();
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
@@ -296,7 +296,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		assertNotNull(result);
 		assertNotNull(expectedDiagramText);
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
-		config = new PlantUMLConfigBuilder(scanPackages)
+		config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
 				.withClassLoader(classLoader)
 				.withMaximumFieldVisibility(VisibilityType.PROTECTED).build();
 		generator = new PlantUMLClassDiagramGenerator(config);
@@ -306,7 +306,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		assertNotNull(result);
 		assertNotNull(expectedDiagramText);
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
-		config = new PlantUMLConfigBuilder(scanPackages)
+		config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
 				.withClassLoader(classLoader)
 				.withMaximumFieldVisibility(VisibilityType.PACKAGE_PRIVATE).build();
 		generator = new PlantUMLClassDiagramGenerator(config);
@@ -316,7 +316,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		assertNotNull(result);
 		assertNotNull(expectedDiagramText);
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
-		config = new PlantUMLConfigBuilder(scanPackages)
+		config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
 				.withClassLoader(classLoader)
 				.withMaximumFieldVisibility(VisibilityType.PRIVATE).build();
 		generator = new PlantUMLClassDiagramGenerator(config);
@@ -334,7 +334,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		classLoader.loadClass("de.elnarion.test.domain.t0014.Testclass");
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0014");
-		PlantUMLConfig config = new PlantUMLConfigBuilder(scanPackages)
+		PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
 				.withClassLoader(classLoader)
 				.withMaximumMethodVisibility(VisibilityType.PUBLIC).build();
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
@@ -343,7 +343,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		assertNotNull(result);
 		assertNotNull(expectedDiagramText);
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
-		config = new PlantUMLConfigBuilder(scanPackages).
+		config = new PlantUMLClassDiagramConfigBuilder(scanPackages).
 				withClassLoader(classLoader)
 				.withMaximumMethodVisibility(VisibilityType.PROTECTED).build();
 		generator = new PlantUMLClassDiagramGenerator(config);
@@ -353,7 +353,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		assertNotNull(result);
 		assertNotNull(expectedDiagramText);
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
-		config = new PlantUMLConfigBuilder(scanPackages)
+		config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
 				.withClassLoader(classLoader)
 				.withMaximumMethodVisibility(VisibilityType.PACKAGE_PRIVATE).build();
 		generator = new PlantUMLClassDiagramGenerator(config);
@@ -363,7 +363,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		assertNotNull(result);
 		assertNotNull(expectedDiagramText);
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
-		config = new PlantUMLConfigBuilder(scanPackages)
+		config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
 				.withClassLoader(classLoader)
 				.withMaximumMethodVisibility(VisibilityType.PRIVATE).build();
 		generator = new PlantUMLClassDiagramGenerator(config);
@@ -382,7 +382,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		classLoader.loadClass("de.elnarion.test.domain.t0015.Testclass2");
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0015");
-		PlantUMLConfig config = new PlantUMLConfigBuilder(scanPackages)
+		PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
 				.withClassLoader(classLoader)
 				.withRemoveMethods(true).build();
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
@@ -400,7 +400,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		classLoader.loadClass("de.elnarion.test.domain.t0016.Testclass2");
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0016");
-		PlantUMLConfig config = new PlantUMLConfigBuilder(scanPackages)
+		PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
 				.withClassLoader(classLoader)
 				.withRemoveFields(true).build();
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
@@ -417,7 +417,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		classLoader.loadClass("de.elnarion.test.domain.t0017.Testclass1");
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0017");
-		PlantUMLConfig config = new PlantUMLConfigBuilder(scanPackages)
+		PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
 				.withClassLoader(classLoader)
 				.withMethodBlacklistRegexp(".*doSomething1.*").build();
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
@@ -434,7 +434,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		classLoader.loadClass("de.elnarion.test.domain.t0018.Testclass1");
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0018");
-		PlantUMLConfig config = new PlantUMLConfigBuilder(scanPackages)
+		PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
 				.withClassLoader(classLoader)
 				.withFieldBlacklistRegexp("test1").build();
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
@@ -450,7 +450,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		String filename = "0019_ignore_classifier_fields.txt";
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0019");
-		PlantUMLConfig config = new PlantUMLConfigBuilder(scanPackages)
+		PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
 				.withClassLoader(classLoader)
 				.addFieldClassifierToIgnore(ClassifierType.STATIC).build();
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
@@ -467,7 +467,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		classLoader.loadClass("de.elnarion.test.domain.t0020.Testclass");
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0020");
-		PlantUMLConfig config = new PlantUMLConfigBuilder(scanPackages)
+		PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
 				.withClassLoader(classLoader)
 				.addMethodClassifierToIgnore(ClassifierType.STATIC).build();
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
@@ -483,7 +483,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		String filename = "0021_jpa_annotations.txt";
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0021");
-		PlantUMLConfig config = new PlantUMLConfigBuilder(scanPackages)
+		PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
 				.withClassLoader(classLoader)
 				.withJPAAnnotations(true).build();
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
@@ -499,7 +499,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		String filename = "0022_private_final_field.txt";
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0022");
-		PlantUMLConfig config = new PlantUMLConfigBuilder(".*\\$.*|com.xx.common.converter.BeanConverter|.*\\.metamodel\\..*",scanPackages)
+		PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(".*\\$.*|com.xx.common.converter.BeanConverter|.*\\.metamodel\\..*",scanPackages)
 				.withClassLoader(classLoader)
 				.withHideMethods(false)
 				.withHideFieldsParameter(false)
@@ -528,7 +528,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		List<String> additionalPlantUmlConfigs = new ArrayList<>();
 		additionalPlantUmlConfigs.add("left to right direction");
 		additionalPlantUmlConfigs.add("scale 2/3");
-		PlantUMLConfig config = new PlantUMLConfigBuilder(scanPackages)
+		PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
 				.withClassLoader(classLoader)
 				.addAdditionalPlantUmlConfigs(additionalPlantUmlConfigs)
 				.build();

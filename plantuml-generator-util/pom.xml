@@ -25,6 +25,11 @@
 			<version>2.2</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.29.2-GA</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -32,14 +37,12 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.22.1</version>
 				<configuration>
 					<useSystemClassLoader>false</useSystemClassLoader>
 				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>2.22.1</version>
 				<configuration>
 					<useSystemClassLoader>false</useSystemClassLoader>
 				</configuration>

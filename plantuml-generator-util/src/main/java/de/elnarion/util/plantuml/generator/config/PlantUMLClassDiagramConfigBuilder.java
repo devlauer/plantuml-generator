@@ -5,24 +5,24 @@ import java.util.List;
 import de.elnarion.util.plantuml.generator.classdiagram.ClassifierType;
 import de.elnarion.util.plantuml.generator.classdiagram.VisibilityType;
 
-public class PlantUMLConfigBuilder {
+public class PlantUMLClassDiagramConfigBuilder {
 
-    private PlantUMLConfig plantUMLConfig = new PlantUMLConfig();
+    private PlantUMLClassDiagramConfig plantUMLConfig = new PlantUMLClassDiagramConfig();
 
-    public PlantUMLConfigBuilder(List<String> paramPackagesToScan) {
+    public PlantUMLClassDiagramConfigBuilder(List<String> paramPackagesToScan) {
         plantUMLConfig.setScanPackages(paramPackagesToScan);
     }
 
-    public PlantUMLConfigBuilder(String paramBlacklistRegexp, List<String> paramPackagesToScan) {
+    public PlantUMLClassDiagramConfigBuilder(String paramBlacklistRegexp, List<String> paramPackagesToScan) {
         plantUMLConfig.setBlacklistRegexp(paramBlacklistRegexp);
         plantUMLConfig.setScanPackages(paramPackagesToScan);
     }
 
-    public PlantUMLConfigBuilder(String paramWhitelistRegexp) {
+    public PlantUMLClassDiagramConfigBuilder(String paramWhitelistRegexp) {
         plantUMLConfig.setWhitelistRegexp(paramWhitelistRegexp);
     }
 
-    public PlantUMLConfigBuilder(List<String> paramPackagesToScan, String paramWhitelistRegexp) {
+    public PlantUMLClassDiagramConfigBuilder(List<String> paramPackagesToScan, String paramWhitelistRegexp) {
         plantUMLConfig.setWhitelistRegexp(paramWhitelistRegexp);
         if (paramPackagesToScan != null)
             plantUMLConfig.setScanPackages(paramPackagesToScan);
@@ -32,7 +32,7 @@ public class PlantUMLConfigBuilder {
      * @param paramDestinationClassLoader
      * @return PlantUMLConfigBuilder
      */
-    public PlantUMLConfigBuilder withClassLoader(ClassLoader paramDestinationClassLoader) {
+    public PlantUMLClassDiagramConfigBuilder withClassLoader(ClassLoader paramDestinationClassLoader) {
         plantUMLConfig.setDestinationClassloader(paramDestinationClassLoader);
         return this;
     }
@@ -41,12 +41,12 @@ public class PlantUMLConfigBuilder {
      * @param paramHideMethods
      * @return PlantUMLConfigBuilder
      */
-    public PlantUMLConfigBuilder withHideMethods(boolean paramHideMethods) {
+    public PlantUMLClassDiagramConfigBuilder withHideMethods(boolean paramHideMethods) {
         plantUMLConfig.setHideMethods(paramHideMethods);
         return this;
     }
     
-    public PlantUMLConfigBuilder withJPAAnnotations(boolean paramAddJPAAnnotations) {
+    public PlantUMLClassDiagramConfigBuilder withJPAAnnotations(boolean paramAddJPAAnnotations) {
     	plantUMLConfig.setAddJPAAnnotations(paramAddJPAAnnotations);
     	return this;
     }
@@ -55,7 +55,7 @@ public class PlantUMLConfigBuilder {
      * @param paramHideFields
      * @return PlantUMLConfigBuilder
      */
-    public PlantUMLConfigBuilder withHideFieldsParameter(boolean paramHideFields) {
+    public PlantUMLClassDiagramConfigBuilder withHideFieldsParameter(boolean paramHideFields) {
         plantUMLConfig.setHideFields(paramHideFields);
         return this;
     }
@@ -64,7 +64,7 @@ public class PlantUMLConfigBuilder {
      * @param paramClassesToHide
      * @return PlantUMLConfigBuilder
      */
-    public PlantUMLConfigBuilder withHideClasses(List<String> paramClassesToHide) {
+    public PlantUMLClassDiagramConfigBuilder withHideClasses(List<String> paramClassesToHide) {
         plantUMLConfig.setHideClasses(paramClassesToHide);
         return this;
     }
@@ -73,7 +73,7 @@ public class PlantUMLConfigBuilder {
      * @param paramRemoveMethods
      * @return PlantUMLConfigBuilder
      */
-    public PlantUMLConfigBuilder withRemoveMethods(boolean paramRemoveMethods) {
+    public PlantUMLClassDiagramConfigBuilder withRemoveMethods(boolean paramRemoveMethods) {
         plantUMLConfig.setRemoveMethods(paramRemoveMethods);
         return this;
     }
@@ -82,7 +82,7 @@ public class PlantUMLConfigBuilder {
      * @param paramRemoveFields
      * @return PlantUMLConfigBuilder
      */
-    public PlantUMLConfigBuilder withRemoveFields(boolean paramRemoveFields) {
+    public PlantUMLClassDiagramConfigBuilder withRemoveFields(boolean paramRemoveFields) {
         plantUMLConfig.setRemoveFields(paramRemoveFields);
         return this;
     }
@@ -91,7 +91,7 @@ public class PlantUMLConfigBuilder {
      * @param paramBlacklistFieldRegexp
      * @return PlantUMLConfigBuilder
      */
-    public PlantUMLConfigBuilder withFieldBlacklistRegexp(String paramBlacklistFieldRegexp) {
+    public PlantUMLClassDiagramConfigBuilder withFieldBlacklistRegexp(String paramBlacklistFieldRegexp) {
         if (paramBlacklistFieldRegexp != null && paramBlacklistFieldRegexp.length() > 0)
             plantUMLConfig.setFieldBlacklistRegexp(paramBlacklistFieldRegexp);
         return this;
@@ -101,47 +101,47 @@ public class PlantUMLConfigBuilder {
      * @param paramBlacklistMethodRegexp
      * @return PlantUMLConfigBuilder
      */
-    public PlantUMLConfigBuilder withMethodBlacklistRegexp(String paramBlacklistMethodRegexp) {
+    public PlantUMLClassDiagramConfigBuilder withMethodBlacklistRegexp(String paramBlacklistMethodRegexp) {
         if (paramBlacklistMethodRegexp != null && paramBlacklistMethodRegexp.length() > 0)
             plantUMLConfig.setMethodBlacklistRegexp(paramBlacklistMethodRegexp);
         return this;
     }
 
-    public PlantUMLConfigBuilder withMaximumMethodVisibility(VisibilityType paramVisibility) {
+    public PlantUMLClassDiagramConfigBuilder withMaximumMethodVisibility(VisibilityType paramVisibility) {
         plantUMLConfig.setMaxVisibilityMethods(paramVisibility);
         return this;
     }
 
-    public PlantUMLConfigBuilder withMaximumFieldVisibility(VisibilityType paramVisibility) {
+    public PlantUMLClassDiagramConfigBuilder withMaximumFieldVisibility(VisibilityType paramVisibility) {
         plantUMLConfig.setMaxVisibilityFields(paramVisibility);
         return this;
     }
 
-    public PlantUMLConfigBuilder addFieldClassifierToIgnore(ClassifierType paramClassifier) {
+    public PlantUMLClassDiagramConfigBuilder addFieldClassifierToIgnore(ClassifierType paramClassifier) {
         if (paramClassifier != null)
             plantUMLConfig.getFieldClassifierToIgnore().add(paramClassifier);
         return this;
     }
 
-    public PlantUMLConfigBuilder addFieldClassifiersToIgnore(List<ClassifierType> paramClassiferList) {
+    public PlantUMLClassDiagramConfigBuilder addFieldClassifiersToIgnore(List<ClassifierType> paramClassiferList) {
         if (paramClassiferList != null)
             plantUMLConfig.getFieldClassifierToIgnore().addAll(paramClassiferList);
         return this;
     }
 
-    public PlantUMLConfigBuilder addMethodClassifierToIgnore(ClassifierType paramClassifier) {
+    public PlantUMLClassDiagramConfigBuilder addMethodClassifierToIgnore(ClassifierType paramClassifier) {
         if (paramClassifier != null)
             plantUMLConfig.getMethodClassifierToIgnore().add(paramClassifier);
         return this;
     }
 
-    public PlantUMLConfigBuilder addMethodClassifiersToIgnore(List<ClassifierType> paramClassiferList) {
+    public PlantUMLClassDiagramConfigBuilder addMethodClassifiersToIgnore(List<ClassifierType> paramClassiferList) {
         if (paramClassiferList != null)
             plantUMLConfig.getMethodClassifierToIgnore().addAll(paramClassiferList);
         return this;
     }
 
-    public PlantUMLConfigBuilder addAdditionalPlantUmlConfigs(List<String> additionalPlantUmlConfigs) {
+    public PlantUMLClassDiagramConfigBuilder addAdditionalPlantUmlConfigs(List<String> additionalPlantUmlConfigs) {
         if (additionalPlantUmlConfigs != null)
             plantUMLConfig.getAdditionalPlantUmlConfigs().addAll(additionalPlantUmlConfigs);
         return this;
@@ -150,7 +150,7 @@ public class PlantUMLConfigBuilder {
     /**
      * @return PlantUMLConfig
      */
-    public PlantUMLConfig build() {
+    public PlantUMLClassDiagramConfig build() {
         return plantUMLConfig;
     }
 

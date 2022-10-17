@@ -2,7 +2,6 @@ package de.elnarion.util.plantuml.generator.classdiagram;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import de.elnarion.util.plantuml.generator.util.UMLMethodComparator;
@@ -109,12 +108,8 @@ public class UMLClass implements PlantUMLDiagramElement {
 			addStereotypeTaggedValues(builder);
 			builder.append(System.lineSeparator());
 			if (fields != null && !fields.isEmpty()) {
-				Collections.sort(fields, new Comparator<UMLField>() {
-					@Override
-					public int compare(UMLField o1, UMLField o2) {
-						return o1.getName().compareTo(o2.getName());
-					}
-				});
+				Collections.sort(fields,(UMLField o1, UMLField o2) -> 
+						o1.getName().compareTo(o2.getName()));
 				for (UMLField field : fields) {
 					builder.append("\t");
 					builder.append(field.getDiagramText());

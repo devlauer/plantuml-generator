@@ -18,8 +18,9 @@ activate CallerA
 	deactivate CallerB
 	CallerA -> CallerB : callSomethingElse
 	activate CallerB
-		CallerB --> CallerA : void
+		CallerB --> CallerA : String
 	deactivate CallerB
 deactivate CallerA
 
 @enduml
+

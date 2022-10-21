@@ -15,7 +15,7 @@ public class CallerB {
 		
 	}
 
-	public void callSomethingElse() {
-		
+	public String callSomethingElse() {
+		return "";
 	}
 }

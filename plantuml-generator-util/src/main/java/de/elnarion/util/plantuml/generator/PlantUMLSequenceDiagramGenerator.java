@@ -31,7 +31,7 @@ public class PlantUMLSequenceDiagramGenerator {
 		return generateDiagramTextFromCallerMethod(callerMethod);
 	}
 
-	private String generateDiagramTextFromCallerMethod(CallerMethod callerMethod) throws ClassNotFoundException {
+	private String generateDiagramTextFromCallerMethod(CallerMethod callerMethod) throws ClassNotFoundException, NotFoundException {
 		StringBuilder diagramStringBuilder = new StringBuilder();
 		diagramStringBuilder.append("@startuml");
 		diagramStringBuilder.append(System.lineSeparator());
@@ -53,7 +53,7 @@ public class PlantUMLSequenceDiagramGenerator {
 		return cp;
 	}
 
-	private CallerMethod getCallerMethod(CtMethod method, CallerClass callingClass) throws CannotCompileException {
+	private CallerMethod getCallerMethod(CtMethod method, CallerClass callingClass) throws CannotCompileException, NotFoundException {
 		CallerClass callerClass = new CallerClass(method.getDeclaringClass(),config,callingClass);
 		CallerMethod callerMethod = new CallerMethod(method,callerClass,config);
 		method.instrument(new ExprEditor() {
@@ -66,7 +66,7 @@ public class PlantUMLSequenceDiagramGenerator {
 						return;
 					callerMethod.getCallees().add(getCallerMethod(calleeMethod,callerClass));
 				} catch (NotFoundException e) {
-					e.printStackTrace();
+					// ignore - should not happen
 				}
 			}
 		});

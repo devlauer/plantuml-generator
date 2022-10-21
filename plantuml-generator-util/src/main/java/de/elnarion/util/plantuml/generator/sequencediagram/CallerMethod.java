@@ -49,14 +49,6 @@ public class CallerMethod {
 		return ctMethod.getName();
 	}
 
-	/**
-	 * Gets the method parameters.
-	 *
-	 * @return the method parameters
-	 */
-	public String getMethodParameters() {
-		return ctMethod.getSignature();
-	}
 
 	/**
 	 * Gets the callees.
@@ -77,15 +69,6 @@ public class CallerMethod {
 	}
 
 	/**
-	 * Sets the caller class.
-	 *
-	 * @param callerClass the new caller class
-	 */
-	public void setCallerClass(CallerClass callerClass) {
-		this.callerClass = callerClass;
-	}
-
-	/**
 	 * Gets the diagram participants.
 	 *
 	 * @return the diagram participants
@@ -102,9 +85,10 @@ public class CallerMethod {
 	 * Gets the diagram text.
 	 *
 	 * @return the diagram text
-	 * @throws ClassNotFoundException
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws NotFoundException the not found exception
 	 */
-	public Object getDiagramText() throws ClassNotFoundException {
+	public Object getDiagramText() throws ClassNotFoundException, NotFoundException {
 		String participantsString = generateParticipantsText();
 		StringBuilder callerMethodDiagramTextBuilder = new StringBuilder();
 		callerMethodDiagramTextBuilder.append(System.lineSeparator());
@@ -128,9 +112,10 @@ public class CallerMethod {
 	 *
 	 * @param paramIndent the param indent
 	 * @return the string
-	 * @throws ClassNotFoundException
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws NotFoundException the not found exception
 	 */
-	private String generateCallSequenceDiagramText(String paramIndent) throws ClassNotFoundException {
+	private String generateCallSequenceDiagramText(String paramIndent) throws ClassNotFoundException, NotFoundException {
 		StringBuilder callSequenceBuilder = new StringBuilder();
 		for (CallerMethod calleeMethod : callees) {
 			String callerClassName = this.getCallerClass().getDiagramClassName();
@@ -176,15 +161,10 @@ public class CallerMethod {
 	 * @return the return type
 	 * @throws NotFoundException
 	 */
-	private String getReturnType() {
-		try {
+	private String getReturnType() throws NotFoundException {
 			if (config.isUseShortClassNames())
 				return ctMethod.getReturnType().getSimpleName();
 			return ctMethod.getReturnType().getName();
-		} catch (NotFoundException e) {
-			e.printStackTrace();
-		}
-		return "";
 	}
 
 	/**

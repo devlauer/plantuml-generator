@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.io.IOUtils;
@@ -41,6 +43,24 @@ class PlantUMLSequenceDiagramGeneratorTest {
 	}
 
 	@Test
+	void test0001BasicSequenceDiagramWithLongClassNames() throws NotFoundException, CannotCompileException, IOException, ClassNotFoundException {
+		// ARRANGE
+		PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfigBuilder(
+				CallerA.class.getName(), "callSomething").withUseShortClassName(false);
+		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
+		String expectedDiagramText = IOUtils.toString(classLoader.getResource("sequence/0001_basic_caller_with_long_class_names.txt"),
+				StandardCharsets.UTF_8);
+
+		// ACT
+		String generatedDiagram = generator.generateDiagramText();
+
+		// ASSERT
+		assertAll(() -> assertNotNull(generatedDiagram),
+				() -> assertEquals(expectedDiagramText.replaceAll("\\s+", ""),
+						generatedDiagram.replaceAll("\\s+", "")));
+	}
+	
+	@Test
 	void test0001BasicSequenceDiagramWithShowReturnType() throws NotFoundException, CannotCompileException, IOException, ClassNotFoundException {
 		// ARRANGE
 		PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfigBuilder(
@@ -58,6 +78,24 @@ class PlantUMLSequenceDiagramGeneratorTest {
 						generatedDiagram.replaceAll("\\s+", "")));
 	}
 
+	@Test
+	void test0001BasicSequenceDiagramWithShowReturnTypeAndLongClassNames() throws NotFoundException, CannotCompileException, IOException, ClassNotFoundException {
+		// ARRANGE
+		PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfigBuilder(
+				CallerA.class.getName(), "callSomething").withShowReturnTypes(true).withUseShortClassName(false);
+		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
+		String expectedDiagramText = IOUtils.toString(classLoader.getResource("sequence/0001_basic_caller_test_with_return_types_and_long_class_names.txt"),
+				StandardCharsets.UTF_8);
+
+		// ACT
+		String generatedDiagram = generator.generateDiagramText();
+
+		// ASSERT
+		assertAll(() -> assertNotNull(generatedDiagram),
+				() -> assertEquals(expectedDiagramText.replaceAll("\\s+", ""),
+						generatedDiagram.replaceAll("\\s+", "")));
+	}
+	
 	@Test
 	void test0002BasicSuperClassSequenceDiagram() throws NotFoundException, CannotCompileException, IOException, ClassNotFoundException {
 		// ARRANGE
@@ -113,6 +151,24 @@ class PlantUMLSequenceDiagramGeneratorTest {
 	}
 
 	@Test
+	void test0003JPASequenceDiagramWithStandardClasses() throws IOException, NotFoundException, CannotCompileException, ClassNotFoundException {
+		// ARRANGE
+		PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfigBuilder(
+				MovieService.class.getName(), "doSomeBusiness").withIgnoreStandardClasses(false);
+		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
+		String expectedDiagramText = IOUtils.toString(classLoader.getResource("sequence/0003_jpa_test_with_standard_classes.txt"),
+				StandardCharsets.UTF_8);
+		
+		// ACT
+		String generatedDiagram = generator.generateDiagramText();
+		
+		// ASSERT
+		assertAll(() -> assertNotNull(generatedDiagram),
+				() -> assertEquals(expectedDiagramText.replaceAll("\\s+", ""),
+						generatedDiagram.replaceAll("\\s+", "")));
+	}
+	
+	@Test
 	void test0003JPASequenceDiagramWithIgnoreJPAEntities() throws IOException, NotFoundException, CannotCompileException, ClassNotFoundException {
 		// ARRANGE
 		PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfigBuilder(
@@ -167,12 +223,12 @@ class PlantUMLSequenceDiagramGeneratorTest {
 	}
 
 	@Test
-	void test0005SequenceDiagramWithBlacklistedMethod() throws IOException, NotFoundException, CannotCompileException, ClassNotFoundException {
+	void test0004SequenceDiagramWithBlacklistedMethod() throws IOException, NotFoundException, CannotCompileException, ClassNotFoundException {
 		// ARRANGE
 		PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfigBuilder(
 				User.class.getName(), "interaction").withMethodBlacklistRegexp("getData");
 		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
-		String expectedDiagramText = IOUtils.toString(classLoader.getResource("sequence/0005_sequence_diagram_with_blacklisted_method.txt"),
+		String expectedDiagramText = IOUtils.toString(classLoader.getResource("sequence/0004_sequence_diagram_with_blacklisted_method.txt"),
 				StandardCharsets.UTF_8);
 		
 		// ACT
@@ -183,5 +239,26 @@ class PlantUMLSequenceDiagramGeneratorTest {
 				() -> assertEquals(expectedDiagramText.replaceAll("\\s+", ""),
 						generatedDiagram.replaceAll("\\s+", "")));
 	}
+	
+	@Test
+	void test0004Classloader() throws Exception {
+		String testClassPath = "file:///" + System.getProperty("user.dir") + "/src/test/classes/";
+		URL[] classesURLs = new URL[] { new URL(testClassPath) };
+		URLClassLoader customClassLoader = new URLClassLoader(classesURLs);
+		customClassLoader.loadClass("de.elnarion.test.sequence.t0004.User");
+		PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfigBuilder(User.class.getName(),"interaction").withClassloader(customClassLoader);
+		
+		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
+		String expectedDiagramText = IOUtils.toString(classLoader.getResource("sequence/0004_sequence_diagram_with_custom_classloader.txt"),
+				StandardCharsets.UTF_8);
+		
+		// ACT
+		String generatedDiagram = generator.generateDiagramText();
+		
+		// ASSERT
+		assertAll(() -> assertNotNull(generatedDiagram),
+				() -> assertEquals(expectedDiagramText.replaceAll("\\s+", ""),
+						generatedDiagram.replaceAll("\\s+", "")));
+	}	
 	
 }

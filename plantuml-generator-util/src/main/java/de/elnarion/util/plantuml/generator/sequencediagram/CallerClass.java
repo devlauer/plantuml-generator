@@ -27,8 +27,9 @@ public class CallerClass {
 	 * @param paramClass        the param class
 	 * @param paramConfig       the param config
 	 * @param paramCallingClass the param calling class
+	 * @throws NotFoundException 
 	 */
-	public CallerClass(CtClass paramClass, PlantUMLSequenceDiagramConfig paramConfig, CallerClass paramCallingClass) {
+	public CallerClass(CtClass paramClass, PlantUMLSequenceDiagramConfig paramConfig, CallerClass paramCallingClass) throws NotFoundException {
 		ctClass = paramClass;
 		config = paramConfig;
 		callingClass = paramCallingClass;
@@ -53,17 +54,13 @@ public class CallerClass {
 		return getSuperClasses().stream().map(CtClass::getName).collect(Collectors.toList());
 	}
 
-	private void addSuperClassesToCallerClass(CallerClass callerClass, CtClass declaringClass) {
-		try {
+	private void addSuperClassesToCallerClass(CallerClass callerClass, CtClass declaringClass) throws NotFoundException {
 			CtClass superClass = declaringClass.getSuperclass();
 			if (superClass != null) {
 				callerClass.getSuperClasses().add(superClass);
 				// get all super classes recursively
 				addSuperClassesToCallerClass(callerClass, superClass);
 			}
-		} catch (NotFoundException e1) {
-			// ignore
-		}
 	}
 
 	public String getDiagramClassName() {

@@ -1,0 +1,31 @@
+@startuml
+
+participant User
+participant View
+participant Controller
+participant Model
+
+activate User
+	User -> View : interact
+	activate View
+		View -> Controller : handleEvent
+		activate Controller
+			Controller -> Model : manipulate
+			activate Model
+				Model -> View : notifyView
+				activate View
+					View -> Model : getData
+					activate Model
+						Model --> View
+					deactivate Model
+					View --> Model
+				deactivate View
+				Model --> Controller
+			deactivate Model
+			Controller --> View
+		deactivate Controller
+		View --> User
+	deactivate View
+deactivate User
+
+@enduml

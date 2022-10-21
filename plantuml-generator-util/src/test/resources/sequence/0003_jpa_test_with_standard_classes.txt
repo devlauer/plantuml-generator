@@ -1,0 +1,70 @@
+@startuml
+
+participant MovieService
+participant Long
+participant MovieDAO
+participant EntityManager
+participant Movie
+participant EntityTransaction
+
+activate MovieService
+	MovieService -> Long : valueOf
+	activate Long
+		Long --> MovieService
+	deactivate Long
+	MovieService -> MovieDAO : getMovie
+	activate MovieDAO
+		MovieDAO -> MovieDAO : getEntityManager
+		activate MovieDAO
+			MovieDAO --> MovieDAO
+		deactivate MovieDAO
+		MovieDAO -> Long : longValue
+		activate Long
+			Long --> MovieDAO
+		deactivate Long
+		MovieDAO -> EntityManager : find
+		activate EntityManager
+			EntityManager --> MovieDAO
+		deactivate EntityManager
+		MovieDAO -> EntityManager : detach
+		activate EntityManager
+			EntityManager --> MovieDAO
+		deactivate EntityManager
+		MovieDAO --> MovieService
+	deactivate MovieDAO
+	MovieService -> Movie : setMovieName
+	activate Movie
+		Movie --> MovieService
+	deactivate Movie
+	MovieService -> MovieDAO : saveMovie
+	activate MovieDAO
+		MovieDAO -> MovieDAO : getEntityManager
+		activate MovieDAO
+			MovieDAO --> MovieDAO
+		deactivate MovieDAO
+		MovieDAO -> EntityManager : getTransaction
+		activate EntityManager
+			EntityManager --> MovieDAO
+		deactivate EntityManager
+		MovieDAO -> EntityTransaction : begin
+		activate EntityTransaction
+			EntityTransaction --> MovieDAO
+		deactivate EntityTransaction
+		MovieDAO -> EntityManager : persist
+		activate EntityManager
+			EntityManager --> MovieDAO
+		deactivate EntityManager
+		MovieDAO -> EntityManager : getTransaction
+		activate EntityManager
+			EntityManager --> MovieDAO
+		deactivate EntityManager
+		MovieDAO -> EntityTransaction : commit
+		activate EntityTransaction
+			EntityTransaction --> MovieDAO
+		deactivate EntityTransaction
+		MovieDAO --> MovieService
+	deactivate MovieDAO
+deactivate MovieService
+
+@enduml
+

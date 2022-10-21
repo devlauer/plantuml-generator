@@ -1,0 +1,25 @@
+@startuml
+
+participant de.elnarion.test.sequence.t0001.CallerA
+participant de.elnarion.test.sequence.t0001.CallerB
+
+activate de.elnarion.test.sequence.t0001.CallerA
+	de.elnarion.test.sequence.t0001.CallerA -> de.elnarion.test.sequence.t0001.CallerB : callSomething
+	activate de.elnarion.test.sequence.t0001.CallerB
+		de.elnarion.test.sequence.t0001.CallerB -> de.elnarion.test.sequence.t0001.CallerB : privateMethodCall
+		activate de.elnarion.test.sequence.t0001.CallerB
+			de.elnarion.test.sequence.t0001.CallerB --> de.elnarion.test.sequence.t0001.CallerB
+		deactivate de.elnarion.test.sequence.t0001.CallerB
+		de.elnarion.test.sequence.t0001.CallerB -> de.elnarion.test.sequence.t0001.CallerB : protectedMethodCall
+		activate de.elnarion.test.sequence.t0001.CallerB
+			de.elnarion.test.sequence.t0001.CallerB --> de.elnarion.test.sequence.t0001.CallerB
+		deactivate de.elnarion.test.sequence.t0001.CallerB
+		de.elnarion.test.sequence.t0001.CallerB --> de.elnarion.test.sequence.t0001.CallerA
+	deactivate de.elnarion.test.sequence.t0001.CallerB
+	de.elnarion.test.sequence.t0001.CallerA -> de.elnarion.test.sequence.t0001.CallerB : callSomethingElse
+	activate de.elnarion.test.sequence.t0001.CallerB
+		de.elnarion.test.sequence.t0001.CallerB --> de.elnarion.test.sequence.t0001.CallerA
+	deactivate de.elnarion.test.sequence.t0001.CallerB
+deactivate de.elnarion.test.sequence.t0001.CallerA
+
+@enduml

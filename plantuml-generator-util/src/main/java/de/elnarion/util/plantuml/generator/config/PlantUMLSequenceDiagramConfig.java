@@ -22,6 +22,22 @@ public class PlantUMLSequenceDiagramConfig {
 	
 	/** The hide super class. */
 	private boolean hideSuperClass = false;
+	
+	/** The ignore standard classes. */
+	private boolean ignoreStandardClasses = true;
+	
+	/** The ignore JPA entities. */
+	private boolean ignoreJPAEntities = false;
+	
+	/** The class blacklist regexp. */
+	private String classBlacklistRegexp = null;
+	
+	/** The method blacklist regexp. */
+	private String methodBlacklistRegexp = null;
+	
+	/** The hide method name. */
+	private boolean hideMethodName = false;
+	
 
 	/**
 	 * Gets the destination classloader.
@@ -129,6 +145,96 @@ public class PlantUMLSequenceDiagramConfig {
 	 */
 	public void setHideSuperClass(boolean hideSuperClass) {
 		this.hideSuperClass = hideSuperClass;
+	}
+
+	/**
+	 * Checks if is ignore standard classes.
+	 *
+	 * @return true, if is ignore standard classes
+	 */
+	public boolean isIgnoreStandardClasses() {
+		return ignoreStandardClasses;
+	}
+
+	/**
+	 * Sets the ignore standard classes.
+	 *
+	 * @param ignoreStandardClasses the new ignore standard classes
+	 */
+	public void setIgnoreStandardClasses(boolean ignoreStandardClasses) {
+		this.ignoreStandardClasses = ignoreStandardClasses;
+	}
+
+	/**
+	 * Checks if is ignore JPA entities.
+	 *
+	 * @return true, if is ignore JPA entities
+	 */
+	public boolean isIgnoreJPAEntities() {
+		return ignoreJPAEntities;
+	}
+
+	/**
+	 * Sets the ignore JPA entities.
+	 *
+	 * @param ignoreJPAEntities the new ignore JPA entities
+	 */
+	public void setIgnoreJPAEntities(boolean ignoreJPAEntities) {
+		this.ignoreJPAEntities = ignoreJPAEntities;
+	}
+
+	/**
+	 * Gets the class blacklist regexp.
+	 *
+	 * @return the class blacklist regexp
+	 */
+	public String getClassBlacklistRegexp() {
+		return classBlacklistRegexp;
+	}
+
+	/**
+	 * Sets the class blacklist regexp.
+	 *
+	 * @param classBlacklistRegexp the new class blacklist regexp
+	 */
+	public void setClassBlacklistRegexp(String classBlacklistRegexp) {
+		this.classBlacklistRegexp = classBlacklistRegexp;
+	}
+
+	/**
+	 * Gets the method blacklist regexp.
+	 *
+	 * @return the method blacklist regexp
+	 */
+	public String getMethodBlacklistRegexp() {
+		return methodBlacklistRegexp;
+	}
+
+	/**
+	 * Sets the method blacklist regexp.
+	 *
+	 * @param methodBlacklistRegexp the new method blacklist regexp
+	 */
+	public void setMethodBlacklistRegexp(String methodBlacklistRegexp) {
+		this.methodBlacklistRegexp = methodBlacklistRegexp;
+	}
+
+	/**
+	 * Checks if is hide method name.
+	 *
+	 * @return true, if is hide method name
+	 */
+	public boolean isHideMethodName() {
+		return hideMethodName;
+	}
+
+	/**
+	 * Sets the hide method name.
+	 *
+	 * @param hideMethodName the new hide method name
+	 */
+	public void setHideMethodName(boolean hideMethodName) {
+		this.hideMethodName = hideMethodName;
 	}
 
 }

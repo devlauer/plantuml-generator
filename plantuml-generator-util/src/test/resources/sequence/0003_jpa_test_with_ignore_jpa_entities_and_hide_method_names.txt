@@ -1,0 +1,55 @@
+@startuml
+
+participant MovieService
+participant MovieDAO
+participant EntityManager
+participant EntityTransaction
+
+activate MovieService
+	MovieService -> MovieDAO
+	activate MovieDAO
+		MovieDAO -> MovieDAO
+		activate MovieDAO
+			MovieDAO --> MovieDAO
+		deactivate MovieDAO
+		MovieDAO -> EntityManager
+		activate EntityManager
+			EntityManager --> MovieDAO
+		deactivate EntityManager
+		MovieDAO -> EntityManager
+		activate EntityManager
+			EntityManager --> MovieDAO
+		deactivate EntityManager
+		MovieDAO --> MovieService
+	deactivate MovieDAO
+	MovieService -> MovieDAO
+	activate MovieDAO
+		MovieDAO -> MovieDAO
+		activate MovieDAO
+			MovieDAO --> MovieDAO
+		deactivate MovieDAO
+		MovieDAO -> EntityManager
+		activate EntityManager
+			EntityManager --> MovieDAO
+		deactivate EntityManager
+		MovieDAO -> EntityTransaction
+		activate EntityTransaction
+			EntityTransaction --> MovieDAO
+		deactivate EntityTransaction
+		MovieDAO -> EntityManager
+		activate EntityManager
+			EntityManager --> MovieDAO
+		deactivate EntityManager
+		MovieDAO -> EntityManager
+		activate EntityManager
+			EntityManager --> MovieDAO
+		deactivate EntityManager
+		MovieDAO -> EntityTransaction
+		activate EntityTransaction
+			EntityTransaction --> MovieDAO
+		deactivate EntityTransaction
+		MovieDAO --> MovieService
+	deactivate MovieDAO
+deactivate MovieService
+
+@enduml

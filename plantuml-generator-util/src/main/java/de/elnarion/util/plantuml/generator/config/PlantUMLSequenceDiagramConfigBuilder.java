@@ -65,6 +65,63 @@ public class PlantUMLSequenceDiagramConfigBuilder {
 	}
 	
 	/**
+	 * With hide method name.
+	 *
+	 * @param paramHideMethodName the param hide method name
+	 * @return the plant UML sequence diagram config builder
+	 */
+	public PlantUMLSequenceDiagramConfigBuilder withHideMethodName(boolean paramHideMethodName) {
+		sequenceDiagramConfig.setHideMethodName(paramHideMethodName);
+		return this;
+	}
+	
+
+	/**
+	 * With ignore standard classes.
+	 *
+	 * @param paramIgnoreStandardClasses the param ignore standard classes
+	 * @return the plant UML sequence diagram config builder
+	 */
+	public PlantUMLSequenceDiagramConfigBuilder withIgnoreStandardClasses(boolean paramIgnoreStandardClasses) {
+		sequenceDiagramConfig.setIgnoreStandardClasses(paramIgnoreStandardClasses);
+		return this;
+	}
+	
+
+	/**
+	 * With ignore JPA entities.
+	 *
+	 * @param paramIgnoreJPAEntities the param ignore JPA entities
+	 * @return the plant UML sequence diagram config builder
+	 */
+	public PlantUMLSequenceDiagramConfigBuilder withIgnoreJPAEntities(boolean paramIgnoreJPAEntities) {
+		sequenceDiagramConfig.setIgnoreJPAEntities(paramIgnoreJPAEntities);
+		return this;
+	}
+
+	/**
+	 * With class blacklist regexp.
+	 *
+	 * @param paramClassBlacklistRegexp the param class blacklist regexp
+	 * @return the plant UML sequence diagram config builder
+	 */
+	public PlantUMLSequenceDiagramConfigBuilder withClassBlacklistRegexp(String paramClassBlacklistRegexp) {
+		sequenceDiagramConfig.setClassBlacklistRegexp(paramClassBlacklistRegexp);
+		return this;
+	}
+	
+	/**
+	 * With method blacklist regexp.
+	 *
+	 * @param paramMethodBlacklistRegexp the param method blacklist regexp
+	 * @return the plant UML sequence diagram config builder
+	 */
+	public PlantUMLSequenceDiagramConfigBuilder withMethodBlacklistRegexp(String paramMethodBlacklistRegexp) {
+		sequenceDiagramConfig.setMethodBlacklistRegexp(paramMethodBlacklistRegexp);
+		return this;
+	}
+	
+	/**
 	 * Builds the.
 	 *
 	 * @return the plant UML sequence diagram config

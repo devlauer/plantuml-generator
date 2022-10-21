@@ -24,14 +24,14 @@ public class PlantUMLSequenceDiagramGenerator {
 		config = paramPlantUMLConfig;
 	}
 
-	public String generateDiagramText() throws NotFoundException, CannotCompileException {
+	public String generateDiagramText() throws NotFoundException, CannotCompileException, ClassNotFoundException {
 		ClassPool cp = getClassLoaderSpecificClassPool();
 		CtMethod method = findStartingMethodInClassPool(cp);
 		CallerMethod callerMethod = getCallerMethod(method,null);
 		return generateDiagramTextFromCallerMethod(callerMethod);
 	}
 
-	private String generateDiagramTextFromCallerMethod(CallerMethod callerMethod) {
+	private String generateDiagramTextFromCallerMethod(CallerMethod callerMethod) throws ClassNotFoundException {
 		StringBuilder diagramStringBuilder = new StringBuilder();
 		diagramStringBuilder.append("@startuml");
 		diagramStringBuilder.append(System.lineSeparator());
@@ -61,6 +61,9 @@ public class PlantUMLSequenceDiagramGenerator {
 			public void edit(MethodCall m) throws CannotCompileException {
 				try {
 					CtMethod calleeMethod = m.getMethod();
+					CtClass calleeClass = calleeMethod.getDeclaringClass();
+					if(isIgnoreCall(calleeClass,calleeMethod))
+						return;
 					callerMethod.getCallees().add(getCallerMethod(calleeMethod,callerClass));
 				} catch (NotFoundException e) {
 					e.printStackTrace();
@@ -70,6 +73,33 @@ public class PlantUMLSequenceDiagramGenerator {
 		return callerMethod;
 	}
 
+	private boolean isIgnoreCall(CtClass calleeClass,CtMethod calleeMethod) {
+		boolean ignoreCall = false;
+		// handle all ignore cases
+		if(config.isIgnoreStandardClasses()&&isJavaStandardClass(calleeClass))
+			ignoreCall = true;
+		if(config.isIgnoreJPAEntities()&&calleeClass.hasAnnotation("javax.persistence.Entity"))
+			ignoreCall = true;
+		if(config.getClassBlacklistRegexp()!=null&&isClassBlacklisted(calleeClass))
+			ignoreCall = true;
+		if(config.getMethodBlacklistRegexp()!=null&&isMethodBlacklisted(calleeMethod))
+			ignoreCall = true;
+		return ignoreCall;
+	}	
+	
+	private boolean isMethodBlacklisted(CtMethod calleeMethod) {
+		return calleeMethod.getName().matches(config.getMethodBlacklistRegexp());
+	}
+
+	private boolean isClassBlacklisted(CtClass calleeClass) {
+		return calleeClass.getName().matches(config.getClassBlacklistRegexp());
+	}
+
+	private boolean isJavaStandardClass(CtClass calleeClass) {
+		String packageName = calleeClass.getPackageName();
+		return packageName.startsWith("java.");
+	}
+	
 
 	private ClassLoader getClassLoader() {
 		ClassLoader classLoader = this.getClass().getClassLoader();

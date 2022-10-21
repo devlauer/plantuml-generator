@@ -1,7 +1,7 @@
 package de.elnarion.util.plantuml.generator.sequencediagram;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -17,31 +17,29 @@ public class CallerMethod {
 
 	/** The class name. */
 	private CallerClass callerClass;
-	
+
 	/** The ct method. */
 	private CtMethod ctMethod;
-	
+
 	/** The config. */
 	private PlantUMLSequenceDiagramConfig config;
-	
+
 	/** The callees. */
-	private List<CallerMethod> callees = new ArrayList<>();
-	
+	private List<CallerMethod> callees = new LinkedList<>();
 
 	/**
 	 * Instantiates a new caller method.
 	 *
-	 * @param paramMethod the param method
+	 * @param paramMethod      the param method
 	 * @param paramCallerClass the param caller class
-	 * @param paramConfig the param config
+	 * @param paramConfig      the param config
 	 */
 	public CallerMethod(CtMethod paramMethod, CallerClass paramCallerClass, PlantUMLSequenceDiagramConfig paramConfig) {
 		ctMethod = paramMethod;
 		config = paramConfig;
 		callerClass = paramCallerClass;
 	}
-	
-	
+
 	/**
 	 * Gets the method name.
 	 *
@@ -50,7 +48,7 @@ public class CallerMethod {
 	public String getMethodName() {
 		return ctMethod.getName();
 	}
-	
+
 	/**
 	 * Gets the method parameters.
 	 *
@@ -59,7 +57,7 @@ public class CallerMethod {
 	public String getMethodParameters() {
 		return ctMethod.getSignature();
 	}
-	
+
 	/**
 	 * Gets the callees.
 	 *
@@ -68,7 +66,7 @@ public class CallerMethod {
 	public List<CallerMethod> getCallees() {
 		return callees;
 	}
-	
+
 	/**
 	 * Gets the caller class.
 	 *
@@ -92,19 +90,21 @@ public class CallerMethod {
 	 *
 	 * @return the diagram participants
 	 */
-	public Set<String> getDiagramParticipants() {
-		Set<String> diagramParticipants = new HashSet<>();
+	public List<String> getDiagramParticipants() {
+		List<String> diagramParticipants = new LinkedList<>();
 		diagramParticipants.add(callerClass.getDiagramClassName());
-		diagramParticipants.addAll(callees.stream().map(CallerMethod::getDiagramParticipants).flatMap(Set::stream).collect(Collectors.toSet()));
+		diagramParticipants.addAll(callees.stream().map(CallerMethod::getDiagramParticipants).flatMap(List::stream)
+				.collect(Collectors.toList()));
 		return diagramParticipants;
 	}
-	
+
 	/**
 	 * Gets the diagram text.
 	 *
 	 * @return the diagram text
+	 * @throws ClassNotFoundException
 	 */
-	public Object getDiagramText() {
+	public Object getDiagramText() throws ClassNotFoundException {
 		String participantsString = generateParticipantsText();
 		StringBuilder callerMethodDiagramTextBuilder = new StringBuilder();
 		callerMethodDiagramTextBuilder.append(System.lineSeparator());
@@ -128,18 +128,21 @@ public class CallerMethod {
 	 *
 	 * @param paramIndent the param indent
 	 * @return the string
+	 * @throws ClassNotFoundException
 	 */
-	private String generateCallSequenceDiagramText(String paramIndent) {
+	private String generateCallSequenceDiagramText(String paramIndent) throws ClassNotFoundException {
 		StringBuilder callSequenceBuilder = new StringBuilder();
-		for(CallerMethod calleeMethod:callees) {
+		for (CallerMethod calleeMethod : callees) {
 			String callerClassName = this.getCallerClass().getDiagramClassName();
 			String calleeClassName = calleeMethod.getCallerClass().getDiagramClassName();
 			callSequenceBuilder.append(paramIndent);
 			callSequenceBuilder.append(callerClassName);
 			callSequenceBuilder.append(" -> ");
 			callSequenceBuilder.append(calleeClassName);
-			callSequenceBuilder.append(" : ");
-			callSequenceBuilder.append(calleeMethod.getMethodName());
+			if (!config.isHideMethodName()) {
+				callSequenceBuilder.append(" : ");
+				callSequenceBuilder.append(calleeMethod.getMethodName());
+			}
 			callSequenceBuilder.append(System.lineSeparator());
 
 			callSequenceBuilder.append(paramIndent);
@@ -147,19 +150,18 @@ public class CallerMethod {
 			callSequenceBuilder.append(calleeClassName);
 			callSequenceBuilder.append(System.lineSeparator());
 
-			callSequenceBuilder.append(calleeMethod.generateCallSequenceDiagramText(paramIndent+"\t"));
+			callSequenceBuilder.append(calleeMethod.generateCallSequenceDiagramText(paramIndent + "\t"));
 
-			callSequenceBuilder.append(paramIndent+"\t");
+			callSequenceBuilder.append(paramIndent + "\t");
 			callSequenceBuilder.append(calleeClassName);
 			callSequenceBuilder.append(" --> ");
 			callSequenceBuilder.append(callerClassName);
-			if(config.isShowReturnTypes())
-			{
+			if (config.isShowReturnTypes()) {
 				callSequenceBuilder.append(" : ");
 				callSequenceBuilder.append(calleeMethod.getReturnType());
 			}
 			callSequenceBuilder.append(System.lineSeparator());
-			
+
 			callSequenceBuilder.append(paramIndent);
 			callSequenceBuilder.append("deactivate ");
 			callSequenceBuilder.append(calleeClassName);
@@ -172,11 +174,11 @@ public class CallerMethod {
 	 * Gets the return type.
 	 *
 	 * @return the return type
-	 * @throws NotFoundException 
+	 * @throws NotFoundException
 	 */
 	private String getReturnType() {
 		try {
-			if(config.isUseShortClassNames())
+			if (config.isUseShortClassNames())
 				return ctMethod.getReturnType().getSimpleName();
 			return ctMethod.getReturnType().getName();
 		} catch (NotFoundException e) {
@@ -185,15 +187,18 @@ public class CallerMethod {
 		return "";
 	}
 
-
 	/**
 	 * Generate participants text.
 	 *
 	 * @return the string
 	 */
 	private String generateParticipantsText() {
-		Set<String> participants = getDiagramParticipants();
-		List<String> diagramParticipants = participants.stream().map(e -> "participant "+e).collect(Collectors.toList());
+		List<String> participants = getDiagramParticipants();
+		Set<String> distinctParticipants = new LinkedHashSet<>();
+		// preserve calling order
+		participants.forEach(distinctParticipants::add);
+		List<String> diagramParticipants = distinctParticipants.stream().map(e -> "participant " + e)
+				.collect(Collectors.toList());
 		return String.join(System.lineSeparator(), diagramParticipants);
 	}
 

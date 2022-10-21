@@ -1,0 +1,13 @@
+@startuml
+
+participant User
+participant View
+
+activate User
+	User -> View : interact
+	activate View
+		View --> User
+	deactivate View
+deactivate User
+
+@enduml

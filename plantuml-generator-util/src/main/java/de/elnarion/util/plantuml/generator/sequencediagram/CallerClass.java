@@ -82,5 +82,5 @@ public class CallerClass {
 	protected List<CtClass> getSuperClasses() {
 		return superClasses;
 	}
-
+	
 }

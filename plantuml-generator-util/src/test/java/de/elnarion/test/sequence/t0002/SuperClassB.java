@@ -1,4 +1,4 @@
-package de.elnarion.test.sequence.t0003;
+package de.elnarion.test.sequence.t0002;
 
 public abstract class SuperClassB {
 

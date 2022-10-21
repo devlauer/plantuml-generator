@@ -32,15 +32,13 @@
 					<execution>
 						<id>generate-simple-diagram</id>
 						<goals>
-							<goal>generate</goal>
+							<goal>generateSequenceDiagram</goal>
 						</goals>
 						<phase>generate-test-sources</phase>
 						<configuration>
-							<outputFilename>testdiagram1.txt</outputFilename>
-							<scanPackages>
-								<scanPackage>de.elnarion.maven.plugin.plantuml.generator.test.domain</scanPackage>
-								<scanPackage>org.apache.commons.io.monitor</scanPackage>
-							</scanPackages>
+							<outputFilename>testsequencediagram1.txt</outputFilename>
+							<startClass>de.elnarion.maven.plugin.plantuml.generator.test.domain.ChildA</startClass>
+							<startMethod>doSomethingSpecial</startMethod>
 						</configuration>
 					</execution>
 				</executions>

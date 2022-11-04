@@ -1,0 +1,46 @@
+= ignoreJPAEntities
+include::./_attributes.adoc[]
+
+== Description
+
+With the help of this configuration toggle it is possible to remove 
+all calls to a JPA entity from the sequence flow because entities are
+often only simple POJOs.
+
+== Default value
+
+The default value of this toggle is *false*.
+
+== Example
+
+Here is an example from the JUnit tests using this configuration parameter:
+
+[source,java,indent=0]
+----
+include::example$testsrc/de/elnarion/util/plantuml/generator/{generatorclass}Test.java[tags=jpawithignoreentities]
+----
+[sidebar]
+--
+<1> activate "ignore JPA entities" toggle
+--
+
+which is rendered this way:
+
+[plantuml,0003_jpa_test_with_ignore_jpa_entities_diagram,png]
+----
+include::example$testresources/sequence/0003_jpa_test_with_ignore_jpa_entities.txt[]
+----
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::example$testresources/sequence/0003_jpa_test_with_ignore_jpa_entities.txt[]
+----
+
+Without the parameter the diagram would look like this:
+
+[plantuml,0003_jpa_test_without_options_diagram,png]
+----
+include::example$testresources/sequence/0003_jpa_test_without_options.txt[]
+----

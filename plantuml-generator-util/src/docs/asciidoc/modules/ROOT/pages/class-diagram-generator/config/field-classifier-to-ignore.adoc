@@ -1,0 +1,47 @@
+= fieldClassifierToIgnore
+include::./_attributes.adoc[]
+
+== Description
+
+With this configuration list option you can filter out fields by their 
+classifier from the diagram.
+
+You can add any of the following values to the configuration list:
+
+* ABSTRACT - all abstract non-static fields are filtered out
+* STATIC - all static non-abstract fields are filtered out
+* ABSTRACT_STATIC - all static abstract fields are filtered out
+* NONE - all fields without abstract or static classifier are filtered out
+
+== Default value
+
+The default value of this configuration option is an empty list (no filtering
+via classifier).
+
+== Example
+
+Here is an example from the JUnit tests using this configuration parameter:
+
+[source,java,indent=0]
+----
+include::example$testsrc/de/elnarion/util/plantuml/generator/{generatorclass}Test.java[tags=ignoreclassifierfields]
+----
+[sidebar]
+--
+<1> add field classifier to ignore to the configuration
+--
+
+which is rendered this way:
+
+[plantuml,0019_ignore_classifier_fields_diagram,png]
+----
+include::example$testresources/class/0019_ignore_classifier_fields.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::example$testresources/class/0019_ignore_classifier_fields.txt[]
+----

@@ -20,6 +20,7 @@
 
 	<build>
 		<plugins>
+		<!-- tag::plugin[] -->
 			<plugin>
 				<artifactId>plantuml-generator-maven-plugin</artifactId>
 				<groupId>de.elnarion.maven</groupId>
@@ -30,6 +31,7 @@
 					<outputFilename>testdiagram1.txt</outputFilename>
 				</configuration>
 			</plugin>
+		<!-- end::plugin[] -->
 		</plugins>
 	</build>
 </project>

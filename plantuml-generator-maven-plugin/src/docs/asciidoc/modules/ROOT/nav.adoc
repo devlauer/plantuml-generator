@@ -1,0 +1,4 @@
+* xref:class-diagram-mojo.adoc[]
+** xref:class-diagram-mojo/examples.adoc[]
+* xref:sequence-diagram-mojo.adoc[]
+** xref:sequence-diagram-mojo/examples.adoc[]

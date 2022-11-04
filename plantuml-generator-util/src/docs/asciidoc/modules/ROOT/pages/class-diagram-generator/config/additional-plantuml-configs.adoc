@@ -1,0 +1,47 @@
+= additionalPlantUMLConfigs
+include::./_attributes.adoc[]
+
+== Description
+
+With the help of this configuration parameter you are able to 
+add any PlantUML configuration or even normal text to the beginning
+of the generated PlantUML diagram.
+You just have to add this configuration with the withAdditionalPlantUMLConfigs
+method of the {builderclass}.
+The parameter is a list of strings and every string is a new line in the
+PlantUML diagram.
+
+If this parameter is not added or if the parameter is an empty list, 
+nothing is added to the diagram.
+
+== Default value
+
+The default value for this configuration is an empty list.
+
+== Example
+Here is an example from the JUnit tests using this configuration parameter:
+
+[source,java,indent=0]
+----
+include::example$testsrc/de/elnarion/util/plantuml/generator/{generatorclass}Test.java[tags=additionalplantumlconfig]
+----
+[sidebar]
+--
+<1> list of strings (PlantUML text or configuration) is declared for parameter additionalPlantUmlConfigs
+<2> parameter is added to the builder and in consequence to the generator
+--
+
+which is rendered this way:
+
+[plantuml,0023_additional-plant-uml-configs_diagram,png]
+----
+include::example$testresources/class/0023_additional-plant-uml-configs.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::example$testresources/class/0023_additional-plant-uml-configs.txt[]
+----

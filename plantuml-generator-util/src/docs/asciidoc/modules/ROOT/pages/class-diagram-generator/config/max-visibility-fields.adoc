@@ -1,0 +1,138 @@
+= maxVisibilityFields
+include::./_attributes.adoc[]
+
+== Description
+
+With this configuration option you can filter out fields from the 
+diagram by their visibility in Java.
+
+The following options are supported:
+
+* PUBLIC +
+only public fields will be displayed
+* PROTECTED +
+only public and protected fields will be displayed
+* PACKAGE_PRIVATE + 
+only public, protected and package_private fields will be displayed
+* PRIVATE + 
+all fields will be displayed if not removed or ignored by other parameters
+
+
+== Default value
+
+The default value of this configuration option is PRIVATE.
+
+== Example
+
+=== Maximum visibility public
+
+Here is an example from the JUnit tests using this configuration parameter:
+
+[source,java,indent=0]
+----
+include::example$testsrc/de/elnarion/util/plantuml/generator/{generatorclass}Test.java[tags=maxvisibilityfieldspublic]
+----
+[sidebar]
+--
+<1> set maximum visibility for fields to *public* in the configuration
+--
+
+which is rendered this way:
+
+[plantuml,0013_max_visibility_fields_public_diagram,png]
+----
+include::example$testresources/class/0013_max_visibility_fields_public.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::example$testresources/class/0013_max_visibility_fields_public.txt[]
+----
+
+=== Maximum visibility protected
+
+Here is an example from the JUnit tests using this configuration parameter:
+
+[source,java,indent=0]
+----
+include::example$testsrc/de/elnarion/util/plantuml/generator/{generatorclass}Test.java[tags=maxvisibilityfieldsprotected]
+----
+[sidebar]
+--
+<1> set maximum visibility for fields to *protected* in the configuration
+--
+
+which is rendered this way:
+
+[plantuml,0013_max_visibility_fields_protected_diagram,png]
+----
+include::example$testresources/class/0013_max_visibility_fields_protected.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::example$testresources/class/0013_max_visibility_fields_protected.txt[]
+----
+
+=== Maximum visibility package private
+
+Here is an example from the JUnit tests using this configuration parameter:
+
+[source,java,indent=0]
+----
+include::example$testsrc/de/elnarion/util/plantuml/generator/{generatorclass}Test.java[tags=maxvisibilityfieldspackageprivate]
+----
+[sidebar]
+--
+<1> set maximum visibility for fields to *package private* in the configuration
+--
+
+which is rendered this way:
+
+[plantuml,0013_max_visibility_fields_package_private_diagram,png]
+----
+include::example$testresources/class/0013_max_visibility_fields_package_private.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::example$testresources/class/0013_max_visibility_fields_package_private.txt[]
+----
+
+=== Maximum visibility private
+
+Here is an example from the JUnit tests using this configuration parameter:
+
+[source,java,indent=0]
+----
+include::example$testsrc/de/elnarion/util/plantuml/generator/{generatorclass}Test.java[tags=maxvisibilityfieldsprivate]
+----
+[sidebar]
+--
+<1> set maximum visibility for fields to *private* in the configuration
+--
+
+which is rendered this way:
+
+[plantuml,0013_max_visibility_fields_private_diagram,png]
+----
+include::example$testresources/class/0013_max_visibility_fields_private.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::example$testresources/class/0013_max_visibility_fields_private.txt[]
+----
+

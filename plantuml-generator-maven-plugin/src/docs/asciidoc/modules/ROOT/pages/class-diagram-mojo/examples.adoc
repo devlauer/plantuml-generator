@@ -1,0 +1,190 @@
+= Examples
+
+.Here are some configuration examples:
+
+[source, xml]
+----
+include::example$testresources/unit/plantuml-generator/diagram1-test/pom.xml[tags=plugin]
+----
+
+
+* with a simple package to scan:
+
+[source, xml]
+----
+<plugin>
+  <artifactId>plantuml-generator-maven-plugin</artifactId>
+  <groupId>de.elnarion.maven</groupId>
+  <version>1.1.2</version>
+  <executions>
+	<execution>
+		<id>generate-simple-diagram</id>
+		<goals>
+			<goal>generate</goal>
+		</goals>
+		<phase>generate-test-sources</phase>
+		<configuration>
+			<outputFilename>testdiagram1.txt</outputFilename>
+			<scanPackages>
+				<scanPackage>
+				some.package.to.process
+				</scanPackage>
+			</scanPackages>
+		</configuration>
+	</execution>
+  </executions>
+</plugin>
+----
+
+* with a simple package to scan reduced by a blacklist regular expression:
+
+[source, xml]
+----
+<plugin>
+  <artifactId>plantuml-generator-maven-plugin</artifactId>
+  <groupId>de.elnarion.maven</groupId>
+  <version>1.1.2</version>
+  <executions>
+	<execution>
+		<id>generate-simple-diagram</id>
+		<goals>
+			<goal>generate</goal>
+		</goals>
+		<phase>generate-test-sources</phase>
+		<configuration>
+			<outputFilename>testdiagram1.txt</outputFilename>
+			<scanPackages>
+				<scanPackage>
+				some.package.to.process
+				</scanPackage>
+			</scanPackages>
+			<blacklistRegexp>.*TestClass.*</blacklistRegexp>
+		</configuration>
+	</execution>
+  </executions>
+</plugin>
+----
+
+
+* with a whitelist regular expression:
+
+[source, xml]
+----
+<plugin>
+  <artifactId>plantuml-generator-maven-plugin</artifactId>
+  <groupId>de.elnarion.maven</groupId>
+  <version>1.1.2</version>
+  <executions>
+	<execution>
+		<id>generate-simple-diagram</id>
+		<goals>
+			<goal>generate</goal>
+		</goals>
+		<phase>generate-test-sources</phase>
+		<configuration>
+			<outputFilename>testdiagram1.txt</outputFilename>
+			<whitelistRegexp>.*TestClass.*</whitelistRegexp>
+		</configuration>
+	</execution>
+  </executions>
+</plugin>
+----
+
+* with a whitelist regular expression filtered by a list of 
+packages to scan:
+
+[source, xml]
+----
+<plugin>
+  <artifactId>plantuml-generator-maven-plugin</artifactId>
+  <groupId>de.elnarion.maven</groupId>
+  <version>1.1.2</version>
+  <executions>
+	<execution>
+		<id>generate-simple-diagram</id>
+		<goals>
+			<goal>generate</goal>
+		</goals>
+		<phase>generate-test-sources</phase>
+		<configuration>
+			<outputFilename>testdiagram1.txt</outputFilename>
+			<scanPackages>
+				<scanPackage>
+				some.package.to.process
+				</scanPackage>
+			</scanPackages>
+			<whitelistRegexp>.*TestClass.*</whitelistRegexp>
+		</configuration>
+	</execution>
+  </executions>
+</plugin>
+----
+
+
+* with multiple packages to scan, some classes, all methods 
+and all fields to hide:
+
+[source, xml]
+----
+<plugin>
+  <artifactId>plantuml-generator-maven-plugin</artifactId>
+  <groupId>de.elnarion.maven</groupId>
+  <version>1.1.2</version>
+  <executions>
+	<execution>
+		<id>generate-simple-diagram</id>
+		<goals>
+			<goal>generate</goal>
+		</goals>
+		<phase>generate-test-sources</phase>
+		<configuration>
+			<outputDirectory>/tmp</outputDirectory>
+			<outputFilename>testdiagram1.txt</outputFilename>
+			<scanPackages>
+				<scanPackage>
+				some.package.to.process
+				</scanPackage>
+				<scanPackage>
+				second.package.to.process
+				</scanPackage>
+			</scanPackages>
+			<hideFields>true</hideFields>
+			<hideMethods>true</hideMethods>
+			<hideClasses>
+				<hideClass>
+				some.package.to.process.TestClass
+				</hideClass>
+				<hideClass>
+				second.package.to.process.TestClass2
+				</hideClass>
+			</hideClasses>
+		</configuration>
+	</execution>
+  </executions>
+</plugin>
+----
+
+* with a whitelist regular expression wrapped as asciidoc diagram block:
+
+[source, xml]
+----
+<plugin>
+  <artifactId>plantuml-generator-maven-plugin</artifactId>
+  <groupId>de.elnarion.maven</groupId>
+  <version>1.1.2</version>
+  <executions>
+	<execution>
+		<id>generate-simple-diagram</id>
+		<goals>
+			<goal>generate</goal>
+		</goals>
+		<phase>generate-test-sources</phase>
+		<configuration>
+			<outputFilename>testdiagram1.txt</outputFilename>
+			<whitelistRegexp>.*TestClass.*</whitelistRegexp>
+			<enableAsciidocWrapper>true</enableAsciidocWrapper>
+		</configuration>
+	</execution>
+  </executions>
+</plugin>
+----

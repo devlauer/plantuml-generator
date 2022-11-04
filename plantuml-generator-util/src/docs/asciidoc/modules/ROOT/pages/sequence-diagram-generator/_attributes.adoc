@@ -1,0 +1,6 @@
+include::../_attributes.adoc[]
+
+:keywords: {compontentkeywords}, sequence diagram
+:builderclass: PlantUMLSequenceDiagramConfigBuilder
+:configclass: PlantUMLSequenceDiagramConfig
+:generatorclass: PlantUMLSequenceDiagramGenerator

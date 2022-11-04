@@ -6,7 +6,7 @@ package de.elnarion.util.plantuml.generator.config;
 public class PlantUMLSequenceDiagramConfig {
 
 	/** The destination classloader. */
-	private ClassLoader destinationClassloader = null;
+	private ClassLoader destinationClassloader = PlantUMLSequenceDiagramConfig.class.getClassLoader();
 	
 	/** The start class. */
 	private String startClass = null;

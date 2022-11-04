@@ -1,0 +1,3 @@
+= {page-component-title}
+:description: The maven plugins submodule project of the PlantUML generator project is documented here.
+:keywords: {compontentkeywords}

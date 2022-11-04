@@ -1,0 +1,49 @@
+= ignoreStandardClasses
+include::./_attributes.adoc[]
+
+== Description
+
+With the help of this configuration parameter it is possible to remove
+all Java standard classes (java.* package names) from the call sequence.
+Because this is normal wanted behavior this toggle is activated by 
+default.
+If you want the standard classes in the diagram, you must deactivate it.
+
+== Default value
+
+The default value of this configuration is *true* (all standard java classes 
+are ignored).
+
+== Example
+
+Here is an example from the JUnit tests using this configuration parameter:
+
+[source,java,indent=0]
+----
+include::example$testsrc/de/elnarion/util/plantuml/generator/{generatorclass}Test.java[tags=jpawithignorestandardclasses]
+----
+[sidebar]
+--
+<1> deactivate "standard classes" toggle
+--
+
+which is rendered this way:
+
+[plantuml,0003_jpa_test_with_standard_classes_diagram,png]
+----
+include::example$testresources/sequence/0003_jpa_test_with_standard_classes.txt[]
+----
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::example$testresources/sequence/0003_jpa_test_with_standard_classes.txt[]
+----
+
+Without the parameter the diagram would look like this:
+
+[plantuml,0003_jpa_test_without_options_diagram,png]
+----
+include::example$testresources/sequence/0003_jpa_test_without_options.txt[]
+----

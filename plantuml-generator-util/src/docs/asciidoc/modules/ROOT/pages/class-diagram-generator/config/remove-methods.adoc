@@ -1,0 +1,50 @@
+= removeMethods
+include::./_attributes.adoc[]
+
+== Description
+
+With this configuration toggle you can remove all methods 
+from the generated diagram text.
+
+If you want to remove specific methods from the diagram, 
+you have to use the
+xref:./method-blacklist-regexp.adoc[methods blacklist regular expression]
+configuration option.
+
+If you want to hide all methods on the rendered diagram but do not want to 
+remove them from the diagram text, you have to use the
+xref:./hide-methods.adoc[hide methods]
+configuration option.
+
+
+== Default value
+
+The default value of this configuration option is false (nothing is removed).
+
+== Example
+
+Here is an example from the JUnit tests using this configuration parameter:
+
+[source,java,indent=0]
+----
+include::example$testsrc/de/elnarion/util/plantuml/generator/{generatorclass}Test.java[tags=removemethods]
+----
+[sidebar]
+--
+<1> toggle "remove methods" configuration
+--
+
+which is rendered this way:
+
+[plantuml,0015_remove_methods_diagram,png]
+----
+include::example$testresources/class/0015_remove_methods.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::example$testresources/class/0015_remove_methods.txt[]
+----

@@ -1,0 +1,69 @@
+= Configuration
+include::./_attributes.adoc[]
+
+== Configuration options
+
+You have two basic options
+to configure the {generatorclass} for diagram generation:
+
+* construct a {configclass} object on your own and pass it
+into the constructor of the generator (*not recommended*)
+* use the {builderclass} to build the configuration object
+and pass it into the constructor of the generator (*recommended*)
+
+The *first* approach to fill all configuration data in an object of type
+{configclass} and pass it into the {generatorclass}
+constructor is supported but should not be used, as it is not so readable 
+and more errorprone than the *third* option via the {builderclass} class and
+therefore this option is the recommended one.
+
+== Builder customization
+
+If you construct a {builderclass} - as recommended - , 
+you need to pass to mandatory parameters to it:
+
+* the name of the xref:./config/start-class.adoc[class] where the 
+sequence starts
+* the name of the xref:./config/start-method.adoc[method] where the 
+sequence starts +
+(this name needs to be unique or a random method with the same name
+is chosen)
+
+If you have done this, you can add the following list of parameters via
+builder methods:
+
+* xref:./config/class-blacklist-regexp.adoc[class blacklist regular expression] + 
+to filter out the classes being part of the diagram
+* xref:./config/destination-classloader.adoc[classloader] +
+to specify the classloader to search for the classes 
+* xref:./config/hide-method-name.adoc[hide method name] + 
+to hide the names of the called methods in the diagram 
+* xref:./config/hide-super-class.adoc[hide super class] + 
+to show the method call as part of the child class instead of the
+super class
+* xref:./config/ignore-jpa-entities.adoc[ignore JPA entities] + 
+to remove all calls to a JPA entity from the sequence flow
+* xref:./config/ignore-standard-classes.adoc[ignore standard classes] + 
+to remove all calls to a standard classes (every package starting with java.*)
+from the diagram
+* xref:./config/method-blacklist-regexp.adoc[method blacklist regular expression] + 
+to filter out calls to methods in the sequence flow
+* xref:./config/show-return-types.adoc[show return types] + 
+to show the type of the return types in the diagram
+* xref:./config/use-short-class-names.adoc[use short class names] + 
+to use only the class name itself without the package name
+
+After you configured everything you can construct the 
+{configclass}
+object via the *build()* method and pass this configuration as parameter to
+the {generatorclass} and create the diagram text.
+
+== Builder usage example
+
+Here is a simple example for the usage of the 
+{builderclass} 
+with the two mandatory parameters (startClass, startMethod)
+retrieved from the JUnit tests:
+
+include::partial$_sequence_diagram_example.adoc[]
+

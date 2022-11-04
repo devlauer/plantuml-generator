@@ -1,0 +1,49 @@
+= scanpackages
+include::./_attributes.adoc[]
+
+== Description
+
+With this configuration parameter it is possible to set a list of
+packages names which classes should be part of the generated diagram
+text.
+It can be combined with a
+xref:./blacklist-regexp.adoc[blacklist regular expression]
+to filter out some classes inside these packages.
+
+This configuration parameter can not be combined with the 
+xref:./whitelist-regexp.adoc[whitelist regular expression]
+configuration parameter.
+
+== Default value
+
+If not specified the default value is an empty list (ignored).
+
+== Example
+
+Here is an example from the JUnit tests using this configuration parameter:
+
+[source,java,indent=0]
+----
+include::example$testsrc/de/elnarion/util/plantuml/generator/{generatorclass}Test.java[tags=multiplescanpackages]
+----
+[sidebar]
+--
+<1> add first package to scan to the list
+<2> add second package to scan to the list
+<3> add packages list to the configuration to be the base of the diagram
+--
+
+which is rendered this way:
+
+[plantuml,0006_different_packages_diagram,png]
+----
+include::example$testresources/class/0006_different_packages.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::example$testresources/class/0006_different_packages.txt[]
+----

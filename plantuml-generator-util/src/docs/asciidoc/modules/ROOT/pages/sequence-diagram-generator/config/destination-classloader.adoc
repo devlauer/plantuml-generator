@@ -1,0 +1,49 @@
+= destinationClassloader
+include::./_attributes.adoc[]
+
+== Description
+
+With this configuration option you can switch the default classloader of
+the diagram generator which is the classloader of the {configclass} class.
+Afterwards all classes to be added to the diagram are searched with this
+classloader.
+Sometimes if you need a more generic classloader or a customized classloader
+you can add it with this option and this classloader is used for all class
+search/load operations.
+
+For example this option is used by the maven plugin to add all maven
+dependencies to the classpath.
+
+== Default value
+
+If not specified this is the classloader of the {configclass} class.
+
+== Example
+
+Here is an example from the JUnit tests using this configuration parameter:
+
+[source,java,indent=0]
+----
+include::example$testsrc/de/elnarion/util/plantuml/generator/{generatorclass}Test.java[tags=customclassloader]
+----
+[sidebar]
+--
+<1> create classloader
+<2> add classloader to configuration
+--
+
+which is rendered this way:
+
+[plantuml,0004_sequence_diagram_with_custom_classloader_diagram,png]
+----
+include::example$testresources/sequence/0004_sequence_diagram_with_custom_classloader.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::example$testresources/sequence/0004_sequence_diagram_with_custom_classloader.txt[]
+----
+

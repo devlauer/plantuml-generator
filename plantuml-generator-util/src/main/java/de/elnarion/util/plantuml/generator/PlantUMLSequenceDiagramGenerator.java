@@ -24,11 +24,21 @@ public class PlantUMLSequenceDiagramGenerator {
 		config = paramPlantUMLConfig;
 	}
 
-	public String generateDiagramText() throws NotFoundException, CannotCompileException, ClassNotFoundException {
+	public String generateDiagramText() throws de.elnarion.util.plantuml.generator.exception.NotFoundException {
 		ClassPool cp = getClassLoaderSpecificClassPool();
+		try {
 		CtMethod method = findStartingMethodInClassPool(cp);
 		CallerMethod callerMethod = getCallerMethod(method,null);
 		return generateDiagramTextFromCallerMethod(callerMethod);
+		}
+		catch(ClassNotFoundException|NotFoundException e) {
+			throw new de.elnarion.util.plantuml.generator.exception.NotFoundException(e.getMessage(),e);
+		}
+		catch(CannotCompileException e) {
+			// can not happen because nothing is changed and therefore no compilation is needed.
+			return "";
+		}
+
 	}
 
 	private String generateDiagramTextFromCallerMethod(CallerMethod callerMethod) throws ClassNotFoundException, NotFoundException {

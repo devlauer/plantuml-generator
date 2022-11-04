@@ -1,0 +1,50 @@
+= hideClasses
+include::./_attributes.adoc[]
+
+== Description
+
+With this configuration toggle you can hide a class in the rendered diagram
+but it is still part of the generated diagram.
+
+If you want to remove the class completely, you have to use a 
+xref:./blacklist-regexp.adoc[blacklist regular expression]
+
+== Default value
+
+The default value of this configuration option is an empty list (no class
+is hidden).
+
+== Example
+
+Here is an example from the JUnit tests using this configuration parameter:
+
+[source,java,indent=0]
+----
+include::example$testsrc/de/elnarion/util/plantuml/generator/{generatorclass}Test.java[tags=hideclasses]
+----
+
+[sidebar]
+--
+<1> list of strings (class names) is declared for parameter hideclasses
+<2> packages with all classes to show in the diagramm are added as string list
+<3> parameters hideclasses and classloader are added to configuration builder
+<4> generator is initialized with configuration of builder
+<5> diagram is generated
+--
+
+which is rendered in PlantUML this way:
+
+[plantuml,0001_general_diagram,png]
+----
+include::example$testresources/class/0001_general_diagram.txt[]
+----
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::example$testresources/class/0001_general_diagram.txt[]
+----
+
+
+

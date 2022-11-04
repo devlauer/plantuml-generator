@@ -1,0 +1,45 @@
+= methodClassifierToIgnore
+include::./_attributes.adoc[]
+
+== Description
+With this configuration list option you can filter out methods by their 
+classifier from the diagram.
+
+You can add any of the following values to the configuration list:
+
+* ABSTRACT - all abstract non-static methods are filtered out
+* STATIC - all static non-abstract methods are filtered out
+* ABSTRACT_STATIC - all static abstract methods are filtered out
+* NONE - all methods without abstract or static classifier are filtered out
+
+== Default value
+
+The default value of this configuration option is an empty list (no filtering
+via classifier).
+== Example
+
+Here is an example from the JUnit tests using this configuration parameter:
+
+[source,java,indent=0]
+----
+include::example$testsrc/de/elnarion/util/plantuml/generator/{generatorclass}Test.java[tags=ignoreclassifiermethods]
+----
+[sidebar]
+--
+<1> add method classifier to ignore to the configuration
+--
+
+which is rendered this way:
+
+[plantuml,0020_ignore_classifier_methods_diagram,png]
+----
+include::example$testresources/class/0020_ignore_classifier_methods.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::example$testresources/class/0020_ignore_classifier_methods.txt[]
+----

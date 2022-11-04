@@ -27,3 +27,6 @@ hs_err_pid*
 plantuml-generator-maven-plugin/.factorypath
 .vscode/settings.json
 /.asciidoctorconfig.adoc
+/node_modules/
+/build/
+/.cache/

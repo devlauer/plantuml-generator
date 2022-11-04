@@ -1,0 +1,28 @@
+[source,java,indent=0]
+----
+include::example$testsrc/de/elnarion/util/plantuml/generator/PlantUMLSequenceDiagramGeneratorTest.java[tags=basecallersequence]
+----
+
+[sidebar]
+--
+<1> add start class as string
+<2> add start method as string
+<3> create generator object with config from builder
+<4> generate diagram text
+--
+
+the result of this generation is
+
+[source,plantuml,indent=0]
+----
+include::example$testresources/sequence/0001_basic_caller_test.txt[]
+----
+
+
+
+which is rendered in PlantUML this way:
+
+[plantuml,0001_basic_caller_test_diagram,png]
+----
+include::example$testresources/sequence/0001_basic_caller_test.txt[]
+----

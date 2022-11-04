@@ -1,0 +1,24 @@
+= {page-component-title}
+:description: The multi module project PlantUML generator is documented here.
+:keywords: {compontentkeywords}
+
+== Description
+plantuml-generator is a project which consists of 
+
+* a xref:plantuml-generator-util:ROOT:index.adoc[utility module] 
+which can be used to generate link:http://plantuml.com/[PlantUML] class 
+diagrams or sequence diagrams from existing java classes 
+* xref:plantuml-generator-maven-plugin:ROOT:index.adoc[maven plugins] 
+module to use the utility module in a maven build context.
+
+More information on the utility module can be found here:
+xref:plantuml-generator-util:ROOT:index.adoc[]
+
+If you are interested in the maven plugins you will find their
+documentation here:
+xref:plantuml-generator-maven-plugin:ROOT:index.adoc[]
+
+
+With the help of this project you can generate class or sequence diagrams 
+for your project documentation on the fly during each maven build or via 
+the utility module.

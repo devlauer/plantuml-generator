@@ -1,0 +1,7 @@
+name: plantuml-generator-maven-plugin
+title: Maven Plugins
+asciidoc:
+  attributes:
+    compontentkeywords: "{sitekeywords}, maven plugin"
+nav:
+- modules/ROOT/nav.adoc

@@ -1,0 +1,7 @@
+name: plantuml-generator-util
+title: Utility
+asciidoc:
+  attributes:
+    compontentkeywords: "{sitekeywords}"
+nav:
+- modules/ROOT/nav.adoc

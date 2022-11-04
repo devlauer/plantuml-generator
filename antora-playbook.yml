@@ -1,0 +1,35 @@
+site:
+  title: PlantUML Generator
+  url: https://devlauer.github.io/plantuml-generator/
+  start_page: plantuml-generator::index.adoc
+  robots: allow
+content:
+  sources:
+  - url: https://github.com/devlauer/plantuml-generator.git
+    start_paths:
+    - src/docs/asciidoc
+    - plantuml-generator-util/src/docs/asciidoc
+    - plantuml-generator-maven-plugin/src/docs/asciidoc    
+    version: '1.6'
+runtime:
+  cache_dir: ./.cache/antora
+  fetch: true
+  log: 
+    level: info    
+asciidoc:
+  extensions:
+  - asciidoctor-kroki    
+  sourcemap: true
+  attributes:
+    sitekeywords: PlantUML, generator, class diagram, sequence diagram
+    sectanchors: '@'
+    xrefstyle: short@
+    kroki-fetch-diagram: true
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+  supplemental_files: ./src/docs/supplemental-ui    
+antora:
+  extensions:
+  - '@antora/lunr-extension'    

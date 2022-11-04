@@ -1,0 +1,11 @@
+{
+  "devDependencies": {
+    "@antora/cli": "3.1.2",
+    "@antora/lunr-extension": "1.0.0-alpha.8",
+    "@antora/site-generator": "3.1.2"
+  },
+  "dependencies": {
+    "asciidoctor-kroki": "^0.16.0",
+    "asciidoctor-plantuml": "^1.5.0"
+  }
+}

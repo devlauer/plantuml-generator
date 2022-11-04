@@ -1,0 +1,39 @@
+= fieldBlacklistRegexp
+include::./_attributes.adoc[]
+
+== Description
+
+With this configuration option you can add a regular expression to the 
+configuration to filter out specific fields from the diagram.
+
+== Default value
+
+The default value of this configuration is null.
+
+== Example
+
+Here is an example from the JUnit tests using this configuration parameter:
+
+[source,java,indent=0]
+----
+include::example$testsrc/de/elnarion/util/plantuml/generator/{generatorclass}Test.java[tags=blacklistfields]
+----
+[sidebar]
+--
+<1> add blacklist regular expression to the configuration
+--
+
+which is rendered this way:
+
+[plantuml,0018_blacklist_fields_diagram,png]
+----
+include::example$testresources/class/0018_blacklist_fields.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::example$testresources/class/0018_blacklist_fields.txt[]
+----

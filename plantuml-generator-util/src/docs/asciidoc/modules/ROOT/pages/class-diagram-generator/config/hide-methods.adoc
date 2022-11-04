@@ -1,0 +1,50 @@
+= hideMethods
+include::./_attributes.adoc[]
+
+== Description
+
+With this configuration toggle you can hide all methods in the rendered diagram
+but they are still part of the generated diagram text.
+
+If you want to remove specific methods from the diagram, 
+you have to use the
+xref:./field-blacklist-regexp.adoc[field blacklist regular expression]
+configuration option.
+
+If you want to remove all methods from the diagram completely, you have 
+to use the
+xref:./remove-methods.adoc[remove methods] configuration option.
+
+
+== Default value
+
+The default value of this configuration option is *false* (nothing is hidden).
+
+== Example
+
+Here is an example from the JUnit tests using this configuration parameter:
+
+[source,java,indent=0]
+----
+include::example$testsrc/de/elnarion/util/plantuml/generator/{generatorclass}Test.java[tags=hideclassesfieldsandmethods]
+----
+[sidebar]
+--
+<1> activate the hide methods toggle in the configuration
+--
+
+which is rendered this way:
+
+[plantuml,0007_hide_parameters_diagram,png]
+----
+include::example$testresources/class/0007_hide_parameters.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::example$testresources/class/0007_hide_parameters.txt[]
+----
+

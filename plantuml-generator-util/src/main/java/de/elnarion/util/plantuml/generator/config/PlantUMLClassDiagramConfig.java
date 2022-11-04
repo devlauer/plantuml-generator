@@ -12,7 +12,7 @@ import de.elnarion.util.plantuml.generator.classdiagram.VisibilityType;
 public class PlantUMLClassDiagramConfig {
 
 	/** The destination classloader. */
-	private ClassLoader destinationClassloader = null;
+	private ClassLoader destinationClassloader = this.getClass().getClassLoader();
 	
 	/** The scan packages. */
 	private List<String> scanPackages = new ArrayList<>();

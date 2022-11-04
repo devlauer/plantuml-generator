@@ -105,12 +105,14 @@ public class PlantUMLClassDiagramGenerator {
 	 *                             false, if not
 	 * @param paramHideMethods     boolean - true, if methods should be hidden,
 	 *                             false, if not
+	 * @deprecated use PlantUMLClassDiagramConfigBuilder instead
 	 */
+	@Deprecated
 	public PlantUMLClassDiagramGenerator(final ClassLoader paramClassloader, final List<String> paramScanPackages,
 			final String paramBlacklistRegexp, final List<String> paramHideClasses, final boolean paramHideFields,
 			final boolean paramHideMethods) {
 		this(new PlantUMLClassDiagramConfigBuilder(paramBlacklistRegexp, paramScanPackages).withHideFieldsParameter(paramHideFields)
-				.withClassLoader(paramClassloader).withHideMethods(paramHideMethods).withHideClasses(paramHideClasses)
+				.withClassLoader(paramClassloader==null?PlantUMLClassDiagramConfig.class.getClassLoader():paramClassloader).withHideMethods(paramHideMethods).withHideClasses(paramHideClasses)
 				.build());
 	}
 
@@ -132,12 +134,14 @@ public class PlantUMLClassDiagramGenerator {
 	 *                             false, if not
 	 * @param paramScanPackages    List&lt;String&gt; - all the packages which
 	 *                             should be used as basis for the whitelist scan
+	 * @deprecated use PlantUMLClassDiagramConfigBuilder instead
 	 */
+	@Deprecated	
 	public PlantUMLClassDiagramGenerator(final ClassLoader paramClassloader, final String paramWhitelistRegexp,
 			final List<String> paramHideClasses, final boolean paramHideFields, final boolean paramHideMethods,
 			final List<String> paramScanPackages) {
 		this(new PlantUMLClassDiagramConfigBuilder(paramScanPackages, paramWhitelistRegexp).withHideFieldsParameter(paramHideFields)
-				.withClassLoader(paramClassloader).withHideMethods(paramHideMethods).withHideClasses(paramHideClasses)
+				.withClassLoader(paramClassloader==null?PlantUMLClassDiagramConfig.class.getClassLoader():paramClassloader).withHideMethods(paramHideMethods).withHideClasses(paramHideClasses)
 				.build());
 	}
 

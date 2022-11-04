@@ -1,0 +1,53 @@
+= blacklistRegexp
+include::./_attributes.adoc[]
+
+== Description
+
+This parameter can only be specified together with a list of packages
+to scan for. 
+This is because otherwise the number of classes would otherwise be to
+large.
+So the decision was made to combine both of them as constructor parameter
+to the {builderclass}.
+
+If this parameter is specified it is used as a filter for all classes found
+in the 
+xref:./scanpackages.adoc[defined packages to scan] 
+and used via the String.matches method of
+Java.
+
+
+== Default value
+
+There is no default value for the blacklist regular expression.
+It is only used when specified and not empty.
+
+== Example
+
+Here is an example from the JUnit tests using this configuration parameter:
+
+[source,java,indent=0]
+----
+include::example$testsrc/de/elnarion/util/plantuml/generator/{generatorclass}Test.java[tags=blacklistregexp]
+----
+[sidebar]
+--
+<1> the blacklist regular expression is always added as string in combination
+with the list of packages to scan to the {builderclass}
+--
+
+which is rendered this way:
+
+[plantuml,0011_jar_test_blacklist_diagram,png]
+----
+include::example$testresources/class/0011_jar_test_blacklist.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::example$testresources/class/0011_jar_test_blacklist.txt[]
+----
+

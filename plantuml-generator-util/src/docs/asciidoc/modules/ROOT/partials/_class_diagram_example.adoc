@@ -1,0 +1,29 @@
+[source,java,indent=0]
+----
+include::example$testsrc/de/elnarion/util/plantuml/generator/PlantUMLClassDiagramGeneratorTest.java[tags=hideclasses]
+----
+
+[sidebar]
+--
+<1> list of strings (class names) is declared for parameter hideclasses
+<2> packages with all classes to show in the diagramm are added as string list
+<3> parameters hideclasses and classloader are added to configuration builder
+<4> generator is initialized with configuration of builder
+<5> diagram is generated
+--
+
+the result of this generation is
+
+[source,plantuml,indent=0]
+----
+include::example$testresources/class/0001_general_diagram.txt[]
+----
+
+
+
+which is rendered in PlantUML this way:
+
+[plantuml,0001_general_diagram,png]
+----
+include::example$testresources/class/0001_general_diagram.txt[]
+----

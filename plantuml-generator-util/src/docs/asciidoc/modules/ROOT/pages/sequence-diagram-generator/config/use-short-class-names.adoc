@@ -1,0 +1,59 @@
+= useShortClassNames
+include::./_attributes.adoc[]
+
+== Description
+
+With the help of this configuration toggle it is possible to 
+show only the class names in the diagram without the package name 
+(full qualified).
+Because full qualified names increase the size of the diagram enormously the
+toggle is activated by default.
+
+The parameter itself targets all class names in the diagram, even
+the return types of the method calls which can be shown by the
+xref:./show-return-types.adoc[show return types] parameter.
+
+== Default value
+
+The default value of this configuration parameter is *true*.
+
+== Example
+
+Here is an example from the JUnit tests using this configuration parameter:
+
+[source,java,indent=0]
+----
+include::example$testsrc/de/elnarion/util/plantuml/generator/{generatorclass}Test.java[tags=baselongclassnames]
+----
+[sidebar]
+--
+<1> deactivate the "use short class names" toggle
+--
+
+which is rendered this way:
+
+[plantuml,0001_basic_caller_with_long_class_names_diagram,png]
+----
+include::example$testresources/sequence/0001_basic_caller_with_long_class_names.txt[]
+----
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::example$testresources/sequence/0001_basic_caller_with_long_class_names.txt[]
+----
+
+Without the parameter the diagram would look like this:
+
+[plantuml,0001_basic_caller_test_diagram,png]
+----
+include::example$testresources/sequence/0001_basic_caller_test.txt[]
+----
+
+If used with an activated show return types toggle it looks like this:
+
+[plantuml,0001_basic_caller_test_with_return_types_and_long_class_names_diagram,png]
+----
+include::example$testresources/sequence/0001_basic_caller_test_with_return_types_and_long_class_names.txt[]
+----

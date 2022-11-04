@@ -1,0 +1,40 @@
+= methodBlacklistRegexp
+include::./_attributes.adoc[]
+
+== Description
+
+With this configuration option you can add a regular expression to the 
+configuration to filter out specific methods from the diagram.
+
+== Default value
+
+The default value of this configuration is null.
+
+== Example
+
+Here is an example from the JUnit tests using this configuration parameter:
+
+[source,java,indent=0]
+----
+include::example$testsrc/de/elnarion/util/plantuml/generator/{generatorclass}Test.java[tags=blacklistmethods]
+----
+[sidebar]
+--
+<1> add blacklist regular expression to filter out methods from the diagram
+--
+
+which is rendered this way:
+
+[plantuml,0017_blacklist_methods_diagram,png]
+----
+include::example$testresources/class/0017_blacklist_methods.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::example$testresources/class/0017_blacklist_methods.txt[]
+----
+

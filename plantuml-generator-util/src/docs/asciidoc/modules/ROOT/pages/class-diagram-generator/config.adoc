@@ -1,0 +1,114 @@
+= Configuration
+include::./_attributes.adoc[]
+
+== Configuration options
+
+Depending on the parameters you want to set you have three basic options
+to configure the {generatorclass} for diagram generation:
+
+* add parameters to the constructor directly (*deprecated*)
+* construct a {configclass} object on your own and pass it
+into the constructor of the generator (*not recommended*)
+* use the {builderclass} to build the configuration object
+and pass it into the constructor of the generator (*recommended*)
+
+The *first* option with different constructor parameters only applies to 
+the parameters 
+
+* xref:./config/destination-classloader.adoc[destinationClassloader]
+* xref:./config/scanpackages.adoc[scanpackages]
+* xref:./config/blacklist-regexp.adoc[blacklistRegexp]
+* xref:./config/hide-classes.adoc[hideClasses]
+* xref:./config/hide-fields.adoc[hideFields]
+* xref:./config/hide-methods.adoc[hideMethods]
+* xref:./config/whitelist-regexp.adoc[whitelistRegexp]
+
+and should not be used anymore.
+It is deprecated and is only supported for compatibility reasons.
+
+The *second* approach to fill all configuration data in an object of type
+{configclass} and pass it into the {generatorclass}
+constructor is supported but should not be used, as it is not so readable 
+than the *third* option via the {builderclass} class and
+therefore this option is the recommended one.
+
+== Builder customization
+
+If you construct a {builderclass} - as recommended - , 
+you need to choose between four constructor options:
+
+* define specific packages to add all classes inside these packages
+via the xref:./config/scanpackages.adoc[scanpackages] parameter to the diagram
+* define xref:./config/scanpackages.adoc[specific packages] in combination 
+with an xref:./config/blacklist-regexp.adoc[blacklist regular expression]
+to add only specific classes of these packages on the classpath 
+to the diagram
+* define a xref:./config/whitelist-regexp.adoc[whitelist regular expression] 
+to add all classes found by this 
+expression on the classpath to the diagram
+* define xref:./config/scanpackages.adoc[specific packages] in combination with a 
+xref:./config/whitelist-regexp.adoc[whitelist regular expression]
+to add only classes to the diagram which match the scan packages and the 
+regular expression
+
+If you have done this, you can add the following list of parameters via
+builder methods:
+
+* xref:./config/destination-classloader.adoc[withClassloader] + 
+to specify the
+classloader to search for the classes
+* xref:./config/additional-plantuml-configs.adoc[addAdditionalPlantUmlConfigs] + 
+to add additional PlantUML configuration to the beginning of the generated
+PlantUML diagram
+* xref:./config/add-jpa-annotations.adoc[addJPAAnnotations] + 
+to add JPA annotations of the classes to the diagram 
+* xref:./config/field-blacklist-regexp.adoc[withFieldBlacklistRegexp] + 
+to filter out fields of the shown classes in the diagram via a 
+regular expression
+* xref:./config/field-classifier-to-ignore.adoc[withFieldClassifierToIgnore] + 
+for a single classifier or +
+* xref:./config/field-classifier-to-ignore.adoc[withFieldClassifiersToIgnore] + 
+for multiple classifiers to filter out fields via their classifiers
+* xref:./config/hide-classes.adoc[withHideClasses] + 
+to hide classes from the diagram (they are still part of the 
+diagram but they are not rendered)
+* xref:./config/hide-fields.adoc[withHideFieldsParameter] + 
+to hide all fields of the classes in the diagram (they are still part 
+of the diagram but they are not rendered)
+* xref:./config/hide-methods.adoc[withHideMethods] + 
+to hide all methods of the classes in the diagram (they are still part 
+of the diagram but they are not rendered)
+* xref:./config/max-visibility-fields.adoc[withMaximumFieldVisibility] + 
+to filter out all fields of the classes in the diagram by their 
+visibility in java
+* xref:./config/max-visibility-methods.adoc[withMaximumMethodVisibility] + 
+to filter out all methods of the classes in the diagram by their 
+visibility in java
+* xref:./config/method-blacklist-regexp.adoc[withMethodBlacklistRegexp] + 
+to filter out methods of all classes in the diagram by a 
+regular expression
+* xref:./config/method-classifier-to-ignore.adoc[withMethodClassifierToIgnore] + 
+for a single classifier or + 
+xref:./config/method-classifier-to-ignore.adoc[withMethodClassifiersToIgnore] + 
+for multiple classifiers to filter out methods via their classifiers
+* xref:./config/remove-fields.adoc[removeFields] + 
+to remove fields completely from the diagram (they are not part 
+of the unrendered diagram)
+* xref:./config/remove-methods.adoc[removeMethods] + 
+to remove methods completely from the diagram (they are not part 
+of the unrendered diagram)
+
+After you configured everything you can construct the 
+{configclass}
+object via the *build()* method and pass this configuration as parameter to
+the {generatorclass} and create the diagram text.
+
+== Builder usage example
+
+Here is a simple example for the usage of the 
+{builderclass} 
+with three parameters (scanpackages, hideClasses, destinationClassloader)
+retrieved from the JUnit tests:
+
+include::partial$_class_diagram_example.adoc[]
+

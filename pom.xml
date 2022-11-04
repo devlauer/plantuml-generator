@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.elnarion.util</groupId>
 	<artifactId>plantuml-generator</artifactId>
-	<version>1.5.5-SNAPSHOT</version>
+	<version>1.6.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>${project.groupId}:${project.artifactId}</name>
@@ -108,6 +108,11 @@
 	</profiles>
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/docs/asciidoc</directory>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

@@ -2,8 +2,6 @@ package de.elnarion.test.domain.t0004;
 
 import java.util.logging.Logger;
 
-import de.elnarion.util.plantuml.generator.PlantUMLUtil;
-
 /**
  * The Class TestFieldClass.
  */
@@ -28,7 +26,7 @@ public class TestFieldClass {
 	protected static String testStringStaticProtected;
 	
 	@SuppressWarnings("unused")
-	private PlantUMLUtil plantUMLUtilWithPackage;
+	private TestReference testReference;
 
 	/**
 	 * 

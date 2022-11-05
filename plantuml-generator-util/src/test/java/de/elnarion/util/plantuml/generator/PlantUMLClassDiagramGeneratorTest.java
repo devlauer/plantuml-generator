@@ -107,7 +107,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		// tag::baseclassfieldtypes[]
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0004");
-		PlantUMLClassDiagramConfigBuilder configBuilder = new PlantUMLClassDiagramConfigBuilder(scanPackages);
+		PlantUMLClassDiagramConfigBuilder configBuilder = new PlantUMLClassDiagramConfigBuilder(".*TestReference",scanPackages);
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(configBuilder.build());
 		String result = generator.generateDiagramText();
 		String expectedDiagramText = IOUtils.toString(classLoader.getResource("class/0004_class_fields.txt"),

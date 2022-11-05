@@ -3,7 +3,7 @@
 class de.elnarion.test.domain.t0004.TestFieldClass {
 	{field} {static} -LOGGER : java.util.logging.Logger
 	{field} -log : java.util.logging.Logger
-	{field} -plantUMLUtilWithPackage : de.elnarion.util.plantuml.generator.PlantUMLUtil
+	{field} -testReference : de.elnarion.test.domain.t0004.TestReference
 	{field} {static} -testStringStaticPrivate : String
 	{field} {static} #testStringStaticProtected : String
 	{field} {static} +testStringStaticPublic : String

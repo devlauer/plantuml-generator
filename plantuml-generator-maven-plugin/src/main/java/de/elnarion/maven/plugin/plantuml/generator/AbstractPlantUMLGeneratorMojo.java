@@ -12,10 +12,12 @@ import org.apache.commons.io.IOUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.descriptor.PluginDescriptor;
-import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
+/**
+ * The Class AbstractPlantUMLGeneratorMojo.
+ */
 public abstract class AbstractPlantUMLGeneratorMojo extends AbstractMojo {
 	
 	/** The Constant PREFIX. */
@@ -64,7 +66,7 @@ public abstract class AbstractPlantUMLGeneratorMojo extends AbstractMojo {
 	private PluginDescriptor descriptor;
 
 	/** The project. */
-	@Component
+	@Parameter( defaultValue = "${project}", readonly = true )
 	private MavenProject project;
 	
 	/**
@@ -110,6 +112,12 @@ public abstract class AbstractPlantUMLGeneratorMojo extends AbstractMojo {
 		return builder.toString();
 	}
 	
+	/**
+	 * Write diagram to file.
+	 *
+	 * @param classDiagramText the class diagram text
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	protected void writeDiagramToFile(String classDiagramText) throws IOException {
 		if (isEnableAsciidocWrapper()) {
 			classDiagramText = createAsciidocWrappedDiagramText(classDiagramText);
@@ -346,10 +354,20 @@ public abstract class AbstractPlantUMLGeneratorMojo extends AbstractMojo {
 		this.asciidocDiagramBlockDelimiter = asciidocDiagramBlockDelimiter;
 	}
 
+	/**
+	 * Gets the additional plant uml configs.
+	 *
+	 * @return the additional plant uml configs
+	 */
 	public List<String> getAdditionalPlantUmlConfigs() {
 		return additionalPlantUmlConfigs;
 	}
 
+	/**
+	 * Sets the additional plant uml configs.
+	 *
+	 * @param additionalPlantUmlConfigs the new additional plant uml configs
+	 */
 	public void setAdditionalPlantUmlConfigs(List<String> additionalPlantUmlConfigs) {
 		this.additionalPlantUmlConfigs = additionalPlantUmlConfigs;
 	}

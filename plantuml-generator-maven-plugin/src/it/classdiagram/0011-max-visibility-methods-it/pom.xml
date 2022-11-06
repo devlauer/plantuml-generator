@@ -37,7 +37,7 @@
 						<goals>
 							<goal>generate</goal>
 						</goals>
-						<phase>generate-sources</phase>
+						<phase>generate-test-sources</phase>
 						<configuration>
 							<outputFilename>testdiagram1.txt</outputFilename>
 							<scanPackages>

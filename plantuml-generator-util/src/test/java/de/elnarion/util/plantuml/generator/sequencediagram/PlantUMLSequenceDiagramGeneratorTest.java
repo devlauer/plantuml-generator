@@ -16,7 +16,6 @@ import de.elnarion.test.sequence.t0001.CallerA;
 import de.elnarion.test.sequence.t0002.CallerClassA;
 import de.elnarion.test.sequence.t0003.MovieService;
 import de.elnarion.test.sequence.t0004.User;
-import de.elnarion.util.plantuml.generator.sequencediagram.PlantUMLSequenceDiagramGenerator;
 import de.elnarion.util.plantuml.generator.sequencediagram.config.PlantUMLSequenceDiagramConfigBuilder;
 import de.elnarion.util.plantuml.generator.sequencediagram.exception.NotFoundException;
 

@@ -1,4 +1,4 @@
-package de.elnarion.util.plantuml.generator.exception;
+package de.elnarion.util.plantuml.generator.sequencediagram.exception;
 
 /**
  * This exception is thrown if a method or class is not found on the classpath.

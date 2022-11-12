@@ -1,10 +1,10 @@
-package de.elnarion.util.plantuml.generator.classdiagram;
+package de.elnarion.util.plantuml.generator.classdiagram.internal;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import de.elnarion.util.plantuml.generator.PlantUMLUtil;
+import de.elnarion.util.plantuml.generator.classdiagram.util.PlantUMLUtil;
 
 import java.util.Set;
 

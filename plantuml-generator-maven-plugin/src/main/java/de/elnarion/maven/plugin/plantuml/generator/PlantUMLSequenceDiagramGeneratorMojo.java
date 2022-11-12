@@ -7,8 +7,8 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 
-import de.elnarion.util.plantuml.generator.PlantUMLSequenceDiagramGenerator;
-import de.elnarion.util.plantuml.generator.config.PlantUMLSequenceDiagramConfigBuilder;
+import de.elnarion.util.plantuml.generator.sequencediagram.PlantUMLSequenceDiagramGenerator;
+import de.elnarion.util.plantuml.generator.sequencediagram.config.PlantUMLSequenceDiagramConfigBuilder;
 
 /**
  * This Mojo is used as maven frontend of the PlantUMLClassDiagramGenerator in

@@ -1,4 +1,4 @@
-package de.elnarion.util.plantuml.generator.classdiagram;
+package de.elnarion.util.plantuml.generator.classdiagram.internal;
 
 /**
  * The Enum ClassType defines supported class types during the uml class diagram

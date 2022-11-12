@@ -1,4 +1,4 @@
-package de.elnarion.util.plantuml.generator.config;
+package de.elnarion.util.plantuml.generator.sequencediagram.config;
 
 /**
  * The Class PlantUMLSequenceDiagramConfigBuilder.

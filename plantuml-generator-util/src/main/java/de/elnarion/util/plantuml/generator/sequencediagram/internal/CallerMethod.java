@@ -1,4 +1,4 @@
-package de.elnarion.util.plantuml.generator.sequencediagram;
+package de.elnarion.util.plantuml.generator.sequencediagram.internal;
 
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import de.elnarion.util.plantuml.generator.config.PlantUMLSequenceDiagramConfig;
+import de.elnarion.util.plantuml.generator.sequencediagram.config.PlantUMLSequenceDiagramConfig;
 import javassist.CtMethod;
 import javassist.NotFoundException;
 

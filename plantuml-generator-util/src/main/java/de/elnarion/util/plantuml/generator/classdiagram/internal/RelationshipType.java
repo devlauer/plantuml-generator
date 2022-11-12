@@ -1,4 +1,4 @@
-package de.elnarion.util.plantuml.generator.classdiagram;
+package de.elnarion.util.plantuml.generator.classdiagram.internal;
 
 /**
  * The Enum RelationshipType defines all supported relationship types of this

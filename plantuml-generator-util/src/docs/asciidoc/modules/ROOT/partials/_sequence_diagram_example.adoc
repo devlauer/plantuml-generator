@@ -1,6 +1,6 @@
 [source,java,indent=0]
 ----
-include::example$testsrc/de/elnarion/util/plantuml/generator/PlantUMLSequenceDiagramGeneratorTest.java[tags=basecallersequence]
+include::example$testsrc/de/elnarion/util/plantuml/generator/sequencediagram/PlantUMLSequenceDiagramGeneratorTest.java[tags=basecallersequence]
 ----
 
 [sidebar]

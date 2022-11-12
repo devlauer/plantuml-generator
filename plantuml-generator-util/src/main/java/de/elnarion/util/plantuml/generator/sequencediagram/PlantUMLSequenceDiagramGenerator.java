@@ -1,8 +1,8 @@
-package de.elnarion.util.plantuml.generator;
+package de.elnarion.util.plantuml.generator.sequencediagram;
 
-import de.elnarion.util.plantuml.generator.config.PlantUMLSequenceDiagramConfig;
-import de.elnarion.util.plantuml.generator.sequencediagram.CallerClass;
-import de.elnarion.util.plantuml.generator.sequencediagram.CallerMethod;
+import de.elnarion.util.plantuml.generator.sequencediagram.config.PlantUMLSequenceDiagramConfig;
+import de.elnarion.util.plantuml.generator.sequencediagram.internal.CallerClass;
+import de.elnarion.util.plantuml.generator.sequencediagram.internal.CallerMethod;
 import javassist.CannotCompileException;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -24,7 +24,7 @@ public class PlantUMLSequenceDiagramGenerator {
 		config = paramPlantUMLConfig;
 	}
 
-	public String generateDiagramText() throws de.elnarion.util.plantuml.generator.exception.NotFoundException {
+	public String generateDiagramText() throws de.elnarion.util.plantuml.generator.sequencediagram.exception.NotFoundException {
 		ClassPool cp = getClassLoaderSpecificClassPool();
 		try {
 		CtMethod method = findStartingMethodInClassPool(cp);
@@ -32,7 +32,7 @@ public class PlantUMLSequenceDiagramGenerator {
 		return generateDiagramTextFromCallerMethod(callerMethod);
 		}
 		catch(ClassNotFoundException|NotFoundException e) {
-			throw new de.elnarion.util.plantuml.generator.exception.NotFoundException(e.getMessage(),e);
+			throw new de.elnarion.util.plantuml.generator.sequencediagram.exception.NotFoundException(e.getMessage(),e);
 		}
 		catch(CannotCompileException e) {
 			// can not happen because nothing is changed and therefore no compilation is needed.

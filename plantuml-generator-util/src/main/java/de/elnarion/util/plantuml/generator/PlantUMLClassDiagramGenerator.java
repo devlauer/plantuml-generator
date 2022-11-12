@@ -23,15 +23,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import de.elnarion.util.plantuml.generator.classdiagram.ClassType;
-import de.elnarion.util.plantuml.generator.classdiagram.ClassifierType;
-import de.elnarion.util.plantuml.generator.classdiagram.RelationshipType;
-import de.elnarion.util.plantuml.generator.classdiagram.UMLClass;
-import de.elnarion.util.plantuml.generator.classdiagram.UMLField;
-import de.elnarion.util.plantuml.generator.classdiagram.UMLMethod;
-import de.elnarion.util.plantuml.generator.classdiagram.UMLRelationship;
-import de.elnarion.util.plantuml.generator.classdiagram.UMLStereotype;
-import de.elnarion.util.plantuml.generator.classdiagram.VisibilityType;
+import de.elnarion.util.plantuml.generator.classdiagram.internal.ClassType;
+import de.elnarion.util.plantuml.generator.classdiagram.internal.ClassifierType;
+import de.elnarion.util.plantuml.generator.classdiagram.internal.RelationshipType;
+import de.elnarion.util.plantuml.generator.classdiagram.internal.UMLClass;
+import de.elnarion.util.plantuml.generator.classdiagram.internal.UMLField;
+import de.elnarion.util.plantuml.generator.classdiagram.internal.UMLMethod;
+import de.elnarion.util.plantuml.generator.classdiagram.internal.UMLRelationship;
+import de.elnarion.util.plantuml.generator.classdiagram.internal.UMLStereotype;
+import de.elnarion.util.plantuml.generator.classdiagram.internal.VisibilityType;
 import de.elnarion.util.plantuml.generator.config.PlantUMLClassDiagramConfig;
 import de.elnarion.util.plantuml.generator.config.PlantUMLClassDiagramConfigBuilder;
 import io.github.classgraph.ClassGraph;
@@ -630,7 +630,7 @@ public class PlantUMLClassDiagramGenerator {
 				if (Modifier.isSynchronized(modifier)) {
 					stereotypes.add("synchronized");
 				}
-				final de.elnarion.util.plantuml.generator.classdiagram.UMLMethod umlMethod = new de.elnarion.util.plantuml.generator.classdiagram.UMLMethod(
+				final de.elnarion.util.plantuml.generator.classdiagram.internal.UMLMethod umlMethod = new de.elnarion.util.plantuml.generator.classdiagram.internal.UMLMethod(
 						classifierType, visibilityType, returnType, methodName, parameters, stereotypes);
 				paramUmlClass.addMethod(umlMethod);
 			}

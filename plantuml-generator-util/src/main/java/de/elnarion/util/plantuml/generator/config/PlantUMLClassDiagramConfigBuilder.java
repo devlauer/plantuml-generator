@@ -2,8 +2,8 @@ package de.elnarion.util.plantuml.generator.config;
 
 import java.util.List;
 
-import de.elnarion.util.plantuml.generator.classdiagram.ClassifierType;
-import de.elnarion.util.plantuml.generator.classdiagram.VisibilityType;
+import de.elnarion.util.plantuml.generator.classdiagram.internal.ClassifierType;
+import de.elnarion.util.plantuml.generator.classdiagram.internal.VisibilityType;
 
 public class PlantUMLClassDiagramConfigBuilder {
 

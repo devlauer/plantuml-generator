@@ -10,8 +10,8 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 
 import de.elnarion.util.plantuml.generator.PlantUMLClassDiagramGenerator;
-import de.elnarion.util.plantuml.generator.classdiagram.ClassifierType;
-import de.elnarion.util.plantuml.generator.classdiagram.VisibilityType;
+import de.elnarion.util.plantuml.generator.classdiagram.internal.ClassifierType;
+import de.elnarion.util.plantuml.generator.classdiagram.internal.VisibilityType;
 import de.elnarion.util.plantuml.generator.config.PlantUMLClassDiagramConfigBuilder;
 
 /**

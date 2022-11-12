@@ -1,10 +1,10 @@
-package de.elnarion.util.plantuml.generator.classdiagram;
+package de.elnarion.util.plantuml.generator.classdiagram.internal;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import de.elnarion.util.plantuml.generator.util.UMLMethodComparator;
+import de.elnarion.util.plantuml.generator.classdiagram.util.UMLMethodComparator;
 
 /**
  * The Class UMLClass encapsulates all information needed for creating a diagram

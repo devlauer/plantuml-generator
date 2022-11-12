@@ -1,4 +1,4 @@
-package de.elnarion.util.plantuml.generator;
+package de.elnarion.util.plantuml.generator.sequencediagram;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,8 +16,9 @@ import de.elnarion.test.sequence.t0001.CallerA;
 import de.elnarion.test.sequence.t0002.CallerClassA;
 import de.elnarion.test.sequence.t0003.MovieService;
 import de.elnarion.test.sequence.t0004.User;
-import de.elnarion.util.plantuml.generator.config.PlantUMLSequenceDiagramConfigBuilder;
-import de.elnarion.util.plantuml.generator.exception.NotFoundException;
+import de.elnarion.util.plantuml.generator.sequencediagram.PlantUMLSequenceDiagramGenerator;
+import de.elnarion.util.plantuml.generator.sequencediagram.config.PlantUMLSequenceDiagramConfigBuilder;
+import de.elnarion.util.plantuml.generator.sequencediagram.exception.NotFoundException;
 
 class PlantUMLSequenceDiagramGeneratorTest {
 

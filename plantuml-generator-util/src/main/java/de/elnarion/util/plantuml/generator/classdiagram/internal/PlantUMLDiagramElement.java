@@ -1,4 +1,4 @@
-package de.elnarion.util.plantuml.generator.classdiagram;
+package de.elnarion.util.plantuml.generator.classdiagram.internal;
 
 /**
  * The Interface PlantUMLDiagramElement defines all methods common to all

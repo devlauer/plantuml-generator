@@ -1,8 +1,8 @@
-package de.elnarion.util.plantuml.generator.classdiagram;
+package de.elnarion.util.plantuml.generator.classdiagram.internal;
 
 import java.util.List;
 
-import de.elnarion.util.plantuml.generator.PlantUMLUtil;
+import de.elnarion.util.plantuml.generator.classdiagram.util.PlantUMLUtil;
 
 /**
  * The Class UMLField encapsulates all information needed for creating a diagram

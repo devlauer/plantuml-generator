@@ -19,7 +19,7 @@ Here is an example from the JUnit tests using this configuration parameter:
 
 [source,java,indent=0]
 ----
-include::example$testsrc/de/elnarion/util/plantuml/generator/{generatorclass}Test.java[tags=blacklistedclasses]
+include::example$testsrc/de/elnarion/util/plantuml/generator/sequencediagram/{generatorclass}Test.java[tags=blacklistedclasses]
 ----
 [sidebar]
 --

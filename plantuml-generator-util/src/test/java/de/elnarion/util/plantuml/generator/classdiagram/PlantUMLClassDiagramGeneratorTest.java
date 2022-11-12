@@ -1,4 +1,4 @@
-package de.elnarion.util.plantuml.generator;
+package de.elnarion.util.plantuml.generator.classdiagram;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -13,6 +13,7 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
+import de.elnarion.util.plantuml.generator.PlantUMLClassDiagramGenerator;
 import de.elnarion.util.plantuml.generator.classdiagram.internal.ClassifierType;
 import de.elnarion.util.plantuml.generator.classdiagram.internal.VisibilityType;
 import de.elnarion.util.plantuml.generator.config.PlantUMLClassDiagramConfig;

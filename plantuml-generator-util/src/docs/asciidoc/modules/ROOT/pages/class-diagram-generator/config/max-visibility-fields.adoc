@@ -30,7 +30,7 @@ Here is an example from the JUnit tests using this configuration parameter:
 
 [source,java,indent=0]
 ----
-include::example$testsrc/de/elnarion/util/plantuml/generator/{generatorclass}Test.java[tags=maxvisibilityfieldspublic]
+include::example$testsrc/de/elnarion/util/plantuml/generator/classdiagram/{generatorclass}Test.java[tags=maxvisibilityfieldspublic]
 ----
 [sidebar]
 --
@@ -58,7 +58,7 @@ Here is an example from the JUnit tests using this configuration parameter:
 
 [source,java,indent=0]
 ----
-include::example$testsrc/de/elnarion/util/plantuml/generator/{generatorclass}Test.java[tags=maxvisibilityfieldsprotected]
+include::example$testsrc/de/elnarion/util/plantuml/generator/classdiagram/{generatorclass}Test.java[tags=maxvisibilityfieldsprotected]
 ----
 [sidebar]
 --
@@ -86,7 +86,7 @@ Here is an example from the JUnit tests using this configuration parameter:
 
 [source,java,indent=0]
 ----
-include::example$testsrc/de/elnarion/util/plantuml/generator/{generatorclass}Test.java[tags=maxvisibilityfieldspackageprivate]
+include::example$testsrc/de/elnarion/util/plantuml/generator/classdiagram/{generatorclass}Test.java[tags=maxvisibilityfieldspackageprivate]
 ----
 [sidebar]
 --
@@ -114,7 +114,7 @@ Here is an example from the JUnit tests using this configuration parameter:
 
 [source,java,indent=0]
 ----
-include::example$testsrc/de/elnarion/util/plantuml/generator/{generatorclass}Test.java[tags=maxvisibilityfieldsprivate]
+include::example$testsrc/de/elnarion/util/plantuml/generator/classdiagram/{generatorclass}Test.java[tags=maxvisibilityfieldsprivate]
 ----
 [sidebar]
 --

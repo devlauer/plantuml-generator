@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<sitemap>
+<loc>https://devlauer.github.io/plantuml-generator/sitemap-plantuml-generator.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://devlauer.github.io/plantuml-generator/sitemap-plantuml-generator-maven-plugin.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://devlauer.github.io/plantuml-generator/sitemap-plantuml-generator-util.xml</loc>
+</sitemap>
+</sitemapindex>

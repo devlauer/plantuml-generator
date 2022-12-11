@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://devlauer.github.io/plantuml-generator/plantuml-generator-maven-plugin/latest/class-diagram-mojo.html</loc>
+<lastmod>2022-12-11T18:02:25.812Z</lastmod>
+</url>
+<url>
+<loc>https://devlauer.github.io/plantuml-generator/plantuml-generator-maven-plugin/latest/class-diagram-mojo/examples.html</loc>
+<lastmod>2022-12-11T18:02:25.812Z</lastmod>
+</url>
+<url>
+<loc>https://devlauer.github.io/plantuml-generator/plantuml-generator-maven-plugin/latest/index.html</loc>
+<lastmod>2022-12-11T18:02:25.812Z</lastmod>
+</url>
+<url>
+<loc>https://devlauer.github.io/plantuml-generator/plantuml-generator-maven-plugin/latest/sequence-diagram-mojo.html</loc>
+<lastmod>2022-12-11T18:02:25.812Z</lastmod>
+</url>
+<url>
+<loc>https://devlauer.github.io/plantuml-generator/plantuml-generator-maven-plugin/latest/sequence-diagram-mojo/examples.html</loc>
+<lastmod>2022-12-11T18:02:25.812Z</lastmod>
+</url>
+</urlset>

@@ -1,0 +1,24 @@
+/* if code is highlighted by prism adds a line number which needs space */
+.doc .listingblock pre:not(.highlight) {
+	padding-left: 2em;
+}
+
+/* prism adds a toolbar at z-index 10 but that is above the header menu, so we need to lower the z-index */
+div.code-toolbar>.toolbar {
+	z-index: 1;
+}
+
+/* extend the article with to max 55rem from 46rem */
+.doc {
+	max-width: 55rem;
+}
+
+/* if the screen is a large one increase sidebar width */
+@media screen and (min-width: 1216px) {
+	aside.toc.sidebar {
+		-ms-flex-preferred-size: 15rem;
+		flex-basis: 15rem;
+	}
+}
+
+

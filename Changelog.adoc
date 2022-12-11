@@ -1,9 +1,21 @@
 = Changelog
 
 .Unreleased
-* fixed sonarqube hint
 
-.1.5.3 - 2022-09-25
+* removed unused imports
+* updated to junit5
+* fix javadoc issues
+* switch comparator to lambda expressions
+* added new sequence diagram feature
+* moved documentation to github pages
+* added antora as static site generator 
+* added additional integration tests for different
+maven plugin configurations
+* removed some dependencies not needed anymore
+* changed test resources structure
+* fixed sonarqube hints
+
+.1.5.4 - 2022-09-25
 * updated junit
 * updated commons-io
 * updated classgraph

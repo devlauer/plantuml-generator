@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>fieldClassifierToIgnore :: PlantUML Generator</title>
+    <link rel="canonical" href="https://devlauer.github.io/plantuml-generator/plantuml-generator-util/latest/class-diagram/config/field-classifier-to-ignore.html">
+    <link rel="prev" href="field-blacklist-regexp.html">
+    <link rel="next" href="hide-classes.html">
+    <meta name="generator" content="Antora 3.1.2">
+    <link rel="stylesheet" href="../../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../../_/css/prism.css">
+    <link rel="stylesheet" href="../../../../_/css/site-extra.css">        <script>var uiRootPath = '../../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/plantuml-generator/latest/index.html">PlantUML Generator</a>
+      <div class="navbar-item search hide-for-print">
+        <div id="search-field" class="field">
+          <input id="search-input" type="text" placeholder="Search the docs">
+        </div>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+			<a class="navbar-item " href="../../../../plantuml-generator/latest/index.html">General</a>
+			<a class="navbar-item " href="../../../../plantuml-generator-maven-plugin/latest/index.html">Maven Plugins</a>
+			<a class="navbar-item  is-current" href="../../index.html">Utility</a>
+        <a class="navbar-item" href="#">Home</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="plantuml-generator-util" data-version="latest">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../../index.html">Utility</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../class-diagram.html">Class diagram generator</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../config.html">Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="scanpackages.html">scanpackages</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="destination-classloader.html">destinationClassloader</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="additional-plantuml-configs.html">additionalPlantUMLConfigs</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="add-jpa-annotations.html">addJPAAnnotations</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="blacklist-regexp.html">blacklistRegexp</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="field-blacklist-regexp.html">fieldBlacklistRegexp</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="field-classifier-to-ignore.html">fieldClassifierToIgnore</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="hide-classes.html">hideClasses</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="hide-fields.html">hideFields</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="hide-methods.html">hideMethods</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="max-visibility-fields.html">maxVisibilityFields</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="max-visibility-methods.html">maxVisibilityMethods</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="method-blacklist-regexp.html">methodBlacklistRegexp</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="method-classifier-to-ignore.html">methodClassifierToIgnore</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="remove-fields.html">removeFields</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="remove-methods.html">removeMethods</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="whitelist-regexp.html">whitelistRegexp</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../sequence-diagram.html">Sequence diagram generator</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../../sequence-diagram/config.html">Configuration</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../sequence-diagram/config/start-class.html">startClass</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../sequence-diagram/config/start-method.html">startMethod</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../sequence-diagram/config/destination-classloader.html">destinationClassloader</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../sequence-diagram/config/class-blacklist-regexp.html">classBlacklistRegexp</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../sequence-diagram/config/hide-method-name.html">hideMethodName</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../sequence-diagram/config/hide-super-class.html">hideSuperClass</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../sequence-diagram/config/ignore-jpa-entities.html">ignoreJPAEntities</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../sequence-diagram/config/ignore-standard-classes.html">ignoreStandardClasses</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../sequence-diagram/config/method-blacklist-regexp.html">methodBlacklistRegexp</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../sequence-diagram/config/show-return-types.html">showReturnTypes</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../sequence-diagram/config/use-short-class-names.html">useShortClassNames</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Utility</span>
+    <span class="version">latest</span>
+  </div>
+  <ul class="components">
+    <li class="component">
+      <a class="title" href="../../../../plantuml-generator/latest/index.html">General</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../../plantuml-generator/latest/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../../../plantuml-generator-maven-plugin/latest/index.html">Maven Plugins</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../../plantuml-generator-maven-plugin/latest/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <a class="title" href="../../index.html">Utility</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../../index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../../../plantuml-generator/latest/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../../index.html">Utility</a></li>
+    <li><a href="../../class-diagram.html">Class diagram generator</a></li>
+    <li><a href="../config.html">Configuration</a></li>
+    <li><a href="field-classifier-to-ignore.html">fieldClassifierToIgnore</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/devlauer/plantuml-generator/edit/master/plantuml-generator-util/src/docs/asciidoc/modules/ROOT/pages/class-diagram/config/field-classifier-to-ignore.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">fieldClassifierToIgnore</h1>
+<div class="sect1">
+<h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With this configuration list option you can filter out fields by their
+classifier from the diagram.</p>
+</div>
+<div class="paragraph">
+<p>You can add any of the following values to the configuration list:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ABSTRACT - all abstract non-static fields are filtered out</p>
+</li>
+<li>
+<p>STATIC - all static non-abstract fields are filtered out</p>
+</li>
+<li>
+<p>ABSTRACT_STATIC - all static abstract fields are filtered out</p>
+</li>
+<li>
+<p>NONE - all fields without abstract or static classifier are filtered out</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_default_value"><a class="anchor" href="#_default_value"></a>Default value</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The default value of this configuration option is an empty list (no filtering
+via classifier).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here is an example from the JUnit tests using this configuration parameter:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap" data-line="5"><code class="language-java" data-lang=java>String filename = "class/0019_ignore_classifier_fields.txt";
+List&lt;String&gt; scanPackages = new ArrayList&lt;&gt;();
+scanPackages.add("de.elnarion.test.domain.t0019");
+PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
+		.addFieldClassifierToIgnore(ClassifierType.STATIC).build(); <i class="conum" data-value="1"></i><b>(1)</b>
+PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
+String result = generator.generateDiagramText();
+String expectedDiagramText = IOUtils.toString(classLoader.getResource(filename), StandardCharsets.UTF_8);
+assertNotNull(result);
+assertNotNull(expectedDiagramText);
+assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));</code></pre>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>add field classifier to ignore to the configuration</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>which is rendered this way:</p>
+</div>
+<div class="imageblock kroki">
+<div class="content">
+<img src="../../_images/0019_ignore_classifier_fields_diagram-bc679574615df396424b8c38e646cdce50b1a7b6.png" alt="0019_ignore_classifier_fields_diagram">
+</div>
+</div>
+<div class="paragraph">
+<p>and produces this PlantUML diagram text:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap"><code class="language-plantuml" data-lang=plantuml>@startuml
+
+abstract class de.elnarion.test.domain.t0019.Testclass {
+	{field} +test10 : String
+	{field} -test2 : String
+	{field} -test3 : String
+	{field} #test4 : String
+	{field} #test6 : String
+	{field} #test7 : String
+	{field} +test9 : String
+}
+
+@enduml</code></pre>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="field-blacklist-regexp.html">fieldBlacklistRegexp</a></span>
+  <span class="next"><a href="hide-classes.html">hideClasses</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>Copyright © <a href="https://github.com/devlauer">Lauer</a> and individual contributors to <a href="https://github.com/devlauer/plantuml-generator">PlantUML Generator</a>.</p>
+  <p>Except where otherwise noted, PlantUML Generator, its documentation, the PlantUML generator maven plugins and the PlantUML generator utility module, are licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache Licence Version 2.0</a>.</p>
+</footer>
+<script id="site-script" src="../../../../_/js/site.js" data-ui-root-path="../../../../_"></script>
+<script id="prism-script" src="../../../../_/js/prism.js" ></script>
+<script src="../../../../_/js/vendor/lunr.js"></script>
+<script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css"></script>
+<script async src="../../../../search-index.js"></script>
+  </body>
+</html>

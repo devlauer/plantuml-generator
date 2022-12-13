@@ -3,9 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Utility :: PlantUML Generator</title>
-    <link rel="canonical" href="https://devlauer.github.io/plantuml-generator/plantuml-generator-util/latest/index.html">
-    <link rel="next" href="class-diagram.html">
+    <title>Sequence diagram generator :: PlantUML Generator</title>
+    <link rel="canonical" href="https://devlauer.github.io/plantuml-generator/plantuml-generator-util/latest/sequence-diagram.html">
+    <link rel="prev" href="class-diagram/config/whitelist-regexp.html">
+    <link rel="next" href="sequence-diagram/config.html">
+    <meta name="keywords" content="PlantUML, generator, class diagram, sequence diagram, sequence diagram">
     <meta name="generator" content="Antora 3.1.2">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="../../_/css/prism.css">
@@ -110,7 +112,7 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="sequence-diagram.html">Sequence diagram generator</a>
 <ul class="nav-list">
@@ -202,252 +204,61 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Utility</a></li>
+    <li><a href="sequence-diagram.html">Sequence diagram generator</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/devlauer/plantuml-generator/edit/master/plantuml-generator-util/src/docs/asciidoc/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/devlauer/plantuml-generator/edit/master/plantuml-generator-util/src/docs/asciidoc/modules/ROOT/pages/sequence-diagram.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Utility</h1>
-<div class="sect1">
-<h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
-<div class="sectionbody">
+<h1 class="page">Sequence diagram generator</h1>
 <div class="paragraph">
-<p>The artifact plantuml-generator-util contains two Utility classes:</p>
+<p>The artifact plantuml-generator-util contains a Utility class with the name
+PlantUMLSequenceDiagramGenerator which can be used to generate a PlantUML
+sequence diagram text out of existing java classes.</p>
+</div>
+<div class="paragraph">
+<p>All you have to do is:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="class-diagram.html" class="xref page">PlantUMLClassDiagramGenerator</a><br>
-for generation of class diagrams</p>
+<p>to provide</p>
+<div class="ulist">
+<ul>
+<li>
+<p>a start class name where the first method call of the sequence happens</p>
 </li>
 <li>
-<p><a href="sequence-diagram.html" class="xref page">PlantUMLSequenceDiagramGenerator</a><br>
-for generation of sequence diagrams</p>
+<p>a start method name which is the starting point of the sequence diagram
+(needs to be unique or else one of the possible methods is randomly used)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>add additional configuration to the PlantUMLSequenceDiagramConfig object
+via the PlantUMLSequenceDiagramConfigBuilder to customize the diagram</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Both can be used to generate a PlantUML diagram text out of existing java
-classes.
-You can use this string as input for the <a href="http://plantuml.com/starting">PlantUML tools</a>
-or as part of your "living" documentation
-(for example with <a href="http://asciidoc.org/">asciidoc</a>)</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_usage"><a class="anchor" href="#_usage"></a>Usage</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To use this utility library you need to add the plantuml-generator-util.jar
-to your classpath.</p>
+<p>After you created the generator object with a PlantUMLSequenceDiagramConfig
+object - build by PlantUMLSequenceDiagramConfigBuilder - simply call the method
+generateDiagramText and you&#8217;ll get the PlantUML sequence diagram as text.</p>
 </div>
 <div class="paragraph">
-<p>If you use maven as build tool this is easy, just add the following dependency:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="nowrap"><code class="language-xml" data-lang=xml>&lt;dependency&gt;
-	&lt;groupId&gt;de.elnarion.util&lt;/groupId&gt;
-	&lt;artifactId&gt;plantuml-generator-util&lt;/artifactId&gt;
-	&lt;version&gt;{generatorversion}&lt;/version&gt;
-&lt;/dependency&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>to your pom.xml .</p>
-</div>
-<div class="paragraph">
-<p>Afterwards just create a PlantUMLClassDiagramConfigBuilder for class diagrams
-or a PlantUML SequenceDiagramConfigBuilder for sequence diagrams.
-Add them to the corresponding generator class and start the generation of
-the diagram text:</p>
-</div>
-<div class="sect2">
-<h3 id="_class_diagram"><a class="anchor" href="#_class_diagram"></a>Class diagram</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="nowrap" data-line="3,5,6,7,8"><code class="language-java" data-lang=java>List&lt;String&gt; scanPackages = new ArrayList&lt;&gt;();
-scanPackages.add("de.elnarion.test.domain.t0001");
-List&lt;String&gt; hideClasses = new ArrayList&lt;&gt;(); <i class="conum" data-value="1"></i><b>(1)</b>
-hideClasses.add("de.elnarion.test.domain.ChildB");
-PlantUMLClassDiagramConfigBuilder configBuilder = new PlantUMLClassDiagramConfigBuilder(scanPackages) <i class="conum" data-value="2"></i><b>(2)</b>
-		.withHideClasses(hideClasses); <i class="conum" data-value="3"></i><b>(3)</b>
-PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(configBuilder.build()); <i class="conum" data-value="4"></i><b>(4)</b>
-String result = generator.generateDiagramText(); <i class="conum" data-value="5"></i><b>(5)</b>
-String expectedDiagramText = IOUtils.toString(classLoader.getResource("class/0001_general_diagram.txt"),
-		StandardCharsets.UTF_8);
-assertNotNull(result);
-assertNotNull(expectedDiagramText);
-assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));</code></pre>
-</div>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>list of strings (class names) is declared for parameter hideclasses</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>packages with all classes to show in the diagramm are added as string list</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>parameters hideclasses and classloader are added to configuration builder</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>generator is initialized with configuration of builder</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>diagram is generated</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>the result of this generation is</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="nowrap"><code class="language-plantuml" data-lang=plantuml>@startuml
-
-class de.elnarion.test.domain.t0001.BaseAbstractClass {
-	{method} +doSomething () : void
-	{method} +doSomethingElse () : void
-	{method} +doSomethingWithParameter ( paramString1 : String ) : void
-	{method} +doSomethingWithReturnValue () : String
-}
-
-interface de.elnarion.test.domain.t0001.BaseInterface {
-	{method}  {abstract} +doSomething () : void
-	{method}  {abstract} +doSomethingWithParameter ( paramString1 : String ) : void
-	{method}  {abstract} +doSomethingWithReturnValue () : String
-}
-
-class de.elnarion.test.domain.t0001.ChildA {
-}
-
-class de.elnarion.test.domain.t0001.ChildB {
-}
-
-class de.elnarion.test.domain.t0001.Util {
-}
-
-de.elnarion.test.domain.t0001.BaseAbstractClass ..|&gt;  de.elnarion.test.domain.t0001.BaseInterface
-de.elnarion.test.domain.t0001.ChildA --|&gt;  de.elnarion.test.domain.t0001.BaseAbstractClass
-de.elnarion.test.domain.t0001.ChildB --&gt;  de.elnarion.test.domain.t0001.Util : util
-de.elnarion.test.domain.t0001.ChildB --|&gt;  de.elnarion.test.domain.t0001.BaseAbstractClass
-
-hide de.elnarion.test.domain.ChildB
-
-@enduml</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>which is rendered in PlantUML this way:</p>
-</div>
-<div class="imageblock kroki">
-<div class="content">
-<img src="_images/0001_general_diagram-12c33d5e95d7e7947081a456a0b650bcca2fac5e.png" alt="0001_general_diagram">
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_sequence_diagram"><a class="anchor" href="#_sequence_diagram"></a>Sequence diagram</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="nowrap" data-line="2,3,4,9"><code class="language-java" data-lang=java>// ARRANGE
-PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfigBuilder(CallerA.class.getName(), <i class="conum" data-value="1"></i><b>(1)</b>
-		"callSomething"); <i class="conum" data-value="2"></i><b>(2)</b>
-PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build()); <i class="conum" data-value="3"></i><b>(3)</b>
-String expectedDiagramText = IOUtils.toString(classLoader.getResource("sequence/0001_basic_caller_test.txt"),
-		StandardCharsets.UTF_8);
-
-// ACT
-String generatedDiagram = generator.generateDiagramText(); <i class="conum" data-value="4"></i><b>(4)</b>
-
-// ASSERT
-assertAll(() -&gt; assertNotNull(generatedDiagram), () -&gt; assertEquals(expectedDiagramText.replaceAll("\\s+", ""),
-		generatedDiagram.replaceAll("\\s+", "")));</code></pre>
-</div>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>add start class as string</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>add start method as string</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>create generator object with config from builder</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>generate diagram text</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>the result of this generation is</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="nowrap"><code class="language-plantuml" data-lang=plantuml>@startuml
-participant CallerA
-participant CallerB
-
-activate CallerA
-	CallerA -&gt; CallerB : callSomething
-	activate CallerB
-		CallerB -&gt; CallerB : privateMethodCall
-		activate CallerB
-			CallerB --&gt; CallerB
-		deactivate CallerB
-		CallerB -&gt; CallerB : protectedMethodCall
-		activate CallerB
-			CallerB --&gt; CallerB
-		deactivate CallerB
-		CallerB --&gt; CallerA
-	deactivate CallerB
-	CallerA -&gt; CallerB : callSomethingElse
-	activate CallerB
-		CallerB --&gt; CallerA
-	deactivate CallerB
-deactivate CallerA
-@enduml</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>which is rendered in PlantUML this way:</p>
-</div>
-<div class="imageblock kroki">
-<div class="content">
-<img src="_images/0001_basic_caller_test_diagram-a6a6299394fabb4b6d61fb2f6f0959fb7aa37603.png" alt="0001_basic_caller_test_diagram">
-</div>
-</div>
-</div>
-</div>
+<p>For more options to customize the diagram text and corresponding examples
+have a look at the
+<a href="sequence-diagram/config.html" class="xref page">configuration</a>
+documentation.</p>
 </div>
 <nav class="pagination">
-  <span class="next"><a href="class-diagram.html">Class diagram generator</a></span>
+  <span class="prev"><a href="class-diagram/config/whitelist-regexp.html">whitelistRegexp</a></span>
+  <span class="next"><a href="sequence-diagram/config.html">Configuration</a></span>
 </nav>
 </article>
   </div>

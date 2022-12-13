@@ -5,6 +5,11 @@ include::plantuml-generator-util:ROOT:partial$class-diagram/remove-fields.adoc[l
 
 == Example
 
+[source,xml]
+----
+include::example$itresources/classdiagram/0014-remove-fields-it/pom.xml[tags=mvn]
+----
+
 which is rendered this way:
 
 [plantuml,0016_remove_fields_diagram,png]

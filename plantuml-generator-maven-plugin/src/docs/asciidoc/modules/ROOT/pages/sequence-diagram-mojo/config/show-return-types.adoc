@@ -5,6 +5,11 @@ include::plantuml-generator-util:ROOT:partial$sequence-diagram/show-return-types
 
 == Example
 
+[source,xml]
+----
+include::example$itresources/sequencediagram/0008-show-return-types-it/pom.xml[tags=mvn]
+----
+
 which is rendered this way:
 
 [plantuml,0001_basic_caller_test_with_return_types_diagram,png]

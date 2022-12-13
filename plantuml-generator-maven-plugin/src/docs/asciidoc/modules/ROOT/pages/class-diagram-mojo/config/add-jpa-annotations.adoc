@@ -5,6 +5,11 @@ include::plantuml-generator-util:ROOT:partial$class-diagram/add-jpa-annotations.
 
 == Example
 
+[source,xml]
+----
+include::example$itresources/classdiagram/0003-add-jpa-annotations-it/pom.xml[tags=mvn]
+----
+
 which is rendered this way:
 
 [plantuml,0021_jpa_annotations_diagram,png]

@@ -5,6 +5,10 @@ include::plantuml-generator-util:ROOT:partial$class-diagram/field-blacklist-rege
 
 == Example
 
+[source,xml]
+----
+include::example$itresources/classdiagram/0005-field-blacklist-regexp-it/pom.xml[tags=mvn]
+----
 
 which is rendered this way:
 

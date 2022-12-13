@@ -5,6 +5,12 @@ include::plantuml-generator-util:ROOT:partial$class-diagram/max-visibility-field
 
 == Example
 
+[source,xml]
+----
+include::example$itresources/classdiagram/0010-max-visibility-fields-it/pom.xml[tags=mvn]
+----
+
+
 === Maximum visibility public
 
 

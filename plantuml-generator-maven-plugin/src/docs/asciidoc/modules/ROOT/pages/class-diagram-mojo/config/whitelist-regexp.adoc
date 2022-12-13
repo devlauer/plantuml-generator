@@ -5,6 +5,11 @@ include::plantuml-generator-util:ROOT:partial$class-diagram/whitelist-regexp.ado
 
 == Example
 
+[source,xml]
+----
+include::example$itresources/classdiagram/0017-whitelist-regexp-it/pom.xml[tags=mvn]
+----
+
 which is rendered this way:
 
 [plantuml,0012_jar_whitelist_diagram,png]

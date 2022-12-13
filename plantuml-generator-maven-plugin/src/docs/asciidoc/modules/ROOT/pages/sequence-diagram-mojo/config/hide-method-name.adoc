@@ -5,6 +5,11 @@ include::plantuml-generator-util:ROOT:partial$sequence-diagram/hide-method-name.
 
 == Example
 
+[source,xml]
+----
+include::example$itresources/sequencediagram/0003-hide-method-name-it/pom.xml[tags=mvn]
+----
+
 which is rendered this way:
 
 [plantuml,0003_jpa_test_with_ignore_jpa_entities_and_hide_method_names_diagram,png]

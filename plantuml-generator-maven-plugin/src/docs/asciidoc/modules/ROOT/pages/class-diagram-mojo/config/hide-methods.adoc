@@ -5,6 +5,10 @@ include::plantuml-generator-util:ROOT:partial$class-diagram/hide-methods.adoc[le
 
 == Example
 
+[source,xml]
+----
+include::example$itresources/classdiagram/0009-hide-methods-it/pom.xml[tags=mvn]
+----
 
 which is rendered this way:
 

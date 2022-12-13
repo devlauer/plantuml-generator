@@ -5,6 +5,11 @@ include::plantuml-generator-util:ROOT:partial$sequence-diagram/method-blacklist-
 
 == Example
 
+[source,xml]
+----
+include::example$itresources/sequencediagram/0007-method-blacklist-regexp-it/pom.xml[tags=mvn]
+----
+
 which is rendered this way:
 
 [plantuml,0004_sequence_diagram_with_blacklisted_method_diagram,png]

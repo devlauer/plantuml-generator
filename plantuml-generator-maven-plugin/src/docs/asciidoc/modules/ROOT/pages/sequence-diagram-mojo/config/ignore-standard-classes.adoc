@@ -5,6 +5,11 @@ include::plantuml-generator-util:ROOT:partial$sequence-diagram/ignore-standard-c
 
 == Example
 
+[source,xml]
+----
+include::example$itresources/sequencediagram/0006-ignore-standard-classes-it/pom.xml[tags=mvn]
+----
+
 which is rendered this way:
 
 [plantuml,0003_jpa_test_with_standard_classes_diagram,png]

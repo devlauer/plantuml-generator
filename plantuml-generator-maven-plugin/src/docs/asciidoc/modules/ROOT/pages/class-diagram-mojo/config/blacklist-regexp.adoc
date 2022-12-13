@@ -5,6 +5,11 @@ include::plantuml-generator-util:ROOT:partial$class-diagram/blacklist-regexp.ado
 
 == Example
 
+[source,xml]
+----
+include::example$itresources/classdiagram/0004-blacklist-regexp-it/pom.xml[tags=mvn]
+----
+
 
 which is rendered this way:
 

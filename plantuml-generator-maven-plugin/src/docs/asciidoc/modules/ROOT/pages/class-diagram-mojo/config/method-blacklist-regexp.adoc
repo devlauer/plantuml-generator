@@ -5,6 +5,12 @@ include::plantuml-generator-util:ROOT:partial$class-diagram/method-blacklist-reg
 
 == Example
 
+[source,xml]
+----
+include::example$itresources/classdiagram/0012-method-blacklist-regexp-it/pom.xml[tags=mvn]
+----
+
+
 which is rendered this way:
 
 [plantuml,0017_blacklist_methods_diagram,png]

@@ -5,6 +5,11 @@ include::plantuml-generator-util:ROOT:partial$sequence-diagram/hide-super-class.
 
 == Example
 
+[source,xml]
+----
+include::example$itresources/sequencediagram/0004-hide-super-class-it/pom.xml[tags=mvn]
+----
+
 which is rendered this way:
 
 [plantuml,0002_basic_super_class_sequence_diagram_with_hide_super_class_diagram,png]

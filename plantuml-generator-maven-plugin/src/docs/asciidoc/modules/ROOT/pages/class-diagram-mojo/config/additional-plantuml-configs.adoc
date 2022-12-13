@@ -5,6 +5,11 @@ include::plantuml-generator-util:ROOT:partial$class-diagram/additional-plantuml-
 
 == Example
 
+[source,xml]
+----
+include::example$itresources/classdiagram/0002-additional-plantuml-configs-it/pom.xml[tags=mvn]
+----
+
 which is rendered this way:
 
 [plantuml,0023_additional-plant-uml-configs_diagram,png]

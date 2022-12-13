@@ -5,6 +5,11 @@ include::plantuml-generator-util:ROOT:partial$class-diagram/method-classifier-to
 
 == Example
 
+[source,xml]
+----
+include::example$itresources/classdiagram/0013-method-classifier-to-ignore-it/pom.xml[tags=mvn]
+----
+
 which is rendered this way:
 
 [plantuml,0020_ignore_classifier_methods_diagram,png]

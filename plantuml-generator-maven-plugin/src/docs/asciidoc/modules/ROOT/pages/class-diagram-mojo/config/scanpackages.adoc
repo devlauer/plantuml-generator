@@ -5,6 +5,11 @@ include::plantuml-generator-util:ROOT:partial$class-diagram/scanpackages.adoc[le
 
 == Example
 
+[source,xml]
+----
+include::example$itresources/classdiagram/0016-scanpackages-it/pom.xml[tags=mvn]
+----
+
 which is rendered this way:
 
 [plantuml,0006_different_packages_diagram,png]

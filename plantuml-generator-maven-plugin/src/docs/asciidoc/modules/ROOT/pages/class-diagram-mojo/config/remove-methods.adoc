@@ -5,6 +5,11 @@ include::plantuml-generator-util:ROOT:partial$class-diagram/remove-methods.adoc[
 
 == Example
 
+[source,xml]
+----
+include::example$itresources/classdiagram/0015-remove-methods-it/pom.xml[tags=mvn]
+----
+
 which is rendered this way:
 
 [plantuml,0015_remove_methods_diagram,png]

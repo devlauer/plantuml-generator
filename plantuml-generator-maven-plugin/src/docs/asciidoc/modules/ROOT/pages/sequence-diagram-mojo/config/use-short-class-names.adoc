@@ -1,0 +1,34 @@
+= useShortClassNames
+include::./_attributes.adoc[]
+
+include::plantuml-generator-util:ROOT:partial$sequence-diagram/use-short-class-names.adoc[leveloffset=+1]
+
+== Example
+
+which is rendered this way:
+
+[plantuml,0001_basic_caller_with_long_class_names_diagram,png]
+----
+include::plantuml-generator-util:ROOT:example$testresources/sequence/0001_basic_caller_with_long_class_names.txt[]
+----
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::plantuml-generator-util:ROOT:example$testresources/sequence/0001_basic_caller_with_long_class_names.txt[]
+----
+
+Without the parameter the diagram would look like this:
+
+[plantuml,0001_basic_caller_test_diagram,png]
+----
+include::plantuml-generator-util:ROOT:example$testresources/sequence/0001_basic_caller_test.txt[]
+----
+
+If used with an activated show return types toggle it looks like this:
+
+[plantuml,0001_basic_caller_test_with_return_types_and_long_class_names_diagram,png]
+----
+include::plantuml-generator-util:ROOT:example$testresources/sequence/0001_basic_caller_test_with_return_types_and_long_class_names.txt[]
+----

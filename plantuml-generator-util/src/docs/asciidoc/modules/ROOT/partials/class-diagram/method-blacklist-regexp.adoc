@@ -1,0 +1,13 @@
+include::./_attributes.adoc[]
+
+= Description
+// tag::description[]
+With this configuration option you can add a regular expression to the 
+configuration to filter out specific methods from the diagram.
+// end::description[]
+
+= Default value
+// tag::defaultvalue[]
+The default value of this configuration is null.
+// end::defaultvalue[]
+

@@ -1,0 +1,20 @@
+include::./_attributes.adoc[]
+
+= Description
+// tag::description[]
+With the help of this configuration toggle it is possible to 
+show only the class names in the diagram without the package name 
+(full qualified).
+Because full qualified names increase the size of the diagram enormously the
+toggle is activated by default.
+
+The parameter itself targets all class names in the diagram, even
+the return types of the method calls which can be shown by the
+xref:./show-return-types.adoc[show return types] parameter.
+// end::description[]
+
+= Default value
+// tag::defaultvalue[]
+The default value of this configuration parameter is *true*.
+// end::defaultvalue[]
+

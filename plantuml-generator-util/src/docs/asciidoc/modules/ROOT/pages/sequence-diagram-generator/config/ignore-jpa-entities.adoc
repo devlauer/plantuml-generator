@@ -1,15 +1,7 @@
 = ignoreJPAEntities
 include::./_attributes.adoc[]
 
-== Description
-
-With the help of this configuration toggle it is possible to remove 
-all calls to a JPA entity from the sequence flow because entities are
-often only simple POJOs.
-
-== Default value
-
-The default value of this toggle is *false*.
+include::partial$sequence-diagram/ignore-jpa-entities.adoc[leveloffset=+1]
 
 == Example
 

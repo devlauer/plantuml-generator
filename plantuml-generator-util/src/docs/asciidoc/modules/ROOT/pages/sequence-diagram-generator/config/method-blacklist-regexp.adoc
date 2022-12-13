@@ -1,16 +1,7 @@
 = methodBlacklistRegexp
 include::./_attributes.adoc[]
 
-== Description
-
-With the help of this configuration parameter it is possible to 
-ignore/remove specific method calls and their subsequent calls
-from the sequence flow.
-
-== Default value
-
-The default value of this configuration parameter is *null* 
-(nothing ignored/removed).
+include::partial$sequence-diagram/method-blacklist-regexp.adoc[leveloffset=+1]
 
 == Example
 

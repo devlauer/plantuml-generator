@@ -1,0 +1,14 @@
+include::./_attributes.adoc[]
+
+= Description
+// tag::description[]
+With the help of this configuration toggle it is possible to remove 
+all calls to a JPA entity from the sequence flow because entities are
+often only simple POJOs.
+// end::description[]
+
+= Default value
+// tag::defaultvalue[]
+The default value of this toggle is *false*.
+// end::defaultvalue[]
+

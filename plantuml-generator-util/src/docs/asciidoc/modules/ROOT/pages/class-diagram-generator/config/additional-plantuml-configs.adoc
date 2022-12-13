@@ -1,22 +1,7 @@
 = additionalPlantUMLConfigs
 include::./_attributes.adoc[]
 
-== Description
-
-With the help of this configuration parameter you are able to 
-add any PlantUML configuration or even normal text to the beginning
-of the generated PlantUML diagram.
-You just have to add this configuration with the withAdditionalPlantUMLConfigs
-method of the {builderclass}.
-The parameter is a list of strings and every string is a new line in the
-PlantUML diagram.
-
-If this parameter is not added or if the parameter is an empty list, 
-nothing is added to the diagram.
-
-== Default value
-
-The default value for this configuration is an empty list.
+include::partial$class-diagram/additional-plantuml-configs.adoc[leveloffset=+1]
 
 == Example
 Here is an example from the JUnit tests using this configuration parameter:

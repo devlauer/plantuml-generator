@@ -1,0 +1,20 @@
+include::./_attributes.adoc[]
+
+= Description
+// tag::description[]
+With this configuration list option you can filter out fields by their 
+classifier from the diagram.
+
+You can add any of the following values to the configuration list:
+
+* ABSTRACT - all abstract non-static fields are filtered out
+* STATIC - all static non-abstract fields are filtered out
+* ABSTRACT_STATIC - all static abstract fields are filtered out
+* NONE - all fields without abstract or static classifier are filtered out
+// end::description[]
+
+= Default value
+// tag::defaultvalue[]
+The default value of this configuration option is an empty list (no filtering
+via classifier).
+// end::defaultvalue[]

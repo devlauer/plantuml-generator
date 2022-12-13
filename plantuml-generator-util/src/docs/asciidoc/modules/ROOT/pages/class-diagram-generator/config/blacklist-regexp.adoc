@@ -1,26 +1,7 @@
 = blacklistRegexp
 include::./_attributes.adoc[]
 
-== Description
-
-This parameter can only be specified together with a list of packages
-to scan for. 
-This is because otherwise the number of classes would otherwise be to
-large.
-So the decision was made to combine both of them as constructor parameter
-to the {builderclass}.
-
-If this parameter is specified it is used as a filter for all classes found
-in the 
-xref:./scanpackages.adoc[defined packages to scan] 
-and used via the String.matches method of
-Java.
-
-
-== Default value
-
-There is no default value for the blacklist regular expression.
-It is only used when specified and not empty.
+include::partial$class-diagram/blacklist-regexp.adoc[leveloffset=+1]
 
 == Example
 

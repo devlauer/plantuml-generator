@@ -1,0 +1,28 @@
+= classBlacklistRegexp
+include::./_attributes.adoc[]
+
+include::plantuml-generator-util:ROOT:partial$sequence-diagram/class-blacklist-regexp.adoc[leveloffset=+1]
+
+== Example
+
+which is rendered this way:
+
+[plantuml,0004_sequence_diagram_with_blacklisted_classes_diagram,png]
+----
+include::plantuml-generator-util:ROOT:example$testresources/sequence/0004_sequence_diagram_with_blacklisted_classes.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::plantuml-generator-util:ROOT:example$testresources/sequence/0004_sequence_diagram_with_blacklisted_classes.txt[]
+----
+
+Without the blacklist the diagram would look like this:
+
+[plantuml,0004_sequence_diagram_with_custom_classloader_diagram,png]
+----
+include::plantuml-generator-util:ROOT:example$testresources/sequence/0004_sequence_diagram_with_custom_classloader.txt[]
+----

@@ -1,24 +1,7 @@
 = removeFields
 include::./_attributes.adoc[]
 
-== Description
-
-With this configuration toggle you can remove all fields 
-from the generated diagram text.
-
-If you want to remove specific fields from the diagram, 
-you have to use the
-xref:./field-blacklist-regexp.adoc[field blacklist regular expression]
-configuration option.
-
-If you want to hide all fields on the rendered diagram but do not want to 
-remove them from the diagram text, you have to use the
-xref:./hide-fields.adoc[hide fields]
-configuration option.
-
-== Default value
-
-The default value of this configuration option is false (nothing is removed).
+include::partial$class-diagram/remove-fields.adoc[leveloffset=+1]
 
 == Example
 

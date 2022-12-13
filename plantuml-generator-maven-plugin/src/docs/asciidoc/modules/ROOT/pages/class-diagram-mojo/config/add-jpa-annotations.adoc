@@ -1,0 +1,22 @@
+= addJPAAnnotations
+include::./_attributes.adoc[]
+
+include::plantuml-generator-util:ROOT:partial$class-diagram/add-jpa-annotations.adoc[leveloffset=+1]
+
+== Example
+
+which is rendered this way:
+
+[plantuml,0021_jpa_annotations_diagram,png]
+----
+include::plantuml-generator-util:ROOT:example$testresources/class/0021_jpa_annotations.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::plantuml-generator-util:ROOT:example$testresources/class/0021_jpa_annotations.txt[]
+----
+

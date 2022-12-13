@@ -1,21 +1,8 @@
 = methodClassifierToIgnore
 include::./_attributes.adoc[]
 
-== Description
-With this configuration list option you can filter out methods by their 
-classifier from the diagram.
+include::partial$class-diagram/method-classifier-to-ignore.adoc[leveloffset=+1]
 
-You can add any of the following values to the configuration list:
-
-* ABSTRACT - all abstract non-static methods are filtered out
-* STATIC - all static non-abstract methods are filtered out
-* ABSTRACT_STATIC - all static abstract methods are filtered out
-* NONE - all methods without abstract or static classifier are filtered out
-
-== Default value
-
-The default value of this configuration option is an empty list (no filtering
-via classifier).
 == Example
 
 Here is an example from the JUnit tests using this configuration parameter:

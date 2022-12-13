@@ -1,0 +1,6 @@
+include::../_attributes.adoc[]
+
+:keywords: {compontentkeywords}, class diagram
+:builderclass: PlantUMLClassDiagramConfigBuilder
+:configclass: PlantUMLClassDiagramConfig
+:generatorclass: PlantUMLClassDiagramGenerator

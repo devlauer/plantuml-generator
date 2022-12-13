@@ -1,25 +1,7 @@
 = removeMethods
 include::./_attributes.adoc[]
 
-== Description
-
-With this configuration toggle you can remove all methods 
-from the generated diagram text.
-
-If you want to remove specific methods from the diagram, 
-you have to use the
-xref:./method-blacklist-regexp.adoc[methods blacklist regular expression]
-configuration option.
-
-If you want to hide all methods on the rendered diagram but do not want to 
-remove them from the diagram text, you have to use the
-xref:./hide-methods.adoc[hide methods]
-configuration option.
-
-
-== Default value
-
-The default value of this configuration option is false (nothing is removed).
+include::partial$class-diagram/remove-methods.adoc[leveloffset=+1]
 
 == Example
 

@@ -1,0 +1,22 @@
+= whitelistRegexp
+include::./_attributes.adoc[]
+
+include::plantuml-generator-util:ROOT:partial$class-diagram/whitelist-regexp.adoc[leveloffset=+1]
+
+== Example
+
+which is rendered this way:
+
+[plantuml,0012_jar_whitelist_diagram,png]
+----
+include::plantuml-generator-util:ROOT:example$testresources/class/0012_jar_whitelist.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::plantuml-generator-util:ROOT:example$testresources/class/0012_jar_whitelist.txt[]
+----
+

@@ -1,0 +1,78 @@
+= maxVisibilityMethods
+include::./_attributes.adoc[]
+
+include::plantuml-generator-util:ROOT:partial$class-diagram/max-visibility-methods.adoc[leveloffset=+1]
+
+== Example
+
+=== Maximum visibility public
+
+
+which is rendered this way:
+
+[plantuml,0013_max_visibility_methods_public_diagram,png]
+----
+include::plantuml-generator-util:ROOT:example$testresources/class/0014_max_visibility_methods_public.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::plantuml-generator-util:ROOT:example$testresources/class/0014_max_visibility_methods_public.txt[]
+----
+
+=== Maximum visibility protected
+
+
+which is rendered this way:
+
+[plantuml,0013_max_visibility_methods_protected_diagram,png]
+----
+include::plantuml-generator-util:ROOT:example$testresources/class/0014_max_visibility_methods_protected.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::plantuml-generator-util:ROOT:example$testresources/class/0014_max_visibility_methods_protected.txt[]
+----
+
+=== Maximum visibility package private
+
+
+which is rendered this way:
+
+[plantuml,0013_max_visibility_methods_package_private_diagram,png]
+----
+include::plantuml-generator-util:ROOT:example$testresources/class/0014_max_visibility_methods_package_private.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::plantuml-generator-util:ROOT:example$testresources/class/0014_max_visibility_methods_package_private.txt[]
+----
+
+=== Maximum visibility private
+
+which is rendered this way:
+
+[plantuml,0013_max_visibility_methods_private_diagram,png]
+----
+include::plantuml-generator-util:ROOT:example$testresources/class/0014_max_visibility_methods_private.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::plantuml-generator-util:ROOT:example$testresources/class/0014_max_visibility_methods_private.txt[]
+----
+

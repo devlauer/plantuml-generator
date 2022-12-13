@@ -1,0 +1,14 @@
+include::./_attributes.adoc[]
+
+= Description
+// tag::description[]
+With the help of this configuration parameter it is possible 
+to show the method call as part of the child class instead of the
+super class if the call starts from the child class.
+// end::description[]
+
+= Default value
+// tag::defaultvalue[]
+The default value of this configuration parameter is *false*.
+// end::defaultvalue[]
+

@@ -1,0 +1,17 @@
+include::./_attributes.adoc[]
+
+= Description
+// tag::description[]
+This is a mandatory parameter and therefore it has to be set 
+in the constructor of the {builderclass} class.
+If you specify it, it has to be the qualified class name 
+(package name plus class name).
+
+If this class can not be found a NotFoundException is raised.
+// end::description[]
+
+= Default value
+// tag::defaultvalue[]
+There is no default value, this parameter is mandatory!
+// end::defaultvalue[]
+

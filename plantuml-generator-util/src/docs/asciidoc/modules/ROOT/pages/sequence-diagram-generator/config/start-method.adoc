@@ -1,18 +1,7 @@
 = startMethod
 include::./_attributes.adoc[]
 
-== Description
-
-This is a mandatory parameter and therefore it has to be set 
-in the constructor of the {builderclass} class.
-If you specify it, it has to be a unique method name or else
-a random method with the same name is chosen.
-
-If this method can not be found a NotFoundException is raised.
-
-== Default value
-
-There is no default value, this parameter is mandatory!
+include::partial$sequence-diagram/start-method.adoc[leveloffset=+1]
 
 == Example
 

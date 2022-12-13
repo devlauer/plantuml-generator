@@ -1,19 +1,7 @@
 = showReturnTypes
 include::./_attributes.adoc[]
 
-== Description
-
-With the help of this configuration parameter it is possible to
-show the type of the returned objects of a method call.
-
-The shown types are displayed according to the 
-xref:./use-short-class-names.adoc[use short class names] toggle
-which is activated by default.
-
-== Default value
-
-The default value of this configuration parameter is *false*
-(no return type shown).
+include::partial$sequence-diagram/show-return-types.adoc[leveloffset=+1]
 
 == Example
 

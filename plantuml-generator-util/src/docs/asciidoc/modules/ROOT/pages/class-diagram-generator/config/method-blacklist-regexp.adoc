@@ -1,14 +1,7 @@
 = methodBlacklistRegexp
 include::./_attributes.adoc[]
 
-== Description
-
-With this configuration option you can add a regular expression to the 
-configuration to filter out specific methods from the diagram.
-
-== Default value
-
-The default value of this configuration is null.
+include::partial$class-diagram/method-blacklist-regexp.adoc[leveloffset=+1]
 
 == Example
 

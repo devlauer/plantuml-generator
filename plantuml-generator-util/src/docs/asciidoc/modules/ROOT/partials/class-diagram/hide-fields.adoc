@@ -1,0 +1,24 @@
+include::./_attributes.adoc[]
+
+= Description
+// tag::description[]
+With this configuration toggle you can hide all fields in the rendered diagram
+but they are still part of the generated diagram text.
+
+If you want to remove specific fields from the diagram, 
+you have to use the
+xref:./field-blacklist-regexp.adoc[field blacklist regular expression]
+configuration option.
+
+If you want to remove all fields from the diagram completely, you have 
+to use the
+xref:./remove-fields.adoc[remove fields]
+configuration option.
+// end::description[]
+
+
+= Default value
+// tag::defaultvalue[]
+The default value of this configuration option is *false* (nothing is hidden).
+// end::defaultvalue[]
+

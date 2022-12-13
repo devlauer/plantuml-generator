@@ -1,0 +1,24 @@
+= hideClasses
+include::./_attributes.adoc[]
+
+include::plantuml-generator-util:ROOT:partial$class-diagram/hide-classes.adoc[leveloffset=+1]
+
+== Example
+
+
+which is rendered in PlantUML this way:
+
+[plantuml,0001_general_diagram,png]
+----
+include::plantuml-generator-util:ROOT:example$testresources/class/0001_general_diagram.txt[]
+----
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::plantuml-generator-util:ROOT:example$testresources/class/0001_general_diagram.txt[]
+----
+
+
+

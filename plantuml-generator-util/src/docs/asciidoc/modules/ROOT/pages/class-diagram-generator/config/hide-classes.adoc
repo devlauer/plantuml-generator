@@ -1,18 +1,7 @@
 = hideClasses
 include::./_attributes.adoc[]
 
-== Description
-
-With this configuration toggle you can hide a class in the rendered diagram
-but it is still part of the generated diagram.
-
-If you want to remove the class completely, you have to use a 
-xref:./blacklist-regexp.adoc[blacklist regular expression]
-
-== Default value
-
-The default value of this configuration option is an empty list (no class
-is hidden).
+include::partial$class-diagram/hide-classes.adoc[leveloffset=+1]
 
 == Example
 

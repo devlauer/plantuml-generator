@@ -1,0 +1,16 @@
+include::./_attributes.adoc[]
+
+= Description
+// tag::description[]
+With the help of this configuration parameter it is possible to 
+remove classes from the call sequence flow.
+If they are removed, no subsequent calls are part of the diagram 
+anymore.
+// end::description[]
+
+= Default value
+// tag::defaultvalue[]
+The default value of this configuration parameter is *null* 
+(nothing is blacklisted).
+// end::defaultvalue[]
+

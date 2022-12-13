@@ -1,41 +1,7 @@
 = addJPAAnnotations
 include::./_attributes.adoc[]
 
-== Description
-
-If you activate this configuration toggle via the builder method
-withJPAAnnotations the generator scans the selected classes for
-the following JPA Annotations:
-
-* class annotations
-** javax.persistence.Index
-** javax.persistence.UniqueConstraint
-** javax.persistence.Entity
-** javax.persistence.Table
-** javax.persistence.MappedSuperclass
-* field annotations
-** javax.persistence.Column
-** javax.persistence.Id
-** javax.persistence.Transient
-* relationship annotations
-** javax.persistence.OneToOne
-** javax.persistence.OneToMany
-** javax.persistence.ManyToMany
-** javax.persistence.ManyToOne
-
-If class annotations are found the generator adds a separate compartment
-to the head of the PlantUML class with all informations found in these
-annotations.
-
-If field annotations are found the generator adds them right before the
-field name in the PlantUML class.
-
-If relationship annotations are found they are added to the relationships
-between the different classes in the PlantUML diagram.
-
-== Default value
-
-The default value of this configuration toggle is *false*.
+include::partial$class-diagram/add-jpa-annotations.adoc[leveloffset=+1]
 
 == Example
 Here is an example from the JUnit tests using this configuration parameter:

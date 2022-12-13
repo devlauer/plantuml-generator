@@ -1,0 +1,18 @@
+include::./_attributes.adoc[]
+
+= Description
+// tag::description[]
+With the help of this configuration parameter it is possible to
+show the type of the returned objects of a method call.
+
+The shown types are displayed according to the 
+xref:./use-short-class-names.adoc[use short class names] toggle
+which is activated by default.
+// end::description[]
+
+= Default value
+// tag::defaultvalue[]
+The default value of this configuration parameter is *false*
+(no return type shown).
+// end::defaultvalue[]
+

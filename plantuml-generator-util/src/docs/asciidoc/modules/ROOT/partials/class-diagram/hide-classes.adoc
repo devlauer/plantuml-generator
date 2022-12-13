@@ -1,0 +1,17 @@
+include::./_attributes.adoc[]
+
+= Description
+// tag::description[]
+With this configuration toggle you can hide a class in the rendered diagram
+but it is still part of the generated diagram.
+
+If you want to remove the class completely, you have to use a 
+xref:./blacklist-regexp.adoc[blacklist regular expression]
+// end::description[]
+
+= Default value
+// tag::defaultvalue[]
+The default value of this configuration option is an empty list (no class
+is hidden).
+// end::defaultvalue[]
+

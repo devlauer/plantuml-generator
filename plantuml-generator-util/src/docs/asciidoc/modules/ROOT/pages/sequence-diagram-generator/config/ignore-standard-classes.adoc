@@ -1,18 +1,7 @@
 = ignoreStandardClasses
 include::./_attributes.adoc[]
 
-== Description
-
-With the help of this configuration parameter it is possible to remove
-all Java standard classes (java.* package names) from the call sequence.
-Because this is normal wanted behavior this toggle is activated by 
-default.
-If you want the standard classes in the diagram, you must deactivate it.
-
-== Default value
-
-The default value of this configuration is *true* (all standard java classes 
-are ignored).
+include::partial$sequence-diagram/ignore-standard-classes.adoc[leveloffset=+1]
 
 == Example
 

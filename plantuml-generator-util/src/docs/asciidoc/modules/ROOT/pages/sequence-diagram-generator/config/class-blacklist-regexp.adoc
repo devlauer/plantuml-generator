@@ -1,17 +1,7 @@
 = classBlacklistRegexp
 include::./_attributes.adoc[]
 
-== Description
-
-With the help of this configuration parameter it is possible to 
-remove classes from the call sequence flow.
-If they are removed, no subsequent calls are part of the diagram 
-anymore.
-
-== Default value
-
-The default value of this configuration parameter is *null* 
-(nothing is blacklisted).
+include::partial$sequence-diagram/class-blacklist-regexp.adoc[leveloffset=+1]
 
 == Example
 

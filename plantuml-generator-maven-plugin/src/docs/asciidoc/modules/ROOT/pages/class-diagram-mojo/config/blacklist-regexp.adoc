@@ -1,0 +1,23 @@
+= blacklistRegexp
+include::./_attributes.adoc[]
+
+include::plantuml-generator-util:ROOT:partial$class-diagram/blacklist-regexp.adoc[leveloffset=+1]
+
+== Example
+
+
+which is rendered this way:
+
+[plantuml,0011_jar_test_blacklist_diagram,png]
+----
+include::plantuml-generator-util:ROOT:example$testresources/class/0011_jar_test_blacklist.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::plantuml-generator-util:ROOT:example$testresources/class/0011_jar_test_blacklist.txt[]
+----
+

@@ -1,0 +1,15 @@
+include::./_attributes.adoc[]
+
+= Description
+// tag::description[]
+With the help of this configuration parameter it is possible to 
+ignore/remove specific method calls and their subsequent calls
+from the sequence flow.
+// end::description[]
+
+= Default value
+// tag::defaultvalue[]
+The default value of this configuration parameter is *null* 
+(nothing ignored/removed).
+// end::defaultvalue[]
+

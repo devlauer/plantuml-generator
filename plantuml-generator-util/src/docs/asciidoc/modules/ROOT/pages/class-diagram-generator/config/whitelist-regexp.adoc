@@ -1,20 +1,7 @@
 = whitelistRegexp
 include::./_attributes.adoc[]
 
-== Description
-
-This configuration parameter defines a regular expression for all classes
-which should be part of the generated diagram text.
-It can not be combined with a 
-xref:./blacklist-regexp.adoc[blacklist regular expression] 
-or a 
-xref:./scanpackages.adoc[list of packages to scan for].
-Therefore it can only be added to the constructor of the {builderclass}
-class as a single parameter. 
-
-== Default value
-
-If not specified the default value is null (ignored).
+include::partial$class-diagram/whitelist-regexp.adoc[leveloffset=+1]
 
 == Example
 

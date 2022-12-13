@@ -1,0 +1,24 @@
+include::./_attributes.adoc[]
+
+= Description
+// tag::description[]
+With this configuration option you can filter out methods from the 
+diagram by their visibility in Java.
+
+The following options are supported:
+
+* PUBLIC +
+only public methods will be displayed
+* PROTECTED +
+only public and protected methods will be displayed
+* PACKAGE_PRIVATE + 
+only public, protected and package_private methods will be displayed
+* PRIVATE + 
+all fields will be displayed if not removed or ignored by other parameters
+// end::description[]
+
+= Default value
+// tag::defaultvalue[]
+The default value of this configuration option is PRIVATE.
+// end::defaultvalue[]
+

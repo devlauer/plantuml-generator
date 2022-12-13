@@ -1,15 +1,7 @@
 = hideMethodName
 include::./_attributes.adoc[]
 
-== Description
-
-With the help of this configuration parameter it is possible to
-hide/remove the method names from the sequence diagram because
-they are show as default.
-
-== Default value
-
-The default value of this configuration parameter is *false*.
+include::partial$sequence-diagram/hide-method-name.adoc[leveloffset=+1]
 
 == Example
 

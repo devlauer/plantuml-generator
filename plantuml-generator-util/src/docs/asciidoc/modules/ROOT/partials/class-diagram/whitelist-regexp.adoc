@@ -1,0 +1,19 @@
+include::./_attributes.adoc[]
+
+= Description
+// tag::description[]
+This configuration parameter defines a regular expression for all classes
+which should be part of the generated diagram text.
+It can not be combined with a 
+xref:./blacklist-regexp.adoc[blacklist regular expression] 
+or a 
+xref:./scanpackages.adoc[list of packages to scan for].
+Therefore it can only be added to the constructor of the {builderclass}
+class as a single parameter. 
+// end::description[]
+
+= Default value
+// tag::defaultvalue[]
+If not specified the default value is null (ignored).
+// end::defaultvalue[]
+

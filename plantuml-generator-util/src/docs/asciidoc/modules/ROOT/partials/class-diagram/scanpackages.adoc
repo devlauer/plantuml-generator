@@ -1,0 +1,21 @@
+include::./_attributes.adoc[]
+
+= Description
+// tag::description[]
+With this configuration parameter it is possible to set a list of
+packages names which classes should be part of the generated diagram
+text.
+It can be combined with a
+xref:./blacklist-regexp.adoc[blacklist regular expression]
+to filter out some classes inside these packages.
+
+This configuration parameter can not be combined with the 
+xref:./whitelist-regexp.adoc[whitelist regular expression]
+configuration parameter.
+// end::description[]
+
+= Default value
+// tag::defaultvalue[]
+If not specified the default value is an empty list (ignored).
+// end::defaultvalue[]
+

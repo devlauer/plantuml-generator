@@ -1,22 +1,7 @@
 = destinationClassloader
 include::./_attributes.adoc[]
 
-== Description
-
-With this configuration option you can switch the default classloader of
-the diagram generator which is the classloader of the {configclass} class.
-Afterwards all classes to be added to the diagram are searched with this
-classloader.
-Sometimes if you need a more generic classloader or a customized classloader
-you can add it with this option and this classloader is used for all class
-search/load operations.
-
-For example this option is used by the maven plugin to add all maven
-dependencies to the classpath.
-
-== Default value
-
-If not specified this is the classloader of the {configclass} class.
+include::partial$sequence-diagram/destination-classloader.adoc[leveloffset=+1]
 
 == Example
 

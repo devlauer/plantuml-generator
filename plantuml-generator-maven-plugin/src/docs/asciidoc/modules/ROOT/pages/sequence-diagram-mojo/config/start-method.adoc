@@ -1,0 +1,10 @@
+= startMethod
+include::./_attributes.adoc[]
+
+include::plantuml-generator-util:ROOT:partial$sequence-diagram/start-method.adoc[leveloffset=+1]
+
+== Example
+
+Here is an example from the JUnit tests using this configuration parameter:
+
+include::plantuml-generator-util:ROOT:partial$_sequence_diagram_example.adoc[]

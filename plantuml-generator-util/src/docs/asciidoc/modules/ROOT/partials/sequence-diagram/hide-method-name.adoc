@@ -1,0 +1,14 @@
+include::./_attributes.adoc[]
+
+= Description
+// tag::description[]
+With the help of this configuration parameter it is possible to
+hide/remove the method names from the sequence diagram because
+they are show as default.
+// end::description[]
+
+= Default value
+// tag::defaultvalue[]
+The default value of this configuration parameter is *false*.
+// end::defaultvalue[]
+

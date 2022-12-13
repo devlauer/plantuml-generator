@@ -30,6 +30,7 @@
 
 	<build>
 		<plugins>
+			<!-- tag::mvn[] -->
 			<plugin>
 				<artifactId>plantuml-generator-maven-plugin</artifactId>
 				<groupId>de.elnarion.maven</groupId>
@@ -51,6 +52,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!-- end::mvn[] -->
 		</plugins>
 	</build>
 </project>

@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>methodClassifierToIgnore :: PlantUML Generator</title>
-    <link rel="canonical" href="https://devlauer.github.io/plantuml-generator/plantuml-generator-util/latest/class-diagram-generator/config/method-classifier-to-ignore.html">
-    <link rel="prev" href="method-blacklist-regexp.html">
-    <link rel="next" href="remove-fields.html">
+    <title>hideFields :: PlantUML Generator</title>
+    <link rel="canonical" href="https://devlauer.github.io/plantuml-generator/plantuml-generator-maven-plugin/latest/class-diagram-mojo/config/hide-fields.html">
+    <link rel="prev" href="hide-classes.html">
+    <link rel="next" href="hide-methods.html">
     <meta name="generator" content="Antora 3.1.2">
     <link rel="stylesheet" href="../../../../_/css/site.css">
     <link rel="stylesheet" href="../../../../_/css/prism.css">
@@ -31,36 +31,36 @@
     <div id="topbar-nav" class="navbar-menu">
       <div class="navbar-end">
 			<a class="navbar-item " href="../../../../plantuml-generator/latest/index.html">General</a>
-			<a class="navbar-item " href="../../../../plantuml-generator-maven-plugin/latest/index.html">Maven Plugins</a>
-			<a class="navbar-item  is-current" href="../../index.html">Utility</a>
+			<a class="navbar-item  is-current" href="../../index.html">Maven Plugins</a>
+			<a class="navbar-item " href="../../../../plantuml-generator-util/latest/index.html">Utility</a>
         <a class="navbar-item" href="#">Home</a>
       </div>
     </div>
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="plantuml-generator-util" data-version="latest">
+<div class="nav-container" data-component="plantuml-generator-maven-plugin" data-version="latest">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../../index.html">Utility</a></h3>
+    <h3 class="title"><a href="../../index.html">Maven Plugins</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../class-diagram-generator.html">Class diagram generator</a>
+    <a class="nav-link" href="../../class-diagram-mojo.html">Class diagram generator mojo</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../examples.html">Examples</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../config.html">Configuration</a>
+    <span class="nav-text">Configuration</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="scanpackages.html">scanpackages</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="destination-classloader.html">destinationClassloader</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="additional-plantuml-configs.html">additionalPlantUMLConfigs</a>
@@ -80,7 +80,7 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="hide-classes.html">hideClasses</a>
   </li>
-  <li class="nav-item" data-depth="3">
+  <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="hide-fields.html">hideFields</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -95,7 +95,7 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="method-blacklist-regexp.html">methodBlacklistRegexp</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="3">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="method-classifier-to-ignore.html">methodClassifierToIgnore</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -113,44 +113,38 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../sequence-diagram-generator.html">Sequence diagram generator</a>
+    <a class="nav-link" href="../../sequence-diagram-mojo.html">Sequence diagram generator mojo</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../sequence-diagram-mojo/examples.html">Examples</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../../sequence-diagram-generator/config.html">Configuration</a>
+    <span class="nav-text">Configuration</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../sequence-diagram-generator/config/start-class.html">startClass</a>
+    <a class="nav-link" href="../../sequence-diagram-mojo/config/class-blacklist-regexp.html">classBlacklistRegexp</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../sequence-diagram-generator/config/start-method.html">startMethod</a>
+    <a class="nav-link" href="../../sequence-diagram-mojo/config/hide-method-name.html">hideMethodName</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../sequence-diagram-generator/config/destination-classloader.html">destinationClassloader</a>
+    <a class="nav-link" href="../../sequence-diagram-mojo/config/hide-super-class.html">hideSuperClass</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../sequence-diagram-generator/config/class-blacklist-regexp.html">classBlacklistRegexp</a>
+    <a class="nav-link" href="../../sequence-diagram-mojo/config/ignore-jpa-entities.html">ignoreJPAEntities</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../sequence-diagram-generator/config/hide-method-name.html">hideMethodName</a>
+    <a class="nav-link" href="../../sequence-diagram-mojo/config/ignore-standard-classes.html">ignoreStandardClasses</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../sequence-diagram-generator/config/hide-super-class.html">hideSuperClass</a>
+    <a class="nav-link" href="../../sequence-diagram-mojo/config/method-blacklist-regexp.html">methodBlacklistRegexp</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../sequence-diagram-generator/config/ignore-jpa-entities.html">ignoreJPAEntities</a>
+    <a class="nav-link" href="../../sequence-diagram-mojo/config/show-return-types.html">showReturnTypes</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../sequence-diagram-generator/config/ignore-standard-classes.html">ignoreStandardClasses</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../sequence-diagram-generator/config/method-blacklist-regexp.html">methodBlacklistRegexp</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../sequence-diagram-generator/config/show-return-types.html">showReturnTypes</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="../../sequence-diagram-generator/config/use-short-class-names.html">useShortClassNames</a>
+    <a class="nav-link" href="../../sequence-diagram-mojo/config/use-short-class-names.html">useShortClassNames</a>
   </li>
 </ul>
   </li>
@@ -163,7 +157,7 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Utility</span>
+    <span class="title">Maven Plugins</span>
     <span class="version">latest</span>
   </div>
   <ul class="components">
@@ -175,19 +169,19 @@
         </li>
       </ul>
     </li>
-    <li class="component">
-      <a class="title" href="../../../../plantuml-generator-maven-plugin/latest/index.html">Maven Plugins</a>
-      <ul class="versions">
-        <li class="version is-latest">
-          <a href="../../../../plantuml-generator-maven-plugin/latest/index.html">latest</a>
-        </li>
-      </ul>
-    </li>
     <li class="component is-current">
-      <a class="title" href="../../index.html">Utility</a>
+      <a class="title" href="../../index.html">Maven Plugins</a>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="../../index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../../../plantuml-generator-util/latest/index.html">Utility</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../../plantuml-generator-util/latest/index.html">latest</a>
         </li>
       </ul>
     </li>
@@ -202,45 +196,38 @@
   <a href="../../../../plantuml-generator/latest/index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../../index.html">Utility</a></li>
-    <li><a href="../../class-diagram-generator.html">Class diagram generator</a></li>
-    <li><a href="../config.html">Configuration</a></li>
-    <li><a href="method-classifier-to-ignore.html">methodClassifierToIgnore</a></li>
+    <li><a href="../../index.html">Maven Plugins</a></li>
+    <li><a href="../../class-diagram-mojo.html">Class diagram generator mojo</a></li>
+    <li>Configuration</li>
+    <li><a href="hide-fields.html">hideFields</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/devlauer/plantuml-generator/edit/master/plantuml-generator-util/src/docs/asciidoc/modules/ROOT/pages/class-diagram-generator/config/method-classifier-to-ignore.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/devlauer/plantuml-generator/edit/master/plantuml-generator-maven-plugin/src/docs/asciidoc/modules/ROOT/pages/class-diagram-mojo/config/hide-fields.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">methodClassifierToIgnore</h1>
+<h1 class="page">hideFields</h1>
 <div class="sect1">
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>With this configuration list option you can filter out methods by their
-classifier from the diagram.</p>
+<p>With this configuration toggle you can hide all fields in the rendered diagram
+but they are still part of the generated diagram text.</p>
 </div>
 <div class="paragraph">
-<p>You can add any of the following values to the configuration list:</p>
+<p>If you want to remove specific fields from the diagram,
+you have to use the
+<a href="field-blacklist-regexp.html" class="xref page">field blacklist regular expression</a>
+configuration option.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>ABSTRACT - all abstract non-static methods are filtered out</p>
-</li>
-<li>
-<p>STATIC - all static non-abstract methods are filtered out</p>
-</li>
-<li>
-<p>ABSTRACT_STATIC - all static abstract methods are filtered out</p>
-</li>
-<li>
-<p>NONE - all methods without abstract or static classifier are filtered out</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>If you want to remove all fields from the diagram completely, you have
+to use the
+<a href="remove-fields.html" class="xref page">remove fields</a>
+configuration option.</p>
 </div>
 </div>
 </div>
@@ -248,43 +235,41 @@ classifier from the diagram.</p>
 <h2 id="_default_value"><a class="anchor" href="#_default_value"></a>Default value</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The default value of this configuration option is an empty list (no filtering
-via classifier).</p>
+<p>The default value of this configuration option is <strong>false</strong> (nothing is hidden).</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Here is an example from the JUnit tests using this configuration parameter:</p>
-</div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap" data-line="6"><code class="language-java" data-lang=java>String filename = "class/0020_ignore_classifier_methods.txt";
-classLoader.loadClass("de.elnarion.test.domain.t0020.Testclass");
-List&lt;String&gt; scanPackages = new ArrayList&lt;&gt;();
-scanPackages.add("de.elnarion.test.domain.t0020");
-PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
-		.addMethodClassifierToIgnore(ClassifierType.STATIC).build(); <i class="conum" data-value="1"></i><b>(1)</b>
-PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
-String result = generator.generateDiagramText();
-String expectedDiagramText = IOUtils.toString(classLoader.getResource(filename), StandardCharsets.UTF_8);
-assertNotNull(result);
-assertNotNull(expectedDiagramText);
-assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));</code></pre>
-</div>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>add method classifier to ignore to the configuration</td>
-</tr>
-</table>
-</div>
+<pre class="nowrap"><code class="language-xml" data-lang=xml>			&lt;plugin&gt;
+				&lt;artifactId&gt;plantuml-generator-maven-plugin&lt;/artifactId&gt;
+				&lt;groupId&gt;de.elnarion.maven&lt;/groupId&gt;
+				&lt;version&gt;@project.version@&lt;/version&gt;
+				&lt;executions&gt;
+					&lt;execution&gt;
+						&lt;id&gt;generate-simple-diagram&lt;/id&gt;
+						&lt;goals&gt;
+							&lt;goal&gt;generate&lt;/goal&gt;
+						&lt;/goals&gt;
+						&lt;phase&gt;generate-test-sources&lt;/phase&gt;
+						&lt;configuration&gt;
+							&lt;outputFilename&gt;testdiagram1.txt&lt;/outputFilename&gt;
+							&lt;scanPackages&gt;
+								&lt;scanPackage&gt;de.elnarion.test.domain.t0007&lt;/scanPackage&gt;
+							&lt;/scanPackages&gt;
+							&lt;hideClasses&gt;
+								&lt;hideClasse&gt;de.elnarion.test.domain.t0007.ClassB&lt;/hideClasse&gt;
+								&lt;hideClasse&gt;de.elnarion.test.domain.t0007.ClassC&lt;/hideClasse&gt;
+							&lt;/hideClasses&gt;
+							&lt;hideFields&gt;true&lt;/hideFields&gt;
+							&lt;hideMethods&gt;true&lt;/hideMethods&gt;
+						&lt;/configuration&gt;
+					&lt;/execution&gt;
+				&lt;/executions&gt;
+			&lt;/plugin&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -292,7 +277,7 @@ assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+
 </div>
 <div class="imageblock kroki">
 <div class="content">
-<img src="../../_images/0020_ignore_classifier_methods_diagram-3ab2a035640bdf732ecfc0967d533833e7469109.png" alt="0020_ignore_classifier_methods_diagram">
+<img src="../../_images/0007_hide_parameters_diagram-17da7b55809d987eba34cbd8531d237305cb6a1c.png" alt="0007_hide_parameters_diagram">
 </div>
 </div>
 <div class="paragraph">
@@ -302,15 +287,35 @@ assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+
 <div class="content">
 <pre class="nowrap"><code class="language-plantuml" data-lang=plantuml>@startuml
 
-abstract class de.elnarion.test.domain.t0020.Testclass {
-	{method}  {abstract} +doSomething () : void
+class de.elnarion.test.domain.t0007.ClassA {
+	{field} +fieldA : String
+	{field} +fieldB : String
+	{method} +testMethod () : void
+	{method} +testMethod2 () : void
 }
 
-interface de.elnarion.test.domain.t0020.Testinterface {
-	{method}  {abstract} +doSomething () : void
-	{method}  {abstract} +doSomething2 () : void
-	{method} +doSomething3 () : void
+class de.elnarion.test.domain.t0007.ClassB {
 }
+
+class de.elnarion.test.domain.t0007.ClassC {
+	{field} +fieldA : String
+	{field} +fieldB : String
+	{method} +testMethod () : void
+	{method} +testMethod2 () : void
+}
+
+class de.elnarion.test.domain.t0007.ClassD {
+}
+
+de.elnarion.test.domain.t0007.ClassB --&gt;  de.elnarion.test.domain.t0007.ClassA : testA
+de.elnarion.test.domain.t0007.ClassB --&gt;  de.elnarion.test.domain.t0007.ClassB : testB
+de.elnarion.test.domain.t0007.ClassD --&gt;  de.elnarion.test.domain.t0007.ClassC : testC
+de.elnarion.test.domain.t0007.ClassD --&gt;  de.elnarion.test.domain.t0007.ClassD : testD
+
+hide fields
+hide methods
+hide de.elnarion.test.domain.t0007.ClassB
+hide de.elnarion.test.domain.t0007.ClassC
 
 @enduml</code></pre>
 </div>
@@ -318,8 +323,8 @@ interface de.elnarion.test.domain.t0020.Testinterface {
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="method-blacklist-regexp.html">methodBlacklistRegexp</a></span>
-  <span class="next"><a href="remove-fields.html">removeFields</a></span>
+  <span class="prev"><a href="hide-classes.html">hideClasses</a></span>
+  <span class="next"><a href="hide-methods.html">hideMethods</a></span>
 </nav>
 </article>
   </div>

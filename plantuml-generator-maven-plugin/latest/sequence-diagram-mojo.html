@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Sequence diagram generator mojo :: PlantUML Generator</title>
     <link rel="canonical" href="https://devlauer.github.io/plantuml-generator/plantuml-generator-maven-plugin/latest/sequence-diagram-mojo.html">
-    <link rel="prev" href="class-diagram-mojo/examples.html">
+    <link rel="prev" href="class-diagram-mojo/config/whitelist-regexp.html">
     <link rel="next" href="sequence-diagram-mojo/examples.html">
     <meta name="generator" content="Antora 3.1.2">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -55,6 +55,60 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="class-diagram-mojo/examples.html">Examples</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Configuration</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="class-diagram-mojo/config/scanpackages.html">scanpackages</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="class-diagram-mojo/config/additional-plantuml-configs.html">additionalPlantUMLConfigs</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="class-diagram-mojo/config/add-jpa-annotations.html">addJPAAnnotations</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="class-diagram-mojo/config/blacklist-regexp.html">blacklistRegexp</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="class-diagram-mojo/config/field-blacklist-regexp.html">fieldBlacklistRegexp</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="class-diagram-mojo/config/field-classifier-to-ignore.html">fieldClassifierToIgnore</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="class-diagram-mojo/config/hide-classes.html">hideClasses</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="class-diagram-mojo/config/hide-fields.html">hideFields</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="class-diagram-mojo/config/hide-methods.html">hideMethods</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="class-diagram-mojo/config/max-visibility-fields.html">maxVisibilityFields</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="class-diagram-mojo/config/max-visibility-methods.html">maxVisibilityMethods</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="class-diagram-mojo/config/method-blacklist-regexp.html">methodBlacklistRegexp</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="class-diagram-mojo/config/method-classifier-to-ignore.html">methodClassifierToIgnore</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="class-diagram-mojo/config/remove-fields.html">removeFields</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="class-diagram-mojo/config/remove-methods.html">removeMethods</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="class-diagram-mojo/config/whitelist-regexp.html">whitelistRegexp</a>
+  </li>
+</ul>
+  </li>
 </ul>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
@@ -63,6 +117,36 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="sequence-diagram-mojo/examples.html">Examples</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Configuration</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="sequence-diagram-mojo/config/class-blacklist-regexp.html">classBlacklistRegexp</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="sequence-diagram-mojo/config/hide-method-name.html">hideMethodName</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="sequence-diagram-mojo/config/hide-super-class.html">hideSuperClass</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="sequence-diagram-mojo/config/ignore-jpa-entities.html">ignoreJPAEntities</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="sequence-diagram-mojo/config/ignore-standard-classes.html">ignoreStandardClasses</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="sequence-diagram-mojo/config/method-blacklist-regexp.html">methodBlacklistRegexp</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="sequence-diagram-mojo/config/show-return-types.html">showReturnTypes</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="sequence-diagram-mojo/config/use-short-class-names.html">useShortClassNames</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -266,7 +350,7 @@ Index, UniqueConstraint, Tablename and Tableschema are show as tagged values in 
 </ul>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="class-diagram-mojo/examples.html">Examples</a></span>
+  <span class="prev"><a href="class-diagram-mojo/config/whitelist-regexp.html">whitelistRegexp</a></span>
   <span class="next"><a href="sequence-diagram-mojo/examples.html">Examples</a></span>
 </nav>
 </article>

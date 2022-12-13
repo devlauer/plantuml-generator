@@ -6,6 +6,7 @@
 	<artifactId>class-0005-field-blacklist-regexp-it</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
+	<!-- tag::dependencies[] -->
 	<dependencies>
 		<dependency>
 			<groupId>de.elnarion.util</groupId>
@@ -25,6 +26,7 @@
 			<version>2.2</version>
 		</dependency>
 	</dependencies>
+	<!-- end::dependencies[] -->
 	<build>
 		<plugins>
 			<!-- tag::mvn[] -->

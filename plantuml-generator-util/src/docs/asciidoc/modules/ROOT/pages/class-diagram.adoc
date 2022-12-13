@@ -21,5 +21,5 @@ class diagram as text.
 
 For more options to customize the diagram text and corresponding examples
 have a look at the
-xref:./class-diagram-generator/config.adoc[configuration] 
+xref:./class-diagram/config.adoc[configuration] 
 documentation.

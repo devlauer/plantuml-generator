@@ -20,6 +20,6 @@ generateDiagramText and you'll get the PlantUML sequence diagram as text.
 
 For more options to customize the diagram text and corresponding examples
 have a look at the
-xref:./sequence-diagram-generator/config.adoc[configuration] 
+xref:./sequence-diagram/config.adoc[configuration] 
 documentation.
 

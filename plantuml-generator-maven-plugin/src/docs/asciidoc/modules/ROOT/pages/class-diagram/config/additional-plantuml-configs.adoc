@@ -1,0 +1,44 @@
+= additionalPlantUMLConfigs
+include::./_attributes.adoc[]
+
+include::plantuml-generator-util:ROOT:partial$class-diagram/additional-plantuml-configs.adoc[leveloffset=+1]
+
+== Example
+
+In the following example there are three dependencies in the maven
+dependencies which build the classpath for all further generation:
+
+[source,xml]
+----
+include::example$itresources/classdiagram/0002-additional-plantuml-configs-it/pom.xml[tags=dependencies]
+----
+
+From this classpath all classes of the package "de.elnarion.test.domain.t0023",
+which are also used by the 
+xref:plantuml-generator-util:ROOT:class-diagram-generator/config/additional-plantuml-configs.adoc[JUnit-tests of the PlantUML generator utility],
+should be generated as class diagram with the following plugin configuration
+
+[source,xml]
+----
+include::example$itresources/classdiagram/0002-additional-plantuml-configs-it/pom.xml[tags=mvn]
+----
+
+this configuration contains two additionalPlantUMLConfig entries:
+
+* left to right direction - which sets the direction in which the image
+is rendered to left to right
+* scale 2/3 - which scales the image to two third of the original size
+
+This configuration is rendered this way:
+
+[plantuml,0023_additional-plant-uml-configs_diagram,png]
+----
+include::plantuml-generator-util:ROOT:example$testresources/class/0023_additional-plant-uml-configs.txt[]
+----
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::plantuml-generator-util:ROOT:example$testresources/class/0023_additional-plant-uml-configs.txt[]
+----

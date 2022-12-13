@@ -1,7 +1,15 @@
 = additionalPlantUMLConfigs
 include::./_attributes.adoc[]
 
-include::partial$class-diagram/additional-plantuml-configs.adoc[leveloffset=+1]
+== Description
+include::partial$class-diagram/additional-plantuml-configs.adoc[tags=description]
+
+You just have to add this configuration with the withAdditionalPlantUMLConfigs
+method of the {builderclass}.
+
+== Default Value
+include::partial$class-diagram/additional-plantuml-configs.adoc[tags=defaultvalue]
+
 
 == Example
 Here is an example from the JUnit tests using this configuration parameter:

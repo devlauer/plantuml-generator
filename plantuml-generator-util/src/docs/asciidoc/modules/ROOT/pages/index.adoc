@@ -6,9 +6,9 @@
 
 The artifact plantuml-generator-util contains two Utility classes: 
 
-* xref:./class-diagram-generator.adoc[PlantUMLClassDiagramGenerator] +
+* xref:./class-diagram.adoc[PlantUMLClassDiagramGenerator] +
 for generation of class diagrams 
-* xref:./sequence-diagram-generator.adoc[PlantUMLSequenceDiagramGenerator] +
+* xref:./sequence-diagram.adoc[PlantUMLSequenceDiagramGenerator] +
 for generation of sequence diagrams
 
 Both can be used to generate a PlantUML diagram text out of existing java 

@@ -1,0 +1,29 @@
+= asciidocDiagramBlockDelimiter
+include::./_attributes.adoc[]
+
+== Description
+
+With the help of this configuration option it is possible to change the
+block delimiters which are used to wrap the generated plantuml content
+if the xref:./enable-asciidoc-wrapper.adoc[enableAsciidocWrapper] configuration 
+option is enabled.
+Without xref:./enable-asciidoc-wrapper.adoc[enableAsciidocWrapper] enabled 
+this configuration option is without any use.
+
+== Default Value
+
+The default value of this configuration option is "----".
+
+== Example
+
+[source,xml]
+----
+include::example$itresources/classdiagram/0018-asciidoc-diagram-block-delimiter-it/pom.xml[tags=mvn]
+----
+
+which produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::example$itresources/classdiagram/0018-asciidoc-diagram-block-delimiter-it/testdiagram1.txt[]
+----

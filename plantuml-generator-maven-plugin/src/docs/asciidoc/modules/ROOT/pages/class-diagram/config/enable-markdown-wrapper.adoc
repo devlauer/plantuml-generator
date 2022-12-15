@@ -1,4 +1,4 @@
-= enableAsciidocWrapper
+= enableMarkdownWrapper
 include::./_attributes.adoc[]
 
 include::partial$enable-markdown-wrapper.adoc[leveloffset=+1]

@@ -3,19 +3,6 @@ include::./_attributes.adoc[]
 
 include::partial$asciidoc-diagram-image-format.adoc[leveloffset=+1]
 
-== Description
-
-With the help of this configuration option it is possible to change the
-image format which is used by the asciidoc plantuml extension
-if the xref:./enable-asciidoc-wrapper.adoc[enableAsciidocWrapper] configuration 
-option is enabled.
-Without xref:./enable-asciidoc-wrapper.adoc[enableAsciidocWrapper] enabled 
-this configuration option is without any use.
-
-== Default Value
-
-The default value of this configuration option is "png".
-
 == Example
 
 In this example the default image format which is used by the plantuml
@@ -23,12 +10,12 @@ extension of asciidoc for the rendering is set to "jpg":
 
 [source,xml]
 ----
-include::example$itresources/classdiagram/0020-asciidoc-diagram-image-format-it/pom.xml[tags=mvn]
+include::example$itresources/sequencediagram/0012-asciidoc-diagram-image-format-it/pom.xml[tags=mvn]
 ----
 
 which produces this PlantUML diagram text:
 
 [source,plantuml,indent=0]
 ....
-include::example$itresources/classdiagram/0020-asciidoc-diagram-image-format-it/testdiagram1.txt[]
+include::example$itresources/sequencediagram/0012-asciidoc-diagram-image-format-it/testsequencediagram1.txt[]
 ....

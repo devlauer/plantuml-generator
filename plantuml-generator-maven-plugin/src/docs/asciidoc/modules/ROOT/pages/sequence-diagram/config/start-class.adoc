@@ -1,0 +1,32 @@
+= startClass
+
+== Description
+
+With this configuration parameter you have to specifiy 
+the name of the class where the sequence diagram should 
+start the call flow.
+This parameter is mandatory.
+
+== Default Value 
+There is no default value.
+
+== Example
+Here is an example of the usage where the call sequence starts in the
+class de.elnarion.maven.plugin.plantuml.generator.test.domain.ChildA: 
+
+[source,xml]
+----
+include::example$itresources/sequencediagram/0010-enable-asciidoc-wrapper-it/pom.xml[tags=mvn]
+----
+
+which is rendered this way:
+
+include::example$itresources/sequencediagram/0010-enable-asciidoc-wrapper-it/testsequencediagram1.txt[]
+
+which produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+....
+include::example$itresources/sequencediagram/0010-enable-asciidoc-wrapper-it/testsequencediagram1.txt[]
+....
+

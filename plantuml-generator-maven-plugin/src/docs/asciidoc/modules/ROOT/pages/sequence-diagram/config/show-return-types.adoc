@@ -4,6 +4,18 @@ include::./_attributes.adoc[]
 include::plantuml-generator-util:ROOT:partial$sequence-diagram/show-return-types.adoc[leveloffset=+1]
 
 == Example
+In the following example there are three dependencies in the maven
+dependency hierarchy which build the classpath for all further generation:
+
+[source,xml]
+----
+include::example$itresources/sequencediagram/0008-show-return-types-it/pom.xml[tags=dependencies]
+----
+
+From this classpath the sequence diagram is generated, but here
+all return types are also shown in the diagram.
+This is similar to the  
+xref:plantuml-generator-util:ROOT:sequence-diagram/config/show-return-types.adoc[JUnit-tests of the PlantUML generator utility]:
 
 [source,xml]
 ----

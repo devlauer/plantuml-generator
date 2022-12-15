@@ -4,6 +4,19 @@ include::./_attributes.adoc[]
 include::plantuml-generator-util:ROOT:partial$sequence-diagram/class-blacklist-regexp.adoc[leveloffset=+1]
 
 == Example
+In the following example there are three dependencies in the maven
+dependency hierarchy which build the classpath for all further generation:
+
+[source,xml]
+----
+include::example$itresources/sequencediagram/0002-class-blacklist-regexp-it/pom.xml[tags=dependencies]
+----
+
+From this classpath all classes which do not match the regular
+expression +.*(Controller|Model)+ should be part of the generated 
+sequence diagram.
+This is similar to the  
+xref:plantuml-generator-util:ROOT:sequence-diagram/config/class-blacklist-regexp.adoc[JUnit-tests of the PlantUML generator utility]:
 
 [source,xml]
 ----

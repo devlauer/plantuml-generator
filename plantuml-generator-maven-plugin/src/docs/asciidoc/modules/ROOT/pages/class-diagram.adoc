@@ -46,13 +46,13 @@ Currently implemented JPA Annotations are
 --
 +
 Index, UniqueConstraint, Tablename and Tableschema are show as tagged values in a separate compartment
-** *xref:class-diagram/config/asciidoc-diagram-name.adoc[asciidocDiagramName]* - the name of the diagram in the asciidoc diagram block - 
-default is outputFilename + "." + asciidocDiagramImageType;optional
+** *xref:class-diagram/config/asciidoc-diagram-block-delimiter.adoc[asciidocDiagramBlockDelimiter]* - defines the block delimiter of the  
+asciidoc diagram block - default is ``----``; optional 
 (only used when enableAsciidocWrapper is true);
 ** *xref:class-diagram/config/asciidoc-diagram-image-format.adoc[asciidocDiagramImageFormat]* - the image format (png/svg/latex etc.) - default is ``png``; optional
 (only used when enableAsciidocWrapper is true);
-** *xref:class-diagram/config/asciidoc-diagram-block-delimiter.adoc[asciidocDiagramBlockDelimiter]* - defines the block delimiter of the  
-asciidoc diagram block - default is ``----``; optional 
+** *xref:class-diagram/config/asciidoc-diagram-name.adoc[asciidocDiagramName]* - the name of the diagram in the asciidoc diagram block - 
+default is outputFilename + "." + asciidocDiagramImageType;optional
 (only used when enableAsciidocWrapper is true);
 ** *xref:class-diagram/config/enable-asciidoc-wrapper.adoc[enableAsciidocWrapper]* - a boolean which defines if the generated diagram should be wrapped
 by an asciidoc diagram block - default is ``false``; optional;

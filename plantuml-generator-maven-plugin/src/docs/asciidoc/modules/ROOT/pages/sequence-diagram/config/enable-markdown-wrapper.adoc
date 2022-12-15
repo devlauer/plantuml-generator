@@ -1,4 +1,4 @@
-= enableAsciidocWrapper
+= enableMarkdownWrapper
 include::./_attributes.adoc[]
 
 include::partial$enable-markdown-wrapper.adoc[leveloffset=+1]
@@ -9,12 +9,12 @@ In this example the toggle for the markdown wrapper is enabled:
 
 [source,xml]
 ----
-include::example$itresources/classdiagram/0022-enable-markdown-wrapper-it/pom.xml[tags=mvn]
+include::example$itresources/sequencediagram/0014-enable-markdown-wrapper-it/pom.xml[tags=mvn]
 ----
 
 which produces this PlantUML diagram text:
 
 [source,plantuml,indent=0]
 ....
-include::example$itresources/classdiagram/0022-enable-markdown-wrapper-it/testdiagram1.txt[]
+include::example$itresources/sequencediagram/0014-enable-markdown-wrapper-it/testsequencediagram1.txt[]
 ....

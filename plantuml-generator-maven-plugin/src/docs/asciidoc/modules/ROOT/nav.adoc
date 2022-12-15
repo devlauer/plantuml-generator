@@ -26,14 +26,13 @@
 *** xref:class-diagram/config/whitelist-regexp.adoc[]
 
 * xref:sequence-diagram.adoc[]
-** xref:sequence-diagram/examples.adoc[]
 ** Configuration
 *** xref:sequence-diagram/config/asciidoc-diagram-block-delimiter.adoc[]
 *** xref:sequence-diagram/config/asciidoc-diagram-image-format.adoc[]
 *** xref:sequence-diagram/config/asciidoc-diagram-name.adoc[]
+*** xref:sequence-diagram/config/class-blacklist-regexp.adoc[]
 *** xref:sequence-diagram/config/enable-asciidoc-wrapper.adoc[]
 *** xref:sequence-diagram/config/enable-markdown-wrapper.adoc[]
-*** xref:sequence-diagram/config/class-blacklist-regexp.adoc[]
 *** xref:sequence-diagram/config/hide-method-name.adoc[]
 *** xref:sequence-diagram/config/hide-super-class.adoc[]
 *** xref:sequence-diagram/config/ignore-jpa-entities.adoc[]
@@ -42,4 +41,6 @@
 *** xref:sequence-diagram/config/output-directory.adoc[]
 *** xref:sequence-diagram/config/output-filename.adoc[]
 *** xref:sequence-diagram/config/show-return-types.adoc[]
+*** xref:sequence-diagram/config/start-class.adoc[]
+*** xref:sequence-diagram/config/start-method.adoc[]
 *** xref:sequence-diagram/config/use-short-class-names.adoc[]

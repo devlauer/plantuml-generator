@@ -1,0 +1,4 @@
+= outputFilename
+include::./_attributes.adoc[]
+
+include::partial$/output-filename.adoc[leveloffset=+1]

@@ -4,6 +4,19 @@ include::./_attributes.adoc[]
 include::plantuml-generator-util:ROOT:partial$sequence-diagram/hide-super-class.adoc[leveloffset=+1]
 
 == Example
+In the following example there are three dependencies in the maven
+dependency hierarchy which build the classpath for all further generation:
+
+[source,xml]
+----
+include::example$itresources/sequencediagram/0004-hide-super-class-it/pom.xml[tags=dependencies]
+----
+
+From this classpath the sequence diagram is generated, but all
+super classes are hidden if they belong to a known child class,
+instead the child class is used for the call sequence.
+This is similar to the  
+xref:plantuml-generator-util:ROOT:sequence-diagram/config/hide-super-class.adoc[JUnit-tests of the PlantUML generator utility]:
 
 [source,xml]
 ----

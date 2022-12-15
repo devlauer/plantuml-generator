@@ -4,13 +4,28 @@ include::./_attributes.adoc[]
 include::plantuml-generator-util:ROOT:partial$class-diagram/hide-classes.adoc[leveloffset=+1]
 
 == Example
+In the following example there are three dependencies in the maven 
+dependency hierarchy which build the classpath for all further generation:
+
+[source,xml]
+----
+include::example$itresources/classdiagram/0007-hide-classes-it/pom.xml[tags=dependencies]
+----
+
+From this classpath all classes of the package "de.elnarion.test.domain.t0001",
+which are also used by the 
+xref:plantuml-generator-util:ROOT:class-diagram/config/hide-classes.adoc[JUnit-tests of the PlantUML generator utility],
+should be generated as class diagram with the following plugin configuration:
+
 
 [source,xml]
 ----
 include::example$itresources/classdiagram/0007-hide-classes-it/pom.xml[tags=mvn]
 ----
 
-which is rendered in PlantUML this way:
+but the class de.elnarion.test.domain.ChildB should be hidden in the rendered
+diagram. 
+This configuration leeds to this diagram:
 
 [plantuml,0001_general_diagram,png]
 ----

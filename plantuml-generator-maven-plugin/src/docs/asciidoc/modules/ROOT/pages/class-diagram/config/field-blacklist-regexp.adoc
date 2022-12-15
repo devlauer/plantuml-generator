@@ -5,12 +5,27 @@ include::plantuml-generator-util:ROOT:partial$class-diagram/field-blacklist-rege
 
 == Example
 
+In the following example there are three dependencies in the maven
+dependency hierarchy which build the classpath for all further generation:
+
+[source,xml]
+----
+include::example$itresources/classdiagram/0005-field-blacklist-regexp-it/pom.xml[tags=dependencies]
+----
+
+From this classpath all classes of the package "de.elnarion.test.domain.t0018",
+which are also used by the 
+xref:plantuml-generator-util:ROOT:class-diagram/config/field-blacklist-regexp.adoc[JUnit-tests of the PlantUML generator utility],
+should be generated as class diagram with the following plugin configuration
+
 [source,xml]
 ----
 include::example$itresources/classdiagram/0005-field-blacklist-regexp-it/pom.xml[tags=mvn]
 ----
 
-which is rendered this way:
+where the method with the name test1 is excluded by the blacklist field 
+regular expression.
+This configuration is rendered this way:
 
 [plantuml,0018_blacklist_fields_diagram,png]
 ----

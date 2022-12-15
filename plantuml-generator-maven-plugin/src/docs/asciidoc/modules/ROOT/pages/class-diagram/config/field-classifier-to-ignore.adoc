@@ -5,12 +5,25 @@ include::plantuml-generator-util:ROOT:partial$class-diagram/field-classifier-to-
 
 == Example
 
+In the following example there are three dependencies in the maven 
+dependency hierarchy which build the classpath for all further generation:
+
+[source,xml]
+----
+include::example$itresources/classdiagram/0006-field-classifier-to-ignore-it/pom.xml[tags=dependencies]
+----
+
+From this classpath all classes of the package "de.elnarion.test.domain.t0019",
+which are also used by the 
+xref:plantuml-generator-util:ROOT:class-diagram/config/field-classifier-to-ignore.adoc[JUnit-tests of the PlantUML generator utility],
+should be generated as class diagram with the following plugin configuration
+
 [source,xml]
 ----
 include::example$itresources/classdiagram/0006-field-classifier-to-ignore-it/pom.xml[tags=mvn]
 ----
 
-which is rendered this way:
+where all static fields are ignored and which is rendered this way:
 
 [plantuml,0019_ignore_classifier_fields_diagram,png]
 ----

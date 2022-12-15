@@ -1,0 +1,20 @@
+= Description
+
+With the help of this configuration parameter toggle the maven plugin adds
+an asciidoc block statement around the plantuml content before it is
+written to the file.
+How the asciidoc block statement is written can be influenced by the
+configuration parameters
+
+* xref:./asciidoc-diagram-block-delimiter.adoc[] - 
+if you want to change the block delimter
+* xref:./asciidoc-diagram-image-format.adoc[] - 
+if you want to change the image format of the plantuml diagram
+* xref:./asciidoc-diagram-name.adoc[] - 
+if you want to change how the diagram is named on the disk after
+it is rendered
+
+= Default Value
+
+The default value of this configuration parameter is *false*.
+

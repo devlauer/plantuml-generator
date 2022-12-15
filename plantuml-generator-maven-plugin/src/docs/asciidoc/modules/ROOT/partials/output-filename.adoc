@@ -1,0 +1,8 @@
+= Description
+With this mandatory configuration parameter the name of the
+diagram file name is specified.
+
+= Default Value
+
+There is no default value, you have to specify it every time you use
+the maven plugin.

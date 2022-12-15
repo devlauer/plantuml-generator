@@ -4,6 +4,19 @@ include::./_attributes.adoc[]
 include::plantuml-generator-util:ROOT:partial$class-diagram/whitelist-regexp.adoc[leveloffset=+1]
 
 == Example
+In the following example there are three dependencies in the maven 
+dependency hierarchy which build the classpath for all further generation:
+
+[source,xml]
+----
+include::example$itresources/classdiagram/0017-whitelist-regexp-it/pom.xml[tags=dependencies]
+----
+
+From this classpath all classes which match the regular expression 
++org\.apache\.commons\.io.*FileAl.*+ and
+which are also used by the 
+xref:plantuml-generator-util:ROOT:class-diagram/config/whitelist-regexp.adoc[JUnit-tests of the PlantUML generator utility],
+should be generated as class diagram with the following plugin configuration:
 
 [source,xml]
 ----

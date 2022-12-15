@@ -1,0 +1,4 @@
+= outputDirectory
+include::./_attributes.adoc[]
+
+include::partial$/output-directory.adoc[leveloffset=+1]

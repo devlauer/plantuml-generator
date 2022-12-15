@@ -1,0 +1,12 @@
+= Description
+
+With the help of this configuration option it is possible to change the
+block delimiters which are used to wrap the generated plantuml content
+if the xref:./enable-asciidoc-wrapper.adoc[enableAsciidocWrapper] configuration 
+option is enabled.
+Without xref:./enable-asciidoc-wrapper.adoc[enableAsciidocWrapper] enabled 
+this configuration option is without any use.
+
+= Default Value
+
+The default value of this configuration option is "----".

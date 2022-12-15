@@ -4,14 +4,27 @@ include::./_attributes.adoc[]
 include::plantuml-generator-util:ROOT:partial$class-diagram/method-blacklist-regexp.adoc[leveloffset=+1]
 
 == Example
+In the following example there are three dependencies in the maven 
+dependency hierarchy which build the classpath for all further generation:
+
+[source,xml]
+----
+include::example$itresources/classdiagram/0012-method-blacklist-regexp-it/pom.xml[tags=dependencies]
+----
+
+From this classpath all classes of the package "de.elnarion.test.domain.t0017",
+which are also used by the 
+xref:plantuml-generator-util:ROOT:class-diagram/config/method-blacklist-regexp.adoc[JUnit-tests of the PlantUML generator utility],
+should be generated as class diagram with the following plugin configuration
 
 [source,xml]
 ----
 include::example$itresources/classdiagram/0012-method-blacklist-regexp-it/pom.xml[tags=mvn]
 ----
 
-
-which is rendered this way:
+From this configuration all methods which match the regular expression
++.*doSomething1.*+ are excluded from the diagram.
+This configuration is rendered this way:
 
 [plantuml,0017_blacklist_methods_diagram,png]
 ----

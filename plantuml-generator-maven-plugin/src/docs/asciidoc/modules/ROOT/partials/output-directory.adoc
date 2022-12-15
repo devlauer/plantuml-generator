@@ -1,0 +1,8 @@
+= Description
+With this configuration parameter it is possible to specify a different
+output directory for the diagram file than the default one.
+
+= Default Value
+
+The default value is ${project.build.directory}/generated-docs which normally
+results in target/generated-docs.

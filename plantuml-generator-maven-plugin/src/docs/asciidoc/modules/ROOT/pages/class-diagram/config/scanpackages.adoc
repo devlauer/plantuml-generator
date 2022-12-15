@@ -4,6 +4,19 @@ include::./_attributes.adoc[]
 include::plantuml-generator-util:ROOT:partial$class-diagram/scanpackages.adoc[leveloffset=+1]
 
 == Example
+In the following example there are three dependencies in the maven 
+dependency hierarchy which build the classpath for all further generation:
+
+[source,xml]
+----
+include::example$itresources/classdiagram/0016-scanpackages-it/pom.xml[tags=dependencies]
+----
+
+From this classpath all classes of the package "de.elnarion.test.domain.t0006.pck1"
+and all classes of the package "de.elnarion.test.domain.t0006.pck2",
+which are also used by the 
+xref:plantuml-generator-util:ROOT:class-diagram/config/scanpackages.adoc[JUnit-tests of the PlantUML generator utility],
+should be generated as class diagram with the following plugin configuration:
 
 [source,xml]
 ----
@@ -16,7 +29,6 @@ which is rendered this way:
 ----
 include::plantuml-generator-util:ROOT:example$testresources/class/0006_different_packages.txt[]
 ----
-
 
 and produces this PlantUML diagram text:
 

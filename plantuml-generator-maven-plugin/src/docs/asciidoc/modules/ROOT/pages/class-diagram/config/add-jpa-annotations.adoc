@@ -6,7 +6,7 @@ include::plantuml-generator-util:ROOT:partial$class-diagram/add-jpa-annotations.
 == Example
 
 In the following example there are three dependencies in the maven
-dependencies which build the classpath for all further generation:
+dependency hierarchy which build the classpath for all further generation:
 
 [source,xml]
 ----
@@ -26,8 +26,6 @@ include::example$itresources/classdiagram/0003-add-jpa-annotations-it/pom.xml[ta
 this configuration contains the addJPAAnnotations toggle with the value
 true.
 This configuration is rendered this way:
-
-which is rendered this way:
 
 [plantuml,0021_jpa_annotations_diagram,png]
 ----

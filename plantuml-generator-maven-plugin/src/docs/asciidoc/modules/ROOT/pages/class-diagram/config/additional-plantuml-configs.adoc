@@ -5,8 +5,8 @@ include::plantuml-generator-util:ROOT:partial$class-diagram/additional-plantuml-
 
 == Example
 
-In the following example there are three dependencies in the maven
-dependencies which build the classpath for all further generation:
+In the following example there are three dependencies in the maven 
+dependency hierarchy which build the classpath for all further generation:
 
 [source,xml]
 ----
@@ -15,7 +15,7 @@ include::example$itresources/classdiagram/0002-additional-plantuml-configs-it/po
 
 From this classpath all classes of the package "de.elnarion.test.domain.t0023",
 which are also used by the 
-xref:plantuml-generator-util:ROOT:class-diagram-generator/config/additional-plantuml-configs.adoc[JUnit-tests of the PlantUML generator utility],
+xref:plantuml-generator-util:ROOT:class-diagram/config/additional-plantuml-configs.adoc[JUnit-tests of the PlantUML generator utility],
 should be generated as class diagram with the following plugin configuration
 
 [source,xml]

@@ -1,0 +1,13 @@
+= Description
+
+With the help of this configuration option it is possible to change the
+image format which is used by the asciidoc plantuml extension
+if the xref:./enable-asciidoc-wrapper.adoc[enableAsciidocWrapper] configuration 
+option is enabled.
+Without xref:./enable-asciidoc-wrapper.adoc[enableAsciidocWrapper] enabled 
+this configuration option is without any use.
+
+= Default Value
+
+The default value of this configuration option is "png".
+

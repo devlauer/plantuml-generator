@@ -1,7 +1,7 @@
 site:
   title: PlantUML Generator
   url: https://devlauer.github.io/plantuml-generator/
-  start_page: plantuml-generator::index.adoc
+  start_page: plantuml-generator:ROOT:index.adoc
   robots: allow
 content:
   sources:
@@ -31,6 +31,7 @@ asciidoc:
     icons: 'font'
     source-highlighter: 'prism'
     generatorversion: '1.6.0'
+    kroki-server-url: http://192.168.1.212:8000
 ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable

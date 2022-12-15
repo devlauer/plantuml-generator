@@ -2,6 +2,7 @@
 
 .Unreleased
 
+.1.6.0 - 2022-12-15
 * removed unused imports
 * updated to junit5
 * fix javadoc issues

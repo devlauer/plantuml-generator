@@ -1,7 +1,7 @@
 <header class="header">
   <nav class="navbar">
     <div class="navbar-brand">
-      <a class="navbar-item" href="{{{or site.homeUrl siteRootPath}}}">{{site.title}}</a>
+      <a class="navbar-item" href="{{{relativize site.homeUrl}}}">{{site.title}}</a>
       {{#if env.SITE_SEARCH_PROVIDER}}
       <div class="navbar-item search hide-for-print">
         <div id="search-field" class="field">
@@ -20,7 +20,7 @@
 	    {{#each site.components}}
 			<a class="navbar-item {{#if (eq this @root.page.component)}} is-current{{/if}}" href="{{{relativize ./url}}}">{{{./title}}}</a>
 		{{/each}}
-        <a class="navbar-item" href="#">Home</a>
+        <a class="navbar-item" href="{{{relativize site.homeUrl}}}">Home</a>
       </div>
     </div>
   </nav>

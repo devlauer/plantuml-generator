@@ -10,7 +10,7 @@ public class BaseAbstractClass implements BaseInterface {
 	 */
 	public void doSomethingElse()
 	{
-		
+		// just for testing diagram generation
 	}
 
 	/**
@@ -18,7 +18,7 @@ public class BaseAbstractClass implements BaseInterface {
 	 */
 	public void doSomething()
 	{
-		
+		// just for testing diagram generation
 	}
 	
 	/**
@@ -28,7 +28,7 @@ public class BaseAbstractClass implements BaseInterface {
 	 */
 	public void doSomethingWithParameter(String paramParameter)
 	{
-		
+		// just for testing diagram generation
 	}
 	
 	/**

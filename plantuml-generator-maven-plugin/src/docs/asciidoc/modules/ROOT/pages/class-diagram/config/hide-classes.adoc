@@ -25,7 +25,7 @@ include::example$itresources/classdiagram/0007-hide-classes-it/pom.xml[tags=mvn]
 
 but the class de.elnarion.test.domain.ChildB should be hidden in the rendered
 diagram. 
-This configuration leeds to this diagram:
+This configuration leads to this diagram:
 
 [plantuml,0001_general_diagram,png]
 ----

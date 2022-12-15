@@ -7,7 +7,7 @@ but they are still part of the generated diagram text.
 
 If you want to remove specific methods from the diagram, 
 you have to use the
-xref:./field-blacklist-regexp.adoc[field blacklist regular expression]
+xref:./method-blacklist-regexp.adoc[method blacklist regular expression]
 configuration option.
 
 If you want to remove all methods from the diagram completely, you have 

@@ -22,7 +22,7 @@ should be generated as class diagram with the following plugin configuration
 include::example$itresources/classdiagram/0012-method-blacklist-regexp-it/pom.xml[tags=mvn]
 ----
 
-From this configuration all methods which match the regular expression
+With this configuration all methods which match the regular expression
 +.*doSomething1.*+ are excluded from the diagram.
 This configuration is rendered this way:
 

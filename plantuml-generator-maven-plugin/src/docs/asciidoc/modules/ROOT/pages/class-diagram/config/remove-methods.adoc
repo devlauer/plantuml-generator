@@ -12,7 +12,7 @@ dependency hierarchy which build the classpath for all further generation:
 include::example$itresources/classdiagram/0015-remove-methods-it/pom.xml[tags=dependencies]
 ----
 
-From this classpath all classes of the package "de.elnarion.test.domain.t0016",
+From this classpath all classes of the package "de.elnarion.test.domain.t0015",
 which are also used by the 
 xref:plantuml-generator-util:ROOT:class-diagram/config/remove-methods.adoc[JUnit-tests of the PlantUML generator utility],
 should be generated as class diagram with the following plugin configuration:

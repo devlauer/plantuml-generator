@@ -6,8 +6,6 @@ This parameter can only be specified together with a list of packages
 to scan for. 
 This is because otherwise the number of classes would otherwise be to
 large.
-So the decision was made to combine both of them as constructor parameter
-to the {builderclass}.
 
 If this parameter is specified it is used as a filter for all classes found
 in the 

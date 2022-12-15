@@ -14,7 +14,7 @@ include::example$itresources/classdiagram/0008-hide-fields-it/pom.xml[tags=depen
 
 From this classpath all classes of the package "de.elnarion.test.domain.t0007",
 which are also used by the 
-xref:plantuml-generator-util:ROOT:class-diagram/config/hide-fields.adoc[JUnit-tests of the PlantUML generator utility],
+xref:plantuml-generator-util:ROOT:class-diagram/config/hide-methods.adoc[JUnit-tests of the PlantUML generator utility],
 should be generated as class diagram with the following plugin configuration:
 
 [source,xml]

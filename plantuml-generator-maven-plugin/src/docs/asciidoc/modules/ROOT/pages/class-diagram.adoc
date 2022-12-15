@@ -56,6 +56,8 @@ asciidoc diagram block - default is ``----``; optional
 (only used when enableAsciidocWrapper is true);
 ** *xref:class-diagram/config/enable-asciidoc-wrapper.adoc[enableAsciidocWrapper]* - a boolean which defines if the generated diagram should be wrapped
 by an asciidoc diagram block - default is ``false``; optional;
+** *xref:class-diagram/config/enable-markdown-wrapper.adoc[enableMarkdownWrapper]* - a boolean which defines if the generated diagram should be wrapped
+by an markdown diagram block - default is ``false``; optional;
 ** *xref:class-diagram/config/field-blacklist-regexp.adoc[fieldBlacklistRegexp]* -
   a regular expression to remove special fields from the diagram; optional
 ** *xref:class-diagram/config/field-classifier-to-ignore.adoc[fieldClassifierListToIgnore]* -

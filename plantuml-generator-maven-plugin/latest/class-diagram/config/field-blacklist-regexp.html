@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>fieldBlacklistRegexp :: PlantUML Generator</title>
     <link rel="canonical" href="https://devlauer.github.io/plantuml-generator/plantuml-generator-maven-plugin/latest/class-diagram/config/field-blacklist-regexp.html">
-    <link rel="prev" href="enable-asciidoc-wrapper.html">
+    <link rel="prev" href="enable-markdown-wrapper.html">
     <link rel="next" href="field-classifier-to-ignore.html">
     <meta name="generator" content="Antora 3.1.2">
     <link rel="stylesheet" href="../../../../_/css/site.css">
@@ -16,7 +16,7 @@
 <header class="header">
   <nav class="navbar">
     <div class="navbar-brand">
-      <a class="navbar-item" href="/plantuml-generator/latest/index.html">PlantUML Generator</a>
+      <a class="navbar-item" href="../../../../plantuml-generator/latest/index.html">PlantUML Generator</a>
       <div class="navbar-item search hide-for-print">
         <div id="search-field" class="field">
           <input id="search-input" type="text" placeholder="Search the docs">
@@ -33,7 +33,7 @@
 			<a class="navbar-item " href="../../../../plantuml-generator/latest/index.html">General</a>
 			<a class="navbar-item  is-current" href="../../index.html">Maven Plugins</a>
 			<a class="navbar-item " href="../../../../plantuml-generator-util/latest/index.html">Utility</a>
-        <a class="navbar-item" href="#">Home</a>
+        <a class="navbar-item" href="../../../../plantuml-generator/latest/index.html">Home</a>
       </div>
     </div>
   </nav>
@@ -69,16 +69,19 @@
     <a class="nav-link" href="asciidoc-diagram-block-delimiter.html">asciidocDiagramBlockDelimiter</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="asciidoc-diagram-image-format.html">class-diagram/config/asciidoc-diagram-image-format.adoc</a>
+    <a class="nav-link" href="asciidoc-diagram-image-format.html">asciidocDiagramImageFormat</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="asciidoc-diagram-name.html">class-diagram/config/asciidoc-diagram-name.adoc</a>
+    <a class="nav-link" href="asciidoc-diagram-name.html">asciidocDiagramName</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="blacklist-regexp.html">blacklistRegexp</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="enable-asciidoc-wrapper.html">class-diagram/config/enable-asciidoc-wrapper.adoc</a>
+    <a class="nav-link" href="enable-asciidoc-wrapper.html">enableAsciidocWrapper</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="enable-markdown-wrapper.html">enableMarkdownWrapper</a>
   </li>
   <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="field-blacklist-regexp.html">fieldBlacklistRegexp</a>
@@ -108,6 +111,12 @@
     <a class="nav-link" href="method-classifier-to-ignore.html">methodClassifierToIgnore</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="output-directory.html">outputDirectory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="output-filename.html">outputFilename</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="remove-fields.html">removeFields</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -128,14 +137,26 @@
     <a class="nav-link" href="../../sequence-diagram.html">Sequence diagram generator mojo</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../sequence-diagram/examples.html">Examples</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Configuration</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../sequence-diagram/config/asciidoc-diagram-block-delimiter.html">asciidocDiagramBlockDelimiter</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../sequence-diagram/config/asciidoc-diagram-image-format.html">asciidocDiagramImageFormat</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../sequence-diagram/config/asciidoc-diagram-name.html">asciidocDiagramName</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../sequence-diagram/config/class-blacklist-regexp.html">classBlacklistRegexp</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../sequence-diagram/config/enable-asciidoc-wrapper.html">enableAsciidocWrapper</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../sequence-diagram/config/enable-markdown-wrapper.html">enableMarkdownWrapper</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../sequence-diagram/config/hide-method-name.html">hideMethodName</a>
@@ -153,7 +174,19 @@
     <a class="nav-link" href="../../sequence-diagram/config/method-blacklist-regexp.html">methodBlacklistRegexp</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../sequence-diagram/config/output-directory.html">outputDirectory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../sequence-diagram/config/output-filename.html">outputFilename</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../sequence-diagram/config/show-return-types.html">showReturnTypes</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../sequence-diagram/config/start-class.html">startClass</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../sequence-diagram/config/start-method.html">startMethod</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="../../sequence-diagram/config/use-short-class-names.html">useShortClassNames</a>
@@ -242,6 +275,39 @@ configuration to filter out specific fields from the diagram.</p>
 <div class="sect1">
 <h2 id="_example"><a class="anchor" href="#_example"></a>Example</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>In the following example there are three dependencies in the maven
+dependency hierarchy which build the classpath for all further generation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap"><code class="language-xml" data-lang=xml>	&lt;dependencies&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;de.elnarion.util&lt;/groupId&gt;
+			&lt;artifactId&gt;plantuml-generator-util&lt;/artifactId&gt;
+			&lt;version&gt;@project.version@&lt;/version&gt;
+			&lt;classifier&gt;tests&lt;/classifier&gt;
+			&lt;type&gt;test-jar&lt;/type&gt;
+		&lt;/dependency&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;commons-io&lt;/groupId&gt;
+			&lt;artifactId&gt;commons-io&lt;/artifactId&gt;
+			&lt;version&gt;2.11.0&lt;/version&gt;
+		&lt;/dependency&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;javax.persistence&lt;/groupId&gt;
+			&lt;artifactId&gt;javax.persistence-api&lt;/artifactId&gt;
+			&lt;version&gt;2.2&lt;/version&gt;
+		&lt;/dependency&gt;
+	&lt;/dependencies&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>From this classpath all classes of the package "de.elnarion.test.domain.t0018",
+which are also used by the
+<a href="../../../../plantuml-generator-util/latest/class-diagram/config/field-blacklist-regexp.html" class="xref page">JUnit-tests of the PlantUML generator utility</a>,
+should be generated as class diagram with the following plugin configuration</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="nowrap"><code class="language-xml" data-lang=xml>			&lt;plugin&gt;
@@ -268,7 +334,9 @@ configuration to filter out specific fields from the diagram.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>which is rendered this way:</p>
+<p>where the method with the name test1 is excluded by the blacklist field
+regular expression.
+This configuration is rendered this way:</p>
 </div>
 <div class="imageblock kroki">
 <div class="content">
@@ -299,7 +367,7 @@ de.elnarion.test.domain.t0018.Testclass1 --&gt;  de.elnarion.test.domain.t0018.T
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="enable-asciidoc-wrapper.html">class-diagram/config/enable-asciidoc-wrapper.adoc</a></span>
+  <span class="prev"><a href="enable-markdown-wrapper.html">enableMarkdownWrapper</a></span>
   <span class="next"><a href="field-classifier-to-ignore.html">fieldClassifierToIgnore</a></span>
 </nav>
 </article>

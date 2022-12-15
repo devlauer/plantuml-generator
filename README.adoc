@@ -1,6 +1,6 @@
 = plantuml-generator project
 
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=devlauer_plantuml-generator&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=devlauer_plantuml-generator)
+image:https://sonarcloud.io/api/project_badges/measure?project=devlauer_plantuml-generator&metric=ncloc["Lines of Code", link="https://sonarcloud.io/summary/new_code?id=devlauer_plantuml-generator"]
 
 == Description 
 

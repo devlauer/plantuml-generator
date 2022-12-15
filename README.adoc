@@ -1,5 +1,7 @@
 = plantuml-generator project
 
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=devlauer_plantuml-generator&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=devlauer_plantuml-generator)
+
 == Description 
 
 plantuml-generator is a project which consists of a utility module which can be 

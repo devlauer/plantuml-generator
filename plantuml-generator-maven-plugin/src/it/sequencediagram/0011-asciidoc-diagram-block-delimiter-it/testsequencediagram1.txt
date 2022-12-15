@@ -1,0 +1,26 @@
+[plantuml,testsequencediagram1.txt.png,png]
+....
+@startuml
+
+participant ChildA
+participant ChildB
+participant BaseAbstractClass
+
+activate ChildA
+	ChildA -> ChildB : getUtil
+	activate ChildB
+		ChildB --> ChildA
+	deactivate ChildB
+	ChildA -> BaseAbstractClass : doSomethingWithReturnValue
+	activate BaseAbstractClass
+		BaseAbstractClass --> ChildA
+	deactivate BaseAbstractClass
+	ChildA -> BaseAbstractClass : doSomethingWithParameter
+	activate BaseAbstractClass
+		BaseAbstractClass --> ChildA
+	deactivate BaseAbstractClass
+deactivate ChildA
+
+@enduml
+
+....

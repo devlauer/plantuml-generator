@@ -1,6 +1,11 @@
 = Changelog
 
 .Unreleased
+* speed up integration tests by parallel threads
+* move gpg signing to a separate release profile
+* update plugin versions
+* update mockito to 4.10.0
+* update classgraph to 4.8.152
 
 .1.6.0 - 2022-12-15
 * removed unused imports

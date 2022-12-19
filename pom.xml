@@ -4,21 +4,17 @@
 	<artifactId>plantuml-generator</artifactId>
 	<version>1.6.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>utility and maven plugin project for generating plantuml class diagrams out of java classes</description>
 	<url>https://github.com/devlauer/plantuml-generator</url>
-
 	<properties>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-
 	<issueManagement>
 		<system>jira</system>
 		<url>https://github.com/devlauer/plantuml-generator/issues</url>
 	</issueManagement>
-
 	<developers>
 		<developer>
 			<id>devlauer</id>
@@ -33,21 +29,18 @@
 			<url>https://github.com/JapuDCret</url>
 		</developer>
 	</developers>
-
 	<licenses>
 		<license>
 			<name>The Apache Software License, Version 2.0</name>
 			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
 		</license>
 	</licenses>
-
 	<scm>
 		<connection>scm:git:ssh://git@github.com/devlauer/plantuml-generator.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/devlauer/plantuml-generator.git</developerConnection>
 		<url>https://github.com/devlauer/plantuml-generator/tree/master</url>
 		<tag>plantuml-generator-1.6.0</tag>
 	</scm>
-
 	<distributionManagement>
 		<snapshotRepository>
 			<id>ossrh</id>
@@ -58,13 +51,10 @@
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
-
-
 	<modules>
 		<module>plantuml-generator-maven-plugin</module>
 		<module>plantuml-generator-util</module>
 	</modules>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -85,8 +75,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-
 	<profiles>
 		<profile>
 			<id>doclint-java8-disable</id>
@@ -105,8 +93,36 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>release</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+								<configuration>
+									<keyname>${gpg.keyname}</keyname>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
-
 	<build>
 		<resources>
 			<resource>
@@ -149,22 +165,6 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>sign-artifacts</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-						<configuration>
-							<keyname>${gpg.keyname}</keyname>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
 				<configuration>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
@@ -184,6 +184,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -233,5 +234,4 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
 </project>

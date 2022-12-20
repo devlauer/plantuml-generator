@@ -4,7 +4,7 @@ image:https://sonarcloud.io/api/project_badges/measure?project=devlauer_plantuml
 image:https://sonarcloud.io/api/project_badges/measure?project=devlauer_plantuml-generator&metric=security_rating["Security Rating", link="https://sonarcloud.io/summary/new_code?id=devlauer_plantuml-generator"]
 image:https://sonarcloud.io/api/project_badges/measure?project=devlauer_plantuml-generator&metric=vulnerabilities["Vulnerabilities", link="https://sonarcloud.io/summary/new_code?id=devlauer_plantuml-generator"]
 image:https://sonarcloud.io/api/project_badges/measure?project=devlauer_plantuml-generator&metric=sqale_rating["Maintainability Rating", link="https://sonarcloud.io/summary/new_code?id=devlauer_plantuml-generator"]
-
+image:https://github.com/devlauer/plantuml-generator/actions/workflows/verify.yml/badge.svg["mvn verify"]
 
 == Description 
 

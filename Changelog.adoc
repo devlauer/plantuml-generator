@@ -8,6 +8,7 @@
 * update classgraph to 4.8.152
 * introduce apache maven wrapper for maven 3.8.6
 * apply sonarcloud scan and analysis to master and all pull requests
+* ignore synthetic fields, methods and classes in class diagrams
 
 .1.6.0 - 2022-12-15
 * removed unused imports

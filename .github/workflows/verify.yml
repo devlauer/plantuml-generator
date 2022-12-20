@@ -34,7 +34,7 @@ jobs:
         java-version: '17'
     - name: Analyze with SonarCloud
       if: steps.changed-files-specific.outputs.any_changed == 'true'
-      run: ./mvnw -B verify sonar:sonar -Dsonar.coverage.jacoco.xmlReportPaths=${project.build.directory}/site/jacoco/jacoco.xml -Dsonar.projectKey=devlauer_plantuml-generator -Dsonar.organization=devlauer -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
+      run: ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.coverage.jacoco.xmlReportPaths=${project.build.directory}/site/jacoco/jacoco.xml -Dsonar.projectKey=devlauer_plantuml-generator -Dsonar.login=$SONAR_TOKEN
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}        

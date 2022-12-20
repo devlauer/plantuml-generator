@@ -6,7 +6,7 @@ include::example$testsrc/de/elnarion/util/plantuml/generator/classdiagram/PlantU
 [sidebar]
 --
 <1> list of strings (class names) is declared for parameter hideclasses
-<2> packages with all classes to show in the diagramm are added as string list
+<2> packages with all classes to show in the diagram are added as string list
 <3> parameters hideclasses and classloader are added to configuration builder
 <4> generator is initialized with configuration of builder
 <5> diagram is generated

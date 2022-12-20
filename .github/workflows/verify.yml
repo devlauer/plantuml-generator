@@ -31,7 +31,7 @@ jobs:
       uses: actions/setup-java@v3      
       with:
         distribution: 'temurin'
-        java-version: '17'
+        java-version: '8'
         cache: 'maven'
     - name: Analyze with SonarCloud
       if: steps.changed-files-specific.outputs.any_changed == 'true'

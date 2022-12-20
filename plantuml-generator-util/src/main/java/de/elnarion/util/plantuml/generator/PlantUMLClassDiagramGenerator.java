@@ -264,7 +264,12 @@ public class PlantUMLClassDiagramGenerator {
 		if (!includeClass(paramClassObject)) {
 			return;
 		}
-
+		// do not process synthetic classes
+		if(paramClassObject.isSynthetic())
+		{
+			return;
+		}
+		
 		final int modifiers = paramClassObject.getModifiers();
 		VisibilityType visibilityType = VisibilityType.PUBLIC;
 		if (Modifier.isPrivate(modifiers)) {
@@ -597,6 +602,8 @@ public class PlantUMLClassDiagramGenerator {
 			final UMLClass paramUmlClass) {
 		if (paramDeclaredMethods != null) {
 			for (final Method method : paramDeclaredMethods) { // NOSONAR
+				if(method.isSynthetic())
+					continue;
 				final String methodName = method.getName();
 				// ignore normal getters and setters
 				if ((methodName.startsWith("get") || methodName.startsWith("set") || methodName.startsWith("is"))
@@ -771,6 +778,8 @@ public class PlantUMLClassDiagramGenerator {
 			final UMLClass paramUmlClass) {
 		if (paramDeclaredFields != null) {
 			for (final java.lang.reflect.Field field : paramDeclaredFields) {
+				if(field.isSynthetic())
+					continue;
 				final Class<?> type = field.getType();
 				final boolean relationshipAdded = addAggregationRelationship(paramUmlClass, field,
 						paramDeclaredMethods);

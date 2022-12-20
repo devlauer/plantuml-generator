@@ -6,6 +6,8 @@
 * update plugin versions
 * update mockito to 4.10.0
 * update classgraph to 4.8.152
+* introduce apache maven wrapper for maven 3.8.6
+* apply sonarcloud scan and analysis to master and all pull requests
 
 .1.6.0 - 2022-12-15
 * removed unused imports

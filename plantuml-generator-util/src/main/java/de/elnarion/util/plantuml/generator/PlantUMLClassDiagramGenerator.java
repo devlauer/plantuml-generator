@@ -82,9 +82,16 @@ import io.github.classgraph.ScanResult;
  */
 public class PlantUMLClassDiagramGenerator {
 
+	/** The plant UML config. */
 	private PlantUMLClassDiagramConfig plantUMLConfig;
+	
+	/** The classes. */
 	private Map<String, UMLClass> classes;
+	
+	/** The resolved classes. */
 	private List<Class<?>> resolvedClasses = new ArrayList<>();
+	
+	/** The classes and relationships. */
 	private Map<UMLClass, List<UMLRelationship>> classesAndRelationships;
 
 	/**
@@ -145,6 +152,11 @@ public class PlantUMLClassDiagramGenerator {
 				.build());
 	}
 
+	/**
+	 * Instantiates a new plant UML class diagram generator.
+	 *
+	 * @param paramPlantUMLConfig the param plant UML config
+	 */
 	public PlantUMLClassDiagramGenerator(final PlantUMLClassDiagramConfig paramPlantUMLConfig) {
 		plantUMLConfig = paramPlantUMLConfig;
 		classesAndRelationships = new HashMap<>();
@@ -155,11 +167,11 @@ public class PlantUMLClassDiagramGenerator {
 	 * Generate the class diagram string for all classes in the configured packages.
 	 *
 	 * @return String - the text containing all Plant UML class diagram definitions
-	 * @throws IOException            - thrown if a class or jar File could not be
-	 *                                read
 	 * @throws ClassNotFoundException - thrown if a class in a package could not be
 	 *                                found or if a package does not contain any
 	 *                                class information
+	 * @throws IOException            - thrown if a class or jar File could not be
+	 *                                read
 	 */
 	public String generateDiagramText() throws ClassNotFoundException, IOException {
 		resolvedClasses.clear();
@@ -309,6 +321,12 @@ public class PlantUMLClassDiagramGenerator {
 		addAnnotationRelationship(paramClassObject, umlClass);
 	}
 
+	/**
+	 * Adds the JPA stereotype.
+	 *
+	 * @param paramClassObject the param class object
+	 * @param stereotypes the stereotypes
+	 */
 	private void addJPAStereotype(final Class<?> paramClassObject, List<UMLStereotype> stereotypes) {
 		ClassLoader destinationClassloader = plantUMLConfig.getDestinationClassloader();
 		if (destinationClassloader != null) {
@@ -325,6 +343,16 @@ public class PlantUMLClassDiagramGenerator {
 		}
 	}
 
+	/**
+	 * Adds the stereo types for annotation class.
+	 *
+	 * @param paramClassObject the param class object
+	 * @param stereotypes the stereotypes
+	 * @param destinationClassloader the destination classloader
+	 * @param annotationClassName the annotation class name
+	 * @param annotationName the annotation name
+	 * @throws ClassNotFoundException the class not found exception
+	 */
 	private void addStereoTypesForAnnotationClass(final Class<?> paramClassObject, List<UMLStereotype> stereotypes,
 			ClassLoader destinationClassloader, String annotationClassName, String annotationName)
 			throws ClassNotFoundException {
@@ -337,6 +365,14 @@ public class PlantUMLClassDiagramGenerator {
 		}
 	}
 
+	/**
+	 * Adds the annotation stereotype.
+	 *
+	 * @param stereotypes the stereotypes
+	 * @param annotation the annotation
+	 * @param annotationName the annotation name
+	 * @param destinationClassloader the destination classloader
+	 */
 	private void addAnnotationStereotype(List<UMLStereotype> stereotypes, Annotation annotation, String annotationName,
 			ClassLoader destinationClassloader) {
 		Map<String, List<String>> attributes = new TreeMap<>();
@@ -353,6 +389,15 @@ public class PlantUMLClassDiagramGenerator {
 		stereotypes.add(stereotype);
 	}
 
+	/**
+	 * Adds the attribute object list if exists.
+	 *
+	 * @param annotation the annotation
+	 * @param attributes the attributes
+	 * @param annotationClassName the annotation class name
+	 * @param methodName the method name
+	 * @param destinationClassloader the destination classloader
+	 */
 	private void addAttributeObjectListIfExists(Annotation annotation, Map<String, List<String>> attributes,
 			String annotationClassName, String methodName, ClassLoader destinationClassloader) {
 		try {
@@ -376,6 +421,15 @@ public class PlantUMLClassDiagramGenerator {
 		}
 	}
 
+	/**
+	 * Adds the annotation array to attribute list.
+	 *
+	 * @param valueAnnotation the value annotation
+	 * @param nameObject the name object
+	 * @return the list
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InvocationTargetException the invocation target exception
+	 */
 	private List<String> addAnnotationArrayToAttributeList(Class<?> valueAnnotation, Object nameObject)
 			throws IllegalAccessException, InvocationTargetException {
 		List<String> values = new ArrayList<>();
@@ -392,6 +446,16 @@ public class PlantUMLClassDiagramGenerator {
 		return values;
 	}
 
+	/**
+	 * Adds the method array value string.
+	 *
+	 * @param valueAnnotation the value annotation
+	 * @param arrayElement the array element
+	 * @param elementStringBuilder the element string builder
+	 * @param methods the methods
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InvocationTargetException the invocation target exception
+	 */
 	private void addMethodArrayValueString(Class<?> valueAnnotation, Object arrayElement,
 			StringBuilder elementStringBuilder, Method[] methods)
 			throws IllegalAccessException, InvocationTargetException {
@@ -412,6 +476,16 @@ public class PlantUMLClassDiagramGenerator {
 		elementStringBuilder.append(" )");
 	}
 
+	/**
+	 * Creates the method value string.
+	 *
+	 * @param arrayElement the array element
+	 * @param method the method
+	 * @param name the name
+	 * @return the string
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InvocationTargetException the invocation target exception
+	 */
 	private String createMethodValueString(Object arrayElement,  
 			Method method, String name) throws IllegalAccessException, InvocationTargetException {
 		Object result = method.invoke(arrayElement);
@@ -431,6 +505,12 @@ public class PlantUMLClassDiagramGenerator {
 		return elementStringBuilder.toString();
 	}
 
+	/**
+	 * Handle method array result string.
+	 *
+	 * @param elementStringBuilder the element string builder
+	 * @param result the result
+	 */
 	private void handleMethodArrayResultString(StringBuilder elementStringBuilder, Object result) {
 		int resultLength = Array.getLength(result);
 		for (int j = 0; j < resultLength; j++) {
@@ -440,6 +520,13 @@ public class PlantUMLClassDiagramGenerator {
 		}
 	}
 
+	/**
+	 * Adds the attribute if exists.
+	 *
+	 * @param annotation the annotation
+	 * @param attributes the attributes
+	 * @param methodname the methodname
+	 */
 	private void addAttributeIfExists(Annotation annotation, Map<String, List<String>> attributes, String methodname) {
 		try {
 			Method nameMethod = annotation.getClass().getMethod(methodname);
@@ -458,6 +545,13 @@ public class PlantUMLClassDiagramGenerator {
 		}
 	}
 
+	/**
+	 * Gets the column annotation string.
+	 *
+	 * @param annotation the annotation
+	 * @param annotationName the annotation name
+	 * @return the column annotation string
+	 */
 	private String getColumnAnnotationString(Annotation annotation, String annotationName) {
 		StringBuilder builder = new StringBuilder();
 		builder.append("@");
@@ -843,6 +937,13 @@ public class PlantUMLClassDiagramGenerator {
 		paramUmlClass.addField(umlField);
 	}
 
+	/**
+	 * Adds the JPA field annotations to list.
+	 *
+	 * @param field the field
+	 * @param paramDeclaredMethods the param declared methods
+	 * @param annotationStringList the annotation string list
+	 */
 	private void addJPAFieldAnnotationsToList(final java.lang.reflect.Field field, Method[] paramDeclaredMethods,
 			List<String> annotationStringList) {
 		ClassLoader destinationClassloader = plantUMLConfig.getDestinationClassloader();
@@ -864,6 +965,15 @@ public class PlantUMLClassDiagramGenerator {
 		}
 	}
 
+	/**
+	 * Adds the JPA field annotation class to list.
+	 *
+	 * @param field the field
+	 * @param paramDeclaredMethods the param declared methods
+	 * @param annotationStringList the annotation string list
+	 * @param destinationClassloader the destination classloader
+	 * @param paramAnnotationClassname the param annotation classname
+	 */
 	private void addJPAFieldAnnotationClassToList(final java.lang.reflect.Field field, Method[] paramDeclaredMethods, // NOSONAR
 			List<String> annotationStringList, ClassLoader destinationClassloader, String paramAnnotationClassname) {
 		try {
@@ -1033,7 +1143,7 @@ public class PlantUMLClassDiagramGenerator {
 
 	/**
 	 * Reads all classes from classpath which match the given whitelist regular
-	 * expression and are children of the given packages to scan
+	 * expression and are children of the given packages to scan.
 	 *
 	 * @return the all classes from white list
 	 */

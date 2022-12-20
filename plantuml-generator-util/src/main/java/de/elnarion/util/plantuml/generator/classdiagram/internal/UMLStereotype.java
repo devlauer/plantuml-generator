@@ -4,32 +4,69 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * The Class UMLStereotype.
+ */
 public class UMLStereotype {
 
+	/** The name. */
 	private String name;
+	
+	/** The attributes. */
 	private Map<String, List<String>> attributes;
 
+	/**
+	 * Instantiates a new UML stereotype.
+	 *
+	 * @param paramName the param name
+	 * @param paramAttributes the param attributes
+	 */
 	public UMLStereotype(String paramName, Map<String, List<String>> paramAttributes) {
 		setName(paramName);
 		setAttributes(paramAttributes);
 	}
 
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Gets the attributes.
+	 *
+	 * @return the attributes
+	 */
 	public Map<String, List<String>> getAttributes() {
 		return attributes;
 	}
 
+	/**
+	 * Sets the attributes.
+	 *
+	 * @param attributes the attributes
+	 */
 	public void setAttributes(Map<String, List<String>> attributes) {
 		this.attributes = attributes;
 	}
 
+	/**
+	 * Gets the diagram text.
+	 *
+	 * @return the diagram text
+	 */
 	public String getDiagramText() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("<<");
@@ -38,10 +75,20 @@ public class UMLStereotype {
 		return builder.toString();
 	}
 
+	/**
+	 * Checks for tagged values.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean hasTaggedValues() {
 		return (attributes != null && !attributes.isEmpty());
 	}
 
+	/**
+	 * Gets the tagged value compartment.
+	 *
+	 * @return the tagged value compartment
+	 */
 	public String getTaggedValueCompartment() {
 		StringBuilder taggedValueCompartment = new StringBuilder();
 		if (attributes != null && !attributes.isEmpty()) {

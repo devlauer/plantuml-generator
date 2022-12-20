@@ -8,12 +8,25 @@ import java.util.List;
  */
 public class UMLRelationship implements PlantUMLDiagramElement {
 
+	/** The from multiplicity. */
 	private String fromMultiplicity;
+	
+	/** The to multiplicity. */
 	private String toMultiplicity;
+	
+	/** The name. */
 	private String name;
+	
+	/** The from name. */
 	private String fromName;
+	
+	/** The to name. */
 	private String toName;
+	
+	/** The relationshiptype. */
 	private RelationshipType relationshiptype;
+	
+	/** The annotations. */
 	private List<String> annotations;
 
 	/**
@@ -101,6 +114,11 @@ public class UMLRelationship implements PlantUMLDiagramElement {
 		return relationshiptype;
 	}
 
+	/**
+	 * Gets the diagram text.
+	 *
+	 * @return the diagram text
+	 */
 	@Override
 	public String getDiagramText() {
 		StringBuilder builder = new StringBuilder();
@@ -163,10 +181,20 @@ public class UMLRelationship implements PlantUMLDiagramElement {
 		return builder.toString();
 	}
 
+	/**
+	 * Gets the annotations.
+	 *
+	 * @return the annotations
+	 */
 	public List<String> getAnnotations() {
 		return annotations;
 	}
 
+	/**
+	 * Sets the annotations.
+	 *
+	 * @param annotations the new annotations
+	 */
 	public void setAnnotations(List<String> annotations) {
 		this.annotations = annotations;
 	}

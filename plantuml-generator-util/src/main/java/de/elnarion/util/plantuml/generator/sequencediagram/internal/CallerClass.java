@@ -13,12 +13,16 @@ import javassist.NotFoundException;
  */
 public class CallerClass {
 
+	/** The ct class. */
 	private CtClass ctClass;
 
+	/** The super classes. */
 	private List<CtClass> superClasses = new LinkedList<>();
 
+	/** The config. */
 	private PlantUMLSequenceDiagramConfig config;
 
+	/** The calling class. */
 	private CallerClass callingClass;
 
 	/**
@@ -27,7 +31,7 @@ public class CallerClass {
 	 * @param paramClass        the param class
 	 * @param paramConfig       the param config
 	 * @param paramCallingClass the param calling class
-	 * @throws NotFoundException 
+	 * @throws NotFoundException the not found exception
 	 */
 	public CallerClass(CtClass paramClass, PlantUMLSequenceDiagramConfig paramConfig, CallerClass paramCallingClass) throws NotFoundException {
 		ctClass = paramClass;
@@ -54,6 +58,13 @@ public class CallerClass {
 		return getSuperClasses().stream().map(CtClass::getName).collect(Collectors.toList());
 	}
 
+	/**
+	 * Adds the super classes to caller class.
+	 *
+	 * @param callerClass the caller class
+	 * @param declaringClass the declaring class
+	 * @throws NotFoundException the not found exception
+	 */
 	private void addSuperClassesToCallerClass(CallerClass callerClass, CtClass declaringClass) throws NotFoundException {
 			CtClass superClass = declaringClass.getSuperclass();
 			if (superClass != null) {
@@ -63,6 +74,11 @@ public class CallerClass {
 			}
 	}
 
+	/**
+	 * Gets the diagram class name.
+	 *
+	 * @return the diagram class name
+	 */
 	public String getDiagramClassName() {
 		if (callingClass!=null&&config.isHideSuperClass()&&callingClass.isSubTypeOf(this)) {
 			return callingClass.getDiagramClassName();
@@ -72,10 +88,21 @@ public class CallerClass {
 		return ctClass.getName();
 	}
 
+	/**
+	 * Checks if is sub type of.
+	 *
+	 * @param paramCallerClass the param caller class
+	 * @return true, if is sub type of
+	 */
 	private boolean isSubTypeOf(CallerClass paramCallerClass) {
 		return getParentClassNames().contains(paramCallerClass.getName());
 	}
 
+	/**
+	 * Gets the super classes.
+	 *
+	 * @return the super classes
+	 */
 	protected List<CtClass> getSuperClasses() {
 		return superClasses;
 	}

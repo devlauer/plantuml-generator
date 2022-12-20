@@ -3,22 +3,35 @@ name: Publish to GitHub Pages
 on:
   push:
     branches: [master]
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+    - name: Get changed files in the docs folders and the test folders of all modules
+      id: changed-files-specific
+      uses: tj-actions/changed-files@v35
+      with:
+        files: |
+          src/docs/asciidoc/**
+          plantuml-generator-util/src/docs/asciidoc/**
+          plantuml-generator-util/src/test/**
+          plantuml-generator-maven-plugin/src/docs/asciidoc/**
+          plantuml-generator-maven-plugin/src/test/**
     - name: Install Node.js
+      if: steps.changed-files-specific.outputs.any_changed == 'true'
       uses: actions/setup-node@v3
       with:
         node-version: '18'
     - name: Install Antora
+      if: steps.changed-files-specific.outputs.any_changed == 'true'
       run: npm i antora @antora/lunr-extension
     - name: Generate Antora Site
+      if: steps.changed-files-specific.outputs.any_changed == 'true'
       run: npx antora antora-playbook.yml
     - name: Publish to GitHub Pages
+      if: steps.changed-files-specific.outputs.any_changed == 'true'
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}

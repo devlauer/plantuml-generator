@@ -18,6 +18,7 @@ jobs:
         files: |
           pom.xml
           .mvn/**
+          .github/workflows/verify.yml
           plantuml-generator-util/pom.xml
           plantuml-generator-util/src/main/**
           plantuml-generator-util/src/test/**
@@ -32,7 +33,8 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
     - name: Analyze with SonarCloud
-      run: ./mvnw -B verify sonar:sonar -Dsonar.projectKey=devlauer_plantuml-generator -Dsonar.organization=devlauer -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN -Dsonar.coverage.jacoco.xmlReportPaths=${project.build.directory}/site/jacoco/jacoco.xml
+      if: steps.changed-files-specific.outputs.any_changed == 'true'
+      run: ./mvnw -B verify sonar:sonar -Dsonar.coverage.jacoco.xmlReportPaths=${project.build.directory}/site/jacoco/jacoco.xml -Dsonar.projectKey=devlauer_plantuml-generator -Dsonar.organization=devlauer -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}        

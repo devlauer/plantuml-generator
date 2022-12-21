@@ -823,18 +823,7 @@ public class PlantUMLClassDiagramGenerator {
 				} else if (includeClass(type)) {
 					List<String> annotations = new ArrayList<>();
 					addJPAFieldAnnotationsToList(field, paramDeclaredMethods, annotations);
-					final UMLRelationship relationship;
-					if(Modifier.isFinal(field.getModifiers())) {
-						relationship= new UMLRelationship(null, null, field.getName(),
-							field.getDeclaringClass().getName(), type.getName(), RelationshipType.COMPOSITION,
-							annotations);
-					}
-					else
-					{
-						relationship= new UMLRelationship(null, null, field.getName(),
-								field.getDeclaringClass().getName(), type.getName(), RelationshipType.DIRECTED_ASSOCIATION,
-								annotations);
-					}
+					final UMLRelationship relationship = createUMLRelationship4Field(field, type, annotations);
 					addRelationship(paramUmlClass, relationship);
 				} else {
 					addFieldToUMLClass(paramUmlClass, field, type, paramDeclaredMethods);
@@ -842,6 +831,23 @@ public class PlantUMLClassDiagramGenerator {
 			}
 		}
 
+	}
+
+	private UMLRelationship createUMLRelationship4Field(final java.lang.reflect.Field field, final Class<?> type,
+			List<String> annotations) {
+		final UMLRelationship relationship;
+		if(Modifier.isFinal(field.getModifiers())) {
+			relationship= new UMLRelationship(null, null, field.getName(),
+				field.getDeclaringClass().getName(), type.getName(), RelationshipType.COMPOSITION,
+				annotations);
+		}
+		else
+		{
+			relationship= new UMLRelationship(null, null, field.getName(),
+					field.getDeclaringClass().getName(), type.getName(), RelationshipType.DIRECTED_ASSOCIATION,
+					annotations);
+		}
+		return relationship;
 	}
 
 	/**

@@ -30,7 +30,7 @@ public class PlantUMLClassDiagramTextBuilder {
 	 * @param paramSummary the param summary
 	 */
 	public PlantUMLClassDiagramTextBuilder(PlantUMLClassDiagramConfig paramPlantUMLConfig,
-			PlantUMLClassDiagramAnalyzeSummary paramSummary) {
+			ClassDiagramAnalyzeSummary paramSummary) {
 		plantUMLConfig=paramPlantUMLConfig;
 		classes = paramSummary.getClasses();
 		classesAndRelationships = paramSummary.getClassesAndRelationships();

@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,33 +24,29 @@ import java.util.TreeMap;
 import de.elnarion.util.plantuml.generator.classdiagram.config.ClassifierType;
 import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiagramConfig;
 import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
-import io.github.classgraph.ClassGraph;
-import io.github.classgraph.ClassInfoList;
-import io.github.classgraph.ScanResult;
 
 /**
  * The Class PlantUMLClassDiagramAnalyzerAndMapper.
  */
-public class PlantUMLClassDiagramAnalyzerAndMapper {
+public class ClassDiagramAnalyzerAndMapper {
 
 	/** The plant UML config. */
 	private PlantUMLClassDiagramConfig plantUMLConfig;
 	/** The resolved classes. */
 	private List<Class<?>> resolvedClasses = new ArrayList<>();
-	
+
 	/** The classes. */
-	private Map<String, UMLClass> classes= new HashMap<>();
-	
+	private Map<String, UMLClass> classes = new HashMap<>();
+
 	/** The classes and relationships. */
-	private Map<UMLClass, List<UMLRelationship>> classesAndRelationships=new HashMap<>();	
-	
-	
+	private Map<UMLClass, List<UMLRelationship>> classesAndRelationships = new HashMap<>();
+
 	/**
 	 * Instantiates a new plant UML class diagram analyzer and mapper.
 	 *
 	 * @param paramPlantUMLConfig the param plant UML config
 	 */
-	public PlantUMLClassDiagramAnalyzerAndMapper(PlantUMLClassDiagramConfig paramPlantUMLConfig) {
+	public ClassDiagramAnalyzerAndMapper(PlantUMLClassDiagramConfig paramPlantUMLConfig) {
 		plantUMLConfig = paramPlantUMLConfig;
 	}
 
@@ -60,18 +55,20 @@ public class PlantUMLClassDiagramAnalyzerAndMapper {
 	 *
 	 * @return the plant UML class diagram analyze summary
 	 */
-	public PlantUMLClassDiagramAnalyzeSummary analyzeClassesAndMapThemToTheInternalClassStructure() {
+	public ClassDiagramAnalyzeSummary analyzeClassesAndMapThemToTheInternalClassStructure() {
 		// read all classes from directories or jars
-		resolvedClasses.addAll(getAllDiagramClasses());
+		resolvedClasses
+				.addAll(new ClassResolver(plantUMLConfig.getDestinationClassloader(), plantUMLConfig.getScanPackages(),
+						plantUMLConfig.getBlacklistRegexp(), plantUMLConfig.getWhitelistRegexp())
+						.getAllDiagramClasses());
 		// sort all classes for a reliable sorted result
 		Collections.sort(resolvedClasses, (o1, o2) -> o1.getName().compareTo(o2.getName()));
 		// map java classes to UMLClass, UMLField, UMLMethod and UMLRelationship objects
 		for (final Class<?> clazz : resolvedClasses) {
 			mapToDomainClasses(clazz);
 		}
-		return new PlantUMLClassDiagramAnalyzeSummary(classes, classesAndRelationships);
+		return new ClassDiagramAnalyzeSummary(classes, classesAndRelationships);
 	}
-
 
 	/**
 	 * Maps the java class to a {@link UMLClass}.
@@ -84,11 +81,10 @@ public class PlantUMLClassDiagramAnalyzerAndMapper {
 			return;
 		}
 		// do not process synthetic classes
-		if(paramClassObject.isSynthetic())
-		{
+		if (paramClassObject.isSynthetic()) {
 			return;
 		}
-		
+
 		final int modifiers = paramClassObject.getModifiers();
 		VisibilityType visibilityType = VisibilityType.PUBLIC;
 		if (Modifier.isPrivate(modifiers)) {
@@ -132,7 +128,7 @@ public class PlantUMLClassDiagramAnalyzerAndMapper {
 	 * Adds the JPA stereotype.
 	 *
 	 * @param paramClassObject the param class object
-	 * @param stereotypes the stereotypes
+	 * @param stereotypes      the stereotypes
 	 */
 	private void addJPAStereotype(final Class<?> paramClassObject, List<UMLStereotype> stereotypes) {
 		ClassLoader destinationClassloader = plantUMLConfig.getDestinationClassloader();
@@ -153,11 +149,11 @@ public class PlantUMLClassDiagramAnalyzerAndMapper {
 	/**
 	 * Adds the stereo types for annotation class.
 	 *
-	 * @param paramClassObject the param class object
-	 * @param stereotypes the stereotypes
+	 * @param paramClassObject       the param class object
+	 * @param stereotypes            the stereotypes
 	 * @param destinationClassloader the destination classloader
-	 * @param annotationClassName the annotation class name
-	 * @param annotationName the annotation name
+	 * @param annotationClassName    the annotation class name
+	 * @param annotationName         the annotation name
 	 * @throws ClassNotFoundException the class not found exception
 	 */
 	private void addStereoTypesForAnnotationClass(final Class<?> paramClassObject, List<UMLStereotype> stereotypes,
@@ -175,9 +171,9 @@ public class PlantUMLClassDiagramAnalyzerAndMapper {
 	/**
 	 * Adds the annotation stereotype.
 	 *
-	 * @param stereotypes the stereotypes
-	 * @param annotation the annotation
-	 * @param annotationName the annotation name
+	 * @param stereotypes            the stereotypes
+	 * @param annotation             the annotation
+	 * @param annotationName         the annotation name
 	 * @param destinationClassloader the destination classloader
 	 */
 	private void addAnnotationStereotype(List<UMLStereotype> stereotypes, Annotation annotation, String annotationName,
@@ -199,10 +195,10 @@ public class PlantUMLClassDiagramAnalyzerAndMapper {
 	/**
 	 * Adds the attribute object list if exists.
 	 *
-	 * @param annotation the annotation
-	 * @param attributes the attributes
-	 * @param annotationClassName the annotation class name
-	 * @param methodName the method name
+	 * @param annotation             the annotation
+	 * @param attributes             the attributes
+	 * @param annotationClassName    the annotation class name
+	 * @param methodName             the method name
 	 * @param destinationClassloader the destination classloader
 	 */
 	private void addAttributeObjectListIfExists(Annotation annotation, Map<String, List<String>> attributes,
@@ -215,7 +211,7 @@ public class PlantUMLClassDiagramAnalyzerAndMapper {
 				if (nameObject != null && nameObject.getClass().isArray()
 						&& nameObject.getClass().getComponentType().equals(valueAnnotation)) {
 					List<String> values = addAnnotationArrayToAttributeList(valueAnnotation, nameObject);
-					if (!values.isEmpty()){
+					if (!values.isEmpty()) {
 						sort(values);
 						attributes.put(methodName, values);
 					}
@@ -232,9 +228,9 @@ public class PlantUMLClassDiagramAnalyzerAndMapper {
 	 * Adds the annotation array to attribute list.
 	 *
 	 * @param valueAnnotation the value annotation
-	 * @param nameObject the name object
+	 * @param nameObject      the name object
 	 * @return the list
-	 * @throws IllegalAccessException the illegal access exception
+	 * @throws IllegalAccessException    the illegal access exception
 	 * @throws InvocationTargetException the invocation target exception
 	 */
 	private List<String> addAnnotationArrayToAttributeList(Class<?> valueAnnotation, Object nameObject)
@@ -256,11 +252,11 @@ public class PlantUMLClassDiagramAnalyzerAndMapper {
 	/**
 	 * Adds the method array value string.
 	 *
-	 * @param valueAnnotation the value annotation
-	 * @param arrayElement the array element
+	 * @param valueAnnotation      the value annotation
+	 * @param arrayElement         the array element
 	 * @param elementStringBuilder the element string builder
-	 * @param methods the methods
-	 * @throws IllegalAccessException the illegal access exception
+	 * @param methods              the methods
+	 * @throws IllegalAccessException    the illegal access exception
 	 * @throws InvocationTargetException the invocation target exception
 	 */
 	private void addMethodArrayValueString(Class<?> valueAnnotation, Object arrayElement,
@@ -273,7 +269,7 @@ public class PlantUMLClassDiagramAnalyzerAndMapper {
 			String name = method.getName();
 			if (method.getParameterCount() == 0) {
 				String methodValueString = createMethodValueString(arrayElement, method, name);
-				if(methodValueString!=null&&!methodValueString.isEmpty()) {
+				if (methodValueString != null && !methodValueString.isEmpty()) {
 					methodAttributesString.add(methodValueString);
 				}
 			}
@@ -287,14 +283,14 @@ public class PlantUMLClassDiagramAnalyzerAndMapper {
 	 * Creates the method value string.
 	 *
 	 * @param arrayElement the array element
-	 * @param method the method
-	 * @param name the name
+	 * @param method       the method
+	 * @param name         the name
 	 * @return the string
-	 * @throws IllegalAccessException the illegal access exception
+	 * @throws IllegalAccessException    the illegal access exception
 	 * @throws InvocationTargetException the invocation target exception
 	 */
-	private String createMethodValueString(Object arrayElement,  
-			Method method, String name) throws IllegalAccessException, InvocationTargetException {
+	private String createMethodValueString(Object arrayElement, Method method, String name)
+			throws IllegalAccessException, InvocationTargetException {
 		Object result = method.invoke(arrayElement);
 		StringBuilder elementStringBuilder = new StringBuilder();
 		if ((result instanceof String && !((String) result).isEmpty())
@@ -307,7 +303,7 @@ public class PlantUMLClassDiagramAnalyzerAndMapper {
 				elementStringBuilder.append(result);
 			}
 			elementStringBuilder.append("]");
-			
+
 		}
 		return elementStringBuilder.toString();
 	}
@@ -316,7 +312,7 @@ public class PlantUMLClassDiagramAnalyzerAndMapper {
 	 * Handle method array result string.
 	 *
 	 * @param elementStringBuilder the element string builder
-	 * @param result the result
+	 * @param result               the result
 	 */
 	private void handleMethodArrayResultString(StringBuilder elementStringBuilder, Object result) {
 		int resultLength = Array.getLength(result);
@@ -355,7 +351,7 @@ public class PlantUMLClassDiagramAnalyzerAndMapper {
 	/**
 	 * Gets the column annotation string.
 	 *
-	 * @param annotation the annotation
+	 * @param annotation     the annotation
 	 * @param annotationName the annotation name
 	 * @return the column annotation string
 	 */
@@ -415,8 +411,8 @@ public class PlantUMLClassDiagramAnalyzerAndMapper {
 			for (final Annotation annotation : annotations) {
 				if (includeClass(annotation.annotationType())) {
 					final UMLRelationship relationship = new UMLRelationship(null, null, null,
-							paramClassObject.getName(), annotation.annotationType().getName(), RelationshipType.ASSOCIATION,
-							new ArrayList<>());
+							paramClassObject.getName(), annotation.annotationType().getName(),
+							RelationshipType.ASSOCIATION, new ArrayList<>());
 					addRelationship(umlClass, relationship);
 				}
 			}
@@ -503,7 +499,7 @@ public class PlantUMLClassDiagramAnalyzerAndMapper {
 			final UMLClass paramUmlClass) {
 		if (paramDeclaredMethods != null) {
 			for (final Method method : paramDeclaredMethods) { // NOSONAR
-				if(method.isSynthetic())
+				if (method.isSynthetic())
 					continue;
 				final String methodName = method.getName();
 				// ignore normal getters and setters
@@ -679,7 +675,7 @@ public class PlantUMLClassDiagramAnalyzerAndMapper {
 			final UMLClass paramUmlClass) {
 		if (paramDeclaredFields != null) {
 			for (final java.lang.reflect.Field field : paramDeclaredFields) {
-				if(field.isSynthetic())
+				if (field.isSynthetic())
 					continue;
 				final Class<?> type = field.getType();
 				final boolean relationshipAdded = addAggregationRelationship(paramUmlClass, field,
@@ -702,24 +698,20 @@ public class PlantUMLClassDiagramAnalyzerAndMapper {
 	/**
 	 * Creates the UML relationship 4 field.
 	 *
-	 * @param field the field
-	 * @param type the type
+	 * @param field       the field
+	 * @param type        the type
 	 * @param annotations the annotations
 	 * @return the UML relationship
 	 */
 	private UMLRelationship createUMLRelationship4Field(final java.lang.reflect.Field field, final Class<?> type,
 			List<String> annotations) {
 		final UMLRelationship relationship;
-		if(Modifier.isFinal(field.getModifiers())) {
-			relationship= new UMLRelationship(null, null, field.getName(),
-				field.getDeclaringClass().getName(), type.getName(), RelationshipType.COMPOSITION,
-				annotations);
-		}
-		else
-		{
-			relationship= new UMLRelationship(null, null, field.getName(),
-					field.getDeclaringClass().getName(), type.getName(), RelationshipType.DIRECTED_ASSOCIATION,
-					annotations);
+		if (Modifier.isFinal(field.getModifiers())) {
+			relationship = new UMLRelationship(null, null, field.getName(), field.getDeclaringClass().getName(),
+					type.getName(), RelationshipType.COMPOSITION, annotations);
+		} else {
+			relationship = new UMLRelationship(null, null, field.getName(), field.getDeclaringClass().getName(),
+					type.getName(), RelationshipType.DIRECTED_ASSOCIATION, annotations);
 		}
 		return relationship;
 	}
@@ -770,7 +762,7 @@ public class PlantUMLClassDiagramAnalyzerAndMapper {
 	/**
 	 * Adds the JPA field annotations to list.
 	 *
-	 * @param field the field
+	 * @param field                the field
 	 * @param paramDeclaredMethods the param declared methods
 	 * @param annotationStringList the annotation string list
 	 */
@@ -798,10 +790,10 @@ public class PlantUMLClassDiagramAnalyzerAndMapper {
 	/**
 	 * Adds the JPA field annotation class to list.
 	 *
-	 * @param field the field
-	 * @param paramDeclaredMethods the param declared methods
-	 * @param annotationStringList the annotation string list
-	 * @param destinationClassloader the destination classloader
+	 * @param field                    the field
+	 * @param paramDeclaredMethods     the param declared methods
+	 * @param annotationStringList     the annotation string list
+	 * @param destinationClassloader   the destination classloader
 	 * @param paramAnnotationClassname the param annotation classname
 	 */
 	private void addJPAFieldAnnotationClassToList(final java.lang.reflect.Field field, Method[] paramDeclaredMethods, // NOSONAR
@@ -959,61 +951,6 @@ public class PlantUMLClassDiagramAnalyzerAndMapper {
 	}
 
 	/**
-	 * Gets the all classes for the diagram depending on the regular expressions or
-	 * defined packages.
-	 *
-	 * @return Set - all classes for the diagramm
-	 */
-	private Set<Class<?>> getAllDiagramClasses() {
-		if (plantUMLConfig.getWhitelistRegexp() == null)
-			return getAllClassesInScanPackages();
-		else
-			return getAllClassesFromWhiteList();
-	}
-
-	/**
-	 * Reads all classes from classpath which match the given whitelist regular
-	 * expression and are children of the given packages to scan.
-	 *
-	 * @return the all classes from white list
-	 */
-	private Set<Class<?>> getAllClassesFromWhiteList() {
-		try (ScanResult scanResult = new ClassGraph().overrideClassLoaders(plantUMLConfig.getDestinationClassloader())
-				.enableClassInfo()
-				.acceptPackages(
-						plantUMLConfig.getScanPackages().toArray(new String[plantUMLConfig.getScanPackages().size()]))
-				.scan()) {
-			final ClassInfoList allClasses = scanResult.getAllClasses();
-			final ClassInfoList result = allClasses
-					.filter(ci -> ci.getName().matches(plantUMLConfig.getWhitelistRegexp()));
-			return new HashSet<>(result.loadClasses());
-		}
-	}
-
-	/**
-	 * Gets the all classes which are contained in the scanned packages.
-	 *
-	 * @return Set&lt;Class&lt;?&gt;&gt; - all classes in scanned packages
-	 */
-	private Set<Class<?>> getAllClassesInScanPackages() {
-
-		try (ScanResult scanResult = new ClassGraph().overrideClassLoaders(plantUMLConfig.getDestinationClassloader())
-				.enableClassInfo()
-				.acceptPackages(
-						plantUMLConfig.getScanPackages().toArray(new String[plantUMLConfig.getScanPackages().size()]))
-				.scan()) {
-			final ClassInfoList allClasses = scanResult.getAllClasses();
-			if (plantUMLConfig.getBlacklistRegexp() != null) {
-				final ClassInfoList result = allClasses
-						.filter(ci -> !ci.getName().matches(plantUMLConfig.getBlacklistRegexp()));
-				return new HashSet<>(result.loadClasses());
-			} else {
-				return new HashSet<>(allClasses.loadClasses());
-			}
-		}
-	}
-
-	/**
 	 * Checks if a class is a member of one of the scanned packages.
 	 *
 	 * @param paramClass - Class&lt;?&gt; - the class to be checked
@@ -1022,5 +959,5 @@ public class PlantUMLClassDiagramAnalyzerAndMapper {
 	private boolean includeClass(final Class<?> paramClass) {
 		return resolvedClasses.contains(paramClass);
 	}
-	
+
 }

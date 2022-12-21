@@ -61,60 +61,6 @@ public class UMLRelationship implements PlantUMLDiagramElement {
 	}
 
 	/**
-	 * Gets the from multiplicity.
-	 *
-	 * @return String - the from multiplicity
-	 */
-	public String getFromMultiplicity() {
-		return fromMultiplicity;
-	}
-
-	/**
-	 * Gets the to multiplicity.
-	 *
-	 * @return String - the to multiplicity
-	 */
-	public String getToMultiplicity() {
-		return toMultiplicity;
-	}
-
-	/**
-	 * Gets the name.
-	 *
-	 * @return String - the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * Gets the from name.
-	 *
-	 * @return String - the from name
-	 */
-	public String getFromName() {
-		return fromName;
-	}
-
-	/**
-	 * Gets the to name.
-	 *
-	 * @return String - the to name
-	 */
-	public String getToName() {
-		return toName;
-	}
-
-	/**
-	 * Gets the relationshiptype.
-	 *
-	 * @return RelationshipType - the relationshiptype
-	 */
-	public RelationshipType getRelationshiptype() {
-		return relationshiptype;
-	}
-
-	/**
 	 * Gets the diagram text.
 	 *
 	 * @return the diagram text
@@ -181,22 +127,5 @@ public class UMLRelationship implements PlantUMLDiagramElement {
 		return builder.toString();
 	}
 
-	/**
-	 * Gets the annotations.
-	 *
-	 * @return the annotations
-	 */
-	public List<String> getAnnotations() {
-		return annotations;
-	}
-
-	/**
-	 * Sets the annotations.
-	 *
-	 * @param annotations the new annotations
-	 */
-	public void setAnnotations(List<String> annotations) {
-		this.annotations = annotations;
-	}
 
 }

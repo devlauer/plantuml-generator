@@ -1,0 +1,19 @@
+@startuml
+
+class de.elnarion.test.domain.t0017.Testclass1 {
+	{field} +testfield : long
+	{method} +doSomething1 () : void
+}
+
+
+class de.elnarion.test.domain.t0017.Testclass2 {
+	{method} #doSomething () : void
+}
+
+
+
+
+de.elnarion.test.domain.t0017.Testclass1 -->  de.elnarion.test.domain.t0017.Testclass2 : testfield2
+
+
+@enduml

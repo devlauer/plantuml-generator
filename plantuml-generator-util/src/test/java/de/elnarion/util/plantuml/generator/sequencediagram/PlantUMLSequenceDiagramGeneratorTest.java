@@ -3,6 +3,7 @@ package de.elnarion.util.plantuml.generator.sequencediagram;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
 import java.net.URL;
@@ -42,6 +43,23 @@ class PlantUMLSequenceDiagramGeneratorTest {
 		// end::basecallersequence[]
 	}
 
+	@Test
+	void test0001BasicSequencDiagramWithNotFoundException()
+			 throws NotFoundException, IOException {
+		// tag::basecallersequencenotfound[]
+		// ASSERT via lambda
+		assertThrows(NotFoundException.class, ()->{
+		// ARRANGE
+		PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfigBuilder("de.elnarion.test.DoesNotExistClass", // <1>
+				"callSomethingDoesNotExist"); // <2>
+		// ACT
+		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build()); // <3>
+
+		generator.generateDiagramText(); 
+		});
+		// end::basecallersequencenotfound[]
+	}
+	
 	@Test
 	void test0001BasicSequenceDiagramWithLongClassNames() throws NotFoundException, IOException {
 		// tag::baselongclassnames[]

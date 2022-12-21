@@ -1,0 +1,40 @@
+@startuml
+
+abstract class de.elnarion.test.domain.t0024.AbstractClassB {
+}
+
+
+annotation de.elnarion.test.domain.t0024.AnnotationA
+
+class de.elnarion.test.domain.t0024.ClassA {
+}
+
+
+class de.elnarion.test.domain.t0024.ClassB {
+}
+
+
+class de.elnarion.test.domain.t0024.ClassC {
+}
+
+
+class de.elnarion.test.domain.t0024.ClassD {
+}
+
+
+interface de.elnarion.test.domain.t0024.InterfaceA {
+}
+
+
+
+
+de.elnarion.test.domain.t0024.ClassA "1" o-- "0..*"  de.elnarion.test.domain.t0024.ClassB : aggegateRelationshipB
+de.elnarion.test.domain.t0024.ClassA "1" o-- "0..*"  de.elnarion.test.domain.t0024.ClassC : aggegateRelationshipC
+de.elnarion.test.domain.t0024.ClassA --  de.elnarion.test.domain.t0024.AnnotationA
+de.elnarion.test.domain.t0024.ClassA ..|>  de.elnarion.test.domain.t0024.InterfaceA
+de.elnarion.test.domain.t0024.ClassB -->  de.elnarion.test.domain.t0024.ClassC : classC
+de.elnarion.test.domain.t0024.ClassB --|>  de.elnarion.test.domain.t0024.AbstractClassB
+de.elnarion.test.domain.t0024.ClassC *--  de.elnarion.test.domain.t0024.ClassD : classD
+
+
+@enduml

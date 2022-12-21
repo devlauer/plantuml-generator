@@ -606,9 +606,9 @@ public class PlantUMLClassDiagramGenerator {
 		final Annotation[] annotations = paramClassObject.getAnnotations();
 		if (annotations != null) {
 			for (final Annotation annotation : annotations) {
-				if (includeClass(annotation.getClass())) {
+				if (includeClass(annotation.annotationType())) {
 					final UMLRelationship relationship = new UMLRelationship(null, null, null,
-							paramClassObject.getName(), annotation.getClass().getName(), RelationshipType.ASSOCIATION,
+							paramClassObject.getName(), annotation.annotationType().getName(), RelationshipType.ASSOCIATION,
 							new ArrayList<>());
 					addRelationship(umlClass, relationship);
 				}
@@ -882,9 +882,18 @@ public class PlantUMLClassDiagramGenerator {
 				} else if (includeClass(type)) {
 					List<String> annotations = new ArrayList<>();
 					addJPAFieldAnnotationsToList(field, paramDeclaredMethods, annotations);
-					final UMLRelationship relationship = new UMLRelationship(null, null, field.getName(),
-							field.getDeclaringClass().getName(), type.getName(), RelationshipType.DIRECTED_ASSOCIATION,
+					final UMLRelationship relationship;
+					if(Modifier.isFinal(field.getModifiers())) {
+						relationship= new UMLRelationship(null, null, field.getName(),
+							field.getDeclaringClass().getName(), type.getName(), RelationshipType.COMPOSITION,
 							annotations);
+					}
+					else
+					{
+						relationship= new UMLRelationship(null, null, field.getName(),
+								field.getDeclaringClass().getName(), type.getName(), RelationshipType.DIRECTED_ASSOCIATION,
+								annotations);
+					}
 					addRelationship(paramUmlClass, relationship);
 				} else {
 					addFieldToUMLClass(paramUmlClass, field, type, paramDeclaredMethods);

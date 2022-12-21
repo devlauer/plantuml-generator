@@ -80,30 +80,12 @@ public class PlantUMLClassDiagramConfig {
 	}
 
 	/**
-	 * Sets the method classifier to ignore.
-	 *
-	 * @param methodClassifierToIgnore the new method classifier to ignore
-	 */
-	public void setMethodClassifierToIgnore(List<ClassifierType> methodClassifierToIgnore) {
-		this.methodClassifierToIgnore = methodClassifierToIgnore;
-	}
-
-	/**
 	 * Gets the field classifier to ignore.
 	 *
 	 * @return the field classifier to ignore
 	 */
 	public List<ClassifierType> getFieldClassifierToIgnore() {
 		return fieldClassifierToIgnore;
-	}
-
-	/**
-	 * Sets the field classifier to ignore.
-	 *
-	 * @param fieldClassifierToIgnore the new field classifier to ignore
-	 */
-	public void setFieldClassifierToIgnore(List<ClassifierType> fieldClassifierToIgnore) {
-		this.fieldClassifierToIgnore = fieldClassifierToIgnore;
 	}
 
 	/**

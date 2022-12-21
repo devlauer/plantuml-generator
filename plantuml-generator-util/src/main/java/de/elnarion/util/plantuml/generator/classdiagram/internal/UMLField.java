@@ -34,14 +34,6 @@ public class UMLField implements PlantUMLDiagramElement {
 		annotations = paramAnnotations;
 	}
 
-	/**
-	 * Gets the type.
-	 *
-	 * @return String - the type
-	 */
-	public String getType() {
-		return type;
-	}
 
 	/**
 	 * Gets the name.
@@ -52,23 +44,6 @@ public class UMLField implements PlantUMLDiagramElement {
 		return name;
 	}
 
-	/**
-	 * Gets the classifier type.
-	 *
-	 * @return ClassifierType - the classifier type
-	 */
-	public ClassifierType getClassifierType() {
-		return classifierType;
-	}
-
-	/**
-	 * Gets the visibility type.
-	 *
-	 * @return VisibilityType - the visibility type
-	 */
-	public VisibilityType getVisibilityType() {
-		return visibilityType;
-	}
 
 	@Override
 	public String getDiagramText() {

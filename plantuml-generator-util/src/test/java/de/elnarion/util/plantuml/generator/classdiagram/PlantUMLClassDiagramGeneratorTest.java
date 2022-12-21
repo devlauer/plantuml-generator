@@ -197,6 +197,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		String result = generator.generateDiagramText();
 		String expectedDiagramText = IOUtils.toString(classLoader.getResource(filename), StandardCharsets.UTF_8);
 		assertNotNull(result);
+		System.out.println(result);
 		assertNotNull(expectedDiagramText);
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
 		// end::jartest[]
@@ -268,6 +269,38 @@ class PlantUMLClassDiagramGeneratorTest {
 		// end::whitelistregexp[]
 	}
 
+	@Test
+	void test0012JarPackageWithWhitelistWithoutScanpackagesParameter() throws Exception {
+		// tag::whitelistregexpwithoutscanpackagesparameter[]
+		String filename = "class/0012_jar_whitelist.txt";
+		PlantUMLClassDiagramConfigBuilder configBuilder = new PlantUMLClassDiagramConfigBuilder(
+				"org\\.apache\\.commons\\.io.*FileAl.*").withHideFieldsParameter(true).withHideMethods(true); // <1>
+		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(configBuilder.build());
+		String result = generator.generateDiagramText();
+		String expectedDiagramText = IOUtils.toString(classLoader.getResource(filename), StandardCharsets.UTF_8);
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+		// end::whitelistregexpwithoutscanpackagesparameter[]
+	}
+
+	@Test
+	void test0012JarPackageWithWhitelistWithScanpackagesParameterLimitedToBasePackage() throws Exception {
+		// tag::whitelistregexpwithscanpackageslimitedtobasepackage[]
+		String filename = "class/0012_jar_whitelist.txt";
+		List<String> scanpackages = new ArrayList<>();
+		scanpackages.add("org.apache.commons.io");
+		PlantUMLClassDiagramConfigBuilder configBuilder = new PlantUMLClassDiagramConfigBuilder(scanpackages,
+				"org\\.apache\\.commons\\.io.*FileAl.*").withHideFieldsParameter(true).withHideMethods(true); // <1>
+		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(configBuilder.build());
+		String result = generator.generateDiagramText();
+		String expectedDiagramText = IOUtils.toString(classLoader.getResource(filename), StandardCharsets.UTF_8);
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+		// end::whitelistregexpwithscanpackageslimitedtobasepackage[]
+	}
+	
 	@Test
 	void test0013MaxVisibilityFields() throws Exception {
 		// tag::maxvisibilityfieldspublic[]
@@ -432,6 +465,24 @@ class PlantUMLClassDiagramGeneratorTest {
 	}
 
 	@Test
+	void test0017BlacklistMethodsWithEmptyBlacklist() throws Exception {
+		// tag::blacklistmethods[]
+		String filename = "class/0017_blacklist_methods_empty_parameter.txt";
+		classLoader.loadClass("de.elnarion.test.domain.t0017.Testclass1");
+		List<String> scanPackages = new ArrayList<>();
+		scanPackages.add("de.elnarion.test.domain.t0017");
+		PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
+				.withMethodBlacklistRegexp("").build(); // <1>
+		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
+		String result = generator.generateDiagramText();
+		String expectedDiagramText = IOUtils.toString(classLoader.getResource(filename), StandardCharsets.UTF_8);
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+		// end::blacklistmethods[]
+	}
+	
+	@Test
 	void test0018BlacklistFields() throws Exception {
 		// tag::blacklistfields[]
 		String filename = "class/0018_blacklist_fields.txt";
@@ -467,6 +518,26 @@ class PlantUMLClassDiagramGeneratorTest {
 	}
 
 	@Test
+	void test0019IgnoreMultipleClassifierFields() throws Exception {
+		// tag::ignoremultipleclassifierfields[]
+		String filename = "class/0019_ignore_classifier_fields.txt";
+		List<String> scanPackages = new ArrayList<>();
+		scanPackages.add("de.elnarion.test.domain.t0019");
+		List<ClassifierType> classifiers = new ArrayList<>();
+		classifiers.add(ClassifierType.STATIC);
+		classifiers.add(ClassifierType.ABSTRACT);
+		PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
+				.addFieldClassifiersToIgnore(classifiers).build(); // <1>
+		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
+		String result = generator.generateDiagramText();
+		String expectedDiagramText = IOUtils.toString(classLoader.getResource(filename), StandardCharsets.UTF_8);
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+		// end::ignoremultipleclassifierfields[]
+	}
+	
+	@Test
 	void test0020IgnoreClassifierMethods() throws Exception {
 		// tag::ignoreclassifiermethods[]
 		String filename = "class/0020_ignore_classifier_methods.txt";
@@ -483,6 +554,27 @@ class PlantUMLClassDiagramGeneratorTest {
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
 		// end::ignoreclassifiermethods[]
 	}
+
+	@Test
+	void test0020IgnoreMultipleClassifierMethods() throws Exception {
+		// tag::ignoremultipleclassifiermethods[]
+		String filename = "class/0020_ignore_multiple_classifier_methods.txt";
+		classLoader.loadClass("de.elnarion.test.domain.t0020.Testclass");
+		List<String> scanPackages = new ArrayList<>();
+		scanPackages.add("de.elnarion.test.domain.t0020");
+		List<ClassifierType> classifiers = new ArrayList<>();
+		classifiers.add(ClassifierType.STATIC);
+		classifiers.add(ClassifierType.ABSTRACT);
+		PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
+				.addMethodClassifiersToIgnore(classifiers).build(); // <1>
+		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
+		String result = generator.generateDiagramText();
+		String expectedDiagramText = IOUtils.toString(classLoader.getResource(filename), StandardCharsets.UTF_8);
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+		// end::ignoremultipleclassifiermethods[]
+	}	
 
 	@Test
 	void test0021JPAAnnotations() throws Exception {
@@ -543,6 +635,23 @@ class PlantUMLClassDiagramGeneratorTest {
 		String result = generator.generateDiagramText();
 		String expectedDiagramText = IOUtils
 				.toString(classLoader.getResource("class/0023_additional-plant-uml-configs.txt"), "utf-8");
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+		// end::additionalplantumlconfig[]
+	}
+	
+	@Test
+	void test0024ClassRelationships() throws IOException, ClassNotFoundException {
+		// tag::classrelationships[]
+		List<String> scanPackages = new ArrayList<>();
+		scanPackages.add("de.elnarion.test.domain.t0024");
+		PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages).withRemoveMethods(false).build(); 
+		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
+		String result = generator.generateDiagramText();
+		System.out.println(result);
+		String expectedDiagramText = IOUtils
+				.toString(classLoader.getResource("class/0024_class_relationships.txt"), "utf-8");
 		assertNotNull(result);
 		assertNotNull(expectedDiagramText);
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));

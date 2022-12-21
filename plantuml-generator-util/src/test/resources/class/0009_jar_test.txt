@@ -81,8 +81,8 @@ class org.apache.commons.io.monitor.FileEntry {
 org.apache.commons.io.monitor.FileAlterationListenerAdaptor ..|>  org.apache.commons.io.monitor.FileAlterationListener
 org.apache.commons.io.monitor.FileAlterationMonitor "1" o-- "0..*"  org.apache.commons.io.monitor.FileAlterationObserver : observers
 org.apache.commons.io.monitor.FileAlterationObserver "1" o-- "0..*"  org.apache.commons.io.monitor.FileAlterationListener : listeners
-org.apache.commons.io.monitor.FileAlterationObserver -->  org.apache.commons.io.monitor.FileEntry : rootEntry
-org.apache.commons.io.monitor.FileEntry -->  org.apache.commons.io.monitor.FileEntry : parent
+org.apache.commons.io.monitor.FileAlterationObserver *--  org.apache.commons.io.monitor.FileEntry : rootEntry
+org.apache.commons.io.monitor.FileEntry *--  org.apache.commons.io.monitor.FileEntry : parent
 
 hide fields
 hide methods

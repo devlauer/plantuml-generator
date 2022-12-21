@@ -1,9 +1,6 @@
-package de.elnarion.util.plantuml.generator.config;
+package de.elnarion.util.plantuml.generator.classdiagram.config;
 
 import java.util.List;
-
-import de.elnarion.util.plantuml.generator.classdiagram.internal.ClassifierType;
-import de.elnarion.util.plantuml.generator.classdiagram.internal.VisibilityType;
 
 /**
  * The Class PlantUMLClassDiagramConfigBuilder.

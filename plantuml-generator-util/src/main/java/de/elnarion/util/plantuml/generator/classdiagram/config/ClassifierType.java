@@ -1,4 +1,4 @@
-package de.elnarion.util.plantuml.generator.classdiagram.internal;
+package de.elnarion.util.plantuml.generator.classdiagram.config;
 
 /**
  * The Enum ClassifierType defines the different classifiers of a class, field

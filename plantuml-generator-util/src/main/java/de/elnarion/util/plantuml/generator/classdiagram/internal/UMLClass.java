@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import de.elnarion.util.plantuml.generator.classdiagram.util.UMLMethodComparator;
+import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
 
 /**
  * The Class UMLClass encapsulates all information needed for creating a diagram

@@ -9,10 +9,10 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 
-import de.elnarion.util.plantuml.generator.PlantUMLClassDiagramGenerator;
-import de.elnarion.util.plantuml.generator.classdiagram.internal.ClassifierType;
-import de.elnarion.util.plantuml.generator.classdiagram.internal.VisibilityType;
-import de.elnarion.util.plantuml.generator.config.PlantUMLClassDiagramConfigBuilder;
+import de.elnarion.util.plantuml.generator.classdiagram.PlantUMLClassDiagramGenerator;
+import de.elnarion.util.plantuml.generator.classdiagram.config.ClassifierType;
+import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiagramConfigBuilder;
+import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
 
 /**
  * This Mojo is used as maven frontend of the PlantUMLClassDiagramGenerator in

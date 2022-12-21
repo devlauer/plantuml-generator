@@ -1,4 +1,4 @@
-package de.elnarion.util.plantuml.generator;
+package de.elnarion.util.plantuml.generator.classdiagram;
 
 import static java.util.Collections.sort;
 
@@ -23,17 +23,17 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
+import de.elnarion.util.plantuml.generator.classdiagram.config.ClassifierType;
+import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiagramConfig;
+import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiagramConfigBuilder;
+import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
 import de.elnarion.util.plantuml.generator.classdiagram.internal.ClassType;
-import de.elnarion.util.plantuml.generator.classdiagram.internal.ClassifierType;
 import de.elnarion.util.plantuml.generator.classdiagram.internal.RelationshipType;
 import de.elnarion.util.plantuml.generator.classdiagram.internal.UMLClass;
 import de.elnarion.util.plantuml.generator.classdiagram.internal.UMLField;
 import de.elnarion.util.plantuml.generator.classdiagram.internal.UMLMethod;
 import de.elnarion.util.plantuml.generator.classdiagram.internal.UMLRelationship;
 import de.elnarion.util.plantuml.generator.classdiagram.internal.UMLStereotype;
-import de.elnarion.util.plantuml.generator.classdiagram.internal.VisibilityType;
-import de.elnarion.util.plantuml.generator.config.PlantUMLClassDiagramConfig;
-import de.elnarion.util.plantuml.generator.config.PlantUMLClassDiagramConfigBuilder;
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfoList;
 import io.github.classgraph.ScanResult;
@@ -93,64 +93,6 @@ public class PlantUMLClassDiagramGenerator {
 	
 	/** The classes and relationships. */
 	private Map<UMLClass, List<UMLRelationship>> classesAndRelationships;
-
-	/**
-	 * Instantiates a new Plant UML diagram generator.
-	 *
-	 * @param paramClassloader     ClassLoader - the ClassLoader used for loading
-	 *                             all diagram classes
-	 * @param paramScanPackages    List&lt;String&gt; - all the packages which
-	 *                             directly contained classes are the base for the
-	 *                             class diagram
-	 * @param paramBlacklistRegexp String - regular expression used to reduce the
-	 *                             amount of classes defined by the packages to scan
-	 * @param paramHideClasses     List&lt;String&gt; - the full qualified class
-	 *                             names which should be hidden in the resulting
-	 *                             diagram (they are not excluded from the diagram,
-	 *                             they are just hidden)
-	 * @param paramHideFields      boolean - true, if fields should be hidden,
-	 *                             false, if not
-	 * @param paramHideMethods     boolean - true, if methods should be hidden,
-	 *                             false, if not
-	 * @deprecated use PlantUMLClassDiagramConfigBuilder instead
-	 */
-	@Deprecated
-	public PlantUMLClassDiagramGenerator(final ClassLoader paramClassloader, final List<String> paramScanPackages,
-			final String paramBlacklistRegexp, final List<String> paramHideClasses, final boolean paramHideFields,
-			final boolean paramHideMethods) {
-		this(new PlantUMLClassDiagramConfigBuilder(paramBlacklistRegexp, paramScanPackages).withHideFieldsParameter(paramHideFields)
-				.withClassLoader(paramClassloader==null?PlantUMLClassDiagramConfig.class.getClassLoader():paramClassloader).withHideMethods(paramHideMethods).withHideClasses(paramHideClasses)
-				.build());
-	}
-
-	/**
-	 * Instantiates a new plant UML class diagram generator.
-	 *
-	 * @param paramClassloader     ClassLoader - the ClassLoader used for loading
-	 *                             all diagram classes
-	 * @param paramWhitelistRegexp Regular expression used to define all classes
-	 *                             which should be part of the diagram (alternative
-	 *                             to scan packages definition)
-	 * @param paramHideClasses     List&lt;String&gt; - the full qualified class
-	 *                             names which should be hidden in the resulting
-	 *                             diagram (they are not excluded from the diagram,
-	 *                             they are just hidden)
-	 * @param paramHideFields      boolean - true, if fields should be hidden,
-	 *                             false, if not
-	 * @param paramHideMethods     boolean - true, if methods should be hidden,
-	 *                             false, if not
-	 * @param paramScanPackages    List&lt;String&gt; - all the packages which
-	 *                             should be used as basis for the whitelist scan
-	 * @deprecated use PlantUMLClassDiagramConfigBuilder instead
-	 */
-	@Deprecated	
-	public PlantUMLClassDiagramGenerator(final ClassLoader paramClassloader, final String paramWhitelistRegexp,
-			final List<String> paramHideClasses, final boolean paramHideFields, final boolean paramHideMethods,
-			final List<String> paramScanPackages) {
-		this(new PlantUMLClassDiagramConfigBuilder(paramScanPackages, paramWhitelistRegexp).withHideFieldsParameter(paramHideFields)
-				.withClassLoader(paramClassloader==null?PlantUMLClassDiagramConfig.class.getClassLoader():paramClassloader).withHideMethods(paramHideMethods).withHideClasses(paramHideClasses)
-				.build());
-	}
 
 	/**
 	 * Instantiates a new plant UML class diagram generator.

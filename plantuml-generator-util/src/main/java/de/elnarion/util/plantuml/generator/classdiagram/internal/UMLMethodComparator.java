@@ -1,10 +1,8 @@
-package de.elnarion.util.plantuml.generator.classdiagram.util;
+package de.elnarion.util.plantuml.generator.classdiagram.internal;
 
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
-
-import de.elnarion.util.plantuml.generator.classdiagram.internal.UMLMethod;
 
 /**
  * The Class UMLMethodComparator is used to sort {@link UMLMethod} objects.

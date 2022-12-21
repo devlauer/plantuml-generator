@@ -12,6 +12,8 @@
 * switch association to composite if field is final
 * add more Unit tests
 * remove unnecessary code
+* package structure of utility module changed and is incompatible
+* deprecated constructors are removed
 
 .1.6.0 - 2022-12-15
 * removed unused imports

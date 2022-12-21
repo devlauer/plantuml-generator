@@ -1,4 +1,4 @@
-package de.elnarion.util.plantuml.generator.classdiagram.internal;
+package de.elnarion.util.plantuml.generator.classdiagram.config;
 
 /**
  * The Enum VisibilityType defines all supported visibility types of this

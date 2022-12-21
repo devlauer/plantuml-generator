@@ -1,6 +1,6 @@
-package de.elnarion.util.plantuml.generator.classdiagram.util;
+package de.elnarion.util.plantuml.generator.classdiagram.internal;
 
-import de.elnarion.util.plantuml.generator.classdiagram.internal.VisibilityType;
+import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
 
 /**
  * The Class PlantUMLUtil provides helper methods for generating the class

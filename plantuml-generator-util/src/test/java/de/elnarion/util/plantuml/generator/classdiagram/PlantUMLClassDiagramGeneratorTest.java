@@ -17,11 +17,10 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import de.elnarion.util.plantuml.generator.PlantUMLClassDiagramGenerator;
-import de.elnarion.util.plantuml.generator.classdiagram.internal.ClassifierType;
-import de.elnarion.util.plantuml.generator.classdiagram.internal.VisibilityType;
-import de.elnarion.util.plantuml.generator.config.PlantUMLClassDiagramConfig;
-import de.elnarion.util.plantuml.generator.config.PlantUMLClassDiagramConfigBuilder;
+import de.elnarion.util.plantuml.generator.classdiagram.config.ClassifierType;
+import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiagramConfig;
+import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiagramConfigBuilder;
+import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
 
 /**
  * The Class PlantUMLClassDiagramGeneratorTest tests the
@@ -197,7 +196,6 @@ class PlantUMLClassDiagramGeneratorTest {
 		String result = generator.generateDiagramText();
 		String expectedDiagramText = IOUtils.toString(classLoader.getResource(filename), StandardCharsets.UTF_8);
 		assertNotNull(result);
-		System.out.println(result);
 		assertNotNull(expectedDiagramText);
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
 		// end::jartest[]
@@ -649,7 +647,6 @@ class PlantUMLClassDiagramGeneratorTest {
 		PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages).withRemoveMethods(false).build(); 
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
 		String result = generator.generateDiagramText();
-		System.out.println(result);
 		String expectedDiagramText = IOUtils
 				.toString(classLoader.getResource("class/0024_class_relationships.txt"), "utf-8");
 		assertNotNull(result);

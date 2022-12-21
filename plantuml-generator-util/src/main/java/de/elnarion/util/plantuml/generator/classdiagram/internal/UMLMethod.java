@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import de.elnarion.util.plantuml.generator.classdiagram.util.PlantUMLUtil;
+import de.elnarion.util.plantuml.generator.classdiagram.config.ClassifierType;
+import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
 
 import java.util.Set;
 

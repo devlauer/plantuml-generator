@@ -241,12 +241,24 @@ configuration to filter out specific methods from the diagram.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap" data-line="6"><code class="language-java" data-lang=java>String filename = "class/0017_blacklist_methods.txt";
+<pre class="nowrap" data-line="6,18"><code class="language-java" data-lang=java>String filename = "class/0017_blacklist_methods.txt";
 classLoader.loadClass("de.elnarion.test.domain.t0017.Testclass1");
 List&lt;String&gt; scanPackages = new ArrayList&lt;&gt;();
 scanPackages.add("de.elnarion.test.domain.t0017");
 PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
 		.withMethodBlacklistRegexp(".*doSomething1.*").build(); <i class="conum" data-value="1"></i><b>(1)</b>
+PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
+String result = generator.generateDiagramText();
+String expectedDiagramText = IOUtils.toString(classLoader.getResource(filename), StandardCharsets.UTF_8);
+assertNotNull(result);
+assertNotNull(expectedDiagramText);
+assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+String filename = "class/0017_blacklist_methods_empty_parameter.txt";
+classLoader.loadClass("de.elnarion.test.domain.t0017.Testclass1");
+List&lt;String&gt; scanPackages = new ArrayList&lt;&gt;();
+scanPackages.add("de.elnarion.test.domain.t0017");
+PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
+		.withMethodBlacklistRegexp("").build(); <i class="conum" data-value="1"></i><b>(1)</b>
 PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
 String result = generator.generateDiagramText();
 String expectedDiagramText = IOUtils.toString(classLoader.getResource(filename), StandardCharsets.UTF_8);

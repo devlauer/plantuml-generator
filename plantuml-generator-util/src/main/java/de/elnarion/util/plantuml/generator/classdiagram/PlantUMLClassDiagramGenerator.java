@@ -25,7 +25,6 @@ import java.util.TreeMap;
 
 import de.elnarion.util.plantuml.generator.classdiagram.config.ClassifierType;
 import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiagramConfig;
-import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiagramConfigBuilder;
 import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
 import de.elnarion.util.plantuml.generator.classdiagram.internal.ClassType;
 import de.elnarion.util.plantuml.generator.classdiagram.internal.RelationshipType;

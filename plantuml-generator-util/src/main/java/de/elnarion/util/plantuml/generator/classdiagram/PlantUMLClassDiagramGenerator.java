@@ -3,8 +3,8 @@ package de.elnarion.util.plantuml.generator.classdiagram;
 import java.io.IOException;
 
 import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiagramConfig;
-import de.elnarion.util.plantuml.generator.classdiagram.internal.PlantUMLClassDiagramAnalyzeSummary;
-import de.elnarion.util.plantuml.generator.classdiagram.internal.PlantUMLClassDiagramAnalyzerAndMapper;
+import de.elnarion.util.plantuml.generator.classdiagram.internal.ClassDiagramAnalyzeSummary;
+import de.elnarion.util.plantuml.generator.classdiagram.internal.ClassDiagramAnalyzerAndMapper;
 import de.elnarion.util.plantuml.generator.classdiagram.internal.PlantUMLClassDiagramTextBuilder;
 
 /**
@@ -74,7 +74,7 @@ public class PlantUMLClassDiagramGenerator {
 	 *                                read
 	 */
 	public String generateDiagramText() throws ClassNotFoundException, IOException {
-		PlantUMLClassDiagramAnalyzeSummary summary = new PlantUMLClassDiagramAnalyzerAndMapper(plantUMLConfig).analyzeClassesAndMapThemToTheInternalClassStructure();
+		ClassDiagramAnalyzeSummary summary = new ClassDiagramAnalyzerAndMapper(plantUMLConfig).analyzeClassesAndMapThemToTheInternalClassStructure();
 		return new PlantUMLClassDiagramTextBuilder(plantUMLConfig, summary).buildDiagramText();
 	}
 

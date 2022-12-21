@@ -5,7 +5,7 @@
 * move gpg signing to a separate release profile
 * update plugin versions
 * update mockito to 4.10.0
-* update classgraph to 4.8.150
+* update classgraph to 4.8.153
 * introduce apache maven wrapper for maven 3.8.6
 * apply sonarcloud scan and analysis to master and all pull requests
 * ignore synthetic fields, methods and classes in class diagrams

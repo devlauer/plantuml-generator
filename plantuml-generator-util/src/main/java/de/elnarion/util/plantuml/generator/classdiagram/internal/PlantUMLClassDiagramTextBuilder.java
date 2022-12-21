@@ -8,19 +8,39 @@ import java.util.Map;
 
 import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiagramConfig;
 
+/**
+ * The Class PlantUMLClassDiagramTextBuilder.
+ */
 public class PlantUMLClassDiagramTextBuilder {
 
+	/** The plant UML config. */
 	private PlantUMLClassDiagramConfig plantUMLConfig;
+	
+	/** The classes. */
 	private Map<String, UMLClass> classes;
+	
+	/** The classes and relationships. */
 	private Map<UMLClass, List<UMLRelationship>> classesAndRelationships;
 	
 	
-	public PlantUMLClassDiagramTextBuilder(PlantUMLClassDiagramConfig paramPlantUMLConfig, Map<String, UMLClass> paramUMLClasses,Map<UMLClass, List<UMLRelationship>> paramClassesAndRelationships) {
-		plantUMLConfig = paramPlantUMLConfig;
-		classes = paramUMLClasses;
-		classesAndRelationships=paramClassesAndRelationships;
+	/**
+	 * Instantiates a new plant UML class diagram text builder.
+	 *
+	 * @param paramPlantUMLConfig the param plant UML config
+	 * @param paramSummary the param summary
+	 */
+	public PlantUMLClassDiagramTextBuilder(PlantUMLClassDiagramConfig paramPlantUMLConfig,
+			PlantUMLClassDiagramAnalyzeSummary paramSummary) {
+		plantUMLConfig=paramPlantUMLConfig;
+		classes = paramSummary.getClasses();
+		classesAndRelationships = paramSummary.getClassesAndRelationships();
 	}
 
+	/**
+	 * Builds the diagram text.
+	 *
+	 * @return the string
+	 */
 	public String buildDiagramText() {
 		// build the Plant UML String by calling the corresponding method on all
 		// PlantUMLDiagramElements
@@ -46,15 +66,31 @@ public class PlantUMLClassDiagramTextBuilder {
 		
 	}
 
+	/**
+	 * End uml diagram.
+	 *
+	 * @param builder the builder
+	 */
 	private void endUmlDiagram(final StringBuilder builder) {
 		// add diagram end to text
 		builder.append("@enduml");
 	}
 
+	/**
+	 * Start UML diagram.
+	 *
+	 * @param builder the builder
+	 */
 	private void startUMLDiagram(final StringBuilder builder) {
 		builder.append("@startuml");
 	}
 
+	/**
+	 * Gets the sorted relationships from classes.
+	 *
+	 * @param sortedClassesList the sorted classes list
+	 * @return the sorted relationships from classes
+	 */
 	private List<UMLRelationship> getSortedRelationshipsFromClasses(final Collection<UMLClass> sortedClassesList) {
 		final List<UMLRelationship> relationships = new ArrayList<>();
 		for (final UMLClass clazz : sortedClassesList) {
@@ -64,6 +100,12 @@ public class PlantUMLClassDiagramTextBuilder {
 		return relationships;
 	}
 
+	/**
+	 * Append sorted classes to builder.
+	 *
+	 * @param builder the builder
+	 * @param sortedClassesList the sorted classes list
+	 */
 	private void appendSortedClassesToBuilder(final StringBuilder builder, final Collection<UMLClass> sortedClassesList) {
 		for (final UMLClass clazz : sortedClassesList) {
 			builder.append(clazz.getDiagramText());
@@ -71,11 +113,22 @@ public class PlantUMLClassDiagramTextBuilder {
 		}
 	}
 
+	/**
+	 * Sort relationships.
+	 *
+	 * @param relationships the relationships
+	 */
 	private void sortRelationships(final List<UMLRelationship> relationships) {
 		// because the ordered list could be changed in between, sort the list
 		Collections.sort(relationships, (o1, o2) -> o1.getDiagramText().compareTo(o2.getDiagramText()));
 	}
 
+	/**
+	 * Adds the relationships to builder.
+	 *
+	 * @param builder the builder
+	 * @param relationships the relationships
+	 */
 	private void addRelationshipsToBuilder(final StringBuilder builder, final List<UMLRelationship> relationships) {
 		// add all class relationships to the diagram
 		for (final UMLRelationship relationship : relationships) {
@@ -84,11 +137,21 @@ public class PlantUMLClassDiagramTextBuilder {
 		}
 	}
 
+	/**
+	 * Adds the two space lines to builder.
+	 *
+	 * @param builder the builder
+	 */
 	private void addTwoSpaceLinesToBuilder(final StringBuilder builder) {
 		builder.append(System.lineSeparator());
 		builder.append(System.lineSeparator());
 	}
 
+	/**
+	 * Sort classes.
+	 *
+	 * @return the collection
+	 */
 	private Collection<UMLClass> sortClasses() {
 		final List<UMLClass> listToCompare = new ArrayList<>();
 		listToCompare.addAll(classes.values());
@@ -98,6 +161,11 @@ public class PlantUMLClassDiagramTextBuilder {
 		return classesList;
 	}
 
+	/**
+	 * Append additional plant UML configs to builder.
+	 *
+	 * @param builder the builder
+	 */
 	private void appendAdditionalPlantUMLConfigsToBuilder(final StringBuilder builder) {
 		if (!plantUMLConfig.getAdditionalPlantUmlConfigs().isEmpty()) {
 			plantUMLConfig.getAdditionalPlantUmlConfigs().forEach(additionalPlantUmlConfig -> {

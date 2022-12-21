@@ -107,7 +107,7 @@ public class UMLMethod implements PlantUMLDiagramElement {
 		default:
 			break;
 		}
-		builder.append(PlantUMLUtil.getVisibilityText(visibilityType));
+		builder.append(VisibilityUtil.getVisibilityText(visibilityType));
 		builder.append(name);
 		builder.append(" (");
 		if (parametersAndTypes != null && !parametersAndTypes.isEmpty()) {

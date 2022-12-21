@@ -6,12 +6,12 @@ import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
  * The Class PlantUMLUtil provides helper methods for generating the class
  * diagram.
  */
-public class PlantUMLUtil {
+public class VisibilityUtil {
 
 	/**
 	 * Hide public default constructor because this class has only static methods
 	 */
-	private PlantUMLUtil() {
+	private VisibilityUtil() {
 
 	}
 

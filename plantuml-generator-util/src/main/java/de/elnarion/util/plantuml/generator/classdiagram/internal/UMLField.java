@@ -53,7 +53,7 @@ public class UMLField implements PlantUMLDiagramElement {
 		if (classifierType != null && classifierType == ClassifierType.STATIC) {
 			builder.append("{static} ");
 		}
-		builder.append(PlantUMLUtil.getVisibilityText(visibilityType));
+		builder.append(VisibilityUtil.getVisibilityText(visibilityType));
 		if(annotations!=null&&!annotations.isEmpty())
 		{
 			for(String annotation:annotations)

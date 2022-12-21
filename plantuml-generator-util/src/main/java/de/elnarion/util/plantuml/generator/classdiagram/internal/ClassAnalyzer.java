@@ -1,11 +1,7 @@
 package de.elnarion.util.plantuml.generator.classdiagram.internal;
 
-import static java.util.Collections.sort;
-
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Array;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
@@ -19,7 +15,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 
 import de.elnarion.util.plantuml.generator.classdiagram.config.ClassifierType;
 import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiagramConfig;
@@ -104,7 +99,7 @@ public class ClassAnalyzer {
 		}
 		List<UMLStereotype> stereotypes = new ArrayList<>();
 		if (plantUMLConfig.isAddJPAAnnotations()) {
-			addJPAStereotype(paramClassObject, stereotypes);
+			new JPAAnalyzerHelper().addJPAStereotype(paramClassObject, stereotypes,plantUMLConfig.getDestinationClassloader());
 		}
 
 		final UMLClass umlClass = new UMLClass(visibilityType, classType, new ArrayList<>(), new ArrayList<>(),
@@ -125,258 +120,6 @@ public class ClassAnalyzer {
 	}
 
 	/**
-	 * Adds the JPA stereotype.
-	 *
-	 * @param paramClassObject the param class object
-	 * @param stereotypes      the stereotypes
-	 */
-	private void addJPAStereotype(final Class<?> paramClassObject, List<UMLStereotype> stereotypes) {
-		ClassLoader destinationClassloader = plantUMLConfig.getDestinationClassloader();
-		if (destinationClassloader != null) {
-			try {
-				addStereoTypesForAnnotationClass(paramClassObject, stereotypes, destinationClassloader,
-						"javax.persistence.Entity", "Entity");
-				addStereoTypesForAnnotationClass(paramClassObject, stereotypes, destinationClassloader,
-						"javax.persistence.Table", "Table");
-				addStereoTypesForAnnotationClass(paramClassObject, stereotypes, destinationClassloader,
-						"javax.persistence.MappedSuperclass", "MappedSuperclass");
-			} catch (ClassNotFoundException | SecurityException | IllegalArgumentException e) {
-				// ignore all exceptions
-			}
-		}
-	}
-
-	/**
-	 * Adds the stereo types for annotation class.
-	 *
-	 * @param paramClassObject       the param class object
-	 * @param stereotypes            the stereotypes
-	 * @param destinationClassloader the destination classloader
-	 * @param annotationClassName    the annotation class name
-	 * @param annotationName         the annotation name
-	 * @throws ClassNotFoundException the class not found exception
-	 */
-	private void addStereoTypesForAnnotationClass(final Class<?> paramClassObject, List<UMLStereotype> stereotypes,
-			ClassLoader destinationClassloader, String annotationClassName, String annotationName)
-			throws ClassNotFoundException {
-		Class<?> tableAnnotation = destinationClassloader.loadClass(annotationClassName);
-		Annotation[] annotations = paramClassObject.getAnnotations();
-		for (Annotation annotation : annotations) {
-			if (tableAnnotation.isAssignableFrom(annotation.getClass())) {
-				addAnnotationStereotype(stereotypes, annotation, annotationName, destinationClassloader);
-			}
-		}
-	}
-
-	/**
-	 * Adds the annotation stereotype.
-	 *
-	 * @param stereotypes            the stereotypes
-	 * @param annotation             the annotation
-	 * @param annotationName         the annotation name
-	 * @param destinationClassloader the destination classloader
-	 */
-	private void addAnnotationStereotype(List<UMLStereotype> stereotypes, Annotation annotation, String annotationName,
-			ClassLoader destinationClassloader) {
-		Map<String, List<String>> attributes = new TreeMap<>();
-		// only for @Table
-		if (annotationName != null && "Table".equals(annotationName)) {
-			addAttributeIfExists(annotation, attributes, "name");
-			addAttributeIfExists(annotation, attributes, "schema");
-			addAttributeObjectListIfExists(annotation, attributes, "javax.persistence.Index", "indexes",
-					destinationClassloader);
-			addAttributeObjectListIfExists(annotation, attributes, "javax.persistence.UniqueConstraint",
-					"uniqueConstraints", destinationClassloader);
-		}
-		UMLStereotype stereotype = new UMLStereotype(annotationName, attributes);
-		stereotypes.add(stereotype);
-	}
-
-	/**
-	 * Adds the attribute object list if exists.
-	 *
-	 * @param annotation             the annotation
-	 * @param attributes             the attributes
-	 * @param annotationClassName    the annotation class name
-	 * @param methodName             the method name
-	 * @param destinationClassloader the destination classloader
-	 */
-	private void addAttributeObjectListIfExists(Annotation annotation, Map<String, List<String>> attributes,
-			String annotationClassName, String methodName, ClassLoader destinationClassloader) {
-		try {
-			Method nameMethod = annotation.getClass().getMethod(methodName);
-			if (nameMethod != null) {
-				Class<?> valueAnnotation = destinationClassloader.loadClass(annotationClassName);
-				Object nameObject = nameMethod.invoke(annotation);
-				if (nameObject != null && nameObject.getClass().isArray()
-						&& nameObject.getClass().getComponentType().equals(valueAnnotation)) {
-					List<String> values = addAnnotationArrayToAttributeList(valueAnnotation, nameObject);
-					if (!values.isEmpty()) {
-						sort(values);
-						attributes.put(methodName, values);
-					}
-				}
-			}
-		} catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-				| ClassNotFoundException e) {
-			// ignore, because method is not found or can not be called or has illegal
-			// arguments
-		}
-	}
-
-	/**
-	 * Adds the annotation array to attribute list.
-	 *
-	 * @param valueAnnotation the value annotation
-	 * @param nameObject      the name object
-	 * @return the list
-	 * @throws IllegalAccessException    the illegal access exception
-	 * @throws InvocationTargetException the invocation target exception
-	 */
-	private List<String> addAnnotationArrayToAttributeList(Class<?> valueAnnotation, Object nameObject)
-			throws IllegalAccessException, InvocationTargetException {
-		List<String> values = new ArrayList<>();
-		int length = Array.getLength(nameObject);
-		for (int i = 0; i < length; i++) {
-			Object arrayElement = Array.get(nameObject, i);
-			StringBuilder elementStringBuilder = new StringBuilder();
-			Method[] methods = valueAnnotation.getDeclaredMethods();
-			if (methods.length > 0) {
-				addMethodArrayValueString(valueAnnotation, arrayElement, elementStringBuilder, methods);
-			}
-			values.add(elementStringBuilder.toString());
-		}
-		return values;
-	}
-
-	/**
-	 * Adds the method array value string.
-	 *
-	 * @param valueAnnotation      the value annotation
-	 * @param arrayElement         the array element
-	 * @param elementStringBuilder the element string builder
-	 * @param methods              the methods
-	 * @throws IllegalAccessException    the illegal access exception
-	 * @throws InvocationTargetException the invocation target exception
-	 */
-	private void addMethodArrayValueString(Class<?> valueAnnotation, Object arrayElement,
-			StringBuilder elementStringBuilder, Method[] methods)
-			throws IllegalAccessException, InvocationTargetException {
-		elementStringBuilder.append(valueAnnotation.getSimpleName());
-		elementStringBuilder.append(" (");
-		List<String> methodAttributesString = new ArrayList<>();
-		for (Method method : methods) {
-			String name = method.getName();
-			if (method.getParameterCount() == 0) {
-				String methodValueString = createMethodValueString(arrayElement, method, name);
-				if (methodValueString != null && !methodValueString.isEmpty()) {
-					methodAttributesString.add(methodValueString);
-				}
-			}
-		}
-		sort(methodAttributesString);
-		elementStringBuilder.append(String.join(",", methodAttributesString));
-		elementStringBuilder.append(" )");
-	}
-
-	/**
-	 * Creates the method value string.
-	 *
-	 * @param arrayElement the array element
-	 * @param method       the method
-	 * @param name         the name
-	 * @return the string
-	 * @throws IllegalAccessException    the illegal access exception
-	 * @throws InvocationTargetException the invocation target exception
-	 */
-	private String createMethodValueString(Object arrayElement, Method method, String name)
-			throws IllegalAccessException, InvocationTargetException {
-		Object result = method.invoke(arrayElement);
-		StringBuilder elementStringBuilder = new StringBuilder();
-		if ((result instanceof String && !((String) result).isEmpty())
-				|| (!(result instanceof String) && result != null)) {
-			elementStringBuilder.append(name);
-			elementStringBuilder.append("=[");
-			if (result.getClass().isArray()) {
-				handleMethodArrayResultString(elementStringBuilder, result);
-			} else {
-				elementStringBuilder.append(result);
-			}
-			elementStringBuilder.append("]");
-
-		}
-		return elementStringBuilder.toString();
-	}
-
-	/**
-	 * Handle method array result string.
-	 *
-	 * @param elementStringBuilder the element string builder
-	 * @param result               the result
-	 */
-	private void handleMethodArrayResultString(StringBuilder elementStringBuilder, Object result) {
-		int resultLength = Array.getLength(result);
-		for (int j = 0; j < resultLength; j++) {
-			if (j > 0)
-				elementStringBuilder.append(",");
-			elementStringBuilder.append(Array.get(result, j));
-		}
-	}
-
-	/**
-	 * Adds the attribute if exists.
-	 *
-	 * @param annotation the annotation
-	 * @param attributes the attributes
-	 * @param methodname the methodname
-	 */
-	private void addAttributeIfExists(Annotation annotation, Map<String, List<String>> attributes, String methodname) {
-		try {
-			Method nameMethod = annotation.getClass().getMethod(methodname);
-			if (nameMethod != null) {
-				Object nameObject = nameMethod.invoke(annotation);
-				if (nameObject instanceof String && !((String) nameObject).isEmpty()) {
-					List<String> values = new ArrayList<>();
-					values.add((String) nameObject);
-					attributes.put(methodname, values);
-				}
-			}
-		} catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e) {
-			// ignore, because method is not found or can not be called or has illegal
-			// arguments
-		}
-	}
-
-	/**
-	 * Gets the column annotation string.
-	 *
-	 * @param annotation     the annotation
-	 * @param annotationName the annotation name
-	 * @return the column annotation string
-	 */
-	private String getColumnAnnotationString(Annotation annotation, String annotationName) {
-		StringBuilder builder = new StringBuilder();
-		builder.append("@");
-		builder.append(annotationName);
-		try {
-			Method nameMethod = annotation.getClass().getMethod("name");
-			if (nameMethod != null) {
-				builder.append("(\"");
-				Object nameObject = nameMethod.invoke(annotation);
-				if (nameObject instanceof String) {
-					builder.append(nameObject);
-				}
-				builder.append("\")");
-			}
-		} catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e) {
-			// ignore, method not found or not callable
-		}
-		return builder.toString();
-	}
-
-	/**
 	 * Reads all enum constants from the java enum class object and adds them as
 	 * {@link UMLField} objects to the given {@link UMLClass} object. Only constants
 	 * are included, values are ignored.
@@ -389,9 +132,9 @@ public class ClassAnalyzer {
 	private void addEnumConstants(final Class<?> paramClassObject, final UMLClass paramUmlClass) {
 		final Object[] enumConstants = paramClassObject.getEnumConstants();
 		for (final Object enumConstant : enumConstants) {
-			final UMLField field = new UMLField(ClassifierType.NONE, VisibilityType.PUBLIC, enumConstant.toString(),
-					null, new ArrayList<>());
-			paramUmlClass.addField(field);
+			UMLField field = new FieldAnalyzer(plantUMLConfig).analyzeEnumConstant(enumConstant);
+			if (field != null)
+				paramUmlClass.addField(field);
 		}
 	}
 
@@ -504,7 +247,8 @@ public class ClassAnalyzer {
 				final String methodName = method.getName();
 				// ignore normal getters and setters
 				if ((methodName.startsWith("get") || methodName.startsWith("set") || methodName.startsWith("is"))
-						&& paramDeclaredFields != null && isGetterOrSetterMethod(method, paramDeclaredFields)) {
+						&& paramDeclaredFields != null
+						&& MethodAnalyzerUtil.isGetterOrSetterMethod(method, paramDeclaredFields)) {
 					continue;
 				}
 				// Do not add method if they should be ignored/removed
@@ -516,15 +260,15 @@ public class ClassAnalyzer {
 						&& methodName.matches(plantUMLConfig.getMethodBlacklistRegexp()))
 					continue;
 				String returnType = method.getReturnType().getName();
-				returnType = removeJavaLangPackage(returnType);
+				returnType = AnalyzerUtil.removeJavaLangPackage(returnType);
 				final Class<?>[] parameterTypes = method.getParameterTypes();
 				final Map<String, String> parameters = convertToParameterStringMap(parameterTypes);
 				final int modifier = method.getModifiers();
-				final VisibilityType visibilityType = getVisibility(modifier);
+				final VisibilityType visibilityType = AnalyzerUtil.getVisibility(modifier);
 				// check if method should be visible by maximum visibility
-				if (!visibilityOk(plantUMLConfig.getMaxVisibilityMethods(), visibilityType))
+				if (!AnalyzerUtil.visibilityOk(plantUMLConfig.getMaxVisibilityMethods(), visibilityType))
 					continue;
-				final ClassifierType classifierType = getClassifier(modifier);
+				final ClassifierType classifierType = AnalyzerUtil.getClassifier(modifier);
 				if (plantUMLConfig.getMethodClassifierToIgnore().contains(classifierType))
 					continue;
 				final List<String> stereotypes = new ArrayList<>();
@@ -539,62 +283,6 @@ public class ClassAnalyzer {
 				paramUmlClass.addMethod(umlMethod);
 			}
 		}
-	}
-
-	/**
-	 * Removes the java lang package string from a full qualified class name. This
-	 * makes it easier to read the class diagram.
-	 *
-	 * @param paramTypeName - String - the full qualified type name
-	 * @return String - the type name without the java.lang package name
-	 */
-	private String removeJavaLangPackage(String paramTypeName) {
-		if (paramTypeName.startsWith("java.lang.")) {
-			paramTypeName = paramTypeName.substring("java.lang.".length(), paramTypeName.length());
-		}
-		return paramTypeName;
-	}
-
-	/**
-	 * Gets the classifier type (none, abstract_static, static, abstract) from the
-	 * modifier int.
-	 *
-	 * @param paramModifier - int - the modifier used for determining the classifier
-	 *                      type
-	 * @return {@link ClassifierType} - the classifier type
-	 */
-	private ClassifierType getClassifier(final int paramModifier) {
-		ClassifierType classifierType = ClassifierType.NONE;
-		if (Modifier.isStatic(paramModifier)) {
-			if (Modifier.isAbstract(paramModifier)) {
-				classifierType = ClassifierType.ABSTRACT_STATIC;
-			} else {
-				classifierType = ClassifierType.STATIC;
-			}
-		} else if (Modifier.isAbstract(paramModifier)) {
-			classifierType = ClassifierType.ABSTRACT;
-		}
-		return classifierType;
-	}
-
-	/**
-	 * Gets the visibility type (package_private, public, private, protected) from
-	 * the modifier int.
-	 *
-	 * @param paramModifier - int - the modifier used for determining the visibility
-	 *                      type
-	 * @return {@link VisibilityType} - the visibility type
-	 */
-	private VisibilityType getVisibility(final int paramModifier) {
-		VisibilityType visibilityType = VisibilityType.PACKAGE_PRIVATE;
-		if (Modifier.isPublic(paramModifier)) {
-			visibilityType = VisibilityType.PUBLIC;
-		} else if (Modifier.isPrivate(paramModifier)) {
-			visibilityType = VisibilityType.PRIVATE;
-		} else if (Modifier.isProtected(paramModifier)) {
-			visibilityType = VisibilityType.PROTECTED;
-		}
-		return visibilityType;
 	}
 
 	/**
@@ -618,36 +306,11 @@ public class ClassAnalyzer {
 					parameterName = parameterName.substring(parameterName.lastIndexOf('.') + 1, parameterName.length());
 				}
 				parameterName = "param" + parameterName + counter;
-				parameters.put(parameterName, removeJavaLangPackage(parameter.getName()));
+				parameters.put(parameterName, AnalyzerUtil.removeJavaLangPackage(parameter.getName()));
 				counter++;
 			}
 		}
 		return parameters;
-	}
-
-	/**
-	 * Checks if a method is a getter or a setter method of a declared field.
-	 *
-	 * @param paramMethod         - Method - the method to be checked
-	 * @param paramDeclaredFields - Field[] - the declared fields used for the check
-	 * @return true, if is getter or setter method
-	 */
-	private boolean isGetterOrSetterMethod(final Method paramMethod, final Field[] paramDeclaredFields) {
-		String methodName = paramMethod.getName();
-		if (methodName.startsWith("get")) {
-			methodName = methodName.substring(3, methodName.length());
-		} else if (methodName.startsWith("is")) {
-			methodName = methodName.substring(2, methodName.length());
-		} else if (methodName.startsWith("set")) {
-			methodName = methodName.substring(3, methodName.length());
-		}
-		for (final Field field : paramDeclaredFields) {
-			final String fieldName = field.getName();
-			if (fieldName.equalsIgnoreCase(methodName)) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	/**
@@ -683,8 +346,8 @@ public class ClassAnalyzer {
 				if (relationshipAdded) {
 					// do nothing - skip processing
 				} else if (includeClass(type)) {
-					List<String> annotations = new ArrayList<>();
-					addJPAFieldAnnotationsToList(field, paramDeclaredMethods, annotations);
+					List<String> annotations = new JPAAnalyzerHelper().addJPAFieldAnnotationsToList(field,
+							paramDeclaredMethods, plantUMLConfig.getDestinationClassloader());
 					final UMLRelationship relationship = createUMLRelationship4Field(field, type, annotations);
 					addRelationship(paramUmlClass, relationship);
 				} else {
@@ -731,163 +394,10 @@ public class ClassAnalyzer {
 	 */
 	private void addFieldToUMLClass(final UMLClass paramUmlClass, final java.lang.reflect.Field field,
 			final Class<?> type, Method[] paramDeclaredMethods) {
-		// Do not add field if they should be ignored/removed
-		if (plantUMLConfig.isRemoveFields())
-			return;
-		// if there is a blacklist for field and the field name matches it, then
-		// ignore/remove the field
-		if (plantUMLConfig.getFieldBlacklistRegexp() != null
-				&& field.getName().matches(plantUMLConfig.getFieldBlacklistRegexp()))
-			return;
-		final int modifier = field.getModifiers();
-		List<String> annotationStringList = new ArrayList<>();
-		if (plantUMLConfig.isAddJPAAnnotations()) {
-			addJPAFieldAnnotationsToList(field, paramDeclaredMethods, annotationStringList);
-		}
-		final ClassifierType classifierType = getClassifier(modifier);
-		if (plantUMLConfig.getFieldClassifierToIgnore().contains(classifierType))
-			return;
-		VisibilityType visibilityType = getVisibility(modifier);
-		if (hasGetterAndSetterMethod(field.getName(), paramDeclaredMethods)) {
-			visibilityType = VisibilityType.PUBLIC;
-		}
-		// check if field should be visible by maximum visibility
-		if (!visibilityOk(plantUMLConfig.getMaxVisibilityFields(), visibilityType))
-			return;
-		final UMLField umlField = new UMLField(classifierType, visibilityType, field.getName(),
-				removeJavaLangPackage(type.getName()), annotationStringList);
-		paramUmlClass.addField(umlField);
-	}
-
-	/**
-	 * Adds the JPA field annotations to list.
-	 *
-	 * @param field                the field
-	 * @param paramDeclaredMethods the param declared methods
-	 * @param annotationStringList the annotation string list
-	 */
-	private void addJPAFieldAnnotationsToList(final java.lang.reflect.Field field, Method[] paramDeclaredMethods,
-			List<String> annotationStringList) {
-		ClassLoader destinationClassloader = plantUMLConfig.getDestinationClassloader();
-		if (destinationClassloader != null) {
-			addJPAFieldAnnotationClassToList(field, paramDeclaredMethods, annotationStringList, destinationClassloader,
-					"javax.persistence.Column");
-			addJPAFieldAnnotationClassToList(field, paramDeclaredMethods, annotationStringList, destinationClassloader,
-					"javax.persistence.Id");
-			addJPAFieldAnnotationClassToList(field, paramDeclaredMethods, annotationStringList, destinationClassloader,
-					"javax.persistence.Transient");
-			addJPAFieldAnnotationClassToList(field, paramDeclaredMethods, annotationStringList, destinationClassloader,
-					"javax.persistence.OneToOne");
-			addJPAFieldAnnotationClassToList(field, paramDeclaredMethods, annotationStringList, destinationClassloader,
-					"javax.persistence.OneToMany");
-			addJPAFieldAnnotationClassToList(field, paramDeclaredMethods, annotationStringList, destinationClassloader,
-					"javax.persistence.ManyToMany");
-			addJPAFieldAnnotationClassToList(field, paramDeclaredMethods, annotationStringList, destinationClassloader,
-					"javax.persistence.ManyToOne");
-		}
-	}
-
-	/**
-	 * Adds the JPA field annotation class to list.
-	 *
-	 * @param field                    the field
-	 * @param paramDeclaredMethods     the param declared methods
-	 * @param annotationStringList     the annotation string list
-	 * @param destinationClassloader   the destination classloader
-	 * @param paramAnnotationClassname the param annotation classname
-	 */
-	private void addJPAFieldAnnotationClassToList(final java.lang.reflect.Field field, Method[] paramDeclaredMethods, // NOSONAR
-			List<String> annotationStringList, ClassLoader destinationClassloader, String paramAnnotationClassname) {
-		try {
-			boolean foundAnnotation = false;
-			Class<?> columnAnnotation = destinationClassloader.loadClass(paramAnnotationClassname);
-			Annotation[] annotations = field.getAnnotations();
-			for (Annotation annotation : annotations) {
-				if (columnAnnotation.isAssignableFrom(annotation.getClass())) {
-					annotationStringList.add(getColumnAnnotationString(annotation, columnAnnotation.getSimpleName()));
-					foundAnnotation = true;
-				}
-			}
-			if (!foundAnnotation) {
-				for (Method declaredMethod : paramDeclaredMethods) {
-					if (isGetterOrSetterMethod(declaredMethod, new Field[] { field })) {
-						annotations = declaredMethod.getAnnotations();
-						for (Annotation annotation : annotations) {
-							if (columnAnnotation.isAssignableFrom(annotation.getClass())) {
-								annotationStringList
-										.add(getColumnAnnotationString(annotation, columnAnnotation.getSimpleName()));
-							}
-						}
-					}
-				}
-			}
-		} catch (ClassNotFoundException | SecurityException | IllegalArgumentException e) {
-			// ignore all exceptions
-		}
-	}
-
-	/**
-	 * Checks if the given visibilityType of a field or method should lead to an
-	 * appreance on the diagram according to the configured maximum visibility.
-	 * 
-	 * @param maxVisibilityFields {@link VisibilityType} - the configured maximum
-	 *                            visibility to check against
-	 * @param visibilityType      {@link VisibilityType} - the visibility of a field
-	 *                            or method which could be part of the diagram
-	 * @return boolean - if the field or method should be visible on the diagram
-	 */
-	private boolean visibilityOk(VisibilityType maxVisibilityFields, VisibilityType visibilityType) {
-		if (maxVisibilityFields != null) {
-			// if maximum is public only public is allowed as visibility type
-			if (maxVisibilityFields.equals(VisibilityType.PUBLIC) && !visibilityType.equals(VisibilityType.PUBLIC))
-				return false;
-			// if maximum is protected only public and protected are allowed
-			if (maxVisibilityFields.equals(VisibilityType.PROTECTED) && !(visibilityType.equals(VisibilityType.PUBLIC)
-					|| visibilityType.equals(VisibilityType.PROTECTED)))
-				return false;
-			// if maximum is package_private then only public, package_private and protected
-			// are
-			// allowed
-			if (maxVisibilityFields.equals(VisibilityType.PACKAGE_PRIVATE)
-					&& !(visibilityType.equals(VisibilityType.PUBLIC)
-							|| visibilityType.equals(VisibilityType.PACKAGE_PRIVATE)
-							|| visibilityType.equals(VisibilityType.PROTECTED)))
-				return false;
-		}
-		// everything else like maximum private or no defined maximum visibility leads
-		// to
-		// an ok check
-		return true;
-	}
-
-	/**
-	 * Checks if a field has getter and setter methods.
-	 *
-	 * @param paramFieldName       - String - the field name
-	 * @param paramDeclaredMethods - Method[] - the methods which should be used for
-	 *                             the check
-	 * @return true, if successful
-	 */
-	private boolean hasGetterAndSetterMethod(final String paramFieldName, final Method[] paramDeclaredMethods) {
-		final String getterMethodName = "get" + paramFieldName;
-		final String setterMethodName = "set" + paramFieldName;
-		final String isMethodName = "is" + paramFieldName;
-		boolean hasGetterMethod = false;
-		boolean hasSetterMethod = false;
-		if (paramDeclaredMethods != null) {
-			for (final Method method : paramDeclaredMethods) {
-				final String methodName = method.getName();
-				if (methodName.equalsIgnoreCase(getterMethodName) || methodName.equalsIgnoreCase(isMethodName)) {
-					hasGetterMethod = true;
-				} else if (methodName.equalsIgnoreCase(setterMethodName)) {
-					hasSetterMethod = true;
-				}
-				if (hasSetterMethod && hasGetterMethod) {
-					return true;
-				}
-			}
-		}
-		return false;
+		FieldAnalyzer fieldAnalyzer = new FieldAnalyzer(plantUMLConfig);
+		UMLField umlField = fieldAnalyzer.analyzeField(field, type, paramDeclaredMethods);
+		if (umlField != null)
+			paramUmlClass.addField(umlField);
 	}
 
 	/**
@@ -916,8 +426,8 @@ public class ClassAnalyzer {
 				for (final Type typeArgument : actualTypeArguments) {
 					final Class<?> typeArgumentClass = getClassForType(typeArgument);
 					if (((typeArgumentClass != null) && includeClass(typeArgumentClass))) {
-						List<String> annotations = new ArrayList<>();
-						addJPAFieldAnnotationsToList(paramField, paramDeclaredMethods, annotations);
+						List<String> annotations = new JPAAnalyzerHelper().addJPAFieldAnnotationsToList(paramField,
+								paramDeclaredMethods, plantUMLConfig.getDestinationClassloader());
 						final UMLRelationship relationship = new UMLRelationship("1", "0..*", paramField.getName(),
 								paramField.getDeclaringClass().getName(), (typeArgumentClass).getName(),
 								RelationshipType.AGGREGATION, annotations);

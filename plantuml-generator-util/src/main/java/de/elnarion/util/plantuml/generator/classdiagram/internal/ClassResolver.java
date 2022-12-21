@@ -11,7 +11,7 @@ import io.github.classgraph.ScanResult;
 /**
  * The Class ClassResolver.
  */
-public class ClassResolver {
+class ClassResolver {
 
 	/** The destination class loader. */
 	private ClassLoader destinationClassLoader;

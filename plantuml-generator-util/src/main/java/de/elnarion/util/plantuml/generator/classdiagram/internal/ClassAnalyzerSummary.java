@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * The Class PlantUMLClassDiagramAnalyzeSummary.
  */
-public class ClassDiagramAnalyzeSummary {
+public class ClassAnalyzerSummary {
 
 	/** The classes. */
 	private Map<String, UMLClass> classes;
@@ -20,7 +20,7 @@ public class ClassDiagramAnalyzeSummary {
 	 * @param paramClasses the param classes
 	 * @param paramClassesAndRelationships the param classes and relationships
 	 */
-	public ClassDiagramAnalyzeSummary(Map<String, UMLClass> paramClasses,
+	public ClassAnalyzerSummary(Map<String, UMLClass> paramClasses,
 			Map<UMLClass, List<UMLRelationship>> paramClassesAndRelationships) {
 		classes = paramClasses;
 		classesAndRelationships = paramClassesAndRelationships;

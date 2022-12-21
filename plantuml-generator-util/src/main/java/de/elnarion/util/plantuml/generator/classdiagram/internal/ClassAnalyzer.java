@@ -28,7 +28,7 @@ import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
 /**
  * The Class PlantUMLClassDiagramAnalyzerAndMapper.
  */
-public class ClassDiagramAnalyzerAndMapper {
+public class ClassAnalyzer {
 
 	/** The plant UML config. */
 	private PlantUMLClassDiagramConfig plantUMLConfig;
@@ -46,7 +46,7 @@ public class ClassDiagramAnalyzerAndMapper {
 	 *
 	 * @param paramPlantUMLConfig the param plant UML config
 	 */
-	public ClassDiagramAnalyzerAndMapper(PlantUMLClassDiagramConfig paramPlantUMLConfig) {
+	public ClassAnalyzer(PlantUMLClassDiagramConfig paramPlantUMLConfig) {
 		plantUMLConfig = paramPlantUMLConfig;
 	}
 
@@ -55,7 +55,7 @@ public class ClassDiagramAnalyzerAndMapper {
 	 *
 	 * @return the plant UML class diagram analyze summary
 	 */
-	public ClassDiagramAnalyzeSummary analyzeClassesAndMapThemToTheInternalClassStructure() {
+	public ClassAnalyzerSummary analyzeClassesAndMapThemToTheInternalClassStructure() {
 		// read all classes from directories or jars
 		resolvedClasses
 				.addAll(new ClassResolver(plantUMLConfig.getDestinationClassloader(), plantUMLConfig.getScanPackages(),
@@ -67,7 +67,7 @@ public class ClassDiagramAnalyzerAndMapper {
 		for (final Class<?> clazz : resolvedClasses) {
 			mapToDomainClasses(clazz);
 		}
-		return new ClassDiagramAnalyzeSummary(classes, classesAndRelationships);
+		return new ClassAnalyzerSummary(classes, classesAndRelationships);
 	}
 
 	/**

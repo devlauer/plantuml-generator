@@ -8,13 +8,31 @@ import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfoList;
 import io.github.classgraph.ScanResult;
 
+/**
+ * The Class ClassResolver.
+ */
 public class ClassResolver {
 
+	/** The destination class loader. */
 	private ClassLoader destinationClassLoader;
+	
+	/** The scanpackages. */
 	private List<String> scanpackages;
+	
+	/** The blacklist reg exp. */
 	private String blacklistRegExp;
+	
+	/** The whitelist reg exp. */
 	private String whitelistRegExp;
 	
+	/**
+	 * Instantiates a new class resolver.
+	 *
+	 * @param paramDestinationClassloader the param destination classloader
+	 * @param paramScanpackages the param scanpackages
+	 * @param paramBlacklistRegExp the param blacklist reg exp
+	 * @param paramWhitelistRegExp the param whitelist reg exp
+	 */
 	public ClassResolver(ClassLoader paramDestinationClassloader, List<String> paramScanpackages,
 			String paramBlacklistRegExp, String paramWhitelistRegExp) {
 		destinationClassLoader = paramDestinationClassloader;
@@ -23,6 +41,11 @@ public class ClassResolver {
 		whitelistRegExp = paramWhitelistRegExp;
 	}
 
+	/**
+	 * Gets the all diagram classes.
+	 *
+	 * @return the all diagram classes
+	 */
 	public Set<Class<?>> getAllDiagramClasses() {
 		if (whitelistRegExp == null)
 			return getAllClassesInScanPackages();

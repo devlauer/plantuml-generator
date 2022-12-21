@@ -157,8 +157,7 @@ public class PlantUMLClassDiagramTextBuilder {
 		listToCompare.addAll(classes.values());
 		// because the ordered list could be changed in between, sort the list
 		Collections.sort(listToCompare, (o1, o2) -> o1.getName().compareTo(o2.getName()));
-		final Collection<UMLClass> classesList = listToCompare;
-		return classesList;
+		return listToCompare;
 	}
 
 	/**

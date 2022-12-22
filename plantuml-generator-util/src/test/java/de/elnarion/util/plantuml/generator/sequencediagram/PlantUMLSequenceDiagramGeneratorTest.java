@@ -191,7 +191,6 @@ class PlantUMLSequenceDiagramGeneratorTest {
 
 		// ACT
 		String generatedDiagram = generator.generateDiagramText();
-		System.out.println(generatedDiagram);
 
 		// ASSERT
 		assertAll(() -> assertNotNull(generatedDiagram), () -> assertEquals(expectedDiagramText.replaceAll("\\s+", ""),

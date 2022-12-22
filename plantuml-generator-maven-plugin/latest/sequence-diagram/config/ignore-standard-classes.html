@@ -341,7 +341,7 @@ This is similar to the
 </div>
 <div class="imageblock kroki">
 <div class="content">
-<img src="../../_images/0003_jpa_test_with_standard_classes_diagram-8ebacdcaf3e06c98acf13ede16fae0094ea8d238.png" alt="0003_jpa_test_with_standard_classes_diagram">
+<img src="../../_images/0003_jpa_test_with_standard_classes_diagram-7917fd51e7f144a506ceeedbb1e5fd6d76b6d409.png" alt="0003_jpa_test_with_standard_classes_diagram">
 </div>
 </div>
 <div class="paragraph">
@@ -370,6 +370,10 @@ activate MovieService
 			MovieDAO --&gt; MovieDAO
 		deactivate MovieDAO
 		MovieDAO -&gt; Long : longValue
+		activate Long
+			Long --&gt; MovieDAO
+		deactivate Long
+		MovieDAO -&gt; Long : valueOf
 		activate Long
 			Long --&gt; MovieDAO
 		deactivate Long

@@ -254,7 +254,6 @@ String expectedDiagramText = IOUtils.toString(
 
 // ACT
 String generatedDiagram = generator.generateDiagramText();
-System.out.println(generatedDiagram);
 
 // ASSERT
 assertAll(() -&gt; assertNotNull(generatedDiagram), () -&gt; assertEquals(expectedDiagramText.replaceAll("\\s+", ""),

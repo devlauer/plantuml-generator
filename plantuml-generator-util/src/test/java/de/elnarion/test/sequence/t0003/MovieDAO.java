@@ -23,7 +23,7 @@ public class MovieDAO {
 
 	public Movie getMovie(Long movieId) {
 	    EntityManager em = getEntityManager();
-	    Movie movie = em.find(Movie.class, new Long(movieId));
+	    Movie movie = em.find(Movie.class, Long.valueOf(movieId));
 	    em.detach(movie);
 	    return movie;
 	}	
@@ -49,7 +49,7 @@ public class MovieDAO {
 	public void removeMovie() {
 	    EntityManager em = getEntityManager();
 	    em.getTransaction().begin();
-	    Movie movie = em.find(Movie.class, new Long(1L));
+	    Movie movie = em.find(Movie.class, Long.valueOf(1L));
 	    em.remove(movie);
 	    em.getTransaction().commit();
 	}

@@ -22,6 +22,10 @@ activate MovieService
 		activate Long
 			Long --> MovieDAO
 		deactivate Long
+		MovieDAO -> Long : valueOf
+		activate Long
+			Long --> MovieDAO
+		deactivate Long
 		MovieDAO -> EntityManager : find
 		activate EntityManager
 			EntityManager --> MovieDAO
@@ -67,4 +71,3 @@ activate MovieService
 deactivate MovieService
 
 @enduml
-

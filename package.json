@@ -11,6 +11,9 @@
 	"overrides": {
 		"vinyl-fs": {
 			"glob-stream": "~7.0"
+		},
+		"asciidoctor-kroki": {
+			"json5": "~2.2.2"
 		}
 	}
 }

@@ -660,7 +660,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		assertNotNull(result);
 		assertNotNull(expectedDiagramText);
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
-		// end::additionalplantumlconfig[]
+		// end::classrelationships[]
 	}
 
 	/**

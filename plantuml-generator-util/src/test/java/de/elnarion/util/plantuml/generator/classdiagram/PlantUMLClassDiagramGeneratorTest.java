@@ -676,7 +676,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0025");
 		PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
-				.withUseShortClassNames(true).build();
+				.withUseShortClassNames(true).build(); // <1>
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
 		String result = generator.generateDiagramText();
 		String expectedDiagramText = IOUtils.toString(classLoader.getResource("class/0025_use_short_classnames.txt"),
@@ -699,7 +699,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0025");
 		PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
-				.withUseShortClassNamesInFieldsAndMethods(true).build();
+				.withUseShortClassNamesInFieldsAndMethods(true).build(); // <1>
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
 		String result = generator.generateDiagramText();
 		String expectedDiagramText = IOUtils.toString(

@@ -1,0 +1,20 @@
+include::./_attributes.adoc[]
+
+= Description
+// tag::description[]
+
+With this configuration toggle you can specify that all class names
+in the diagram should be generated without any package name.
+
+If you only want to shorten the class names in fields and methods, 
+you have to use the
+xref:./use-short-classnames-in-fields-and-methods.adoc[useShortClassNamesInFieldsAndMethods]
+configuration option.
+
+// end::description[]
+
+= Default value
+// tag::defaultvalue[]
+The default value of this configuration option is false (no package name is removed).
+// end::defaultvalue[]
+

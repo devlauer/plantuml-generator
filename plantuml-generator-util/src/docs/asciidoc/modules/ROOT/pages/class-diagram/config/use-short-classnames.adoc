@@ -1,0 +1,32 @@
+= removeFields
+include::./_attributes.adoc[]
+
+include::partial$class-diagram/use-short-classnames.adoc[leveloffset=+1]
+
+== Example
+
+Here is an example from the JUnit tests using this configuration parameter:
+
+[source,java,indent=0]
+----
+include::example$testsrc/de/elnarion/util/plantuml/generator/classdiagram/{generatorclass}Test.java[tags=useshortclassnames]
+----
+[sidebar]
+--
+<1> toggle "useShorClassNames" configuration
+--
+
+which is rendered this way:
+
+[plantuml,0025_use_short_classnames_diagram,png]
+----
+include::example$testresources/class/0025_use_short_classnames.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::example$testresources/class/0025_use_short_classnames.txt[]
+----

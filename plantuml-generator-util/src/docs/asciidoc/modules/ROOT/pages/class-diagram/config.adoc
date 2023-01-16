@@ -97,6 +97,11 @@ of the unrendered diagram)
 * xref:./config/remove-methods.adoc[removeMethods] + 
 to remove methods completely from the diagram (they are not part 
 of the unrendered diagram)
+* xref:./config/use-short-classnames.adoc[useShortClassNames] + 
+to shorten the class names in the diagram
+* xref:./config/use-short-classnames-in-fields-and-methods.adoc[useShortClassNamesInFieldsAndMethods] + 
+to shorten the class names only in fields and methods in the diagram
+
 
 After you configured everything you can construct the 
 {configclass}

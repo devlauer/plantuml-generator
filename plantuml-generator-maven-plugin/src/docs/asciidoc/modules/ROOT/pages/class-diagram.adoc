@@ -96,6 +96,6 @@ by an markdown diagram block - default is ``false``; optional;
   no method information will be part of the diagram text
 ** *xref:class-diagram/config/use-short-classnames.adoc[useShortClassNames]* - 
   simple toggle to shorten all class names in the diagram.
-** *xref:class-diagram/config/use-short-classnames-in-fields-and-methods.adoc[useShortClassNames]* - 
+** *xref:class-diagram/config/use-short-classnames-in-fields-and-methods.adoc[useShortClassNamesInFieldsAndMethods]* - 
   simple toggle to shorten class names only in fields and methods in the diagram.
   

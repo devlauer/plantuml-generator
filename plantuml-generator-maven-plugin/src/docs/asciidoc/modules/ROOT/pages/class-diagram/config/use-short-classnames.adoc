@@ -22,7 +22,7 @@ should be generated as class diagram with the following plugin configuration:
 include::example$itresources/classdiagram/0023-use-short-classnames-it/pom.xml[tags=mvn]
 ----
 
-but all fields should be removed from the rendered diagram. 
+but all class names should not have a package in the diagram. 
 This configuration leads to this diagram:
 
 [plantuml,0023_use_short_classnames_diagram,png]
@@ -34,5 +34,5 @@ and produces this PlantUML diagram text:
 
 [source,plantuml,indent=0]
 ----
-include::plantuml-generator-util:ROOT:example$testresources/class/0025_use_short_classnames_in_fields_and_methods.txt[]
+include::plantuml-generator-util:ROOT:example$testresources/class/0025_use_short_classnames.txt[]
 ----

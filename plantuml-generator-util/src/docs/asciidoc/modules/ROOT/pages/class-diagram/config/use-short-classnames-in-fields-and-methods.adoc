@@ -1,4 +1,4 @@
-= removeFields
+= useShortClassNamesInFieldsAndMethods
 include::./_attributes.adoc[]
 
 include::partial$class-diagram/use-short-classnames-in-fields-and-methods.adoc[leveloffset=+1]

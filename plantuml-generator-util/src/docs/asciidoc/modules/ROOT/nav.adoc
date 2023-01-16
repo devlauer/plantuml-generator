@@ -16,6 +16,8 @@
 *** xref:class-diagram/config/method-classifier-to-ignore.adoc[]
 *** xref:class-diagram/config/remove-fields.adoc[]
 *** xref:class-diagram/config/remove-methods.adoc[]
+*** xref:class-diagram/config/use-short-classnames.adoc[]
+*** xref:class-diagram/config/use-short-classnames-in-fields-and-methods.adoc[]
 *** xref:class-diagram/config/whitelist-regexp.adoc[]
 
 * xref:sequence-diagram.adoc[]

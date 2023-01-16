@@ -3,6 +3,7 @@ package de.elnarion.util.plantuml.generator.classdiagram.internal;
 import java.lang.reflect.Modifier;
 
 import de.elnarion.util.plantuml.generator.classdiagram.config.ClassifierType;
+import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiagramConfig;
 import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
 
 /**
@@ -57,8 +58,8 @@ class AnalyzerUtil {
 			visibilityType = VisibilityType.PROTECTED;
 		}
 		return visibilityType;
-	}	
-	
+	}
+
 	/**
 	 * Removes the java lang package string from a full qualified class name. This
 	 * makes it easier to read the class diagram.
@@ -71,8 +72,48 @@ class AnalyzerUtil {
 			paramTypeName = paramTypeName.substring("java.lang.".length(), paramTypeName.length());
 		}
 		return paramTypeName;
-	}	
-	
+	}
+
+	/**
+	 * Gets the class name according to the given configuration for parameters or
+	 * return types in methods or fields in classes.
+	 *
+	 * @param parameter           the parameter
+	 * @param paramPlantUMLConfig the param plant UML config
+	 * @return the class name
+	 */
+	public static String getClassNameForFieldsAndMethods(final Class<?> parameter,
+			PlantUMLClassDiagramConfig paramPlantUMLConfig) {
+		String parameterType;
+		if (paramPlantUMLConfig.isUseShortClassNames()
+				|| paramPlantUMLConfig.isUseShortClassNamesInFieldsAndMethods()) {
+			parameterType = parameter.getSimpleName();
+		} else {
+			parameterType = parameter.getName();
+		}
+		parameterType = AnalyzerUtil.removeJavaLangPackage(parameterType);
+		return parameterType;
+	}
+
+	/**
+	 * Gets the class name for classes or relationships.
+	 *
+	 * @param parameter           the parameter
+	 * @param paramPlantUMLConfig the param plant UML config
+	 * @return the class name for classtypes
+	 */
+	public static String getClassNameForClassesOrRelationships(final Class<?> parameter,
+			PlantUMLClassDiagramConfig paramPlantUMLConfig) {
+		String parameterType;
+		if (paramPlantUMLConfig.isUseShortClassNames()) {
+			parameterType = parameter.getSimpleName();
+		} else {
+			parameterType = parameter.getName();
+		}
+		parameterType = AnalyzerUtil.removeJavaLangPackage(parameterType);
+		return parameterType;
+	}
+
 	/**
 	 * Checks if the given visibilityType of a field or method should lead to an
 	 * appreance on the diagram according to the configured maximum visibility.
@@ -105,5 +146,5 @@ class AnalyzerUtil {
 		// to
 		// an ok check
 		return true;
-	}	
+	}
 }

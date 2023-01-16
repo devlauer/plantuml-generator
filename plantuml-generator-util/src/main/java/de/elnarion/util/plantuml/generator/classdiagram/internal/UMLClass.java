@@ -1,6 +1,5 @@
 package de.elnarion.util.plantuml.generator.classdiagram.internal;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,7 +11,6 @@ import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
  */
 public class UMLClass implements PlantUMLDiagramElement {
 
-	private VisibilityType visibilityType;
 	private String name;
 	private ClassType classType;
 	private List<UMLField> fields;
@@ -32,32 +30,13 @@ public class UMLClass implements PlantUMLDiagramElement {
 	 * @param paramStereotypes    - List&lt;UMLStereotype&gt; - the stereotypes of
 	 *                            the class
 	 */
-	public UMLClass(VisibilityType paramVisibilityType, ClassType paramClassType, List<UMLField> paramFields,
-			List<UMLMethod> paramMethods, String paramName, List<UMLStereotype> paramStereotypes) {
-		visibilityType = paramVisibilityType;
+	public UMLClass(ClassType paramClassType, List<UMLField> paramFields, List<UMLMethod> paramMethods,
+			String paramName, List<UMLStereotype> paramStereotypes) {
 		classType = paramClassType;
 		name = paramName;
 		fields = paramFields;
 		methods = paramMethods;
 		stereotypes = paramStereotypes;
-	}
-
-	/**
-	 * Gets the stereotypes.
-	 *
-	 * @return List - the stereotypes
-	 */
-	public List<UMLStereotype> getStereotypes() {
-		return stereotypes;
-	}
-
-	/**
-	 * Gets the visibility type.
-	 *
-	 * @return VisibilityType - the visibility type
-	 */
-	public VisibilityType getVisibilityType() {
-		return visibilityType;
 	}
 
 	/**
@@ -67,33 +46,6 @@ public class UMLClass implements PlantUMLDiagramElement {
 	 */
 	public String getName() {
 		return name;
-	}
-
-	/**
-	 * Gets the class type.
-	 *
-	 * @return ClassType - the class type
-	 */
-	public ClassType getClassType() {
-		return classType;
-	}
-
-	/**
-	 * Gets the fields.
-	 *
-	 * @return List - the fields
-	 */
-	public List<UMLField> getFields() {
-		return fields;
-	}
-
-	/**
-	 * Gets the methods.
-	 *
-	 * @return List - the methods
-	 */
-	public List<UMLMethod> getMethods() {
-		return methods;
 	}
 
 	@Override
@@ -108,8 +60,7 @@ public class UMLClass implements PlantUMLDiagramElement {
 			addStereotypeTaggedValues(builder);
 			builder.append(System.lineSeparator());
 			if (fields != null && !fields.isEmpty()) {
-				Collections.sort(fields,(UMLField o1, UMLField o2) -> 
-						o1.getName().compareTo(o2.getName()));
+				Collections.sort(fields, (UMLField o1, UMLField o2) -> o1.getName().compareTo(o2.getName()));
 				for (UMLField field : fields) {
 					builder.append("\t");
 					builder.append(field.getDiagramText());
@@ -137,7 +88,7 @@ public class UMLClass implements PlantUMLDiagramElement {
 				builder.append(stereotype.getDiagramText());
 				builder.append(" ");
 			}
-			
+
 		}
 	}
 
@@ -145,15 +96,13 @@ public class UMLClass implements PlantUMLDiagramElement {
 		if (stereotypes != null) {
 			boolean addedTaggedValues = false;
 			for (UMLStereotype stereotype : stereotypes) {
-				
-				if(stereotype.hasTaggedValues())
-				{
+
+				if (stereotype.hasTaggedValues()) {
 					builder.append(stereotype.getTaggedValueCompartment());
-					addedTaggedValues=true;
+					addedTaggedValues = true;
 				}
 			}
-			if(addedTaggedValues)
-			{
+			if (addedTaggedValues) {
 				builder.append(System.lineSeparator());
 				builder.append("--");
 			}
@@ -190,9 +139,6 @@ public class UMLClass implements PlantUMLDiagramElement {
 	 * @param paramField the param field
 	 */
 	public void addField(UMLField paramField) {
-		if (fields == null) {
-			fields = new ArrayList<>();
-		}
 		fields.add(paramField);
 	}
 
@@ -202,9 +148,6 @@ public class UMLClass implements PlantUMLDiagramElement {
 	 * @param paramMethod the param method
 	 */
 	public void addMethod(UMLMethod paramMethod) {
-		if (methods == null) {
-			methods = new ArrayList<>();
-		}
 		methods.add(paramMethod);
 	}
 

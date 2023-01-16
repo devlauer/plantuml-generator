@@ -64,24 +64,6 @@ public class UMLMethod implements PlantUMLDiagramElement {
 	}
 
 	/**
-	 * Gets the visibility type.
-	 *
-	 * @return VisibilityType - the visibility type
-	 */
-	public VisibilityType getVisibilityType() {
-		return visibilityType;
-	}
-
-	/**
-	 * Gets the result type.
-	 *
-	 * @return String - the result type
-	 */
-	public String getResultType() {
-		return resultType;
-	}
-
-	/**
 	 * Gets the parameters and types.
 	 *
 	 * @return Map - the parameters and types

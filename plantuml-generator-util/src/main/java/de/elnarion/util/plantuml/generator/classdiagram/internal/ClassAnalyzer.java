@@ -81,12 +81,7 @@ public class ClassAnalyzer {
 		}
 
 		final int modifiers = paramClassObject.getModifiers();
-		VisibilityType visibilityType = VisibilityType.PUBLIC;
-		if (Modifier.isPrivate(modifiers)) {
-			visibilityType = VisibilityType.PRIVATE;
-		} else if (Modifier.isProtected(modifiers)) {
-			visibilityType = VisibilityType.PROTECTED;
-		}
+
 		ClassType classType = ClassType.CLASS;
 		if (paramClassObject.isAnnotation()) {
 			classType = ClassType.ANNOTATION;
@@ -99,11 +94,12 @@ public class ClassAnalyzer {
 		}
 		List<UMLStereotype> stereotypes = new ArrayList<>();
 		if (plantUMLConfig.isAddJPAAnnotations()) {
-			new JPAAnalyzerHelper().addJPAStereotype(paramClassObject, stereotypes,plantUMLConfig.getDestinationClassloader());
+			new JPAAnalyzerHelper().addJPAStereotype(paramClassObject, stereotypes,
+					plantUMLConfig.getDestinationClassloader());
 		}
 
-		final UMLClass umlClass = new UMLClass(visibilityType, classType, new ArrayList<>(), new ArrayList<>(),
-				paramClassObject.getName(), stereotypes);
+		final UMLClass umlClass = new UMLClass(classType, new ArrayList<>(), new ArrayList<>(),
+				AnalyzerUtil.getClassNameForClassesOrRelationships(paramClassObject, plantUMLConfig), stereotypes);
 		final List<UMLRelationship> relationships = new ArrayList<>();
 		classesAndRelationships.put(umlClass, relationships);
 		classes.put(paramClassObject.getName(), umlClass);
@@ -154,7 +150,9 @@ public class ClassAnalyzer {
 			for (final Annotation annotation : annotations) {
 				if (includeClass(annotation.annotationType())) {
 					final UMLRelationship relationship = new UMLRelationship(null, null, null,
-							paramClassObject.getName(), annotation.annotationType().getName(),
+							AnalyzerUtil.getClassNameForClassesOrRelationships(paramClassObject, plantUMLConfig),
+							AnalyzerUtil.getClassNameForClassesOrRelationships(annotation.annotationType(),
+									plantUMLConfig),
 							RelationshipType.ASSOCIATION, new ArrayList<>());
 					addRelationship(umlClass, relationship);
 				}
@@ -196,8 +194,9 @@ public class ClassAnalyzer {
 			for (final Class<?> interfaceElement : interfaces) {
 				if (includeClass(interfaceElement)) {
 					final UMLRelationship relationship = new UMLRelationship(null, null, null,
-							paramClassObject.getName(), interfaceElement.getName(), RelationshipType.REALIZATION,
-							new ArrayList<>());
+							AnalyzerUtil.getClassNameForClassesOrRelationships(paramClassObject, plantUMLConfig),
+							AnalyzerUtil.getClassNameForClassesOrRelationships(interfaceElement, plantUMLConfig),
+							RelationshipType.REALIZATION, new ArrayList<>());
 					addRelationship(paramUmlClass, relationship);
 				}
 			}
@@ -216,8 +215,10 @@ public class ClassAnalyzer {
 	private void addSuperClassRelationship(final Class<?> paramClassObject, final UMLClass paramUmlClass) {
 		final Class<?> superClass = paramClassObject.getSuperclass();
 		if (superClass != null && includeClass(superClass)) {
-			final UMLRelationship relationship = new UMLRelationship(null, null, null, paramClassObject.getName(),
-					superClass.getName(), RelationshipType.INHERITANCE, new ArrayList<>());
+			final UMLRelationship relationship = new UMLRelationship(null, null, null,
+					AnalyzerUtil.getClassNameForClassesOrRelationships(paramClassObject, plantUMLConfig),
+					AnalyzerUtil.getClassNameForClassesOrRelationships(superClass, plantUMLConfig),
+					RelationshipType.INHERITANCE, new ArrayList<>());
 			addRelationship(paramUmlClass, relationship);
 		}
 	}
@@ -259,8 +260,8 @@ public class ClassAnalyzer {
 				if (plantUMLConfig.getMethodBlacklistRegexp() != null
 						&& methodName.matches(plantUMLConfig.getMethodBlacklistRegexp()))
 					continue;
-				String returnType = method.getReturnType().getName();
-				returnType = AnalyzerUtil.removeJavaLangPackage(returnType);
+				String returnType = AnalyzerUtil.getClassNameForFieldsAndMethods(method.getReturnType(),
+						plantUMLConfig);
 				final Class<?>[] parameterTypes = method.getParameterTypes();
 				final Map<String, String> parameters = convertToParameterStringMap(parameterTypes);
 				final int modifier = method.getModifiers();
@@ -278,8 +279,8 @@ public class ClassAnalyzer {
 				if (Modifier.isSynchronized(modifier)) {
 					stereotypes.add("synchronized");
 				}
-				final de.elnarion.util.plantuml.generator.classdiagram.internal.UMLMethod umlMethod = new de.elnarion.util.plantuml.generator.classdiagram.internal.UMLMethod(
-						classifierType, visibilityType, returnType, methodName, parameters, stereotypes);
+				final UMLMethod umlMethod = new UMLMethod(classifierType, visibilityType, returnType, methodName,
+						parameters, stereotypes);
 				paramUmlClass.addMethod(umlMethod);
 			}
 		}
@@ -306,7 +307,8 @@ public class ClassAnalyzer {
 					parameterName = parameterName.substring(parameterName.lastIndexOf('.') + 1, parameterName.length());
 				}
 				parameterName = "param" + parameterName + counter;
-				parameters.put(parameterName, AnalyzerUtil.removeJavaLangPackage(parameter.getName()));
+				String parameterType = AnalyzerUtil.getClassNameForFieldsAndMethods(parameter, plantUMLConfig);
+				parameters.put(parameterName, parameterType);
 				counter++;
 			}
 		}
@@ -370,11 +372,15 @@ public class ClassAnalyzer {
 			List<String> annotations) {
 		final UMLRelationship relationship;
 		if (Modifier.isFinal(field.getModifiers())) {
-			relationship = new UMLRelationship(null, null, field.getName(), field.getDeclaringClass().getName(),
-					type.getName(), RelationshipType.COMPOSITION, annotations);
+			relationship = new UMLRelationship(null, null, field.getName(),
+					AnalyzerUtil.getClassNameForClassesOrRelationships(field.getDeclaringClass(), plantUMLConfig),
+					AnalyzerUtil.getClassNameForClassesOrRelationships(type, plantUMLConfig),
+					RelationshipType.COMPOSITION, annotations);
 		} else {
-			relationship = new UMLRelationship(null, null, field.getName(), field.getDeclaringClass().getName(),
-					type.getName(), RelationshipType.DIRECTED_ASSOCIATION, annotations);
+			relationship = new UMLRelationship(null, null, field.getName(),
+					AnalyzerUtil.getClassNameForClassesOrRelationships(field.getDeclaringClass(), plantUMLConfig),
+					AnalyzerUtil.getClassNameForClassesOrRelationships(type, plantUMLConfig),
+					RelationshipType.DIRECTED_ASSOCIATION, annotations);
 		}
 		return relationship;
 	}
@@ -429,7 +435,9 @@ public class ClassAnalyzer {
 						List<String> annotations = new JPAAnalyzerHelper().addJPAFieldAnnotationsToList(paramField,
 								paramDeclaredMethods, plantUMLConfig.getDestinationClassloader());
 						final UMLRelationship relationship = new UMLRelationship("1", "0..*", paramField.getName(),
-								paramField.getDeclaringClass().getName(), (typeArgumentClass).getName(),
+								AnalyzerUtil.getClassNameForClassesOrRelationships(paramField.getDeclaringClass(),
+										plantUMLConfig),
+								AnalyzerUtil.getClassNameForClassesOrRelationships(typeArgumentClass, plantUMLConfig),
 								RelationshipType.AGGREGATION, annotations);
 						addRelationship(paramUmlClass, relationship);
 						isRelationshipAggregation = true;

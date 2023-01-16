@@ -58,7 +58,8 @@ class PlantUMLClassDiagramGeneratorTest {
 
 	@ParameterizedTest
 	@MethodSource("provideBaseRenderingTests")
-	void testBaseRendering(String paramScanpackage, String paramCompareTextFile) throws IOException, ClassNotFoundException  {
+	void testBaseRendering(String paramScanpackage, String paramCompareTextFile)
+			throws IOException, ClassNotFoundException {
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add(paramScanpackage);
 		PlantUMLClassDiagramConfigBuilder configBuilder = new PlantUMLClassDiagramConfigBuilder(scanPackages);
@@ -298,7 +299,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
 		// end::whitelistregexpwithscanpackageslimitedtobasepackage[]
 	}
-	
+
 	@Test
 	void test0013MaxVisibilityFields() throws Exception {
 		// tag::maxvisibilityfieldspublic[]
@@ -479,7 +480,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
 		// end::blacklistmethods[]
 	}
-	
+
 	@Test
 	void test0018BlacklistFields() throws Exception {
 		// tag::blacklistfields[]
@@ -534,7 +535,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
 		// end::ignoremultipleclassifierfields[]
 	}
-	
+
 	@Test
 	void test0020IgnoreClassifierMethods() throws Exception {
 		// tag::ignoreclassifiermethods[]
@@ -572,7 +573,7 @@ class PlantUMLClassDiagramGeneratorTest {
 		assertNotNull(expectedDiagramText);
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
 		// end::ignoremultipleclassifiermethods[]
-	}	
+	}
 
 	@Test
 	void test0021JPAAnnotations() throws Exception {
@@ -638,20 +639,75 @@ class PlantUMLClassDiagramGeneratorTest {
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
 		// end::additionalplantumlconfig[]
 	}
-	
+
+	/**
+	 * Test generate diagramm with different class relationships.
+	 *
+	 * @throws IOException            Signals that an I/O exception has occurred.
+	 * @throws ClassNotFoundException the class not found exception
+	 */
 	@Test
 	void test0024ClassRelationships() throws IOException, ClassNotFoundException {
 		// tag::classrelationships[]
 		List<String> scanPackages = new ArrayList<>();
 		scanPackages.add("de.elnarion.test.domain.t0024");
-		PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages).withRemoveMethods(false).build(); 
+		PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages).withRemoveMethods(false)
+				.build();
 		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
 		String result = generator.generateDiagramText();
-		String expectedDiagramText = IOUtils
-				.toString(classLoader.getResource("class/0024_class_relationships.txt"), "utf-8");
+		String expectedDiagramText = IOUtils.toString(classLoader.getResource("class/0024_class_relationships.txt"),
+				"utf-8");
 		assertNotNull(result);
 		assertNotNull(expectedDiagramText);
 		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
 		// end::additionalplantumlconfig[]
 	}
+
+	/**
+	 * Test generate diagram with shortened class names in classes, relationships,
+	 * fields, methods.
+	 *
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws IOException            Signals that an I/O exception has occurred.
+	 */
+	@Test
+	void test0025UseShortClassNames() throws ClassNotFoundException, IOException {
+		// tag::useshortclassnames[]
+		List<String> scanPackages = new ArrayList<>();
+		scanPackages.add("de.elnarion.test.domain.t0025");
+		PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
+				.withUseShortClassNames(true).build();
+		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
+		String result = generator.generateDiagramText();
+		String expectedDiagramText = IOUtils.toString(classLoader.getResource("class/0025_use_short_classnames.txt"),
+				"utf-8");
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+		// end::useshortclassnames[]
+	}
+
+	/**
+	 * Test generate diagram with shortened class names only in fields and methods
+	 *
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+	@Test
+	void test0025UseShortClassNamesInFieldsAndMethods() throws ClassNotFoundException, IOException {
+		// tag::useshortclassnamesinfieldsandmethods[]
+		List<String> scanPackages = new ArrayList<>();
+		scanPackages.add("de.elnarion.test.domain.t0025");
+		PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
+				.withUseShortClassNamesInFieldsAndMethods(true).build();
+		PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
+		String result = generator.generateDiagramText();
+		String expectedDiagramText = IOUtils.toString(
+				classLoader.getResource("class/0025_use_short_classnames_in_fields_and_methods.txt"), "utf-8");
+		assertNotNull(result);
+		assertNotNull(expectedDiagramText);
+		assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+		// end::useshortclassnamesinfieldsandmethods[]
+	}
+
 }

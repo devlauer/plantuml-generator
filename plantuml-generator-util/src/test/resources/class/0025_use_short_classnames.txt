@@ -1,0 +1,37 @@
+@startuml
+
+annotation AnnotationA
+
+interface InterfaceC {
+}
+
+
+abstract class SuperClassC {
+}
+
+
+class TestClassA {
+}
+
+
+class TestClassB {
+	{field} -internalField : ClassA
+}
+
+
+class TestClassC {
+	{method} +getTestClassA ( paramTestClassB1 : TestClassB ) : TestClassA
+}
+
+
+
+
+SuperClassC -->  InterfaceC : interfaceC
+TestClassA --  AnnotationA
+TestClassB "1" o-- "0..*"  TestClassA : listTestClassA
+TestClassC -->  TestClassB : fieldTestClassB
+TestClassC --|>  SuperClassC
+TestClassC ..|>  InterfaceC
+
+
+@enduml

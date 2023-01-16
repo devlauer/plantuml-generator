@@ -1,0 +1,37 @@
+@startuml
+
+annotation de.elnarion.test.domain.t0025.AnnotationA
+
+interface de.elnarion.test.domain.t0025.InterfaceC {
+}
+
+
+abstract class de.elnarion.test.domain.t0025.SuperClassC {
+}
+
+
+class de.elnarion.test.domain.t0025.TestClassA {
+}
+
+
+class de.elnarion.test.domain.t0025.TestClassB {
+	{field} -internalField : ClassA
+}
+
+
+class de.elnarion.test.domain.t0025.TestClassC {
+	{method} +getTestClassA ( paramTestClassB1 : TestClassB ) : TestClassA
+}
+
+
+
+
+de.elnarion.test.domain.t0025.SuperClassC -->  de.elnarion.test.domain.t0025.InterfaceC : interfaceC
+de.elnarion.test.domain.t0025.TestClassA --  de.elnarion.test.domain.t0025.AnnotationA
+de.elnarion.test.domain.t0025.TestClassB "1" o-- "0..*"  de.elnarion.test.domain.t0025.TestClassA : listTestClassA
+de.elnarion.test.domain.t0025.TestClassC -->  de.elnarion.test.domain.t0025.TestClassB : fieldTestClassB
+de.elnarion.test.domain.t0025.TestClassC --|>  de.elnarion.test.domain.t0025.SuperClassC
+de.elnarion.test.domain.t0025.TestClassC ..|>  de.elnarion.test.domain.t0025.InterfaceC
+
+
+@enduml

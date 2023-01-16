@@ -10,54 +10,60 @@ public class PlantUMLClassDiagramConfig {
 
 	/** The destination classloader. */
 	private ClassLoader destinationClassloader = this.getClass().getClassLoader();
-	
+
 	/** The scan packages. */
 	private List<String> scanPackages = new ArrayList<>();
-	
+
 	/** The blacklist regexp. */
 	private String blacklistRegexp = null;
-	
+
 	/** The whitelist regexp. */
 	private String whitelistRegexp = null;
-	
+
 	/** The hide classes. */
 	private List<String> hideClasses = null;
-	
+
 	/** The hide fields. */
 	private boolean hideFields = false;
-	
+
 	/** The hide methods. */
 	private boolean hideMethods = false;
-	
+
 	/** The remove fields. */
 	private boolean removeFields = false;
-	
+
 	/** The remove methods. */
 	private boolean removeMethods = false;
-	
+
 	/** The add JPA annotations. */
 	private boolean addJPAAnnotations = false;
-	
+
 	/** The field blacklist regexp. */
 	private String fieldBlacklistRegexp = null;
-	
+
 	/** The method blacklist regexp. */
 	private String methodBlacklistRegexp = null;
-	
+
 	/** The max visibility fields. */
 	private VisibilityType maxVisibilityFields = VisibilityType.PRIVATE;
-	
+
 	/** The max visibility methods. */
 	private VisibilityType maxVisibilityMethods = VisibilityType.PRIVATE;
-	
+
 	/** The field classifier to ignore. */
 	private List<ClassifierType> fieldClassifierToIgnore = new ArrayList<>();
-	
+
 	/** The method classifier to ignore. */
 	private List<ClassifierType> methodClassifierToIgnore = new ArrayList<>();
-	
+
 	/** The additional plant uml configs. */
 	private List<String> additionalPlantUmlConfigs = new ArrayList<>();
+
+	/** use short class names in fields and methods in the diagram. */
+	private boolean useShortClassNamesInFieldsAndMethods = false;
+
+	/** The use short class names. */
+	private boolean useShortClassNames = false;
 
 	/**
 	 * Instantiates a new plant UML config.
@@ -94,9 +100,8 @@ public class PlantUMLClassDiagramConfig {
 		return destinationClassloader;
 	}
 
-	
 	/**
-	 *  
+	 * 
 	 *
 	 * @param destinationClassloader the new destination classloader
 	 */
@@ -104,17 +109,15 @@ public class PlantUMLClassDiagramConfig {
 		this.destinationClassloader = destinationClassloader;
 	}
 
-	
-	/** 
+	/**
 	 * @return List
 	 */
 	public List<String> getScanPackages() {
 		return scanPackages;
 	}
 
-	
 	/**
-	 *  
+	 * 
 	 *
 	 * @param scanPackages the new scan packages
 	 */
@@ -122,17 +125,15 @@ public class PlantUMLClassDiagramConfig {
 		this.scanPackages = scanPackages;
 	}
 
-	
-	/** 
+	/**
 	 * @return String
 	 */
 	public String getBlacklistRegexp() {
 		return blacklistRegexp;
 	}
 
-	
 	/**
-	 *  
+	 * 
 	 *
 	 * @param blacklistRegexp the new blacklist regexp
 	 */
@@ -140,17 +141,15 @@ public class PlantUMLClassDiagramConfig {
 		this.blacklistRegexp = blacklistRegexp;
 	}
 
-	
-	/** 
+	/**
 	 * @return String
 	 */
 	public String getWhitelistRegexp() {
 		return whitelistRegexp;
 	}
 
-	
 	/**
-	 *  
+	 * 
 	 *
 	 * @param whitelistRegexp the new whitelist regexp
 	 */
@@ -158,17 +157,15 @@ public class PlantUMLClassDiagramConfig {
 		this.whitelistRegexp = whitelistRegexp;
 	}
 
-	
-	/** 
+	/**
 	 * @return List
 	 */
 	public List<String> getHideClasses() {
 		return hideClasses;
 	}
 
-	
 	/**
-	 *  
+	 * 
 	 *
 	 * @param hideClasses the new hide classes
 	 */
@@ -176,17 +173,15 @@ public class PlantUMLClassDiagramConfig {
 		this.hideClasses = hideClasses;
 	}
 
-	
-	/** 
+	/**
 	 * @return boolean
 	 */
 	public boolean isHideFields() {
 		return hideFields;
 	}
 
-	
 	/**
-	 *  
+	 * 
 	 *
 	 * @param hideFields the new hide fields
 	 */
@@ -194,17 +189,15 @@ public class PlantUMLClassDiagramConfig {
 		this.hideFields = hideFields;
 	}
 
-	
-	/** 
+	/**
 	 * @return boolean
 	 */
 	public boolean isHideMethods() {
 		return hideMethods;
 	}
 
-	
 	/**
-	 *  
+	 * 
 	 *
 	 * @param hideMethods the new hide methods
 	 */
@@ -212,17 +205,15 @@ public class PlantUMLClassDiagramConfig {
 		this.hideMethods = hideMethods;
 	}
 
-	
-	/** 
+	/**
 	 * @return boolean
 	 */
 	public boolean isRemoveFields() {
 		return removeFields;
 	}
 
-	
 	/**
-	 *  
+	 * 
 	 *
 	 * @param removeFields the new removes the fields
 	 */
@@ -230,17 +221,15 @@ public class PlantUMLClassDiagramConfig {
 		this.removeFields = removeFields;
 	}
 
-	
-	/** 
+	/**
 	 * @return boolean
 	 */
 	public boolean isRemoveMethods() {
 		return removeMethods;
 	}
 
-	
 	/**
-	 *  
+	 * 
 	 *
 	 * @param removeMethods the new removes the methods
 	 */
@@ -248,17 +237,15 @@ public class PlantUMLClassDiagramConfig {
 		this.removeMethods = removeMethods;
 	}
 
-		
-	/** 
+	/**
 	 * @return String
 	 */
 	public String getFieldBlacklistRegexp() {
 		return fieldBlacklistRegexp;
 	}
 
-	
 	/**
-	 *  
+	 * 
 	 *
 	 * @param fieldBlacklistRegexp the new field blacklist regexp
 	 */
@@ -266,17 +253,15 @@ public class PlantUMLClassDiagramConfig {
 		this.fieldBlacklistRegexp = fieldBlacklistRegexp;
 	}
 
-	
-	/** 
+	/**
 	 * @return String
 	 */
 	public String getMethodBlacklistRegexp() {
 		return methodBlacklistRegexp;
 	}
 
-	
 	/**
-	 *  
+	 * 
 	 *
 	 * @param methodBlacklistRegexp the new method blacklist regexp
 	 */
@@ -284,17 +269,15 @@ public class PlantUMLClassDiagramConfig {
 		this.methodBlacklistRegexp = methodBlacklistRegexp;
 	}
 
-	
-	/** 
+	/**
 	 * @return VisibilityType
 	 */
 	public VisibilityType getMaxVisibilityFields() {
 		return maxVisibilityFields;
 	}
 
-	
 	/**
-	 *  
+	 * 
 	 *
 	 * @param maxVisibilityFields the new max visibility fields
 	 */
@@ -302,17 +285,15 @@ public class PlantUMLClassDiagramConfig {
 		this.maxVisibilityFields = maxVisibilityFields;
 	}
 
-	
-	/** 
+	/**
 	 * @return VisibilityType
 	 */
 	public VisibilityType getMaxVisibilityMethods() {
 		return maxVisibilityMethods;
 	}
 
-	
 	/**
-	 *  
+	 * 
 	 *
 	 * @param maxVisibilityMethods the new max visibility methods
 	 */
@@ -346,4 +327,42 @@ public class PlantUMLClassDiagramConfig {
 	public List<String> getAdditionalPlantUmlConfigs() {
 		return additionalPlantUmlConfigs;
 	}
+
+	/**
+	 * Checks if is use short class names in fields and methods.
+	 *
+	 * @return true, if is use short class names in fields and methods
+	 */
+	public boolean isUseShortClassNamesInFieldsAndMethods() {
+		return useShortClassNamesInFieldsAndMethods;
+	}
+
+	/**
+	 * Sets the use short class names in fields and methods.
+	 *
+	 * @param useShortClassNamesInFieldsAndMethods the new use short class names in
+	 *                                             fields and methods
+	 */
+	public void setUseShortClassNamesInFieldsAndMethods(boolean useShortClassNamesInFieldsAndMethods) {
+		this.useShortClassNamesInFieldsAndMethods = useShortClassNamesInFieldsAndMethods;
+	}
+
+	/**
+	 * Checks if is use short class names.
+	 *
+	 * @return true, if is use short class names
+	 */
+	public boolean isUseShortClassNames() {
+		return useShortClassNames;
+	}
+
+	/**
+	 * Sets the use short class names.
+	 *
+	 * @param useShortClassNames the new use short class names
+	 */
+	public void setUseShortClassNames(boolean useShortClassNames) {
+		this.useShortClassNames = useShortClassNames;
+	}
+
 }

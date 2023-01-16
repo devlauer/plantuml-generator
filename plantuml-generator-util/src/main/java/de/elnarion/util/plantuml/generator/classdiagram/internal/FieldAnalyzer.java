@@ -28,13 +28,12 @@ class FieldAnalyzer {
 	/**
 	 * Analyze field.
 	 *
-	 * @param field the field
-	 * @param type the type
+	 * @param field                the field
+	 * @param type                 the type
 	 * @param paramDeclaredMethods the param declared methods
 	 * @return the UML field
 	 */
-	UMLField analyzeField(final java.lang.reflect.Field field, final Class<?> type,
-			Method[] paramDeclaredMethods) {
+	UMLField analyzeField(final java.lang.reflect.Field field, final Class<?> type, Method[] paramDeclaredMethods) {
 		// Do not add field if they should be ignored/removed
 		if (plantUMLConfig.isRemoveFields())
 			return null;
@@ -60,10 +59,10 @@ class FieldAnalyzer {
 		if (!AnalyzerUtil.visibilityOk(plantUMLConfig.getMaxVisibilityFields(), visibilityType))
 			return null;
 		return new UMLField(classifierType, visibilityType, field.getName(),
-				AnalyzerUtil.removeJavaLangPackage(type.getName()), annotationStringList);
+				AnalyzerUtil.getClassNameForFieldsAndMethods(type, plantUMLConfig), annotationStringList);
 
 	}
-	
+
 	/**
 	 * Analyze enum constant.
 	 *
@@ -71,9 +70,9 @@ class FieldAnalyzer {
 	 * @return the UML field
 	 */
 	public UMLField analyzeEnumConstant(Object enumConstant) {
-		return new UMLField(ClassifierType.NONE, VisibilityType.PUBLIC, enumConstant.toString(),
-				null, new ArrayList<>());
-		
+		return new UMLField(ClassifierType.NONE, VisibilityType.PUBLIC, enumConstant.toString(), null,
+				new ArrayList<>());
+
 	}
 
 }

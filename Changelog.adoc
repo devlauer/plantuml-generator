@@ -4,8 +4,10 @@
 * speed up integration tests by parallel threads
 * move gpg signing to a separate release profile
 * update plugin versions
-* update mockito to 4.11.0
-* update classgraph to 4.8.153
+* update mockito to 5.0.0
+* update junit to 5.9.2
+* updated maven plugins
+* update classgraph to 4.8.154
 * introduce apache maven wrapper for maven 3.8.6
 * apply sonarcloud scan and analysis to master and all pull requests
 * ignore synthetic fields, methods and classes in class diagrams
@@ -14,6 +16,8 @@
 * remove unnecessary code
 * package structure of utility module changed and is incompatible
 * deprecated constructors are removed
+* added shortClassNames parameter to class diagram (feature request #41)
+* added shortClassNamesInFieldsAndMethods parameter to class diagram (feature request #41)
 
 .1.6.0 - 2022-12-15
 * removed unused imports

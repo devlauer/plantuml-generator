@@ -11,6 +11,8 @@ you have to use the
 xref:./use-short-classnames-in-fields-and-methods.adoc[useShortClassNamesInFieldsAndMethods]
 configuration option.
 
+This feature is only available with version 2.0.0 or higher.
+
 // end::description[]
 
 = Default value

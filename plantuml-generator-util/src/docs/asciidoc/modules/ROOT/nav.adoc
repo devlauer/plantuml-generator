@@ -33,3 +33,4 @@
 *** xref:sequence-diagram/config/method-blacklist-regexp.adoc[]
 *** xref:sequence-diagram/config/show-return-types.adoc[]
 *** xref:sequence-diagram/config/use-short-class-names.adoc[]
+

@@ -3,8 +3,6 @@ package de.elnarion.util.plantuml.generator.classdiagram.internal;
 import java.util.Collections;
 import java.util.List;
 
-import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
-
 /**
  * The Class UMLClass encapsulates all information needed for creating a diagram
  * text for a uml class object.

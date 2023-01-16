@@ -11,16 +11,24 @@ import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
  */
 public class UMLClass implements PlantUMLDiagramElement {
 
+	/** The name. */
 	private String name;
+	
+	/** The class type. */
 	private ClassType classType;
+	
+	/** The fields. */
 	private List<UMLField> fields;
+	
+	/** The methods. */
 	private List<UMLMethod> methods;
+	
+	/** The stereotypes. */
 	private List<UMLStereotype> stereotypes;
 
 	/**
 	 * Instantiates a new UML class.
 	 *
-	 * @param paramVisibilityType - {@link VisibilityType} - the visibility type
 	 * @param paramClassType      - {@link ClassType} - the class type
 	 * @param paramFields         - List&lt;{@link UMLField}&gt; - the uml field
 	 *                            information list
@@ -48,6 +56,11 @@ public class UMLClass implements PlantUMLDiagramElement {
 		return name;
 	}
 
+	/**
+	 * Gets the diagram text.
+	 *
+	 * @return the diagram text
+	 */
 	@Override
 	public String getDiagramText() {
 		boolean isAnnotation = false;
@@ -81,6 +94,11 @@ public class UMLClass implements PlantUMLDiagramElement {
 		return builder.toString();
 	}
 
+	/**
+	 * Adds the stereotypes.
+	 *
+	 * @param builder the builder
+	 */
 	private void addStereotypes(StringBuilder builder) {
 		if (stereotypes != null) {
 			for (UMLStereotype stereotype : stereotypes) {
@@ -92,6 +110,11 @@ public class UMLClass implements PlantUMLDiagramElement {
 		}
 	}
 
+	/**
+	 * Adds the stereotype tagged values.
+	 *
+	 * @param builder the builder
+	 */
 	private void addStereotypeTaggedValues(StringBuilder builder) {
 		if (stereotypes != null) {
 			boolean addedTaggedValues = false;
@@ -109,6 +132,13 @@ public class UMLClass implements PlantUMLDiagramElement {
 		}
 	}
 
+	/**
+	 * Adds the class type.
+	 *
+	 * @param isAnnotation the is annotation
+	 * @param builder the builder
+	 * @return true, if successful
+	 */
 	private boolean addClassType(boolean isAnnotation, StringBuilder builder) {
 		switch (classType) {
 		case ABSTRACT_CLASS:

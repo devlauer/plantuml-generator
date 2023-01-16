@@ -65,6 +65,12 @@ public class PlantUMLGeneratorMojo extends AbstractPlantUMLGeneratorMojo {
 	@Parameter(property = PREFIX + "removeFields", defaultValue = "false", required = false)
 	private boolean removeFields;
 
+	@Parameter(property = PREFIX + "useShortClassNames", defaultValue = "false", required = false)
+	private boolean useShortClassNames;
+
+	@Parameter(property = PREFIX + "useShortClassNamesInFieldsAndMethods", defaultValue = "false", required = false)
+	private boolean useShortClassNamesInFieldsAndMethods;
+
 	/** The remove methods. */
 	@Parameter(property = PREFIX + "fieldBlacklistRegexp", defaultValue = "", required = false)
 	private String fieldBlacklistRegexp = null;
@@ -80,7 +86,6 @@ public class PlantUMLGeneratorMojo extends AbstractPlantUMLGeneratorMojo {
 	/** The remove methods. */
 	@Parameter(property = PREFIX + "maxVisibilityMethods", defaultValue = "PRIVATE", required = false)
 	private VisibilityType maxVisibilityMethods = VisibilityType.PRIVATE;
-
 
 	/**
 	 * Execute.
@@ -113,7 +118,9 @@ public class PlantUMLGeneratorMojo extends AbstractPlantUMLGeneratorMojo {
 					.withRemoveMethods(removeMethods).withFieldBlacklistRegexp(fieldBlacklistRegexp)
 					.withMethodBlacklistRegexp(methodBlacklistRegexp).withMaximumFieldVisibility(maxVisibilityFields)
 					.withMaximumMethodVisibility(maxVisibilityMethods).withJPAAnnotations(addJPAAnnotations)
-					.addAdditionalPlantUmlConfigs(getAdditionalPlantUmlConfigs());
+					.addAdditionalPlantUmlConfigs(getAdditionalPlantUmlConfigs())
+					.withUseShortClassNames(useShortClassNames)
+					.withUseShortClassNamesInFieldsAndMethods(useShortClassNamesInFieldsAndMethods);
 			classDiagramGenerator = new PlantUMLClassDiagramGenerator(configBuilder.build());
 			String classDiagramText = classDiagramGenerator.generateDiagramText();
 			writeDiagramToFile(classDiagramText);
@@ -195,7 +202,6 @@ public class PlantUMLGeneratorMojo extends AbstractPlantUMLGeneratorMojo {
 		this.hideClasses = hideClasses;
 	}
 
-
 	/**
 	 * Gets the whitelist regexp.
 	 *
@@ -231,7 +237,6 @@ public class PlantUMLGeneratorMojo extends AbstractPlantUMLGeneratorMojo {
 	public void setBlacklistRegexp(String blacklistRegexp) {
 		this.blacklistRegexp = blacklistRegexp;
 	}
-
 
 	/**
 	 * Checks if is adds the JPA annotations.

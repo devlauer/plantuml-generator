@@ -120,7 +120,7 @@ public class PlantUMLClassDiagramConfigBuilder {
 	/**
 	 * use short class names in fields and methods.
 	 *
-	 * @param paramUseShortClassNames the param use short class names
+	 * @param paramUseShortClassNamesInFieldsAndMethods the param use short class names in fields and methods
 	 * @return the plant UML class diagram config builder
 	 */
 	public PlantUMLClassDiagramConfigBuilder withUseShortClassNamesInFieldsAndMethods(

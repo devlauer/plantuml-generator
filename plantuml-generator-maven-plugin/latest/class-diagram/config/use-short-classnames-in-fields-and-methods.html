@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>fieldClassifierToIgnore :: PlantUML Generator</title>
-    <link rel="canonical" href="https://devlauer.github.io/plantuml-generator/plantuml-generator-maven-plugin/latest/class-diagram/config/field-classifier-to-ignore.html">
-    <link rel="prev" href="field-blacklist-regexp.html">
-    <link rel="next" href="hide-classes.html">
+    <title>useShortClassNamesInFieldsAndMethods :: PlantUML Generator</title>
+    <link rel="canonical" href="https://devlauer.github.io/plantuml-generator/plantuml-generator-maven-plugin/latest/class-diagram/config/use-short-classnames-in-fields-and-methods.html">
+    <link rel="prev" href="use-short-classnames.html">
+    <link rel="next" href="whitelist-regexp.html">
     <meta name="generator" content="Antora 3.1.2">
     <link rel="stylesheet" href="../../../../_/css/site.css">
     <link rel="stylesheet" href="../../../../_/css/prism.css">
@@ -86,7 +86,7 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="field-blacklist-regexp.html">fieldBlacklistRegexp</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="3">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="field-classifier-to-ignore.html">fieldClassifierToIgnore</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -128,7 +128,7 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="use-short-classnames.html">useShortClassNames</a>
   </li>
-  <li class="nav-item" data-depth="3">
+  <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="use-short-classnames-in-fields-and-methods.html">useShortClassNamesInFieldsAndMethods</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -250,42 +250,42 @@
     <li><a href="../../index.html">Maven Plugins</a></li>
     <li><a href="../../class-diagram.html">Class diagram generator mojo</a></li>
     <li>Configuration</li>
-    <li><a href="field-classifier-to-ignore.html">fieldClassifierToIgnore</a></li>
+    <li><a href="use-short-classnames-in-fields-and-methods.html">useShortClassNamesInFieldsAndMethods</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/devlauer/plantuml-generator/edit/master/plantuml-generator-maven-plugin/src/docs/asciidoc/modules/ROOT/pages/class-diagram/config/field-classifier-to-ignore.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/devlauer/plantuml-generator/edit/master/plantuml-generator-maven-plugin/src/docs/asciidoc/modules/ROOT/pages/class-diagram/config/use-short-classnames-in-fields-and-methods.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">fieldClassifierToIgnore</h1>
+<h1 class="page">useShortClassNamesInFieldsAndMethods</h1>
 <div class="sect1">
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>With this configuration list option you can filter out fields by their
-classifier from the diagram.</p>
+<p>With this configuration toggle you can specify that all class names
+in internal fields or method parameters or method return types
+in the diagram should be generated without any package name.</p>
 </div>
 <div class="paragraph">
-<p>You can add any of the following values to the configuration list:</p>
+<p>If you want to shorten the class names at all,
+you have to use the
+<a href="use-short-classnames.html" class="xref page">useShortClassNames</a>
+configuration option.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>ABSTRACT - all abstract non-static fields are filtered out</p>
-</li>
-<li>
-<p>STATIC - all static non-abstract fields are filtered out</p>
-</li>
-<li>
-<p>ABSTRACT_STATIC - all static abstract fields are filtered out</p>
-</li>
-<li>
-<p>NONE - all fields without abstract or static classifier are filtered out</p>
-</li>
-</ul>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+This feature is only available with version 2.0.0 or higher.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -293,8 +293,7 @@ classifier from the diagram.</p>
 <h2 id="_default_value"><a class="anchor" href="#_default_value"></a>Default value</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The default value of this configuration option is an empty list (no filtering
-via classifier).</p>
+<p>The default value of this configuration option is false (no package name is removed).</p>
 </div>
 </div>
 </div>
@@ -329,10 +328,10 @@ dependency hierarchy which build the classpath for all further generation:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>From this classpath all classes of the package "de.elnarion.test.domain.t0019",
+<p>From this classpath all classes of the package "de.elnarion.test.domain.t0025",
 which are also used by the
-<a href="../../../../plantuml-generator-util/latest/class-diagram/config/field-classifier-to-ignore.html" class="xref page">JUnit-tests of the PlantUML generator utility</a>,
-should be generated as class diagram with the following plugin configuration</p>
+<a href="../../../../plantuml-generator-util/latest/class-diagram/config/use-short-classnames-in-fields-and-methods.html" class="xref page">JUnit-tests of the PlantUML generator utility</a>,
+should be generated as class diagram with the following plugin configuration:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -350,11 +349,9 @@ should be generated as class diagram with the following plugin configuration</p>
 						&lt;configuration&gt;
 							&lt;outputFilename&gt;testdiagram1.txt&lt;/outputFilename&gt;
 							&lt;scanPackages&gt;
-								&lt;scanPackage&gt;de.elnarion.test.domain.t0019&lt;/scanPackage&gt;
+								&lt;scanPackage&gt;de.elnarion.test.domain.t0025&lt;/scanPackage&gt;
 							&lt;/scanPackages&gt;
-							&lt;fieldClassifierListToIgnore&gt;
-								&lt;fieldClassifierListToIgnore&gt;STATIC&lt;/fieldClassifierListToIgnore&gt;
-							&lt;/fieldClassifierListToIgnore&gt;
+							&lt;useShortClassNamesInFieldsAndMethods&gt;true&lt;/useShortClassNamesInFieldsAndMethods&gt;
 						&lt;/configuration&gt;
 					&lt;/execution&gt;
 				&lt;/executions&gt;
@@ -362,11 +359,13 @@ should be generated as class diagram with the following plugin configuration</p>
 </div>
 </div>
 <div class="paragraph">
-<p>where all static fields are ignored and which is rendered this way:</p>
+<p>but class names in fields and methods (parameters or return values) should be
+shortened (no package name).
+This configuration leads to this diagram:</p>
 </div>
 <div class="imageblock kroki">
 <div class="content">
-<img src="../../_images/0019_ignore_classifier_fields_diagram-bc679574615df396424b8c38e646cdce50b1a7b6.png" alt="0019_ignore_classifier_fields_diagram">
+<img src="../../_images/0024_use_short_classnames_in_fields_and_methods_diagram-8fade5cb86963b90a5db9c287575a2168b177756.png" alt="0024_use_short_classnames_in_fields_and_methods_diagram">
 </div>
 </div>
 <div class="paragraph">
@@ -376,15 +375,39 @@ should be generated as class diagram with the following plugin configuration</p>
 <div class="content">
 <pre class="nowrap"><code class="language-plantuml" data-lang=plantuml>@startuml
 
-abstract class de.elnarion.test.domain.t0019.Testclass {
-	{field} +test10 : String
-	{field} -test2 : String
-	{field} -test3 : String
-	{field} #test4 : String
-	{field} #test6 : String
-	{field} #test7 : String
-	{field} +test9 : String
+annotation de.elnarion.test.domain.t0025.AnnotationA
+
+interface de.elnarion.test.domain.t0025.InterfaceC {
 }
+
+
+abstract class de.elnarion.test.domain.t0025.SuperClassC {
+}
+
+
+class de.elnarion.test.domain.t0025.TestClassA {
+}
+
+
+class de.elnarion.test.domain.t0025.TestClassB {
+	{field} -internalField : ClassA
+}
+
+
+class de.elnarion.test.domain.t0025.TestClassC {
+	{method} +getTestClassA ( paramTestClassB1 : TestClassB ) : TestClassA
+}
+
+
+
+
+de.elnarion.test.domain.t0025.SuperClassC --&gt;  de.elnarion.test.domain.t0025.InterfaceC : interfaceC
+de.elnarion.test.domain.t0025.TestClassA --  de.elnarion.test.domain.t0025.AnnotationA
+de.elnarion.test.domain.t0025.TestClassB "1" o-- "0..*"  de.elnarion.test.domain.t0025.TestClassA : listTestClassA
+de.elnarion.test.domain.t0025.TestClassC --&gt;  de.elnarion.test.domain.t0025.TestClassB : fieldTestClassB
+de.elnarion.test.domain.t0025.TestClassC --|&gt;  de.elnarion.test.domain.t0025.SuperClassC
+de.elnarion.test.domain.t0025.TestClassC ..|&gt;  de.elnarion.test.domain.t0025.InterfaceC
+
 
 @enduml</code></pre>
 </div>
@@ -392,8 +415,8 @@ abstract class de.elnarion.test.domain.t0019.Testclass {
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="field-blacklist-regexp.html">fieldBlacklistRegexp</a></span>
-  <span class="next"><a href="hide-classes.html">hideClasses</a></span>
+  <span class="prev"><a href="use-short-classnames.html">useShortClassNames</a></span>
+  <span class="next"><a href="whitelist-regexp.html">whitelistRegexp</a></span>
 </nav>
 </article>
   </div>

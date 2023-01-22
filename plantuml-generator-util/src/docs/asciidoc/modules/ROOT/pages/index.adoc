@@ -46,4 +46,22 @@ include::partial$_class_diagram_example.adoc[]
 === Sequence diagram
 
 include::partial$_sequence_diagram_example.adoc[]
+
+=== Upgrade from 1.x to 2.x
+
+With the new version 2.x some classes moved to other packages to better
+distinguish between classes for class diagrams and those for sequence diagrams.
+
+* the following class moved to de.elnarion.util.plantuml.generator.classdiagram
+** PlantUMLClassDiagramGenerator
+* the following classes moved to de.elnarion.util.plantuml.generator.classdiagram.config
+** PlantUMLClassDiagramConfigBuilder 
+** ClassifierType
+** VisibilityType
+
+So you need to switch to the new packages.
+
+Furthermore the deprecated constructors of PlantUMLClassDiagramGenerator
+have been removed. 
+Use the PlantUMLClassDiagramConfigBuilder instead.
  

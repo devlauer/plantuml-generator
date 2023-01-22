@@ -450,6 +450,51 @@ deactivate CallerA
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_upgrade_from_1_x_to_2_x"><a class="anchor" href="#_upgrade_from_1_x_to_2_x"></a>Upgrade from 1.x to 2.x</h3>
+<div class="paragraph">
+<p>With the new version 2.x some classes moved to other packages to better
+distinguish between classes for class diagrams and those for sequence diagrams.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the following class moved to de.elnarion.util.plantuml.generator.classdiagram</p>
+<div class="ulist">
+<ul>
+<li>
+<p>PlantUMLClassDiagramGenerator</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>the following classes moved to de.elnarion.util.plantuml.generator.classdiagram.config</p>
+<div class="ulist">
+<ul>
+<li>
+<p>PlantUMLClassDiagramConfigBuilder</p>
+</li>
+<li>
+<p>ClassifierType</p>
+</li>
+<li>
+<p>VisibilityType</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>So you need to switch to the new packages.</p>
+</div>
+<div class="paragraph">
+<p>Furthermore the deprecated constructors of PlantUMLClassDiagramGenerator
+have been removed.
+Use the PlantUMLClassDiagramConfigBuilder instead.</p>
+</div>
+</div>
 </div>
 </div>
 <nav class="pagination">

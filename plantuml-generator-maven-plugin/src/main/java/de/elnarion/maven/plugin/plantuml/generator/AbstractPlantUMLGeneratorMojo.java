@@ -137,7 +137,7 @@ public abstract class AbstractPlantUMLGeneratorMojo extends AbstractMojo {
 				return;
 			}
 		}
-		try(FileOutputStream outputStream =  new FileOutputStream(outputFile)){
+		try(FileOutputStream outputStream =  new FileOutputStream(outputFile)){ //NOSONAR - unencrypted file is wanted here
 			IOUtils.write(classDiagramText, outputStream, getEncoding());
 		getLog().info("Diagram written to " + outputFile.getAbsolutePath());
 		}

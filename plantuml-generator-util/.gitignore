@@ -3,3 +3,4 @@
 /.settings/
 /target/
 /.asciidoctorconfig.adoc
+/plantuml-generator-util.iml

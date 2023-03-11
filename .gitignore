@@ -30,3 +30,4 @@ plantuml-generator-maven-plugin/.factorypath
 /node_modules/
 /build/
 /.cache/
+/plantuml-generator.iml

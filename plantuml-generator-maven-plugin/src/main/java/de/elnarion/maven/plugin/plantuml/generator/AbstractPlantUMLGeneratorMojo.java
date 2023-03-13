@@ -1,5 +1,12 @@
 package de.elnarion.maven.plugin.plantuml.generator;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.descriptor.PluginDescriptor;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -8,21 +15,14 @@ import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.IOUtils;
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.descriptor.PluginDescriptor;
-import org.apache.maven.plugins.annotations.Parameter;
-import org.apache.maven.project.MavenProject;
-
 /**
  * The Class AbstractPlantUMLGeneratorMojo.
  */
 public abstract class AbstractPlantUMLGeneratorMojo extends AbstractMojo {
-	
+
 	/** The Constant PREFIX. */
-	static final String PREFIX = "plantuml-generator.";	
-	
+	static final String PREFIX = "plantuml-generator.";
+
 	/** The asciidoc diagram name. */
 	@Parameter(property = PREFIX + "asciidocDiagramName", defaultValue = "", required = false)
 	private String asciidocDiagramName;
@@ -34,7 +34,7 @@ public abstract class AbstractPlantUMLGeneratorMojo extends AbstractMojo {
 	/** The asciidoc diagram block delimiter. */
 	@Parameter(property = PREFIX + "asciidocDiagramBlockDelimiter", defaultValue = "----", required = false)
 	private String asciidocDiagramBlockDelimiter;
-	
+
 	/** The encoding. */
 	@Parameter(defaultValue = "${project.build.sourceEncoding}")
 	private String encoding;
@@ -47,7 +47,7 @@ public abstract class AbstractPlantUMLGeneratorMojo extends AbstractMojo {
 	/** The target file name. */
 	@Parameter(property = PREFIX + "outputFilename", required = true)
 	private String outputFilename;
-	
+
 	/** The enable asciidoc wrapper. */
 	@Parameter(property = PREFIX + "enableAsciidocWrapper", defaultValue = "false", required = false)
 	private boolean enableAsciidocWrapper;
@@ -55,20 +55,20 @@ public abstract class AbstractPlantUMLGeneratorMojo extends AbstractMojo {
 	/** The enable asciidoc wrapper. */
 	@Parameter(property = PREFIX + "enableMarkdownWrapper", defaultValue = "false", required = false)
 	private boolean enableMarkdownWrapper;
-	
+
 	/** Additional PlantUML configs. */
 	@Parameter(property = PREFIX + "additionalPlantUmlConfigs", defaultValue = "", required = false)
 	private List<String> additionalPlantUmlConfigs;
-	
+
 
 	/** The descriptor. */
 	@Parameter(defaultValue = "${plugin}", readonly = true)
 	private PluginDescriptor descriptor;
 
 	/** The project. */
-	@Parameter( defaultValue = "${project}", readonly = true )
+	@Parameter(defaultValue = "${project}", readonly = true)
 	private MavenProject project;
-	
+
 	/**
 	 * Wraps a plantuml diagram text by an asciidoc diagram block.
 	 *
@@ -80,8 +80,11 @@ public abstract class AbstractPlantUMLGeneratorMojo extends AbstractMojo {
 		builder.append("[plantuml,");
 		if (asciidocDiagramName != null && !"".equals(asciidocDiagramName))
 			builder.append(asciidocDiagramName);
-		else
-			builder.append(outputFilename + "." + asciidocDiagramImageFormat);
+		else {
+			builder.append(outputFilename);
+			builder.append(".");
+			builder.append(asciidocDiagramImageFormat);
+		}
 		builder.append(",");
 		builder.append(asciidocDiagramImageFormat);
 		builder.append("]");
@@ -102,16 +105,14 @@ public abstract class AbstractPlantUMLGeneratorMojo extends AbstractMojo {
 	 * @return the markdown plantuml diagram block
 	 */
 	protected String createMarkdownWrappedDiagramText(String paramClassDiagramTextToWrap) {
-		StringBuilder builder = new StringBuilder();
-		builder.append("```plantuml");
-		builder.append(System.lineSeparator());
-		builder.append(paramClassDiagramTextToWrap);
-		builder.append(System.lineSeparator());
-		builder.append("```");
-		builder.append(System.lineSeparator());
-		return builder.toString();
+		return "```plantuml" +
+				System.lineSeparator() +
+				paramClassDiagramTextToWrap +
+				System.lineSeparator() +
+				"```" +
+				System.lineSeparator();
 	}
-	
+
 	/**
 	 * Write diagram to file.
 	 *
@@ -137,9 +138,9 @@ public abstract class AbstractPlantUMLGeneratorMojo extends AbstractMojo {
 				return;
 			}
 		}
-		try(FileOutputStream outputStream =  new FileOutputStream(outputFile)){ //NOSONAR - unencrypted file is wanted here
+		try (FileOutputStream outputStream = new FileOutputStream(outputFile)) { //NOSONAR - unencrypted file is wanted here
 			IOUtils.write(classDiagramText, outputStream, getEncoding());
-		getLog().info("Diagram written to " + outputFile.getAbsolutePath());
+			getLog().info("Diagram written to " + outputFile.getAbsolutePath());
 		}
 	}
 
@@ -160,15 +161,15 @@ public abstract class AbstractPlantUMLGeneratorMojo extends AbstractMojo {
 			for (String element : compileClasspathElements) {
 				classpathURLs.add(new File(element).toURI().toURL());
 			}
-			URL[] urlArray = classpathURLs.toArray(new URL[classpathURLs.size()]);
+			URL[] urlArray = classpathURLs.toArray(new URL[0]);
 			return new URLClassLoader(urlArray, Thread.currentThread().getContextClassLoader());
 
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unable to load project runtime !", e);
 		}
 	}
-	
-	
+
+
 	/**
 	 * Gets the encoding.
 	 *
@@ -222,7 +223,7 @@ public abstract class AbstractPlantUMLGeneratorMojo extends AbstractMojo {
 	public void setOutputFilename(String outputFilename) {
 		this.outputFilename = outputFilename;
 	}
-	
+
 
 	/**
 	 * Gets the descriptor.
@@ -372,5 +373,5 @@ public abstract class AbstractPlantUMLGeneratorMojo extends AbstractMojo {
 		this.additionalPlantUmlConfigs = additionalPlantUmlConfigs;
 	}
 
-	
+
 }

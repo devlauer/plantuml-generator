@@ -1,7 +1,9 @@
 package de.elnarion.maven.plugin.plantuml.generator;
 
-import java.util.List;
-
+import de.elnarion.util.plantuml.generator.classdiagram.PlantUMLClassDiagramGenerator;
+import de.elnarion.util.plantuml.generator.classdiagram.config.ClassifierType;
+import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiagramConfigBuilder;
+import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -9,10 +11,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 
-import de.elnarion.util.plantuml.generator.classdiagram.PlantUMLClassDiagramGenerator;
-import de.elnarion.util.plantuml.generator.classdiagram.config.ClassifierType;
-import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiagramConfigBuilder;
-import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
+import java.util.List;
 
 /**
  * This Mojo is used as maven frontend of the PlantUMLClassDiagramGenerator in
@@ -21,71 +20,55 @@ import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
 @Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_SOURCES, threadSafe = true, requiresDependencyResolution = ResolutionScope.COMPILE, requiresProject = true)
 public class PlantUMLGeneratorMojo extends AbstractPlantUMLGeneratorMojo {
 
+	/** The remove methods. */
+	@Parameter(property = PREFIX + "fieldBlacklistRegexp", defaultValue = "", required = false)
+	private final String fieldBlacklistRegexp = null;
+	/** The remove methods. */
+	@Parameter(property = PREFIX + "methodBlacklistRegexp", defaultValue = "", required = false)
+	private final String methodBlacklistRegexp = null;
+	/** The remove methods. */
+	@Parameter(property = PREFIX + "maxVisibilityFields", defaultValue = "PRIVATE", required = false)
+	private final VisibilityType maxVisibilityFields = VisibilityType.PRIVATE;
+	/** The remove methods. */
+	@Parameter(property = PREFIX + "maxVisibilityMethods", defaultValue = "PRIVATE", required = false)
+	private final VisibilityType maxVisibilityMethods = VisibilityType.PRIVATE;
 	/** The hide fields. */
 	@Parameter(property = PREFIX + "hideFields", defaultValue = "false", required = false)
 	private boolean hideFields;
-
 	/** The hide methods. */
 	@Parameter(property = PREFIX + "hideMethods", defaultValue = "false", required = false)
 	private boolean hideMethods;
-
 	/** The scan packages. */
 	@Parameter(property = PREFIX + "scanPackages", defaultValue = "", required = true)
 	private List<String> scanPackages;
-
 	/** The whitelist regular expression for the scan packages. */
 	@Parameter(property = PREFIX + "whitelistRegexp", defaultValue = "", required = false)
 	private String whitelistRegexp;
-
 	/** The blacklist regular expression for the scan packages. */
 	@Parameter(property = PREFIX + "blacklistRegexp", defaultValue = "", required = false)
 	private String blacklistRegexp;
-
 	/** The hide classes. */
 	@Parameter(property = PREFIX + "hideClasses", defaultValue = "", required = false)
 	private List<String> hideClasses;
-
 	/** the list of all field classifiers to ignore. */
 	@Parameter(property = PREFIX + "fieldClassifierListToIgnore", defaultValue = "", required = false)
 	private List<ClassifierType> fieldClassifierListToIgnore;
-
 	/** the list of all method classifiers to ignore. */
 	@Parameter(property = PREFIX + "methodClassifierListToIgnore", defaultValue = "", required = false)
 	private List<ClassifierType> methodClassifierListToIgnore;
-
 	/** The remove methods. */
 	@Parameter(property = PREFIX + "removeMethods", defaultValue = "false", required = false)
 	private boolean removeMethods;
-
 	/** The remove methods. */
 	@Parameter(property = PREFIX + "addJPAAnnotations", defaultValue = "false", required = false)
 	private boolean addJPAAnnotations;
-
 	/** The remove methods. */
 	@Parameter(property = PREFIX + "removeFields", defaultValue = "false", required = false)
 	private boolean removeFields;
-
 	@Parameter(property = PREFIX + "useShortClassNames", defaultValue = "false", required = false)
 	private boolean useShortClassNames;
-
 	@Parameter(property = PREFIX + "useShortClassNamesInFieldsAndMethods", defaultValue = "false", required = false)
 	private boolean useShortClassNamesInFieldsAndMethods;
-
-	/** The remove methods. */
-	@Parameter(property = PREFIX + "fieldBlacklistRegexp", defaultValue = "", required = false)
-	private String fieldBlacklistRegexp = null;
-
-	/** The remove methods. */
-	@Parameter(property = PREFIX + "methodBlacklistRegexp", defaultValue = "", required = false)
-	private String methodBlacklistRegexp = null;
-
-	/** The remove methods. */
-	@Parameter(property = PREFIX + "maxVisibilityFields", defaultValue = "PRIVATE", required = false)
-	private VisibilityType maxVisibilityFields = VisibilityType.PRIVATE;
-
-	/** The remove methods. */
-	@Parameter(property = PREFIX + "maxVisibilityMethods", defaultValue = "PRIVATE", required = false)
-	private VisibilityType maxVisibilityMethods = VisibilityType.PRIVATE;
 
 	/**
 	 * Execute.
@@ -95,7 +78,7 @@ public class PlantUMLGeneratorMojo extends AbstractPlantUMLGeneratorMojo {
 	 */
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.apache.maven.plugin.Mojo#execute()
 	 */
 	@Override

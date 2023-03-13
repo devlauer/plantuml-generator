@@ -1,6 +1,5 @@
 package de.elnarion.util.plantuml.generator.classdiagram.internal;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -10,34 +9,34 @@ import java.util.List;
 public class UMLClass implements PlantUMLDiagramElement {
 
 	/** The name. */
-	private String name;
-	
+	private final String name;
+
 	/** The class type. */
-	private ClassType classType;
-	
+	private final ClassType classType;
+
 	/** The fields. */
-	private List<UMLField> fields;
-	
+	private final List<UMLField> fields;
+
 	/** The methods. */
-	private List<UMLMethod> methods;
-	
+	private final List<UMLMethod> methods;
+
 	/** The stereotypes. */
-	private List<UMLStereotype> stereotypes;
+	private final List<UMLStereotype> stereotypes;
 
 	/**
 	 * Instantiates a new UML class.
 	 *
-	 * @param paramClassType      - {@link ClassType} - the class type
-	 * @param paramFields         - List&lt;{@link UMLField}&gt; - the uml field
-	 *                            information list
-	 * @param paramMethods        - List&lt;{@link UMLMethod}&gt; - the uml method
-	 *                            information list
-	 * @param paramName           - String - the class name
-	 * @param paramStereotypes    - List&lt;UMLStereotype&gt; - the stereotypes of
-	 *                            the class
+	 * @param paramClassType   - {@link ClassType} - the class type
+	 * @param paramFields      - List&lt;{@link UMLField}&gt; - the uml field
+	 *                         information list
+	 * @param paramMethods     - List&lt;{@link UMLMethod}&gt; - the uml method
+	 *                         information list
+	 * @param paramName        - String - the class name
+	 * @param paramStereotypes - List&lt;UMLStereotype&gt; - the stereotypes of
+	 *                         the class
 	 */
 	public UMLClass(ClassType paramClassType, List<UMLField> paramFields, List<UMLMethod> paramMethods,
-			String paramName, List<UMLStereotype> paramStereotypes) {
+					String paramName, List<UMLStereotype> paramStereotypes) {
 		classType = paramClassType;
 		name = paramName;
 		fields = paramFields;
@@ -71,7 +70,7 @@ public class UMLClass implements PlantUMLDiagramElement {
 			addStereotypeTaggedValues(builder);
 			builder.append(System.lineSeparator());
 			if (fields != null && !fields.isEmpty()) {
-				Collections.sort(fields, (UMLField o1, UMLField o2) -> o1.getName().compareTo(o2.getName()));
+				fields.sort((UMLField o1, UMLField o2) -> o1.getName().compareTo(o2.getName()));
 				for (UMLField field : fields) {
 					builder.append("\t");
 					builder.append(field.getDiagramText());
@@ -79,7 +78,7 @@ public class UMLClass implements PlantUMLDiagramElement {
 				}
 			}
 			if (methods != null && !methods.isEmpty()) {
-				Collections.sort(methods, new UMLMethodComparator());
+				methods.sort(new UMLMethodComparator());
 				for (UMLMethod method : methods) {
 					builder.append("\t");
 					builder.append(method.getDiagramText());
@@ -134,29 +133,29 @@ public class UMLClass implements PlantUMLDiagramElement {
 	 * Adds the class type.
 	 *
 	 * @param isAnnotation the is annotation
-	 * @param builder the builder
+	 * @param builder      the builder
 	 * @return true, if successful
 	 */
 	private boolean addClassType(boolean isAnnotation, StringBuilder builder) {
 		switch (classType) {
-		case ABSTRACT_CLASS:
-			builder.append("abstract class ");
-			break;
-		case ANNOTATION:
-			builder.append("annotation ");
-			isAnnotation = true;
-			break;
-		case CLASS:
-			builder.append("class ");
-			break;
-		case ENUM:
-			builder.append("enum ");
-			break;
-		case INTERFACE:
-			builder.append("interface ");
-			break;
-		default:
-			break;
+			case ABSTRACT_CLASS:
+				builder.append("abstract class ");
+				break;
+			case ANNOTATION:
+				builder.append("annotation ");
+				isAnnotation = true;
+				break;
+			case CLASS:
+				builder.append("class ");
+				break;
+			case ENUM:
+				builder.append("enum ");
+				break;
+			case INTERFACE:
+				builder.append("interface ");
+				break;
+			default:
+				break;
 		}
 		return isAnnotation;
 	}

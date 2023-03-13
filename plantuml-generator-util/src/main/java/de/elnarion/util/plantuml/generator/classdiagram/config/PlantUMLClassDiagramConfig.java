@@ -8,57 +8,40 @@ import java.util.List;
  */
 public class PlantUMLClassDiagramConfig {
 
+	/** The field classifier to ignore. */
+	private final List<ClassifierType> fieldClassifierToIgnore = new ArrayList<>();
+	/** The method classifier to ignore. */
+	private final List<ClassifierType> methodClassifierToIgnore = new ArrayList<>();
+	/** The additional plant uml configs. */
+	private final List<String> additionalPlantUmlConfigs = new ArrayList<>();
 	/** The destination classloader. */
 	private ClassLoader destinationClassloader = this.getClass().getClassLoader();
-
 	/** The scan packages. */
 	private List<String> scanPackages = new ArrayList<>();
-
 	/** The blacklist regexp. */
 	private String blacklistRegexp = null;
-
 	/** The whitelist regexp. */
 	private String whitelistRegexp = null;
-
 	/** The hide classes. */
 	private List<String> hideClasses = null;
-
 	/** The hide fields. */
 	private boolean hideFields = false;
-
 	/** The hide methods. */
 	private boolean hideMethods = false;
-
 	/** The remove fields. */
 	private boolean removeFields = false;
-
 	/** The remove methods. */
 	private boolean removeMethods = false;
-
 	/** The add JPA annotations. */
 	private boolean addJPAAnnotations = false;
-
 	/** The field blacklist regexp. */
 	private String fieldBlacklistRegexp = null;
-
 	/** The method blacklist regexp. */
 	private String methodBlacklistRegexp = null;
-
 	/** The max visibility fields. */
 	private VisibilityType maxVisibilityFields = VisibilityType.PRIVATE;
-
 	/** The max visibility methods. */
 	private VisibilityType maxVisibilityMethods = VisibilityType.PRIVATE;
-
-	/** The field classifier to ignore. */
-	private List<ClassifierType> fieldClassifierToIgnore = new ArrayList<>();
-
-	/** The method classifier to ignore. */
-	private List<ClassifierType> methodClassifierToIgnore = new ArrayList<>();
-
-	/** The additional plant uml configs. */
-	private List<String> additionalPlantUmlConfigs = new ArrayList<>();
-
 	/** use short class names in fields and methods in the diagram. */
 	private boolean useShortClassNamesInFieldsAndMethods = false;
 
@@ -101,8 +84,6 @@ public class PlantUMLClassDiagramConfig {
 	}
 
 	/**
-	 * 
-	 *
 	 * @param destinationClassloader the new destination classloader
 	 */
 	protected void setDestinationClassloader(ClassLoader destinationClassloader) {
@@ -117,8 +98,6 @@ public class PlantUMLClassDiagramConfig {
 	}
 
 	/**
-	 * 
-	 *
 	 * @param scanPackages the new scan packages
 	 */
 	protected void setScanPackages(List<String> scanPackages) {
@@ -133,8 +112,6 @@ public class PlantUMLClassDiagramConfig {
 	}
 
 	/**
-	 * 
-	 *
 	 * @param blacklistRegexp the new blacklist regexp
 	 */
 	protected void setBlacklistRegexp(String blacklistRegexp) {
@@ -149,8 +126,6 @@ public class PlantUMLClassDiagramConfig {
 	}
 
 	/**
-	 * 
-	 *
 	 * @param whitelistRegexp the new whitelist regexp
 	 */
 	protected void setWhitelistRegexp(String whitelistRegexp) {
@@ -165,8 +140,6 @@ public class PlantUMLClassDiagramConfig {
 	}
 
 	/**
-	 * 
-	 *
 	 * @param hideClasses the new hide classes
 	 */
 	protected void setHideClasses(List<String> hideClasses) {
@@ -181,8 +154,6 @@ public class PlantUMLClassDiagramConfig {
 	}
 
 	/**
-	 * 
-	 *
 	 * @param hideFields the new hide fields
 	 */
 	protected void setHideFields(boolean hideFields) {
@@ -197,8 +168,6 @@ public class PlantUMLClassDiagramConfig {
 	}
 
 	/**
-	 * 
-	 *
 	 * @param hideMethods the new hide methods
 	 */
 	protected void setHideMethods(boolean hideMethods) {
@@ -213,8 +182,6 @@ public class PlantUMLClassDiagramConfig {
 	}
 
 	/**
-	 * 
-	 *
 	 * @param removeFields the new removes the fields
 	 */
 	protected void setRemoveFields(boolean removeFields) {
@@ -229,8 +196,6 @@ public class PlantUMLClassDiagramConfig {
 	}
 
 	/**
-	 * 
-	 *
 	 * @param removeMethods the new removes the methods
 	 */
 	protected void setRemoveMethods(boolean removeMethods) {
@@ -245,8 +210,6 @@ public class PlantUMLClassDiagramConfig {
 	}
 
 	/**
-	 * 
-	 *
 	 * @param fieldBlacklistRegexp the new field blacklist regexp
 	 */
 	protected void setFieldBlacklistRegexp(String fieldBlacklistRegexp) {
@@ -261,8 +224,6 @@ public class PlantUMLClassDiagramConfig {
 	}
 
 	/**
-	 * 
-	 *
 	 * @param methodBlacklistRegexp the new method blacklist regexp
 	 */
 	protected void setMethodBlacklistRegexp(String methodBlacklistRegexp) {
@@ -277,8 +238,6 @@ public class PlantUMLClassDiagramConfig {
 	}
 
 	/**
-	 * 
-	 *
 	 * @param maxVisibilityFields the new max visibility fields
 	 */
 	public void setMaxVisibilityFields(VisibilityType maxVisibilityFields) {
@@ -293,8 +252,6 @@ public class PlantUMLClassDiagramConfig {
 	}
 
 	/**
-	 * 
-	 *
 	 * @param maxVisibilityMethods the new max visibility methods
 	 */
 	public void setMaxVisibilityMethods(VisibilityType maxVisibilityMethods) {

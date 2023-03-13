@@ -1,21 +1,21 @@
 package de.elnarion.util.plantuml.generator.classdiagram;
 
-import java.io.IOException;
-
 import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiagramConfig;
-import de.elnarion.util.plantuml.generator.classdiagram.internal.ClassAnalyzerSummary;
 import de.elnarion.util.plantuml.generator.classdiagram.internal.ClassAnalyzer;
+import de.elnarion.util.plantuml.generator.classdiagram.internal.ClassAnalyzerSummary;
 import de.elnarion.util.plantuml.generator.classdiagram.internal.PlantUMLClassDiagramTextBuilder;
+
+import java.io.IOException;
 
 /**
  * This class provides the ability to generate a PlantUML class diagram out of a
  * list of package names. Therefore this class scans directories and jars for
  * all classes contained directly in these packages and generates a class
  * diagram out of them via reflection
- * 
+ *
  * To be able to get the right classes you have to provide the necessary
  * ClassLoader, which is able to load these classes.
- * 
+ *
  * Currently this generator supports the following class types:
  * <ul>
  * <li>class</li>
@@ -24,17 +24,17 @@ import de.elnarion.util.plantuml.generator.classdiagram.internal.PlantUMLClassDi
  * <li>enum</li>
  * <li>interface</li>
  * </ul>
- * 
+ *
  * with some restrictions:
- * 
+ *
  * The type annotation does not contain any further information than its name
  * and no Annotation relationships are included in the diagram.
- * 
+ *
  * The type enum contains only the constants.
- * 
- * 
+ *
+ *
  * All other types contain field and method informations.
- * 
+ *
  * Relationships are included for
  * <ul>
  * <li>inheritance</li>
@@ -42,18 +42,18 @@ import de.elnarion.util.plantuml.generator.classdiagram.internal.PlantUMLClassDi
  * <li>aggregation (only for List and Set types)</li>
  * <li>usage (only direct usage via field)
  * </ul>
- * 
+ *
  * You can hide all fields via hideFields parameter or you can hide all methods
  * via hideMethods parameter.
- * 
+ *
  * If you want to hide a list of classes you have to provide a String List with
  * full qualified class names.
  */
 public class PlantUMLClassDiagramGenerator {
 
 	/** The plant UML config. */
-	private PlantUMLClassDiagramConfig plantUMLConfig;
-	
+	private final PlantUMLClassDiagramConfig plantUMLConfig;
+
 	/**
 	 * Instantiates a new plant UML class diagram generator.
 	 *

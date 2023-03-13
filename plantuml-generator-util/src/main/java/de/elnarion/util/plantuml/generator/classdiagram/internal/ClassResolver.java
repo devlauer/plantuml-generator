@@ -1,12 +1,12 @@
 package de.elnarion.util.plantuml.generator.classdiagram.internal;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import io.github.classgraph.ClassGraph;
 import io.github.classgraph.ClassInfoList;
 import io.github.classgraph.ScanResult;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * The Class ClassResolver.
@@ -14,27 +14,27 @@ import io.github.classgraph.ScanResult;
 class ClassResolver {
 
 	/** The destination class loader. */
-	private ClassLoader destinationClassLoader;
-	
+	private final ClassLoader destinationClassLoader;
+
 	/** The scanpackages. */
-	private List<String> scanpackages;
-	
+	private final List<String> scanpackages;
+
 	/** The blacklist reg exp. */
-	private String blacklistRegExp;
-	
+	private final String blacklistRegExp;
+
 	/** The whitelist reg exp. */
-	private String whitelistRegExp;
-	
+	private final String whitelistRegExp;
+
 	/**
 	 * Instantiates a new class resolver.
 	 *
 	 * @param paramDestinationClassloader the param destination classloader
-	 * @param paramScanpackages the param scanpackages
-	 * @param paramBlacklistRegExp the param blacklist reg exp
-	 * @param paramWhitelistRegExp the param whitelist reg exp
+	 * @param paramScanpackages           the param scanpackages
+	 * @param paramBlacklistRegExp        the param blacklist reg exp
+	 * @param paramWhitelistRegExp        the param whitelist reg exp
 	 */
 	public ClassResolver(ClassLoader paramDestinationClassloader, List<String> paramScanpackages,
-			String paramBlacklistRegExp, String paramWhitelistRegExp) {
+						 String paramBlacklistRegExp, String paramWhitelistRegExp) {
 		destinationClassLoader = paramDestinationClassloader;
 		scanpackages = paramScanpackages;
 		blacklistRegExp = paramBlacklistRegExp;
@@ -52,8 +52,8 @@ class ClassResolver {
 		else
 			return getAllClassesFromWhiteList();
 	}
-	
-	
+
+
 	/**
 	 * Gets the all classes which are contained in the scanned packages.
 	 *
@@ -64,7 +64,7 @@ class ClassResolver {
 		try (ScanResult scanResult = new ClassGraph().overrideClassLoaders(destinationClassLoader)
 				.enableClassInfo()
 				.acceptPackages(
-						scanpackages.toArray(new String[scanpackages.size()]))
+						scanpackages.toArray(new String[0]))
 				.scan()) {
 			final ClassInfoList allClasses = scanResult.getAllClasses();
 			if (blacklistRegExp != null) {
@@ -87,7 +87,7 @@ class ClassResolver {
 		try (ScanResult scanResult = new ClassGraph().overrideClassLoaders(destinationClassLoader)
 				.enableClassInfo()
 				.acceptPackages(
-						scanpackages.toArray(new String[scanpackages.size()]))
+						scanpackages.toArray(new String[0]))
 				.scan()) {
 			final ClassInfoList allClasses = scanResult.getAllClasses();
 			final ClassInfoList result = allClasses

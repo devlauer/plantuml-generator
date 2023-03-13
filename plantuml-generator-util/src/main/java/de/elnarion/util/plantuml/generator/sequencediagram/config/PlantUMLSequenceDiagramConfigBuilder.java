@@ -6,12 +6,12 @@ package de.elnarion.util.plantuml.generator.sequencediagram.config;
 public class PlantUMLSequenceDiagramConfigBuilder {
 
 	/** The sequence diagram config. */
-	private PlantUMLSequenceDiagramConfig sequenceDiagramConfig;
-	
+	private final PlantUMLSequenceDiagramConfig sequenceDiagramConfig;
+
 	/**
 	 * Instantiates a new plant UML sequence diagram config builder.
 	 *
-	 * @param paramStartClassName the param start class name
+	 * @param paramStartClassName  the param start class name
 	 * @param paramMethodStartName the param method start name
 	 */
 	public PlantUMLSequenceDiagramConfigBuilder(String paramStartClassName, String paramMethodStartName) {
@@ -19,7 +19,7 @@ public class PlantUMLSequenceDiagramConfigBuilder {
 		sequenceDiagramConfig.setStartClass(paramStartClassName);
 		sequenceDiagramConfig.setStartMethod(paramMethodStartName);
 	}
-	
+
 	/**
 	 * With classloader.
 	 *
@@ -30,7 +30,7 @@ public class PlantUMLSequenceDiagramConfigBuilder {
 		sequenceDiagramConfig.setDestinationClassloader(paramDestinationClassloader);
 		return this;
 	}
-	
+
 	/**
 	 * With use short class name.
 	 *
@@ -63,7 +63,7 @@ public class PlantUMLSequenceDiagramConfigBuilder {
 		sequenceDiagramConfig.setHideSuperClass(paramHideSuperClass);
 		return this;
 	}
-	
+
 	/**
 	 * With hide method name.
 	 *
@@ -74,7 +74,7 @@ public class PlantUMLSequenceDiagramConfigBuilder {
 		sequenceDiagramConfig.setHideMethodName(paramHideMethodName);
 		return this;
 	}
-	
+
 
 	/**
 	 * With ignore standard classes.
@@ -86,7 +86,7 @@ public class PlantUMLSequenceDiagramConfigBuilder {
 		sequenceDiagramConfig.setIgnoreStandardClasses(paramIgnoreStandardClasses);
 		return this;
 	}
-	
+
 
 	/**
 	 * With ignore JPA entities.
@@ -109,7 +109,7 @@ public class PlantUMLSequenceDiagramConfigBuilder {
 		sequenceDiagramConfig.setClassBlacklistRegexp(paramClassBlacklistRegexp);
 		return this;
 	}
-	
+
 	/**
 	 * With method blacklist regexp.
 	 *
@@ -120,7 +120,7 @@ public class PlantUMLSequenceDiagramConfigBuilder {
 		sequenceDiagramConfig.setMethodBlacklistRegexp(paramMethodBlacklistRegexp);
 		return this;
 	}
-	
+
 	/**
 	 * Builds the.
 	 *

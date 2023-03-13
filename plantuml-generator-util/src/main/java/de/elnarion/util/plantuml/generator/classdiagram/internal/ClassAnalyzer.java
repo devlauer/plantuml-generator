@@ -1,24 +1,12 @@
 package de.elnarion.util.plantuml.generator.classdiagram.internal;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.lang.reflect.TypeVariable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import de.elnarion.util.plantuml.generator.classdiagram.config.ClassifierType;
 import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiagramConfig;
 import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.*;
+import java.util.*;
 
 /**
  * The Class PlantUMLClassDiagramAnalyzerAndMapper.
@@ -26,15 +14,15 @@ import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
 public class ClassAnalyzer {
 
 	/** The plant UML config. */
-	private PlantUMLClassDiagramConfig plantUMLConfig;
+	private final PlantUMLClassDiagramConfig plantUMLConfig;
 	/** The resolved classes. */
-	private List<Class<?>> resolvedClasses = new ArrayList<>();
+	private final List<Class<?>> resolvedClasses = new ArrayList<>();
 
 	/** The classes. */
-	private Map<String, UMLClass> classes = new HashMap<>();
+	private final Map<String, UMLClass> classes = new HashMap<>();
 
 	/** The classes and relationships. */
-	private Map<UMLClass, List<UMLRelationship>> classesAndRelationships = new HashMap<>();
+	private final Map<UMLClass, List<UMLRelationship>> classesAndRelationships = new HashMap<>();
 
 	/**
 	 * Instantiates a new plant UML class diagram analyzer and mapper.
@@ -57,7 +45,7 @@ public class ClassAnalyzer {
 						plantUMLConfig.getBlacklistRegexp(), plantUMLConfig.getWhitelistRegexp())
 						.getAllDiagramClasses());
 		// sort all classes for a reliable sorted result
-		Collections.sort(resolvedClasses, (o1, o2) -> o1.getName().compareTo(o2.getName()));
+		resolvedClasses.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
 		// map java classes to UMLClass, UMLField, UMLMethod and UMLRelationship objects
 		for (final Class<?> clazz : resolvedClasses) {
 			mapToDomainClasses(clazz);
@@ -146,16 +134,14 @@ public class ClassAnalyzer {
 	 */
 	private void addAnnotationRelationship(final Class<?> paramClassObject, final UMLClass umlClass) {
 		final Annotation[] annotations = paramClassObject.getAnnotations();
-		if (annotations != null) {
-			for (final Annotation annotation : annotations) {
-				if (includeClass(annotation.annotationType())) {
-					final UMLRelationship relationship = new UMLRelationship(null, null, null,
-							AnalyzerUtil.getClassNameForClassesOrRelationships(paramClassObject, plantUMLConfig),
-							AnalyzerUtil.getClassNameForClassesOrRelationships(annotation.annotationType(),
-									plantUMLConfig),
-							RelationshipType.ASSOCIATION, new ArrayList<>());
-					addRelationship(umlClass, relationship);
-				}
+		for (final Annotation annotation : annotations) {
+			if (includeClass(annotation.annotationType())) {
+				final UMLRelationship relationship = new UMLRelationship(null, null, null,
+						AnalyzerUtil.getClassNameForClassesOrRelationships(paramClassObject, plantUMLConfig),
+						AnalyzerUtil.getClassNameForClassesOrRelationships(annotation.annotationType(),
+								plantUMLConfig),
+						RelationshipType.ASSOCIATION, new ArrayList<>());
+				addRelationship(umlClass, relationship);
 			}
 		}
 	}
@@ -172,10 +158,6 @@ public class ClassAnalyzer {
 	private void addRelationship(final UMLClass paramUmlClass, final UMLRelationship paramUmlRelationship) {
 		List<UMLRelationship> relationshipList = classesAndRelationships.computeIfAbsent(paramUmlClass,
 				k -> new ArrayList<>());
-		if (relationshipList == null) {
-			relationshipList = new ArrayList<>();
-			classesAndRelationships.put(paramUmlClass, relationshipList);
-		}
 		relationshipList.add(paramUmlRelationship);
 	}
 
@@ -190,15 +172,13 @@ public class ClassAnalyzer {
 	 */
 	private void addInterfaceRelationship(final Class<?> paramClassObject, final UMLClass paramUmlClass) {
 		final Class<?>[] interfaces = paramClassObject.getInterfaces();
-		if (interfaces != null) {
-			for (final Class<?> interfaceElement : interfaces) {
-				if (includeClass(interfaceElement)) {
-					final UMLRelationship relationship = new UMLRelationship(null, null, null,
-							AnalyzerUtil.getClassNameForClassesOrRelationships(paramClassObject, plantUMLConfig),
-							AnalyzerUtil.getClassNameForClassesOrRelationships(interfaceElement, plantUMLConfig),
-							RelationshipType.REALIZATION, new ArrayList<>());
-					addRelationship(paramUmlClass, relationship);
-				}
+		for (final Class<?> interfaceElement : interfaces) {
+			if (includeClass(interfaceElement)) {
+				final UMLRelationship relationship = new UMLRelationship(null, null, null,
+						AnalyzerUtil.getClassNameForClassesOrRelationships(paramClassObject, plantUMLConfig),
+						AnalyzerUtil.getClassNameForClassesOrRelationships(interfaceElement, plantUMLConfig),
+						RelationshipType.REALIZATION, new ArrayList<>());
+				addRelationship(paramUmlClass, relationship);
 			}
 		}
 	}
@@ -226,7 +206,7 @@ public class ClassAnalyzer {
 	/**
 	 * Iterates over an array of declared methods of a java class, creates
 	 * {@link UMLMethod} objects and adds them to the given {@link UMLClass} object.
-	 * 
+	 *
 	 * If a declared method is a getter or setter method of a declared field it is
 	 * ignored.
 	 *
@@ -240,7 +220,7 @@ public class ClassAnalyzer {
 	 *                             {@link UMLMethod} objects should be added
 	 */
 	private void addMethods(final Method[] paramDeclaredMethods, final Field[] paramDeclaredFields, // NOSONAR
-			final UMLClass paramUmlClass) {
+							final UMLClass paramUmlClass) {
 		if (paramDeclaredMethods != null) {
 			for (final Method method : paramDeclaredMethods) { // NOSONAR
 				if (method.isSynthetic())
@@ -289,7 +269,7 @@ public class ClassAnalyzer {
 	/**
 	 * Converts an array of parameter types to a string map with synthetic parameter
 	 * names and their mapped full qualified type name.
-	 * 
+	 *
 	 * Parameter names are synthetic because in Java 7 the parameter names cannot be
 	 * determined in all cases.
 	 *
@@ -304,7 +284,7 @@ public class ClassAnalyzer {
 			for (final Class<?> parameter : paramParameterTypes) {
 				String parameterName = parameter.getName();
 				if (parameterName.lastIndexOf('.') > 0) {
-					parameterName = parameterName.substring(parameterName.lastIndexOf('.') + 1, parameterName.length());
+					parameterName = parameterName.substring(parameterName.lastIndexOf('.') + 1);
 				}
 				parameterName = "param" + parameterName + counter;
 				String parameterType = AnalyzerUtil.getClassNameForFieldsAndMethods(parameter, plantUMLConfig);
@@ -318,11 +298,11 @@ public class ClassAnalyzer {
 	/**
 	 * Creates {@link UMLField} or {@link UMLRelationship} objects for all given
 	 * fields. And adds them to the given {@link UMLClass} object.
-	 * 
+	 *
 	 * If a field type is part of the class diagram (directly or via List or Set) it
 	 * is added as {@link UMLRelationship}. If not it is added as {@link UMLField}
 	 * object.
-	 * 
+	 *
 	 * If a field has a getter an a setter method its visibility is upgraded to
 	 * public.
 	 *
@@ -337,7 +317,7 @@ public class ClassAnalyzer {
 	 *                             objects should be added
 	 */
 	private void addFields(final Field[] paramDeclaredFields, final Method[] paramDeclaredMethods,
-			final UMLClass paramUmlClass) {
+						   final UMLClass paramUmlClass) {
 		if (paramDeclaredFields != null) {
 			for (final java.lang.reflect.Field field : paramDeclaredFields) {
 				if (field.isSynthetic())
@@ -345,14 +325,12 @@ public class ClassAnalyzer {
 				final Class<?> type = field.getType();
 				final boolean relationshipAdded = addAggregationRelationship(paramUmlClass, field,
 						paramDeclaredMethods);
-				if (relationshipAdded) {
-					// do nothing - skip processing
-				} else if (includeClass(type)) {
+				if (includeClass(type)) {
 					List<String> annotations = new JPAAnalyzerHelper().addJPAFieldAnnotationsToList(field,
 							paramDeclaredMethods, plantUMLConfig.getDestinationClassloader());
 					final UMLRelationship relationship = createUMLRelationship4Field(field, type, annotations);
 					addRelationship(paramUmlClass, relationship);
-				} else {
+				} else if (!relationshipAdded) {
 					addFieldToUMLClass(paramUmlClass, field, type, paramDeclaredMethods);
 				}
 			}
@@ -369,7 +347,7 @@ public class ClassAnalyzer {
 	 * @return the UML relationship
 	 */
 	private UMLRelationship createUMLRelationship4Field(final java.lang.reflect.Field field, final Class<?> type,
-			List<String> annotations) {
+														List<String> annotations) {
 		final UMLRelationship relationship;
 		if (Modifier.isFinal(field.getModifiers())) {
 			relationship = new UMLRelationship(null, null, field.getName(),
@@ -388,7 +366,7 @@ public class ClassAnalyzer {
 	/**
 	 * Creates {@link UMLField} object for the given field if the field should be
 	 * added to the diagram (blacklist-check,remove-check,visibility-check).
-	 * 
+	 *
 	 * @param paramUmlClass        {@link UMLClass} - the uml class to which the
 	 *                             {@link UMLField} should be added
 	 * @param field                Field - the field objects which are basse for the
@@ -399,7 +377,7 @@ public class ClassAnalyzer {
 	 *                             object
 	 */
 	private void addFieldToUMLClass(final UMLClass paramUmlClass, final java.lang.reflect.Field field,
-			final Class<?> type, Method[] paramDeclaredMethods) {
+									final Class<?> type, Method[] paramDeclaredMethods) {
 		FieldAnalyzer fieldAnalyzer = new FieldAnalyzer(plantUMLConfig);
 		UMLField umlField = fieldAnalyzer.analyzeField(field, type, paramDeclaredMethods);
 		if (umlField != null)
@@ -420,13 +398,13 @@ public class ClassAnalyzer {
 	 * @return true, if an aggregation relationship was created and added
 	 */
 	private boolean addAggregationRelationship(final UMLClass paramUmlClass, final Field paramField,
-			final Method[] paramDeclaredMethods) {
+											   final Method[] paramDeclaredMethods) {
 		final Type type = paramField.getType();
 		final Type genericType = paramField.getGenericType();
 		boolean isRelationshipAggregation = false;
 		if (Collection.class.isAssignableFrom((Class<?>) type) && genericType instanceof ParameterizedType
 				&& (((ParameterizedType) genericType).getRawType().equals(Set.class)
-						|| ((ParameterizedType) genericType).getRawType().equals(List.class))) {
+				|| ((ParameterizedType) genericType).getRawType().equals(List.class))) {
 			final Type[] actualTypeArguments = ((ParameterizedType) genericType).getActualTypeArguments();
 			if (actualTypeArguments != null) {
 				for (final Type typeArgument : actualTypeArguments) {
@@ -462,8 +440,6 @@ public class ClassAnalyzer {
 			}
 		} else if (paramType instanceof Class<?>) {
 			typeArgumentClass = (Class<?>) paramType;
-		} else if (paramType instanceof TypeVariable<?>) {
-			// Nothing to do ignore type variables
 		}
 		return typeArgumentClass;
 	}

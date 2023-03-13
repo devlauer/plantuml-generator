@@ -1,12 +1,11 @@
 package de.elnarion.util.plantuml.generator.classdiagram.internal;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import de.elnarion.util.plantuml.generator.classdiagram.config.ClassifierType;
 import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 /**
@@ -15,12 +14,12 @@ import java.util.Set;
  */
 public class UMLMethod implements PlantUMLDiagramElement {
 
-	private ClassifierType classifierType;
-	private VisibilityType visibilityType;
-	private String resultType;
-	private Map<String, String> parametersAndTypes;
-	private String name;
-	private List<String> stereotypes;
+	private final ClassifierType classifierType;
+	private final VisibilityType visibilityType;
+	private final String resultType;
+	private final Map<String, String> parametersAndTypes;
+	private final String name;
+	private final List<String> stereotypes;
 
 	/**
 	 * Instantiates a new method.
@@ -36,7 +35,7 @@ public class UMLMethod implements PlantUMLDiagramElement {
 	 *                               method
 	 */
 	public UMLMethod(ClassifierType paramClassifierType, VisibilityType paramVisibility, String paramResultType,
-			String paramName, Map<String, String> paramParametersAndType, List<String> paramStereotypes) {
+					 String paramName, Map<String, String> paramParametersAndType, List<String> paramStereotypes) {
 		classifierType = paramClassifierType;
 		visibilityType = paramVisibility;
 		resultType = paramResultType;
@@ -77,17 +76,17 @@ public class UMLMethod implements PlantUMLDiagramElement {
 		StringBuilder builder = new StringBuilder();
 		builder.append("{method} ");
 		switch (classifierType) {
-		case ABSTRACT_STATIC:
-			builder.append(" {static} {abstract}");
-			break;
-		case ABSTRACT:
-			builder.append(" {abstract} ");
-			break;
-		case STATIC:
-			builder.append(" {static} ");
-			break;
-		default:
-			break;
+			case ABSTRACT_STATIC:
+				builder.append(" {static} {abstract}");
+				break;
+			case ABSTRACT:
+				builder.append(" {abstract} ");
+				break;
+			case STATIC:
+				builder.append(" {static} ");
+				break;
+			default:
+				break;
 		}
 		builder.append(VisibilityUtil.getVisibilityText(visibilityType));
 		builder.append(name);

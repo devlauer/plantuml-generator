@@ -1,29 +1,29 @@
 package de.elnarion.util.plantuml.generator.classdiagram.internal;
 
-import static java.util.Collections.sort;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
+import static java.util.Collections.sort;
+
+/**
+ * The type Jpa analyzer helper.
+ */
 class JPAAnalyzerHelper {
 
 	/**
 	 * Adds the JPA field annotations to list.
 	 *
-	 * @param field                the field
-	 * @param paramDeclaredMethods the param declared methods
-	 * @param annotationStringList the annotation string list
+	 * @param field                  the field
+	 * @param paramDeclaredMethods   the param declared methods
+	 * @param destinationClassloader the destination classloader
+	 * @return the list
 	 */
 	List<String> addJPAFieldAnnotationsToList(final java.lang.reflect.Field field, Method[] paramDeclaredMethods,
-			  ClassLoader destinationClassloader) {
+											  ClassLoader destinationClassloader) {
 		List<String> annotationStringList = new LinkedList<>();
 		if (destinationClassloader != null) {
 			addJPAFieldAnnotationClassToList(field, paramDeclaredMethods, annotationStringList, destinationClassloader,
@@ -43,7 +43,7 @@ class JPAAnalyzerHelper {
 		}
 		return annotationStringList;
 	}
-	
+
 	/**
 	 * Adds the JPA field annotation class to list.
 	 *
@@ -54,7 +54,7 @@ class JPAAnalyzerHelper {
 	 * @param paramAnnotationClassname the param annotation classname
 	 */
 	private void addJPAFieldAnnotationClassToList(final java.lang.reflect.Field field, Method[] paramDeclaredMethods, // NOSONAR
-			List<String> annotationStringList, ClassLoader destinationClassloader, String paramAnnotationClassname) {
+												  List<String> annotationStringList, ClassLoader destinationClassloader, String paramAnnotationClassname) {
 		try {
 			boolean foundAnnotation = false;
 			Class<?> columnAnnotation = destinationClassloader.loadClass(paramAnnotationClassname);
@@ -67,7 +67,7 @@ class JPAAnalyzerHelper {
 			}
 			if (!foundAnnotation) {
 				for (Method declaredMethod : paramDeclaredMethods) {
-					if (MethodAnalyzerUtil.isGetterOrSetterMethod(declaredMethod, new Field[] { field })) {
+					if (MethodAnalyzerUtil.isGetterOrSetterMethod(declaredMethod, new Field[]{field})) {
 						annotations = declaredMethod.getAnnotations();
 						for (Annotation annotation : annotations) {
 							if (columnAnnotation.isAssignableFrom(annotation.getClass())) {
@@ -96,16 +96,14 @@ class JPAAnalyzerHelper {
 		builder.append(annotationName);
 		try {
 			Method nameMethod = annotation.getClass().getMethod("name");
-			if (nameMethod != null) {
-				builder.append("(\"");
-				Object nameObject = nameMethod.invoke(annotation);
-				if (nameObject instanceof String) {
-					builder.append(nameObject);
-				}
-				builder.append("\")");
+			builder.append("(\"");
+			Object nameObject = nameMethod.invoke(annotation);
+			if (nameObject instanceof String) {
+				builder.append(nameObject);
 			}
+			builder.append("\")");
 		} catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e) {
+				 | InvocationTargetException e) {
 			// ignore, method not found or not callable
 		}
 		return builder.toString();
@@ -114,10 +112,11 @@ class JPAAnalyzerHelper {
 	/**
 	 * Adds the JPA stereotype.
 	 *
-	 * @param paramClassObject the param class object
-	 * @param stereotypes      the stereotypes
+	 * @param paramClassObject       the param class object
+	 * @param stereotypes            the stereotypes
+	 * @param destinationClassloader the destination classloader
 	 */
-	protected void addJPAStereotype(final Class<?> paramClassObject, List<UMLStereotype> stereotypes,ClassLoader destinationClassloader) {
+	protected void addJPAStereotype(final Class<?> paramClassObject, List<UMLStereotype> stereotypes, ClassLoader destinationClassloader) {
 		if (destinationClassloader != null) {
 			try {
 				addStereoTypesForAnnotationClass(paramClassObject, stereotypes, destinationClassloader,
@@ -131,7 +130,7 @@ class JPAAnalyzerHelper {
 			}
 		}
 	}
-	
+
 	/**
 	 * Adds the stereo types for annotation class.
 	 *
@@ -143,7 +142,7 @@ class JPAAnalyzerHelper {
 	 * @throws ClassNotFoundException the class not found exception
 	 */
 	private void addStereoTypesForAnnotationClass(final Class<?> paramClassObject, List<UMLStereotype> stereotypes,
-			ClassLoader destinationClassloader, String annotationClassName, String annotationName)
+												  ClassLoader destinationClassloader, String annotationClassName, String annotationName)
 			throws ClassNotFoundException {
 		Class<?> tableAnnotation = destinationClassloader.loadClass(annotationClassName);
 		Annotation[] annotations = paramClassObject.getAnnotations();
@@ -152,8 +151,8 @@ class JPAAnalyzerHelper {
 				addAnnotationStereotype(stereotypes, annotation, annotationName, destinationClassloader);
 			}
 		}
-	}	
-	
+	}
+
 	/**
 	 * Adds the annotation stereotype.
 	 *
@@ -163,10 +162,10 @@ class JPAAnalyzerHelper {
 	 * @param destinationClassloader the destination classloader
 	 */
 	private void addAnnotationStereotype(List<UMLStereotype> stereotypes, Annotation annotation, String annotationName,
-			ClassLoader destinationClassloader) {
+										 ClassLoader destinationClassloader) {
 		Map<String, List<String>> attributes = new TreeMap<>();
 		// only for @Table
-		if (annotationName != null && "Table".equals(annotationName)) {
+		if ("Table".equals(annotationName)) {
 			addAttributeIfExists(annotation, attributes, "name");
 			addAttributeIfExists(annotation, attributes, "schema");
 			addAttributeObjectListIfExists(annotation, attributes, "javax.persistence.Index", "indexes",
@@ -188,16 +187,14 @@ class JPAAnalyzerHelper {
 	private void addAttributeIfExists(Annotation annotation, Map<String, List<String>> attributes, String methodname) {
 		try {
 			Method nameMethod = annotation.getClass().getMethod(methodname);
-			if (nameMethod != null) {
-				Object nameObject = nameMethod.invoke(annotation);
-				if (nameObject instanceof String && !((String) nameObject).isEmpty()) {
-					List<String> values = new ArrayList<>();
-					values.add((String) nameObject);
-					attributes.put(methodname, values);
-				}
+			Object nameObject = nameMethod.invoke(annotation);
+			if (nameObject instanceof String && !((String) nameObject).isEmpty()) {
+				List<String> values = new ArrayList<>();
+				values.add((String) nameObject);
+				attributes.put(methodname, values);
 			}
 		} catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException
-				| InvocationTargetException e) {
+				 | InvocationTargetException e) {
 			// ignore, because method is not found or can not be called or has illegal
 			// arguments
 		}
@@ -214,23 +211,21 @@ class JPAAnalyzerHelper {
 	 * @param destinationClassloader the destination classloader
 	 */
 	private void addAttributeObjectListIfExists(Annotation annotation, Map<String, List<String>> attributes,
-			String annotationClassName, String methodName, ClassLoader destinationClassloader) {
+												String annotationClassName, String methodName, ClassLoader destinationClassloader) {
 		try {
 			Method nameMethod = annotation.getClass().getMethod(methodName);
-			if (nameMethod != null) {
-				Class<?> valueAnnotation = destinationClassloader.loadClass(annotationClassName);
-				Object nameObject = nameMethod.invoke(annotation);
-				if (nameObject != null && nameObject.getClass().isArray()
-						&& nameObject.getClass().getComponentType().equals(valueAnnotation)) {
-					List<String> values = addAnnotationArrayToAttributeList(valueAnnotation, nameObject);
-					if (!values.isEmpty()) {
-						sort(values);
-						attributes.put(methodName, values);
-					}
+			Class<?> valueAnnotation = destinationClassloader.loadClass(annotationClassName);
+			Object nameObject = nameMethod.invoke(annotation);
+			if (nameObject != null && nameObject.getClass().isArray()
+					&& nameObject.getClass().getComponentType().equals(valueAnnotation)) {
+				List<String> values = addAnnotationArrayToAttributeList(valueAnnotation, nameObject);
+				if (!values.isEmpty()) {
+					sort(values);
+					attributes.put(methodName, values);
 				}
 			}
 		} catch (NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-				| ClassNotFoundException e) {
+				 | ClassNotFoundException e) {
 			// ignore, because method is not found or can not be called or has illegal
 			// arguments
 		}
@@ -272,7 +267,7 @@ class JPAAnalyzerHelper {
 	 * @throws InvocationTargetException the invocation target exception
 	 */
 	private void addMethodArrayValueString(Class<?> valueAnnotation, Object arrayElement,
-			StringBuilder elementStringBuilder, Method[] methods)
+										   StringBuilder elementStringBuilder, Method[] methods)
 			throws IllegalAccessException, InvocationTargetException {
 		elementStringBuilder.append(valueAnnotation.getSimpleName());
 		elementStringBuilder.append(" (");
@@ -281,7 +276,7 @@ class JPAAnalyzerHelper {
 			String name = method.getName();
 			if (method.getParameterCount() == 0) {
 				String methodValueString = createMethodValueString(arrayElement, method, name);
-				if (methodValueString != null && !methodValueString.isEmpty()) {
+				if (!methodValueString.isEmpty()) {
 					methodAttributesString.add(methodValueString);
 				}
 			}
@@ -335,5 +330,5 @@ class JPAAnalyzerHelper {
 				elementStringBuilder.append(",");
 			elementStringBuilder.append(Array.get(result, j));
 		}
-	}	
+	}
 }

@@ -1,12 +1,11 @@
 package de.elnarion.util.plantuml.generator.classdiagram.internal;
 
+import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiagramConfig;
+
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
-import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiagramConfig;
 
 /**
  * The Class PlantUMLClassDiagramTextBuilder.
@@ -14,24 +13,24 @@ import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiag
 public class PlantUMLClassDiagramTextBuilder {
 
 	/** The plant UML config. */
-	private PlantUMLClassDiagramConfig plantUMLConfig;
-	
+	private final PlantUMLClassDiagramConfig plantUMLConfig;
+
 	/** The classes. */
-	private Map<String, UMLClass> classes;
-	
+	private final Map<String, UMLClass> classes;
+
 	/** The classes and relationships. */
-	private Map<UMLClass, List<UMLRelationship>> classesAndRelationships;
-	
-	
+	private final Map<UMLClass, List<UMLRelationship>> classesAndRelationships;
+
+
 	/**
 	 * Instantiates a new plant UML class diagram text builder.
 	 *
 	 * @param paramPlantUMLConfig the param plant UML config
-	 * @param paramSummary the param summary
+	 * @param paramSummary        the param summary
 	 */
 	public PlantUMLClassDiagramTextBuilder(PlantUMLClassDiagramConfig paramPlantUMLConfig,
-			ClassAnalyzerSummary paramSummary) {
-		plantUMLConfig=paramPlantUMLConfig;
+										   ClassAnalyzerSummary paramSummary) {
+		plantUMLConfig = paramPlantUMLConfig;
 		classes = paramSummary.getClasses();
 		classesAndRelationships = paramSummary.getClassesAndRelationships();
 	}
@@ -63,7 +62,7 @@ public class PlantUMLClassDiagramTextBuilder {
 		addTwoSpaceLinesToBuilder(builder);
 		endUmlDiagram(builder);
 		return builder.toString();
-		
+
 	}
 
 	/**
@@ -103,7 +102,7 @@ public class PlantUMLClassDiagramTextBuilder {
 	/**
 	 * Append sorted classes to builder.
 	 *
-	 * @param builder the builder
+	 * @param builder           the builder
 	 * @param sortedClassesList the sorted classes list
 	 */
 	private void appendSortedClassesToBuilder(final StringBuilder builder, final Collection<UMLClass> sortedClassesList) {
@@ -120,13 +119,13 @@ public class PlantUMLClassDiagramTextBuilder {
 	 */
 	private void sortRelationships(final List<UMLRelationship> relationships) {
 		// because the ordered list could be changed in between, sort the list
-		Collections.sort(relationships, (o1, o2) -> o1.getDiagramText().compareTo(o2.getDiagramText()));
+		relationships.sort((o1, o2) -> o1.getDiagramText().compareTo(o2.getDiagramText()));
 	}
 
 	/**
 	 * Adds the relationships to builder.
 	 *
-	 * @param builder the builder
+	 * @param builder       the builder
 	 * @param relationships the relationships
 	 */
 	private void addRelationshipsToBuilder(final StringBuilder builder, final List<UMLRelationship> relationships) {
@@ -153,10 +152,9 @@ public class PlantUMLClassDiagramTextBuilder {
 	 * @return the collection
 	 */
 	private Collection<UMLClass> sortClasses() {
-		final List<UMLClass> listToCompare = new ArrayList<>();
-		listToCompare.addAll(classes.values());
+		final List<UMLClass> listToCompare = new ArrayList<>(classes.values());
 		// because the ordered list could be changed in between, sort the list
-		Collections.sort(listToCompare, (o1, o2) -> o1.getName().compareTo(o2.getName()));
+		listToCompare.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
 		return listToCompare;
 	}
 
@@ -189,7 +187,7 @@ public class PlantUMLClassDiagramTextBuilder {
 	 *                         all relationships in the class diagram
 	 */
 	private void addHideToggles(final StringBuilder paramBuilder, final Collection<UMLClass> paramClassesList,
-			final List<UMLRelationship> relationships) {
+								final List<UMLRelationship> relationships) {
 		if ((paramClassesList != null && !paramClassesList.isEmpty()) || (!relationships.isEmpty())) {
 			if (plantUMLConfig.isHideFields()) {
 				paramBuilder.append(System.lineSeparator());
@@ -208,5 +206,5 @@ public class PlantUMLClassDiagramTextBuilder {
 			}
 		}
 	}
-	
+
 }

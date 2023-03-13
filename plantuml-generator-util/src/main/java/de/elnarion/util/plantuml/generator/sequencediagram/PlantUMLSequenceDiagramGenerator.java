@@ -4,11 +4,7 @@ import de.elnarion.util.plantuml.generator.sequencediagram.config.PlantUMLSequen
 import de.elnarion.util.plantuml.generator.sequencediagram.exception.NotFoundException;
 import de.elnarion.util.plantuml.generator.sequencediagram.internal.CallerClass;
 import de.elnarion.util.plantuml.generator.sequencediagram.internal.CallerMethod;
-import javassist.CannotCompileException;
-import javassist.ClassPool;
-import javassist.CtClass;
-import javassist.CtMethod;
-import javassist.LoaderClassPath;
+import javassist.*;
 import javassist.expr.ExprEditor;
 import javassist.expr.MethodCall;
 
@@ -52,32 +48,15 @@ public class PlantUMLSequenceDiagramGenerator {
 
 	}
 
-	/**
-	 * Generate diagram text from caller method.
-	 *
-	 * @param callerMethod the caller method
-	 * @return the string
-	 * @throws ClassNotFoundException      the class not found exception
-	 * @throws NotFoundException the not found exception
-	 */
 	private String generateDiagramTextFromCallerMethod(CallerMethod callerMethod)
 			throws ClassNotFoundException, javassist.NotFoundException {
-		StringBuilder diagramStringBuilder = new StringBuilder();
-		diagramStringBuilder.append("@startuml");
-		diagramStringBuilder.append(System.lineSeparator());
-		diagramStringBuilder.append(callerMethod.getDiagramText());
-		diagramStringBuilder.append("@enduml");
-		diagramStringBuilder.append(System.lineSeparator());
-		return diagramStringBuilder.toString();
+		return "@startuml" +
+				System.lineSeparator() +
+				callerMethod.getDiagramText() +
+				"@enduml" +
+				System.lineSeparator();
 	}
 
-	/**
-	 * Find starting method in class pool.
-	 *
-	 * @param cp the cp
-	 * @return the ct method
-	 * @throws NotFoundException the not found exception
-	 */
 	private CtMethod findStartingMethodInClassPool(ClassPool cp) throws javassist.NotFoundException {
 		CtClass ctClass = cp.get(config.getStartClass());
 		return ctClass.getDeclaredMethod(config.getStartMethod());
@@ -101,8 +80,8 @@ public class PlantUMLSequenceDiagramGenerator {
 	 * @param method       the method
 	 * @param callingClass the calling class
 	 * @return the caller method
-	 * @throws CannotCompileException      the cannot compile exception
-	 * @throws NotFoundException the not found exception
+	 * @throws CannotCompileException the cannot compile exception
+	 * @throws NotFoundException      the not found exception
 	 */
 	private CallerMethod getCallerMethod(CtMethod method, CallerClass callingClass)
 			throws CannotCompileException, javassist.NotFoundException {
@@ -133,10 +112,8 @@ public class PlantUMLSequenceDiagramGenerator {
 	 * @return true, if is ignore call
 	 */
 	private boolean isIgnoreCall(CtClass calleeClass, CtMethod calleeMethod) {
-		boolean ignoreCall = false;
+		boolean ignoreCall = config.isIgnoreStandardClasses() && isJavaStandardClass(calleeClass);
 		// handle all ignore cases
-		if (config.isIgnoreStandardClasses() && isJavaStandardClass(calleeClass))
-			ignoreCall = true;
 		if (config.isIgnoreJPAEntities() && calleeClass.hasAnnotation("javax.persistence.Entity"))
 			ignoreCall = true;
 		if (config.getClassBlacklistRegexp() != null && isClassBlacklisted(calleeClass))

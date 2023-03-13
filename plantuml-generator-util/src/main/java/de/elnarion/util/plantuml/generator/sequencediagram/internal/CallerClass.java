@@ -1,12 +1,12 @@
 package de.elnarion.util.plantuml.generator.sequencediagram.internal;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import de.elnarion.util.plantuml.generator.sequencediagram.config.PlantUMLSequenceDiagramConfig;
 import javassist.CtClass;
 import javassist.NotFoundException;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The Class CallerClass.
@@ -14,16 +14,16 @@ import javassist.NotFoundException;
 public class CallerClass {
 
 	/** The ct class. */
-	private CtClass ctClass;
+	private final CtClass ctClass;
 
 	/** The super classes. */
-	private List<CtClass> superClasses = new LinkedList<>();
+	private final List<CtClass> superClasses = new LinkedList<>();
 
 	/** The config. */
-	private PlantUMLSequenceDiagramConfig config;
+	private final PlantUMLSequenceDiagramConfig config;
 
 	/** The calling class. */
-	private CallerClass callingClass;
+	private final CallerClass callingClass;
 
 	/**
 	 * Instantiates a new caller class.
@@ -61,17 +61,17 @@ public class CallerClass {
 	/**
 	 * Adds the super classes to caller class.
 	 *
-	 * @param callerClass the caller class
+	 * @param callerClass    the caller class
 	 * @param declaringClass the declaring class
 	 * @throws NotFoundException the not found exception
 	 */
 	private void addSuperClassesToCallerClass(CallerClass callerClass, CtClass declaringClass) throws NotFoundException {
-			CtClass superClass = declaringClass.getSuperclass();
-			if (superClass != null) {
-				callerClass.getSuperClasses().add(superClass);
-				// get all super classes recursively
-				addSuperClassesToCallerClass(callerClass, superClass);
-			}
+		CtClass superClass = declaringClass.getSuperclass();
+		if (superClass != null) {
+			callerClass.getSuperClasses().add(superClass);
+			// get all super classes recursively
+			addSuperClassesToCallerClass(callerClass, superClass);
+		}
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class CallerClass {
 	 * @return the diagram class name
 	 */
 	public String getDiagramClassName() {
-		if (callingClass!=null&&config.isHideSuperClass()&&callingClass.isSubTypeOf(this)) {
+		if (callingClass != null && config.isHideSuperClass() && callingClass.isSubTypeOf(this)) {
 			return callingClass.getDiagramClassName();
 		}
 		if (config.isUseShortClassNames())
@@ -106,5 +106,5 @@ public class CallerClass {
 	protected List<CtClass> getSuperClasses() {
 		return superClasses;
 	}
-	
+
 }

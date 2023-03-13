@@ -67,7 +67,7 @@ class AnalyzerUtil {
 	 */
 	protected static String removeJavaLangPackage(String paramTypeName) {
 		if (paramTypeName.startsWith("java.lang.")) {
-			paramTypeName = paramTypeName.substring("java.lang.".length(), paramTypeName.length());
+			paramTypeName = paramTypeName.substring("java.lang.".length());
 		}
 		return paramTypeName;
 	}

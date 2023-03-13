@@ -9,19 +9,19 @@ import java.util.Map;
 public class ClassAnalyzerSummary {
 
 	/** The classes. */
-	private Map<String, UMLClass> classes;
+	private final Map<String, UMLClass> classes;
 
 	/** The classes and relationships. */
-	private Map<UMLClass, List<UMLRelationship>> classesAndRelationships;
+	private final Map<UMLClass, List<UMLRelationship>> classesAndRelationships;
 
 	/**
 	 * Instantiates a new plant UML class diagram analyze summary.
 	 *
-	 * @param paramClasses the param classes
+	 * @param paramClasses                 the param classes
 	 * @param paramClassesAndRelationships the param classes and relationships
 	 */
 	public ClassAnalyzerSummary(Map<String, UMLClass> paramClasses,
-			Map<UMLClass, List<UMLRelationship>> paramClassesAndRelationships) {
+								Map<UMLClass, List<UMLRelationship>> paramClassesAndRelationships) {
 		classes = paramClasses;
 		classesAndRelationships = paramClassesAndRelationships;
 	}

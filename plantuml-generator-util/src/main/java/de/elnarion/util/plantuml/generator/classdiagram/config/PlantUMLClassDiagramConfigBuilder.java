@@ -8,7 +8,7 @@ import java.util.List;
 public class PlantUMLClassDiagramConfigBuilder {
 
 	/** The plant UML config. */
-	private PlantUMLClassDiagramConfig plantUMLConfig = new PlantUMLClassDiagramConfig();
+	private final PlantUMLClassDiagramConfig plantUMLConfig = new PlantUMLClassDiagramConfig();
 
 	/**
 	 * Instantiates a new plant UML class diagram config builder.

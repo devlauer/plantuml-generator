@@ -11,14 +11,14 @@ public class UMLStereotype {
 
 	/** The name. */
 	private String name;
-	
+
 	/** The attributes. */
 	private Map<String, List<String>> attributes;
 
 	/**
 	 * Instantiates a new UML stereotype.
 	 *
-	 * @param paramName the param name
+	 * @param paramName       the param name
 	 * @param paramAttributes the param attributes
 	 */
 	public UMLStereotype(String paramName, Map<String, List<String>> paramAttributes) {
@@ -50,11 +50,9 @@ public class UMLStereotype {
 	 * @return the diagram text
 	 */
 	public String getDiagramText() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("<<");
-		builder.append(name);
-		builder.append(">>");
-		return builder.toString();
+		return "<<" +
+				name +
+				">>";
 	}
 
 	/**
@@ -79,7 +77,8 @@ public class UMLStereotype {
 				taggedValueCompartment.append(" {");
 				taggedValueCompartment.append(name);
 				String key = mapentry.getKey();
-				taggedValueCompartment.append(Character.toUpperCase(key.charAt(0)) + key.substring(1));
+				taggedValueCompartment.append(Character.toUpperCase(key.charAt(0)));
+				taggedValueCompartment.append(key.substring(1));
 				taggedValueCompartment.append("=");
 				List<String> values = mapentry.getValue();
 				if (values != null && values.size() == 1) {

@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
  * The Class MethodAnalyzerUtil.
  */
 class MethodAnalyzerUtil {
-	
+
 	/**
 	 * Instantiates a new method analyzer util.
 	 */
@@ -25,11 +25,11 @@ class MethodAnalyzerUtil {
 	static boolean isGetterOrSetterMethod(final Method paramMethod, final Field[] paramDeclaredFields) {
 		String methodName = paramMethod.getName();
 		if (methodName.startsWith("get")) {
-			methodName = methodName.substring(3, methodName.length());
+			methodName = methodName.substring(3);
 		} else if (methodName.startsWith("is")) {
-			methodName = methodName.substring(2, methodName.length());
+			methodName = methodName.substring(2);
 		} else if (methodName.startsWith("set")) {
-			methodName = methodName.substring(3, methodName.length());
+			methodName = methodName.substring(3);
 		}
 		for (final Field field : paramDeclaredFields) {
 			final String fieldName = field.getName();

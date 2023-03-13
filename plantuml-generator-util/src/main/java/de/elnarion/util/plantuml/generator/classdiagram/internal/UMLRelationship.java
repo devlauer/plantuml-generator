@@ -9,25 +9,25 @@ import java.util.List;
 public class UMLRelationship implements PlantUMLDiagramElement {
 
 	/** The from multiplicity. */
-	private String fromMultiplicity;
-	
+	private final String fromMultiplicity;
+
 	/** The to multiplicity. */
-	private String toMultiplicity;
-	
+	private final String toMultiplicity;
+
 	/** The name. */
-	private String name;
-	
+	private final String name;
+
 	/** The from name. */
-	private String fromName;
-	
+	private final String fromName;
+
 	/** The to name. */
-	private String toName;
-	
+	private final String toName;
+
 	/** The relationshiptype. */
-	private RelationshipType relationshiptype;
-	
+	private final RelationshipType relationshiptype;
+
 	/** The annotations. */
-	private List<String> annotations;
+	private final List<String> annotations;
 
 	/**
 	 * Instantiates a new UML relationship.
@@ -49,8 +49,8 @@ public class UMLRelationship implements PlantUMLDiagramElement {
 	 *                              relationship
 	 */
 	public UMLRelationship(String paramFromMultiplicity, String paramToMultiplicity, String paramName,
-			String paramFromName, String paramToName, RelationshipType paramRelationshipType,
-			List<String> paramAnnotations) {
+						   String paramFromName, String paramToName, RelationshipType paramRelationshipType,
+						   List<String> paramAnnotations) {
 		fromMultiplicity = paramFromMultiplicity;
 		toMultiplicity = paramToMultiplicity;
 		name = paramName;
@@ -77,26 +77,26 @@ public class UMLRelationship implements PlantUMLDiagramElement {
 			builder.append("\" ");
 		}
 		switch (relationshiptype) {
-		case AGGREGATION:
-			builder.append("o--");
-			break;
-		case ASSOCIATION:
-			builder.append("--");
-			break;
-		case COMPOSITION:
-			builder.append("*--");
-			break;
-		case DIRECTED_ASSOCIATION:
-			builder.append("-->");
-			break;
-		case INHERITANCE:
-			builder.append("--|>");
-			break;
-		case REALIZATION:
-			builder.append("..|>");
-			break;
-		default:
-			break;
+			case AGGREGATION:
+				builder.append("o--");
+				break;
+			case ASSOCIATION:
+				builder.append("--");
+				break;
+			case COMPOSITION:
+				builder.append("*--");
+				break;
+			case DIRECTED_ASSOCIATION:
+				builder.append("-->");
+				break;
+			case INHERITANCE:
+				builder.append("--|>");
+				break;
+			case REALIZATION:
+				builder.append("..|>");
+				break;
+			default:
+				break;
 		}
 		builder.append(" ");
 		if (toMultiplicity != null) {
@@ -106,21 +106,17 @@ public class UMLRelationship implements PlantUMLDiagramElement {
 		}
 		builder.append(" ");
 		builder.append(toName);
-		if(annotations!=null&&!annotations.isEmpty())
-		{
+		if (annotations != null && !annotations.isEmpty()) {
 			builder.append(" : ");
-			for(String annotation:annotations)
-			{
+			for (String annotation : annotations) {
 				builder.append(" ");
 				builder.append(annotation);
 			}
-			if(name!=null)
-			{
+			if (name != null) {
 				builder.append("\\n");
 				builder.append(name);
 			}
-		}
-		else if (name != null) {
+		} else if (name != null) {
 			builder.append(" : ");
 			builder.append(name);
 		}

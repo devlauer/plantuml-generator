@@ -1,14 +1,14 @@
 package de.elnarion.util.plantuml.generator.sequencediagram.internal;
 
+import de.elnarion.util.plantuml.generator.sequencediagram.config.PlantUMLSequenceDiagramConfig;
+import javassist.CtMethod;
+import javassist.NotFoundException;
+
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import de.elnarion.util.plantuml.generator.sequencediagram.config.PlantUMLSequenceDiagramConfig;
-import javassist.CtMethod;
-import javassist.NotFoundException;
 
 /**
  * The Class CallerMethod.
@@ -16,16 +16,16 @@ import javassist.NotFoundException;
 public class CallerMethod {
 
 	/** The class name. */
-	private CallerClass callerClass;
+	private final CallerClass callerClass;
 
 	/** The ct method. */
-	private CtMethod ctMethod;
+	private final CtMethod ctMethod;
 
 	/** The config. */
-	private PlantUMLSequenceDiagramConfig config;
+	private final PlantUMLSequenceDiagramConfig config;
 
 	/** The callees. */
-	private List<CallerMethod> callees = new LinkedList<>();
+	private final List<CallerMethod> callees = new LinkedList<>();
 
 	/**
 	 * Instantiates a new caller method.
@@ -86,7 +86,7 @@ public class CallerMethod {
 	 *
 	 * @return the diagram text
 	 * @throws ClassNotFoundException the class not found exception
-	 * @throws NotFoundException the not found exception
+	 * @throws NotFoundException      the not found exception
 	 */
 	public Object getDiagramText() throws ClassNotFoundException, NotFoundException {
 		String participantsString = generateParticipantsText();
@@ -113,7 +113,7 @@ public class CallerMethod {
 	 * @param paramIndent the param indent
 	 * @return the string
 	 * @throws ClassNotFoundException the class not found exception
-	 * @throws NotFoundException the not found exception
+	 * @throws NotFoundException      the not found exception
 	 */
 	private String generateCallSequenceDiagramText(String paramIndent) throws ClassNotFoundException, NotFoundException {
 		StringBuilder callSequenceBuilder = new StringBuilder();
@@ -137,7 +137,8 @@ public class CallerMethod {
 
 			callSequenceBuilder.append(calleeMethod.generateCallSequenceDiagramText(paramIndent + "\t"));
 
-			callSequenceBuilder.append(paramIndent + "\t");
+			callSequenceBuilder.append(paramIndent);
+			callSequenceBuilder.append("\t");
 			callSequenceBuilder.append(calleeClassName);
 			callSequenceBuilder.append(" --> ");
 			callSequenceBuilder.append(callerClassName);
@@ -159,12 +160,12 @@ public class CallerMethod {
 	 * Gets the return type.
 	 *
 	 * @return the return type
-	 * @throws NotFoundException
+	 * @throws NotFoundException if type is not found
 	 */
 	private String getReturnType() throws NotFoundException {
-			if (config.isUseShortClassNames())
-				return ctMethod.getReturnType().getSimpleName();
-			return ctMethod.getReturnType().getName();
+		if (config.isUseShortClassNames())
+			return ctMethod.getReturnType().getSimpleName();
+		return ctMethod.getReturnType().getName();
 	}
 
 	/**

@@ -1,9 +1,9 @@
 package de.elnarion.util.plantuml.generator.classdiagram.internal;
 
-import java.util.List;
-
 import de.elnarion.util.plantuml.generator.classdiagram.config.ClassifierType;
 import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
+
+import java.util.List;
 
 /**
  * The Class UMLField encapsulates all information needed for creating a diagram
@@ -11,11 +11,11 @@ import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
  */
 public class UMLField implements PlantUMLDiagramElement {
 
-	private String type;
-	private String name;
-	private ClassifierType classifierType;
-	private VisibilityType visibilityType;
-	private List<String> annotations;
+	private final String type;
+	private final String name;
+	private final ClassifierType classifierType;
+	private final VisibilityType visibilityType;
+	private final List<String> annotations;
 
 	/**
 	 * Instantiates a new uml field.
@@ -27,7 +27,7 @@ public class UMLField implements PlantUMLDiagramElement {
 	 * @param paramAnnotations    - List - the annotations of the field
 	 */
 	public UMLField(ClassifierType paramClassifierType, VisibilityType paramVisibilityType, String paramName,
-			String paramType, List<String> paramAnnotations) {
+					String paramType, List<String> paramAnnotations) {
 		type = paramType;
 		name = paramName;
 		classifierType = paramClassifierType;
@@ -54,10 +54,8 @@ public class UMLField implements PlantUMLDiagramElement {
 			builder.append("{static} ");
 		}
 		builder.append(VisibilityUtil.getVisibilityText(visibilityType));
-		if(annotations!=null&&!annotations.isEmpty())
-		{
-			for(String annotation:annotations)
-			{
+		if (annotations != null && !annotations.isEmpty()) {
+			for (String annotation : annotations) {
 				builder.append(annotation);
 				builder.append(" ");
 			}

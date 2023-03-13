@@ -1,10 +1,10 @@
 package de.elnarion.util.plantuml.generator.classdiagram.internal;
 
-import java.lang.reflect.Modifier;
-
 import de.elnarion.util.plantuml.generator.classdiagram.config.ClassifierType;
 import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiagramConfig;
 import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
+
+import java.lang.reflect.Modifier;
 
 /**
  * The Class AnalyzerUtil.
@@ -22,8 +22,7 @@ class AnalyzerUtil {
 	 * Gets the classifier type (none, abstract_static, static, abstract) from the
 	 * modifier int.
 	 *
-	 * @param paramModifier - int - the modifier used for determining the classifier
-	 *                      type
+	 * @param paramModifier - int - the modifier used for determining the classifier                      type
 	 * @return {@link ClassifierType} - the classifier type
 	 */
 	protected static ClassifierType getClassifier(final int paramModifier) {
@@ -44,8 +43,7 @@ class AnalyzerUtil {
 	 * Gets the visibility type (package_private, public, private, protected) from
 	 * the modifier int.
 	 *
-	 * @param paramModifier - int - the modifier used for determining the visibility
-	 *                      type
+	 * @param paramModifier - int - the modifier used for determining the visibility                      type
 	 * @return {@link VisibilityType} - the visibility type
 	 */
 	protected static VisibilityType getVisibility(final int paramModifier) {
@@ -83,7 +81,7 @@ class AnalyzerUtil {
 	 * @return the class name
 	 */
 	public static String getClassNameForFieldsAndMethods(final Class<?> parameter,
-			PlantUMLClassDiagramConfig paramPlantUMLConfig) {
+														 PlantUMLClassDiagramConfig paramPlantUMLConfig) {
 		String parameterType;
 		if (paramPlantUMLConfig.isUseShortClassNames()
 				|| paramPlantUMLConfig.isUseShortClassNamesInFieldsAndMethods()) {
@@ -103,7 +101,7 @@ class AnalyzerUtil {
 	 * @return the class name for classtypes
 	 */
 	public static String getClassNameForClassesOrRelationships(final Class<?> parameter,
-			PlantUMLClassDiagramConfig paramPlantUMLConfig) {
+															   PlantUMLClassDiagramConfig paramPlantUMLConfig) {
 		String parameterType;
 		if (paramPlantUMLConfig.isUseShortClassNames()) {
 			parameterType = parameter.getSimpleName();
@@ -117,11 +115,9 @@ class AnalyzerUtil {
 	/**
 	 * Checks if the given visibilityType of a field or method should lead to an
 	 * appreance on the diagram according to the configured maximum visibility.
-	 * 
-	 * @param maxVisibilityFields {@link VisibilityType} - the configured maximum
-	 *                            visibility to check against
-	 * @param visibilityType      {@link VisibilityType} - the visibility of a field
-	 *                            or method which could be part of the diagram
+	 *
+	 * @param maxVisibilityFields {@link VisibilityType} - the configured maximum                            visibility to check against
+	 * @param visibilityType      the visibility type
 	 * @return boolean - if the field or method should be visible on the diagram
 	 */
 	protected static boolean visibilityOk(VisibilityType maxVisibilityFields, VisibilityType visibilityType) {
@@ -136,11 +132,10 @@ class AnalyzerUtil {
 			// if maximum is package_private then only public, package_private and protected
 			// are
 			// allowed
-			if (maxVisibilityFields.equals(VisibilityType.PACKAGE_PRIVATE)
-					&& !(visibilityType.equals(VisibilityType.PUBLIC)
-							|| visibilityType.equals(VisibilityType.PACKAGE_PRIVATE)
-							|| visibilityType.equals(VisibilityType.PROTECTED)))
-				return false;
+			return !maxVisibilityFields.equals(VisibilityType.PACKAGE_PRIVATE)
+					|| (visibilityType.equals(VisibilityType.PUBLIC)
+					|| visibilityType.equals(VisibilityType.PACKAGE_PRIVATE)
+					|| visibilityType.equals(VisibilityType.PROTECTED));
 		}
 		// everything else like maximum private or no defined maximum visibility leads
 		// to

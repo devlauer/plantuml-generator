@@ -1,5 +1,6 @@
 package de.elnarion.util.plantuml.generator.classdiagram.internal;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -60,9 +61,8 @@ public class UMLClass implements PlantUMLDiagramElement {
 	 */
 	@Override
 	public String getDiagramText() {
-		boolean isAnnotation = false;
 		StringBuilder builder = new StringBuilder();
-		isAnnotation = addClassType(isAnnotation, builder);
+		boolean isAnnotation = addClassType(builder);
 		builder.append(name);
 		addStereotypes(builder);
 		if (!isAnnotation) {
@@ -70,7 +70,7 @@ public class UMLClass implements PlantUMLDiagramElement {
 			addStereotypeTaggedValues(builder);
 			builder.append(System.lineSeparator());
 			if (fields != null && !fields.isEmpty()) {
-				fields.sort((UMLField o1, UMLField o2) -> o1.getName().compareTo(o2.getName()));
+				fields.sort(Comparator.comparing(UMLField::getName));
 				for (UMLField field : fields) {
 					builder.append("\t");
 					builder.append(field.getDiagramText());
@@ -132,11 +132,11 @@ public class UMLClass implements PlantUMLDiagramElement {
 	/**
 	 * Adds the class type.
 	 *
-	 * @param isAnnotation the is annotation
-	 * @param builder      the builder
+	 * @param builder the builder
 	 * @return true, if successful
 	 */
-	private boolean addClassType(boolean isAnnotation, StringBuilder builder) {
+	private boolean addClassType(StringBuilder builder) {
+		boolean isAnnotation = false;
 		switch (classType) {
 			case ABSTRACT_CLASS:
 				builder.append("abstract class ");

@@ -45,7 +45,7 @@ public class ClassAnalyzer {
 						plantUMLConfig.getBlacklistRegexp(), plantUMLConfig.getWhitelistRegexp())
 						.getAllDiagramClasses());
 		// sort all classes for a reliable sorted result
-		resolvedClasses.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
+		resolvedClasses.sort(Comparator.comparing(Class::getName));
 		// map java classes to UMLClass, UMLField, UMLMethod and UMLRelationship objects
 		for (final Class<?> clazz : resolvedClasses) {
 			mapToDomainClasses(clazz);
@@ -184,7 +184,7 @@ public class ClassAnalyzer {
 	}
 
 	/**
-	 * Adds a inheritance relationship for the super class of the given java class
+	 * Adds an inheritance relationship for the super class of the given java class
 	 * object and which needs also to be part of the class diagram.
 	 *
 	 * @param paramClassObject - Class&lt;?&gt; - the class object which should be
@@ -247,7 +247,7 @@ public class ClassAnalyzer {
 				final int modifier = method.getModifiers();
 				final VisibilityType visibilityType = AnalyzerUtil.getVisibility(modifier);
 				// check if method should be visible by maximum visibility
-				if (!AnalyzerUtil.visibilityOk(plantUMLConfig.getMaxVisibilityMethods(), visibilityType))
+				if (AnalyzerUtil.visibilityOk(plantUMLConfig.getMaxVisibilityMethods(), visibilityType))
 					continue;
 				final ClassifierType classifierType = AnalyzerUtil.getClassifier(modifier);
 				if (plantUMLConfig.getMethodClassifierToIgnore().contains(classifierType))
@@ -303,7 +303,7 @@ public class ClassAnalyzer {
 	 * is added as {@link UMLRelationship}. If not it is added as {@link UMLField}
 	 * object.
 	 * <p>
-	 * If a field has a getter an a setter method its visibility is upgraded to
+	 * If a field has a getter and a setter method its visibility is upgraded to
 	 * public.
 	 *
 	 * @param paramDeclaredFields  Field[] - the Field objects which are the base
@@ -369,7 +369,7 @@ public class ClassAnalyzer {
 	 *
 	 * @param paramUmlClass        {@link UMLClass} - the uml class to which the
 	 *                             {@link UMLField} should be added
-	 * @param field                Field - the field objects which are basse for the
+	 * @param field                Field - the field objects which are base for the
 	 *                             {@link UMLField}
 	 * @param type                 Class - the type of the field
 	 * @param paramDeclaredMethods Method[] - the method objects of the java class

@@ -124,22 +124,22 @@ class AnalyzerUtil {
 		if (maxVisibilityFields != null) {
 			// if maximum is public only public is allowed as visibility type
 			if (maxVisibilityFields.equals(VisibilityType.PUBLIC) && !visibilityType.equals(VisibilityType.PUBLIC))
-				return false;
+				return true;
 			// if maximum is protected only public and protected are allowed
 			if (maxVisibilityFields.equals(VisibilityType.PROTECTED) && !(visibilityType.equals(VisibilityType.PUBLIC)
 					|| visibilityType.equals(VisibilityType.PROTECTED)))
-				return false;
+				return true;
 			// if maximum is package_private then only public, package_private and protected
 			// are
 			// allowed
-			return !maxVisibilityFields.equals(VisibilityType.PACKAGE_PRIVATE)
-					|| (visibilityType.equals(VisibilityType.PUBLIC)
-					|| visibilityType.equals(VisibilityType.PACKAGE_PRIVATE)
-					|| visibilityType.equals(VisibilityType.PROTECTED));
+			return maxVisibilityFields.equals(VisibilityType.PACKAGE_PRIVATE)
+					&& (!visibilityType.equals(VisibilityType.PUBLIC)
+					&& !visibilityType.equals(VisibilityType.PACKAGE_PRIVATE)
+					&& !visibilityType.equals(VisibilityType.PROTECTED));
 		}
 		// everything else like maximum private or no defined maximum visibility leads
 		// to
 		// an ok check
-		return true;
+		return false;
 	}
 }

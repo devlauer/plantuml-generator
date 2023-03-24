@@ -112,10 +112,9 @@ public class CallerMethod {
 	 *
 	 * @param paramIndent the param indent
 	 * @return the string
-	 * @throws ClassNotFoundException the class not found exception
-	 * @throws NotFoundException      the not found exception
+	 * @throws NotFoundException the not found exception
 	 */
-	private String generateCallSequenceDiagramText(String paramIndent) throws ClassNotFoundException, NotFoundException {
+	private String generateCallSequenceDiagramText(String paramIndent) throws NotFoundException {
 		StringBuilder callSequenceBuilder = new StringBuilder();
 		for (CallerMethod calleeMethod : callees) {
 			String callerClassName = this.getCallerClass().getDiagramClassName();
@@ -175,9 +174,8 @@ public class CallerMethod {
 	 */
 	private String generateParticipantsText() {
 		List<String> participants = getDiagramParticipants();
-		Set<String> distinctParticipants = new LinkedHashSet<>();
 		// preserve calling order
-		participants.forEach(distinctParticipants::add);
+		Set<String> distinctParticipants = new LinkedHashSet<>(participants);
 		List<String> diagramParticipants = distinctParticipants.stream().map(e -> "participant " + e)
 				.collect(Collectors.toList());
 		return String.join(System.lineSeparator(), diagramParticipants);

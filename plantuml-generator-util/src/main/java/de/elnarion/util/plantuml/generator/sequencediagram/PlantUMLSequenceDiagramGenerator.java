@@ -15,7 +15,7 @@ import javassist.expr.MethodCall;
 public class PlantUMLSequenceDiagramGenerator {
 
 	/** The config. */
-	PlantUMLSequenceDiagramConfig config;
+	final PlantUMLSequenceDiagramConfig config;
 
 	/**
 	 * Instantiates a new plant UML sequence diagram generator.

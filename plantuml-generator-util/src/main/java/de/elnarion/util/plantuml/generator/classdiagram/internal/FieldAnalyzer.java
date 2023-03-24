@@ -56,7 +56,7 @@ class FieldAnalyzer {
 			visibilityType = VisibilityType.PUBLIC;
 		}
 		// check if field should be visible by maximum visibility
-		if (!AnalyzerUtil.visibilityOk(plantUMLConfig.getMaxVisibilityFields(), visibilityType))
+		if (AnalyzerUtil.visibilityOk(plantUMLConfig.getMaxVisibilityFields(), visibilityType))
 			return null;
 		return new UMLField(classifierType, visibilityType, field.getName(),
 				AnalyzerUtil.getClassNameForFieldsAndMethods(type, plantUMLConfig), annotationStringList);

@@ -2,10 +2,7 @@ package de.elnarion.util.plantuml.generator.classdiagram.internal;
 
 import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiagramConfig;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The Class PlantUMLClassDiagramTextBuilder.
@@ -119,7 +116,7 @@ public class PlantUMLClassDiagramTextBuilder {
 	 */
 	private void sortRelationships(final List<UMLRelationship> relationships) {
 		// because the ordered list could be changed in between, sort the list
-		relationships.sort((o1, o2) -> o1.getDiagramText().compareTo(o2.getDiagramText()));
+		relationships.sort(Comparator.comparing(UMLRelationship::getDiagramText));
 	}
 
 	/**
@@ -154,7 +151,7 @@ public class PlantUMLClassDiagramTextBuilder {
 	private Collection<UMLClass> sortClasses() {
 		final List<UMLClass> listToCompare = new ArrayList<>(classes.values());
 		// because the ordered list could be changed in between, sort the list
-		listToCompare.sort((o1, o2) -> o1.getName().compareTo(o2.getName()));
+		listToCompare.sort(Comparator.comparing(UMLClass::getName));
 		return listToCompare;
 	}
 

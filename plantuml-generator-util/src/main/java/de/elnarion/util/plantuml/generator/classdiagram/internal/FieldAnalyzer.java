@@ -1,12 +1,12 @@
 package de.elnarion.util.plantuml.generator.classdiagram.internal;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-
 import de.elnarion.util.plantuml.generator.classdiagram.config.ClassifierType;
 import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiagramConfig;
 import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
+
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Class FieldAnalyzer.
@@ -14,7 +14,7 @@ import de.elnarion.util.plantuml.generator.classdiagram.config.VisibilityType;
 class FieldAnalyzer {
 
 	/** The plant UML config. */
-	PlantUMLClassDiagramConfig plantUMLConfig;
+	final PlantUMLClassDiagramConfig plantUMLConfig;
 
 	/**
 	 * Instantiates a new field analyzer.

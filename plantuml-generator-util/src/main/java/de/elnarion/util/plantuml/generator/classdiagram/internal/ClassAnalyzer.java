@@ -206,7 +206,7 @@ public class ClassAnalyzer {
 	/**
 	 * Iterates over an array of declared methods of a java class, creates
 	 * {@link UMLMethod} objects and adds them to the given {@link UMLClass} object.
-	 *
+	 * <p>
 	 * If a declared method is a getter or setter method of a declared field it is
 	 * ignored.
 	 *
@@ -269,7 +269,7 @@ public class ClassAnalyzer {
 	/**
 	 * Converts an array of parameter types to a string map with synthetic parameter
 	 * names and their mapped full qualified type name.
-	 *
+	 * <p>
 	 * Parameter names are synthetic because in Java 7 the parameter names cannot be
 	 * determined in all cases.
 	 *
@@ -298,11 +298,11 @@ public class ClassAnalyzer {
 	/**
 	 * Creates {@link UMLField} or {@link UMLRelationship} objects for all given
 	 * fields. And adds them to the given {@link UMLClass} object.
-	 *
+	 * <p>
 	 * If a field type is part of the class diagram (directly or via List or Set) it
 	 * is added as {@link UMLRelationship}. If not it is added as {@link UMLField}
 	 * object.
-	 *
+	 * <p>
 	 * If a field has a getter an a setter method its visibility is upgraded to
 	 * public.
 	 *
@@ -399,10 +399,10 @@ public class ClassAnalyzer {
 	 */
 	private boolean addAggregationRelationship(final UMLClass paramUmlClass, final Field paramField,
 											   final Method[] paramDeclaredMethods) {
-		final Type type = paramField.getType();
+		final Class<?> type = paramField.getType();
 		final Type genericType = paramField.getGenericType();
 		boolean isRelationshipAggregation = false;
-		if (Collection.class.isAssignableFrom((Class<?>) type) && genericType instanceof ParameterizedType
+		if (Collection.class.isAssignableFrom(type) && genericType instanceof ParameterizedType
 				&& (((ParameterizedType) genericType).getRawType().equals(Set.class)
 				|| ((ParameterizedType) genericType).getRawType().equals(List.class))) {
 			final Type[] actualTypeArguments = ((ParameterizedType) genericType).getActualTypeArguments();

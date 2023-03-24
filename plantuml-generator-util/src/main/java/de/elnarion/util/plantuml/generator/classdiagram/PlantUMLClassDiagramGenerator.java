@@ -5,17 +5,15 @@ import de.elnarion.util.plantuml.generator.classdiagram.internal.ClassAnalyzer;
 import de.elnarion.util.plantuml.generator.classdiagram.internal.ClassAnalyzerSummary;
 import de.elnarion.util.plantuml.generator.classdiagram.internal.PlantUMLClassDiagramTextBuilder;
 
-import java.io.IOException;
-
 /**
  * This class provides the ability to generate a PlantUML class diagram out of a
  * list of package names. Therefore this class scans directories and jars for
  * all classes contained directly in these packages and generates a class
  * diagram out of them via reflection
- *
+ * <p>
  * To be able to get the right classes you have to provide the necessary
  * ClassLoader, which is able to load these classes.
- *
+ * <p>
  * Currently this generator supports the following class types:
  * <ul>
  * <li>class</li>
@@ -26,15 +24,15 @@ import java.io.IOException;
  * </ul>
  *
  * with some restrictions:
- *
+ * <p>
  * The type annotation does not contain any further information than its name
  * and no Annotation relationships are included in the diagram.
- *
+ * <p>
  * The type enum contains only the constants.
- *
+ * <p>
  *
  * All other types contain field and method informations.
- *
+ * <p>
  * Relationships are included for
  * <ul>
  * <li>inheritance</li>
@@ -45,7 +43,7 @@ import java.io.IOException;
  *
  * You can hide all fields via hideFields parameter or you can hide all methods
  * via hideMethods parameter.
- *
+ * <p>
  * If you want to hide a list of classes you have to provide a String List with
  * full qualified class names.
  */
@@ -67,13 +65,8 @@ public class PlantUMLClassDiagramGenerator {
 	 * Generate the class diagram string for all classes in the configured packages.
 	 *
 	 * @return String - the text containing all Plant UML class diagram definitions
-	 * @throws ClassNotFoundException - thrown if a class in a package could not be
-	 *                                found or if a package does not contain any
-	 *                                class information
-	 * @throws IOException            - thrown if a class or jar File could not be
-	 *                                read
 	 */
-	public String generateDiagramText() throws ClassNotFoundException, IOException {
+	public String generateDiagramText() {
 		ClassAnalyzerSummary summary = new ClassAnalyzer(plantUMLConfig).analyzeClassesAndMapThemToTheInternalClassStructure();
 		return new PlantUMLClassDiagramTextBuilder(plantUMLConfig, summary).buildDiagramText();
 	}

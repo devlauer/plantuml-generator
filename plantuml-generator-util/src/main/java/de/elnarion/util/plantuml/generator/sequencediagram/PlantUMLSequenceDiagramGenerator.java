@@ -81,7 +81,6 @@ public class PlantUMLSequenceDiagramGenerator {
 	 * @param callingClass the calling class
 	 * @return the caller method
 	 * @throws CannotCompileException the cannot compile exception
-	 * @throws NotFoundException      the not found exception
 	 */
 	private CallerMethod getCallerMethod(CtMethod method, CallerClass callingClass)
 			throws CannotCompileException, javassist.NotFoundException {

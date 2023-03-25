@@ -41,8 +41,10 @@ public class ClassAnalyzer {
 	public ClassAnalyzerSummary analyzeClassesAndMapThemToTheInternalClassStructure() {
 		// read all classes from directories or jars
 		resolvedClasses
-				.addAll(new ClassResolver(plantUMLConfig.getDestinationClassloader(), plantUMLConfig.getScanPackages(),
-						plantUMLConfig.getBlacklistRegexp(), plantUMLConfig.getWhitelistRegexp())
+				.addAll(new ClassResolver(plantUMLConfig.getDestinationClassloader(),
+						plantUMLConfig.getScanPackages(),
+						plantUMLConfig.getBlacklistRegexp(),
+						plantUMLConfig.getWhitelistRegexp())
 						.getAllDiagramClasses());
 		// sort all classes for a reliable sorted result
 		resolvedClasses.sort(Comparator.comparing(Class::getName));
@@ -82,25 +84,37 @@ public class ClassAnalyzer {
 		}
 		List<UMLStereotype> stereotypes = new ArrayList<>();
 		if (plantUMLConfig.isAddJPAAnnotations()) {
-			new JPAAnalyzerHelper().addJPAStereotype(paramClassObject, stereotypes,
+			new JPAAnalyzerHelper().addJPAStereotype(paramClassObject,
+					stereotypes,
 					plantUMLConfig.getDestinationClassloader());
 		}
 
-		final UMLClass umlClass = new UMLClass(classType, new ArrayList<>(), new ArrayList<>(),
-				AnalyzerUtil.getClassNameForClassesOrRelationships(paramClassObject, plantUMLConfig), stereotypes);
+		final UMLClass umlClass = new UMLClass(classType,
+				new ArrayList<>(),
+				new ArrayList<>(),
+				AnalyzerUtil.getClassNameForClassesOrRelationships(paramClassObject, plantUMLConfig),
+				stereotypes);
 		final List<UMLRelationship> relationships = new ArrayList<>();
 		classesAndRelationships.put(umlClass, relationships);
 		classes.put(paramClassObject.getName(), umlClass);
 
 		if (classType == ClassType.ENUM) {
-			addEnumConstants(paramClassObject, umlClass);
+			addEnumConstants(paramClassObject,
+					umlClass);
 		} else {
-			addFields(paramClassObject.getDeclaredFields(), paramClassObject.getDeclaredMethods(), umlClass);
-			addMethods(paramClassObject.getDeclaredMethods(), paramClassObject.getDeclaredFields(), umlClass);
+			addFields(paramClassObject.getDeclaredFields(),
+					paramClassObject.getDeclaredMethods(),
+					umlClass);
+			addMethods(paramClassObject.getDeclaredMethods(),
+					paramClassObject.getDeclaredFields(),
+					umlClass);
 		}
-		addSuperClassRelationship(paramClassObject, umlClass);
-		addInterfaceRelationship(paramClassObject, umlClass);
-		addAnnotationRelationship(paramClassObject, umlClass);
+		addSuperClassRelationship(paramClassObject,
+				umlClass);
+		addInterfaceRelationship(paramClassObject,
+				umlClass);
+		addAnnotationRelationship(paramClassObject,
+				umlClass);
 	}
 
 	/**

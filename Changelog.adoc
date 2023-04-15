@@ -1,9 +1,25 @@
 = Changelog
 
 .Unreleased
+
+.2.0.1 - 2023-04-15
 * update plugin versions
-* update mockito to 5.1.1
+* update mockito to 5.2.0
 * refactor code
+* update jacoco-maven-plugin to 0.8.9
+* update maven-invoker-plugin to 3.5.1
+* update maven-release-plugin to 3.0.0
+* update maven to 3.9.1
+* update maven-surefire-plugin to 3.0.0
+* update maven-failsafe-plugin to 3.0.0
+* added and updated maven-wrapper to 3.2.0
+* update classgraph to 4.8.157
+* update maven-plugin-plugin to 3.8.1
+* update maven-compiler-plugin to 3.11.0
+* update maven-plugin-annotations to 3.8.1
+* update asciidoctor-kroki to 0.17.0
+* update log4j-slf4j-impl to 2.20.0
+* update maven-javadoc-plugin to 3.5.0
 
 .2.0.0 - 2023-01-22
 * speed up integration tests by parallel threads

@@ -104,6 +104,10 @@
                     <preBuildHookScript>setup</preBuildHookScript>
                     <postBuildHookScript>verify</postBuildHookScript>
                     <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
+                    <extraArtifacts>
+                        <extraArtifact>de.elnarion.util:plantuml-generator-util:${project.version}:test-jar:tests
+                        </extraArtifact>
+                    </extraArtifacts>
                     <settingsFile>src/it/settings.xml</settingsFile>
                     <addTestClassPath>false</addTestClassPath>
                 </configuration>

@@ -43,7 +43,6 @@
         <connection>scm:git:ssh://git@github.com/devlauer/plantuml-generator.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/devlauer/plantuml-generator.git</developerConnection>
         <url>https://github.com/devlauer/plantuml-generator/tree/master</url>
-        <tag>plantuml-generator-1.6.0</tag>
     </scm>
     <distributionManagement>
         <snapshotRepository>

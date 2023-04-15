@@ -55,8 +55,8 @@
         </repository>
     </distributionManagement>
     <modules>
-        <module>plantuml-generator-maven-plugin</module>
         <module>plantuml-generator-util</module>
+        <module>plantuml-generator-maven-plugin</module>
     </modules>
     <dependencies>
         <dependency>

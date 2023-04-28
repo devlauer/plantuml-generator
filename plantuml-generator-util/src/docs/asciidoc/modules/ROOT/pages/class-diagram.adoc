@@ -1,25 +1,18 @@
 = Class diagram generator
 :keywords: {compontentkeywords}, class diagram
 
-The artifact plantuml-generator-util contains a Utility class with the name
-PlantUMLClassDiagramGenerator which can be used to generate a PlantUML class
-diagram text out of existing java classes. 
+The artifact plantuml-generator-util contains a Utility class with the name PlantUMLClassDiagramGenerator which can be used to generate a PlantUML class diagram text out of existing java classes.
 
 All you have to do is:
 
-* to provide 
-** a list of package names which should be scanned for java classes 
-(can be filtered with a blacklist regular expression),
-** a whitelist regular expression to filter classes in the classpath 
-of the given classloader  
-* add additional configuration to the PlantUMLClassDiagramConfig object 
-via the PlantUMLClassDiagramConfigBuilder to customize the diagram 
+* to provide
+** a list of package names which should be scanned for java classes (can be filtered with a blacklist regular expression),
+** a whitelist regular expression to filter classes in the classpath of the given classloader
+* add additional configuration to the PlantUMLClassDiagramConfig object via the PlantUMLClassDiagramConfigBuilder to customize the diagram
 
-After you created the generator object with a PlantUMLClassDiagramConfig object
-simply call the method *generateDiagramText* and you'll get the PlantUML
-class diagram as text.
+After you created the generator object with a PlantUMLClassDiagramConfig object simply call the method *generateDiagramText* and you'll get the PlantUML class diagram as text.
 
-For more options to customize the diagram text and corresponding examples
-have a look at the
-xref:./class-diagram/config.adoc[configuration] 
+For more options to customize the diagram text and corresponding examples have a look at the
+xref:./class-diagram/config.adoc[configuration]
 documentation.
+

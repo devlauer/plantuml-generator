@@ -1,0 +1,46 @@
+@startuml
+
+class de.elnarion.test.domain.t0026.TestA {
+}
+
+
+class de.elnarion.test.domain.t0026.TestB {
+}
+
+
+class de.elnarion.test.domain.t0026.TestC {
+}
+
+
+class de.elnarion.test.domain.t0026.TestD {
+}
+
+
+class de.elnarion.test.domain.t0026.TestE {
+}
+
+
+class de.elnarion.test.domain.t0026.TestF {
+}
+
+
+class de.elnarion.test.domain.t0026.TestG {
+}
+
+
+class de.elnarion.test.domain.t0026.TestH {
+}
+
+
+
+
+de.elnarion.test.domain.t0026.TestA "1" o-- "0..*"  de.elnarion.test.domain.t0026.TestB : testBList
+de.elnarion.test.domain.t0026.TestA "1" o-- "0..*"  de.elnarion.test.domain.t0026.TestC : testCVector
+de.elnarion.test.domain.t0026.TestA "1" o-- "0..*"  de.elnarion.test.domain.t0026.TestD : testDQueue
+de.elnarion.test.domain.t0026.TestA "1" o-- "0..*"  de.elnarion.test.domain.t0026.TestE : testEDeque
+de.elnarion.test.domain.t0026.TestA "1" o-- "0..*"  de.elnarion.test.domain.t0026.TestG : testATestBMap
+de.elnarion.test.domain.t0026.TestA "1" o-- "0..*"  de.elnarion.test.domain.t0026.TestH : testATestBMap
+de.elnarion.test.domain.t0026.TestA -->  de.elnarion.test.domain.t0026.TestF : directTestF
+
+
+@enduml

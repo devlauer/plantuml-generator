@@ -724,7 +724,6 @@ class PlantUMLClassDiagramGeneratorTest {
                 .withUseShortClassNamesInFieldsAndMethods(true).build(); // <1>
         PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
         String result = generator.generateDiagramText();
-        System.out.println(result);
         String expectedDiagramText = IOUtils.toString(
                 classLoader.getResource("class/0026_different_aggregate_relationships.txt"), "utf-8");
         assertNotNull(result);

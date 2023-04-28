@@ -7,7 +7,6 @@ interface de.elnarion.test.domain.t0003.BaseInterface {
 }
 
 class de.elnarion.test.domain.t0003.ClassA {
-	{field} ~classBMap : java.util.Map
 	{field} ~stringList : java.util.List
 	{field} ~stringSet : java.util.Set
 }
@@ -16,6 +15,7 @@ class de.elnarion.test.domain.t0003.ClassB {
 }
 
 de.elnarion.test.domain.t0003.ClassA "1" o-- "0..*"  de.elnarion.test.domain.t0003.ClassB : classBList
+de.elnarion.test.domain.t0003.ClassA "1" o-- "0..*"  de.elnarion.test.domain.t0003.ClassB : classBMap
 de.elnarion.test.domain.t0003.ClassA "1" o-- "0..*"  de.elnarion.test.domain.t0003.ClassB : classBSet
 de.elnarion.test.domain.t0003.ClassA --|>  de.elnarion.test.domain.t0003.BaseClass
 de.elnarion.test.domain.t0003.ClassB -->  de.elnarion.test.domain.t0003.ClassA : classAInstance

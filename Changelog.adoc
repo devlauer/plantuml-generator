@@ -2,6 +2,9 @@
 
 .Unreleased
 
+.2.1.0 - 2023-04-28
+* handle iterable or map like list or set as aggregate relationship
+
 .2.0.1 - 2023-04-15
 * update plugin versions
 * update mockito to 5.2.0

@@ -7,7 +7,7 @@
     <link rel="canonical" href="https://devlauer.github.io/plantuml-generator/plantuml-generator-util/latest/class-diagram/config/destination-classloader.html">
     <link rel="prev" href="scanpackages.html">
     <link rel="next" href="additional-plantuml-configs.html">
-    <meta name="generator" content="Antora 3.1.2">
+    <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../../_/css/site.css">
     <link rel="stylesheet" href="../../../../_/css/prism.css">
     <link rel="stylesheet" href="../../../../_/css/site-extra.css">        <script>var uiRootPath = '../../../../_'</script>
@@ -258,13 +258,13 @@ dependencies to the classpath.</p>
 <div class="content">
 <pre class="nowrap" data-line="4,9"><code class="language-java" data-lang=java>String filename = "class/0008_classloader_test.txt";
 String testClassPath = "file:///" + System.getProperty("user.dir") + "/src/test/classes/";
-URL[] classesURLs = new URL[] { new URL(testClassPath) };
+URL[] classesURLs = new URL[]{new URL(testClassPath)};
 URLClassLoader customClassLoader = new URLClassLoader(classesURLs); <i class="conum" data-value="1"></i><b>(1)</b>
 customClassLoader.loadClass("de.elnarion.maven.plugin.plantuml.generator.test.domain.ChildA");
 List&lt;String&gt; scanPackages = new ArrayList&lt;&gt;();
 scanPackages.add("de.elnarion.maven.plugin.plantuml.generator.test.domain");
 PlantUMLClassDiagramConfigBuilder configBuilder = new PlantUMLClassDiagramConfigBuilder(scanPackages)
-		.withClassLoader(customClassLoader).withHideFieldsParameter(true).withHideMethods(true); <i class="conum" data-value="2"></i><b>(2)</b>
+        .withClassLoader(customClassLoader).withHideFieldsParameter(true).withHideMethods(true); <i class="conum" data-value="2"></i><b>(2)</b>
 PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(configBuilder.build());
 String result = generator.generateDiagramText();
 String expectedDiagramText = IOUtils.toString(classLoader.getResource(filename), StandardCharsets.UTF_8);

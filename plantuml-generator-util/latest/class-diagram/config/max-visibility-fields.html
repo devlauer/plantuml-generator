@@ -7,7 +7,7 @@
     <link rel="canonical" href="https://devlauer.github.io/plantuml-generator/plantuml-generator-util/latest/class-diagram/config/max-visibility-fields.html">
     <link rel="prev" href="hide-methods.html">
     <link rel="next" href="max-visibility-methods.html">
-    <meta name="generator" content="Antora 3.1.2">
+    <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../../_/css/site.css">
     <link rel="stylesheet" href="../../../../_/css/prism.css">
     <link rel="stylesheet" href="../../../../_/css/site-extra.css">        <script>var uiRootPath = '../../../../_'</script>
@@ -276,7 +276,7 @@ all fields will be displayed if not removed or ignored by other parameters</p>
 List&lt;String&gt; scanPackages = new ArrayList&lt;&gt;();
 scanPackages.add("de.elnarion.test.domain.t0013");
 PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
-		.withMaximumFieldVisibility(VisibilityType.PUBLIC).build(); <i class="conum" data-value="1"></i><b>(1)</b>
+        .withMaximumFieldVisibility(VisibilityType.PUBLIC).build(); <i class="conum" data-value="1"></i><b>(1)</b>
 PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
 String result = generator.generateDiagramText();
 String expectedDiagramText = IOUtils.toString(classLoader.getResource(filename), StandardCharsets.UTF_8);
@@ -329,7 +329,7 @@ class de.elnarion.test.domain.t0013.Testclass {
 <div class="listingblock">
 <div class="content">
 <pre class="nowrap" data-line="2"><code class="language-java" data-lang=java>config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
-		.withMaximumFieldVisibility(VisibilityType.PROTECTED).build(); <i class="conum" data-value="1"></i><b>(1)</b>
+        .withMaximumFieldVisibility(VisibilityType.PROTECTED).build(); <i class="conum" data-value="1"></i><b>(1)</b>
 generator = new PlantUMLClassDiagramGenerator(config);
 result = generator.generateDiagramText();
 filename = "class/0013_max_visibility_fields_protected.txt";
@@ -384,7 +384,7 @@ class de.elnarion.test.domain.t0013.Testclass {
 <div class="listingblock">
 <div class="content">
 <pre class="nowrap" data-line="2"><code class="language-java" data-lang=java>config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
-		.withMaximumFieldVisibility(VisibilityType.PACKAGE_PRIVATE).build(); <i class="conum" data-value="1"></i><b>(1)</b>
+        .withMaximumFieldVisibility(VisibilityType.PACKAGE_PRIVATE).build(); <i class="conum" data-value="1"></i><b>(1)</b>
 generator = new PlantUMLClassDiagramGenerator(config);
 result = generator.generateDiagramText();
 filename = "class/0013_max_visibility_fields_package_private.txt";
@@ -440,7 +440,7 @@ class de.elnarion.test.domain.t0013.Testclass {
 <div class="listingblock">
 <div class="content">
 <pre class="nowrap" data-line="2"><code class="language-java" data-lang=java>config = new PlantUMLClassDiagramConfigBuilder(scanPackages).withMaximumFieldVisibility(VisibilityType.PRIVATE)
-		.build(); <i class="conum" data-value="1"></i><b>(1)</b>
+        .build(); <i class="conum" data-value="1"></i><b>(1)</b>
 generator = new PlantUMLClassDiagramGenerator(config);
 result = generator.generateDiagramText();
 filename = "class/0013_max_visibility_fields_private.txt";

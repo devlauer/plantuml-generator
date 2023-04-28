@@ -7,7 +7,7 @@
     <link rel="canonical" href="https://devlauer.github.io/plantuml-generator/plantuml-generator-util/latest/class-diagram/config/method-classifier-to-ignore.html">
     <link rel="prev" href="method-blacklist-regexp.html">
     <link rel="next" href="remove-fields.html">
-    <meta name="generator" content="Antora 3.1.2">
+    <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../../_/css/site.css">
     <link rel="stylesheet" href="../../../../_/css/prism.css">
     <link rel="stylesheet" href="../../../../_/css/site-extra.css">        <script>var uiRootPath = '../../../../_'</script>
@@ -272,7 +272,7 @@ classLoader.loadClass("de.elnarion.test.domain.t0020.Testclass");
 List&lt;String&gt; scanPackages = new ArrayList&lt;&gt;();
 scanPackages.add("de.elnarion.test.domain.t0020");
 PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
-		.addMethodClassifierToIgnore(ClassifierType.STATIC).build(); <i class="conum" data-value="1"></i><b>(1)</b>
+        .addMethodClassifierToIgnore(ClassifierType.STATIC).build(); <i class="conum" data-value="1"></i><b>(1)</b>
 PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
 String result = generator.generateDiagramText();
 String expectedDiagramText = IOUtils.toString(classLoader.getResource(filename), StandardCharsets.UTF_8);

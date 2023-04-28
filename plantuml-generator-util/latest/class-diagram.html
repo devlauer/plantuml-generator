@@ -8,7 +8,7 @@
     <link rel="prev" href="index.html">
     <link rel="next" href="class-diagram/config.html">
     <meta name="keywords" content="PlantUML, generator, class diagram, sequence diagram, class diagram">
-    <meta name="generator" content="Antora 3.1.2">
+    <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="../../_/css/prism.css">
     <link rel="stylesheet" href="../../_/css/site-extra.css">        <script>var uiRootPath = '../../_'</script>
@@ -222,9 +222,7 @@
 <article class="doc">
 <h1 class="page">Class diagram generator</h1>
 <div class="paragraph">
-<p>The artifact plantuml-generator-util contains a Utility class with the name
-PlantUMLClassDiagramGenerator which can be used to generate a PlantUML class
-diagram text out of existing java classes.</p>
+<p>The artifact plantuml-generator-util contains a Utility class with the name PlantUMLClassDiagramGenerator which can be used to generate a PlantUML class diagram text out of existing java classes.</p>
 </div>
 <div class="paragraph">
 <p>All you have to do is:</p>
@@ -236,30 +234,24 @@ diagram text out of existing java classes.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>a list of package names which should be scanned for java classes
-(can be filtered with a blacklist regular expression),</p>
+<p>a list of package names which should be scanned for java classes (can be filtered with a blacklist regular expression),</p>
 </li>
 <li>
-<p>a whitelist regular expression to filter classes in the classpath
-of the given classloader</p>
+<p>a whitelist regular expression to filter classes in the classpath of the given classloader</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>add additional configuration to the PlantUMLClassDiagramConfig object
-via the PlantUMLClassDiagramConfigBuilder to customize the diagram</p>
+<p>add additional configuration to the PlantUMLClassDiagramConfig object via the PlantUMLClassDiagramConfigBuilder to customize the diagram</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>After you created the generator object with a PlantUMLClassDiagramConfig object
-simply call the method <strong>generateDiagramText</strong> and you&#8217;ll get the PlantUML
-class diagram as text.</p>
+<p>After you created the generator object with a PlantUMLClassDiagramConfig object simply call the method <strong>generateDiagramText</strong> and you&#8217;ll get the PlantUML class diagram as text.</p>
 </div>
 <div class="paragraph">
-<p>For more options to customize the diagram text and corresponding examples
-have a look at the
+<p>For more options to customize the diagram text and corresponding examples have a look at the
 <a href="class-diagram/config.html" class="xref page">configuration</a>
 documentation.</p>
 </div>

@@ -7,11 +7,10 @@
     <link rel="canonical" href="https://devlauer.github.io/plantuml-generator/plantuml-generator-util/latest/class-diagram/config/blacklist-regexp.html">
     <link rel="prev" href="add-jpa-annotations.html">
     <link rel="next" href="field-blacklist-regexp.html">
-    <meta name="generator" content="Antora 3.1.3">
+    <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../../../_/css/site.css">
     <link rel="stylesheet" href="../../../../_/css/prism.css">
-    <link rel="stylesheet" href="../../../../_/css/site-extra.css">        <script>var uiRootPath = '../../../../_'</script>
-  </head>
+    <link rel="stylesheet" href="../../../../_/css/site-extra.css">      </head>
   <body class="article">
 <header class="header">
   <nav class="navbar">
@@ -214,8 +213,8 @@
     <li><a href="blacklist-regexp.html">blacklistRegexp</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/devlauer/plantuml-generator/edit/master/plantuml-generator-util/src/docs/asciidoc/modules/ROOT/pages/class-diagram/config/blacklist-regexp.adoc">Edit this Page</a></div>
-  </div>
+<div class="edit-this-page"><a href="https://github.com/devlauer/plantuml-generator/edit/master/plantuml-generator-util/src/docs/asciidoc/modules/ROOT/pages/class-diagram/config/blacklist-regexp.adoc">Edit this Page</a></div>
+</div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
@@ -264,7 +263,7 @@ PlantUMLClassDiagramConfigBuilder configBuilder = new PlantUMLClassDiagramConfig
         scanPackages).withHideFieldsParameter(true).withHideMethods(true);
 PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(configBuilder.build());
 String result = generator.generateDiagramText();
-String expectedDiagramText = IOUtils.toString(classLoader.getResource(filename), StandardCharsets.UTF_8);
+String expectedDiagramText = IOUtils.toString(Objects.requireNonNull(classLoader.getResource(filename)), StandardCharsets.UTF_8);
 assertNotNull(result);
 assertNotNull(expectedDiagramText);
 assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));</code></pre>
@@ -288,7 +287,7 @@ with the list of packages to scan to the PlantUMLClassDiagramConfigBuilder</td>
 </div>
 <div class="imageblock kroki">
 <div class="content">
-<img src="../../_images/0011_jar_test_blacklist_diagram-a22e3fea571821119f2428400140226687db7632.png" alt="0011_jar_test_blacklist_diagram">
+<img src="../../_images/0011_jar_test_blacklist_diagram-9da92d8e517cdd87a888ceeb9e5f398a7f9ec388.png" alt="0011_jar_test_blacklist_diagram">
 </div>
 </div>
 <div class="paragraph">
@@ -324,11 +323,12 @@ class org.apache.commons.io.monitor.FileAlterationListenerAdaptor {
 
 class org.apache.commons.io.monitor.FileAlterationMonitor {
 	{field} {static} -EMPTY_ARRAY : [Lorg.apache.commons.io.monitor.FileAlterationObserver;
-	{field} -interval : long
+	{field} -intervalMillis : long
 	{field} -running : boolean
 	{field} -thread : Thread
 	{field} -threadFactory : java.util.concurrent.ThreadFactory
 	{method} +addObserver ( paramFileAlterationObserver1 : org.apache.commons.io.monitor.FileAlterationObserver ) : void
+	{method} +getInterval () : long
 	{method} +removeObserver ( paramFileAlterationObserver1 : org.apache.commons.io.monitor.FileAlterationObserver ) : void
 	{method} +run () : void
 	{method} +start () : void &lt;&lt;synchronized&gt;&gt;

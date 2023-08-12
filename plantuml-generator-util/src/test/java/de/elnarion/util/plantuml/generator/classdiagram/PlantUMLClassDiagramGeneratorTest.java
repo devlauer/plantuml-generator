@@ -635,7 +635,7 @@ class PlantUMLClassDiagramGeneratorTest {
     }
 
     /**
-     * Test generate diagramm with different class relationships.
+     * Test generate diagram with different class relationships.
      *
      * @throws IOException Signals that an I/O exception has occurred.
      */

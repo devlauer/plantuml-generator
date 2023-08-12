@@ -40,6 +40,15 @@ class PlantUMLClassDiagramGeneratorTest {
 		//@formatter:on
     }
 
+    private static String getTestResultString() {
+        List<String> scanPackages = new ArrayList<>();
+        scanPackages.add("de.elnarion.test.domain.t0006.pck1"); // <1>
+        scanPackages.add("de.elnarion.test.domain.t0006.pck2"); // <2>
+        PlantUMLClassDiagramConfigBuilder configBuilder = new PlantUMLClassDiagramConfigBuilder(scanPackages); // <3>
+        PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(configBuilder.build());
+        return generator.generateDiagramText();
+    }
+
     /**
      * Test generate diagram with a normal test case with different linked classes
      * and compares the result with the text of the file 0001_general_diagram.txt.
@@ -111,12 +120,7 @@ class PlantUMLClassDiagramGeneratorTest {
     @Test
     void test0006DifferentPackages() throws IOException {
         // tag::multiplescanpackages[]
-        List<String> scanPackages = new ArrayList<>();
-        scanPackages.add("de.elnarion.test.domain.t0006.pck1"); // <1>
-        scanPackages.add("de.elnarion.test.domain.t0006.pck2"); // <2>
-        PlantUMLClassDiagramConfigBuilder configBuilder = new PlantUMLClassDiagramConfigBuilder(scanPackages); // <3>
-        PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(configBuilder.build());
-        String result = generator.generateDiagramText();
+        String result = getTestResultString();
         String expectedDiagramText = IOUtils.toString(Objects.requireNonNull(classLoader.getResource("class/0006_different_packages.txt")),
                 StandardCharsets.UTF_8);
         assertNotNull(result);

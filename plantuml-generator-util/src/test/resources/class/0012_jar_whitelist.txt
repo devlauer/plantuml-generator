@@ -26,16 +26,17 @@ class org.apache.commons.io.monitor.FileAlterationListenerAdaptor {
 
 class org.apache.commons.io.monitor.FileAlterationMonitor {
 	{field} {static} -EMPTY_ARRAY : [Lorg.apache.commons.io.monitor.FileAlterationObserver;
-	{field} -interval : long
+	{field} -intervalMillis : long
 	{field} -running : boolean
 	{field} -thread : Thread
 	{field} -threadFactory : java.util.concurrent.ThreadFactory
 	{method} +addObserver ( paramFileAlterationObserver1 : org.apache.commons.io.monitor.FileAlterationObserver ) : void
+	{method} +getInterval () : long
 	{method} +removeObserver ( paramFileAlterationObserver1 : org.apache.commons.io.monitor.FileAlterationObserver ) : void
 	{method} +run () : void
-	{method} +start () : void <<synchronized>> 
-	{method} +stop () : void <<synchronized>> 
-	{method} +stop ( paramlong1 : long ) : void <<synchronized>> 
+	{method} +start () : void <<synchronized>>
+	{method} +stop () : void <<synchronized>>
+	{method} +stop ( paramlong1 : long ) : void <<synchronized>>
 }
 
 

@@ -44,11 +44,10 @@ class PlantUMLClassDiagramGeneratorTest {
      * Test generate diagram with a normal test case with different linked classes
      * and compares the result with the text of the file 0001_general_diagram.txt.
      *
-     * @throws IOException            Signals that an I/O exception has occurred.
-     * @throws ClassNotFoundException Signals that a class is not found
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    void test0001GenerateDiagram() throws IOException, ClassNotFoundException {
+    void test0001GenerateDiagram() throws IOException {
         // tag::hideclasses[]
         List<String> scanPackages = new ArrayList<>();
         scanPackages.add("de.elnarion.test.domain.t0001");
@@ -69,7 +68,7 @@ class PlantUMLClassDiagramGeneratorTest {
     @ParameterizedTest
     @MethodSource("provideBaseRenderingTests")
     void testBaseRendering(String paramScanpackage, String paramCompareTextFile)
-            throws IOException, ClassNotFoundException {
+            throws IOException {
         List<String> scanPackages = new ArrayList<>();
         scanPackages.add(paramScanpackage);
         PlantUMLClassDiagramConfigBuilder configBuilder = new PlantUMLClassDiagramConfigBuilder(scanPackages);
@@ -85,11 +84,10 @@ class PlantUMLClassDiagramGeneratorTest {
     /**
      * Test 0004 test different field variations.
      *
-     * @throws IOException            Signals that an I/O exception has occurred.
-     * @throws ClassNotFoundException Signals that a class is not found
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    void test0004ClassFields() throws IOException, ClassNotFoundException {
+    void test0004ClassFields() throws IOException {
         // tag::baseclassfieldtypes[]
         List<String> scanPackages = new ArrayList<>();
         scanPackages.add("de.elnarion.test.domain.t0004");
@@ -108,11 +106,10 @@ class PlantUMLClassDiagramGeneratorTest {
     /**
      * Test 0006 test different packages as scan list.
      *
-     * @throws IOException            Signals that an I/O exception has occurred.
-     * @throws ClassNotFoundException Signals that a class is not found
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    void test0006DifferentPackages() throws IOException, ClassNotFoundException {
+    void test0006DifferentPackages() throws IOException {
         // tag::multiplescanpackages[]
         List<String> scanPackages = new ArrayList<>();
         scanPackages.add("de.elnarion.test.domain.t0006.pck1"); // <1>
@@ -131,11 +128,10 @@ class PlantUMLClassDiagramGeneratorTest {
     /**
      * Test 0007 test hide toggles.
      *
-     * @throws IOException            Signals that an I/O exception has occurred.
-     * @throws ClassNotFoundException Signals that a class is not found
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    void test0007HideParameters() throws IOException, ClassNotFoundException {
+    void test0007HideParameters() throws IOException {
         // tag::hideclassesfieldsandmethods[]
         List<String> scanPackages = new ArrayList<>();
         scanPackages.add("de.elnarion.test.domain.t0007");
@@ -203,30 +199,6 @@ class PlantUMLClassDiagramGeneratorTest {
     }
 
     /**
-     * Test 0010 test parameterized aggregation type.
-     *
-     * @throws IOException            Signals that an I/O exception has occurred.
-     * @throws ClassNotFoundException Signals that a class is not found
-     */
-    @Test
-    void test0010ParameterizedAggregationType() throws IOException, ClassNotFoundException {
-        // tag::parameterizedaggregationtype[]
-        List<String> scanPackages = new ArrayList<>();
-        scanPackages.add("de.elnarion.test.domain.t0010");
-        PlantUMLClassDiagramConfigBuilder configBuilder = new PlantUMLClassDiagramConfigBuilder(scanPackages)
-                .withHideFieldsParameter(true).withHideMethods(true);
-        PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(configBuilder.build());
-        String result = generator.generateDiagramText();
-        String expectedDiagramText = IOUtils.toString(
-                Objects.requireNonNull(this.getClass().getClassLoader().getResource("class/0010_parameterized_aggregation_type.txt")),
-                StandardCharsets.UTF_8);
-        assertNotNull(result);
-        assertNotNull(expectedDiagramText);
-        assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
-        // end::parameterizedaggregationtype[]
-    }
-
-    /**
      * Test classes contained in a package in a jar.
      *
      * @throws Exception the exception
@@ -246,6 +218,29 @@ class PlantUMLClassDiagramGeneratorTest {
         assertNotNull(expectedDiagramText);
         assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
         // end::blacklistregexp[]
+    }
+
+    /**
+     * Test 0010 test parameterized aggregation type.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    @Test
+    void test0010ParameterizedAggregationType() throws IOException {
+        // tag::parameterizedaggregationtype[]
+        List<String> scanPackages = new ArrayList<>();
+        scanPackages.add("de.elnarion.test.domain.t0010");
+        PlantUMLClassDiagramConfigBuilder configBuilder = new PlantUMLClassDiagramConfigBuilder(scanPackages)
+                .withHideFieldsParameter(true).withHideMethods(true);
+        PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(configBuilder.build());
+        String result = generator.generateDiagramText();
+        String expectedDiagramText = IOUtils.toString(
+                Objects.requireNonNull(this.getClass().getClassLoader().getResource("class/0010_parameterized_aggregation_type.txt")),
+                StandardCharsets.UTF_8);
+        assertNotNull(result);
+        assertNotNull(expectedDiagramText);
+        assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+        // end::parameterizedaggregationtype[]
     }
 
     /**
@@ -617,11 +612,10 @@ class PlantUMLClassDiagramGeneratorTest {
      * and additional PlantUML configs and compares the result with the text of the
      * file 0023_additional-plant-uml-configs.txt.
      *
-     * @throws IOException            Signals that an I/O exception has occurred.
-     * @throws ClassNotFoundException Signals that a class is not found
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    void test0023GenerateDiagramWithAdditionalPlantUmlConfigs() throws IOException, ClassNotFoundException {
+    void test0023GenerateDiagramWithAdditionalPlantUmlConfigs() throws IOException {
         // tag::additionalplantumlconfig[]
         List<String> scanPackages = new ArrayList<>();
         scanPackages.add("de.elnarion.test.domain.t0023");
@@ -643,11 +637,10 @@ class PlantUMLClassDiagramGeneratorTest {
     /**
      * Test generate diagramm with different class relationships.
      *
-     * @throws IOException            Signals that an I/O exception has occurred.
-     * @throws ClassNotFoundException the class not found exception
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    void test0024ClassRelationships() throws IOException, ClassNotFoundException {
+    void test0024ClassRelationships() throws IOException {
         // tag::classrelationships[]
         List<String> scanPackages = new ArrayList<>();
         scanPackages.add("de.elnarion.test.domain.t0024");
@@ -667,11 +660,10 @@ class PlantUMLClassDiagramGeneratorTest {
      * Test generate diagram with shortened class names in classes, relationships,
      * fields, methods.
      *
-     * @throws ClassNotFoundException the class not found exception
-     * @throws IOException            Signals that an I/O exception has occurred.
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    void test0025UseShortClassNames() throws ClassNotFoundException, IOException {
+    void test0025UseShortClassNames() throws IOException {
         // tag::useshortclassnames[]
         List<String> scanPackages = new ArrayList<>();
         scanPackages.add("de.elnarion.test.domain.t0025");
@@ -690,11 +682,10 @@ class PlantUMLClassDiagramGeneratorTest {
     /**
      * Test generate diagram with shortened class names only in fields and methods
      *
-     * @throws ClassNotFoundException the class not found exception
-     * @throws IOException            Signals that an I/O exception has occurred.
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    void test0025UseShortClassNamesInFieldsAndMethods() throws ClassNotFoundException, IOException {
+    void test0025UseShortClassNamesInFieldsAndMethods() throws IOException {
         // tag::useshortclassnamesinfieldsandmethods[]
         List<String> scanPackages = new ArrayList<>();
         scanPackages.add("de.elnarion.test.domain.t0025");
@@ -713,11 +704,10 @@ class PlantUMLClassDiagramGeneratorTest {
     /**
      * Test generate diagram with different aggregate relationships
      *
-     * @throws ClassNotFoundException the class not found exception
-     * @throws IOException            Signals that an I/O exception has occurred.
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
-    void test0026AggregateRelationships() throws ClassNotFoundException, IOException {
+    void test0026AggregateRelationships() throws IOException {
         // tag::aggregaterelationships[]
         List<String> scanPackages = new ArrayList<>();
         scanPackages.add("de.elnarion.test.domain.t0026");

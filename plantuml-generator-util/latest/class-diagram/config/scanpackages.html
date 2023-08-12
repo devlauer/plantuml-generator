@@ -255,12 +255,7 @@ configuration parameter.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap" data-line="2,3,4"><code class="language-java" data-lang=java>List&lt;String&gt; scanPackages = new ArrayList&lt;&gt;();
-scanPackages.add("de.elnarion.test.domain.t0006.pck1"); <i class="conum" data-value="1"></i><b>(1)</b>
-scanPackages.add("de.elnarion.test.domain.t0006.pck2"); <i class="conum" data-value="2"></i><b>(2)</b>
-PlantUMLClassDiagramConfigBuilder configBuilder = new PlantUMLClassDiagramConfigBuilder(scanPackages); <i class="conum" data-value="3"></i><b>(3)</b>
-PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(configBuilder.build());
-String result = generator.generateDiagramText();
+<pre class="nowrap"><code class="language-java" data-lang=java>String result = getTestResultString();
 String expectedDiagramText = IOUtils.toString(Objects.requireNonNull(classLoader.getResource("class/0006_different_packages.txt")),
         StandardCharsets.UTF_8);
 assertNotNull(result);

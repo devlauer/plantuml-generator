@@ -79,6 +79,9 @@ public class PlantUMLClassDiagramTextBuilder {
 	 */
 	private void startUMLDiagram(final StringBuilder builder) {
 		builder.append("@startuml");
+		if(plantUMLConfig.isUseSmetana()) {
+			builder.append("!pragma layout smetana");
+		}
 	}
 
 	/**

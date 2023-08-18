@@ -1,0 +1,8 @@
+@startuml
+!pragma layout smetana
+
+class de.elnarion.test.domain.t0027.TestClass {
+    {field} -testString : String
+}
+
+@enduml

@@ -727,4 +727,26 @@ class PlantUMLClassDiagramGeneratorTest {
         // end::aggregaterelationships[]
     }
 
+    /**
+     * Test generate diagram with different aggregate relationships
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
+    @Test
+    void test0027UseSmetana() throws IOException {
+        // tag::usesmetana[]
+        List<String> scanPackages = new ArrayList<>();
+        scanPackages.add("de.elnarion.test.domain.t0027");
+        PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
+                .withUseSmetana(true).build();
+        PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
+        String result = generator.generateDiagramText();
+        String expectedDiagramText = IOUtils.toString(
+                Objects.requireNonNull(classLoader.getResource("class/0027_use_smetana.txt")), StandardCharsets.UTF_8);
+        assertNotNull(result);
+        assertNotNull(expectedDiagramText);
+        assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+        // end::usesmetana[]
+    }
+
 }

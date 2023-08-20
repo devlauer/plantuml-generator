@@ -31,6 +31,16 @@
             <name>JapuDCret</name>
             <url>https://github.com/JapuDCret</url>
         </developer>
+        <developer>
+            <id>mikevanvendeloo</id>
+            <name>Mike van Vendeloo</name>
+            <url>https://github.com/mikevanvendeloo</url>
+        </developer>
+        <developer>
+            <id>s-jepsen</id>
+            <name>s-jepsen</name>
+            <url>https://github.com/s-jepsen</url>
+        </developer>
     </developers>
     <licenses>
         <license>

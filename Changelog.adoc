@@ -2,6 +2,29 @@
 
 .Unreleased
 
+.2.2.0 - 2023-08-20
+* add new feature - configuration option for smetana
+* update archunit to 1.1.0
+* update classgraph to 4.8.162
+* update maven to 3.9.4
+* update junit5 to 5.10.0
+* update mockito to 5.4.0
+* update invoker-plugin to 3.6.0
+* update antora site-generator to 3.1.4
+* update antora cli to 3.1.4
+* update commons-io to 3.1.4
+* update maven-surefire-plugin to 3.1.2
+* update maven-failsafe-plugin to 3.1.2
+* update maven-release-plugin to 3.0.1
+* update maven-source-plugin to 3.3.0
+* update maven-plugin-plugin to 3.9.0
+* update maven-plugin-annotations to 3.9.0
+* update maven-gpg-plugin to 3.1.0
+* update jacoco-maven-plugin to 0.8.10
+* update maven-compat and maven-core to 3.8.1 due to origin validation error
+in previous versions (CVE-2021-26291)
+* update maven-verifier to 2.0.0-M1
+
 .2.1.0 - 2023-04-28
 * handle iterable or map like list or set as aggregate relationship
 
@@ -49,7 +72,7 @@
 * fix javadoc issues
 * switch comparator to lambda expressions
 * added new sequence diagram feature
-* moved documentation to github pages
+* moved documentation to GitHub pages
 * added antora as static site generator
 * added additional integration tests for different maven plugin configurations
 * removed some dependencies not needed anymore
@@ -84,10 +107,10 @@
 .1.3.0 - 2022-01-23
 * Update JUnit to 4.13.1
 * allow for additional PlantUML configs (pull request #20)
-* fix failing tests and refactor for more readibility (pull request #19)
+* fix failing tests and refactor for more readability (pull request #19)
 
 .1.2.0 - 2020-09-21
-* Switched classloading and scanning completely to io.github.classgraph
+* Switched classloading and scanning completely to io.GitHub.classgraph
 * Added new functionality for JPA annotations (feature request #6)
 
 .1.1.2 - 2020-05-02
@@ -115,7 +138,7 @@
 * Added whitelist parameter (feature request #4)
 * Added blacklist parameter (feature request #4)
 * Added configuration for asciidoc diagram block generation (feature request #3)
-* Changed contructor parameters
+* Changed constructor parameters
 * *Switched to Java 8 (Java 7 no longer supported)*
 
 .0.9.2 - 2019-01-03

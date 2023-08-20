@@ -728,7 +728,7 @@ class PlantUMLClassDiagramGeneratorTest {
     }
 
     /**
-     * Test generate diagram with different aggregate relationships
+     * Test generate diagram with smetana layout
      *
      * @throws IOException Signals that an I/O exception has occurred.
      */

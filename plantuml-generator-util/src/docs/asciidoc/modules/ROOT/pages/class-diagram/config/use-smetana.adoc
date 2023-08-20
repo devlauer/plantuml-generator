@@ -1,0 +1,33 @@
+= useSmetana
+include::./_attributes.adoc[]
+
+include::partial$class-diagram/use-smetana.adoc[leveloffset=+1]
+
+== Example
+
+Here is an example from the JUnit tests using this configuration parameter:
+
+[source,java,indent=0]
+----
+include::example$testsrc/de/elnarion/util/plantuml/generator/classdiagram/{generatorclass}Test.java[tags=usesmetana]
+----
+[sidebar]
+--
+<1> activate the useSmetana toggle in the configuration
+--
+
+which is rendered this way:
+
+[plantuml,0027_use_semtana_diagram,png]
+----
+include::example$testresources/class/0027_use_smetana.txt[]
+----
+
+
+and produces this PlantUML diagram text:
+
+[source,plantuml,indent=0]
+----
+include::example$testresources/class/0027_use_smetana.txt[]
+----
+

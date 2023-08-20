@@ -728,7 +728,7 @@ class PlantUMLClassDiagramGeneratorTest {
     }
 
     /**
-     * Test generate diagram with different aggregate relationships
+     * Test generate diagram with smetana layout
      *
      * @throws IOException Signals that an I/O exception has occurred.
      */
@@ -738,7 +738,7 @@ class PlantUMLClassDiagramGeneratorTest {
         List<String> scanPackages = new ArrayList<>();
         scanPackages.add("de.elnarion.test.domain.t0027");
         PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages)
-                .withUseSmetana(true).build();
+                .withUseSmetana(true).build(); //<1>
         PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
         String result = generator.generateDiagramText();
         String expectedDiagramText = IOUtils.toString(

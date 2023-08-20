@@ -1,0 +1,14 @@
+include::./_attributes.adoc[]
+
+= Description
+// tag::description[]
+With this configuration toggle you can activte smetana as
+replacement for GraphViz/Dot for layouting (see
+link:https://plantuml.com/de/smetana02[smetana-documentation]
+).
+
+= Default value
+// tag::defaultvalue[]
+The default value of this configuration option is *false* (smetana is not activated).
+// end::defaultvalue[]
+

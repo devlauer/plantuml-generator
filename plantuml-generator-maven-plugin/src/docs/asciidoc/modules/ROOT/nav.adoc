@@ -25,6 +25,7 @@
 *** xref:class-diagram/config/scanpackages.adoc[]
 *** xref:class-diagram/config/use-short-classnames.adoc[]
 *** xref:class-diagram/config/use-short-classnames-in-fields-and-methods.adoc[]
+*** xref:class-diagram/config/use-smetana.adoc[]
 *** xref:class-diagram/config/whitelist-regexp.adoc[]
 
 * xref:sequence-diagram.adoc[]

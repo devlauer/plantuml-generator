@@ -98,4 +98,6 @@ by an markdown diagram block - default is ``false``; optional;
   simple toggle to shorten all class names in the diagram.
 ** *xref:class-diagram/config/use-short-classnames-in-fields-and-methods.adoc[useShortClassNamesInFieldsAndMethods]* - 
   simple toggle to shorten class names only in fields and methods in the diagram.
-  
+** *xref:class-diagram/config/use-smetana.adoc[useSmetana]* -
+simple toggle to activate smetana as layouting engine instead of GraphViz/Dot.
+

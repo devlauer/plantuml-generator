@@ -101,6 +101,8 @@ of the unrendered diagram)
 to shorten the class names in the diagram
 * xref:./config/use-short-classnames-in-fields-and-methods.adoc[useShortClassNamesInFieldsAndMethods] + 
 to shorten the class names only in fields and methods in the diagram
+* xref:./config/use-smetana.adoc[useSmetana] +
+to activate Smetana as replacement for GraphViz/Dot for layouting
 
 
 After you configured everything you can construct the 

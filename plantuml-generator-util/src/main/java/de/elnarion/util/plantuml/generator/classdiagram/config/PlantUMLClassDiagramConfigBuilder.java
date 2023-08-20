@@ -52,6 +52,17 @@ public class PlantUMLClassDiagramConfigBuilder {
 	}
 
 	/**
+	 * With remove fields.
+	 *
+	 * @param paramRemoveFields the param remove fields
+	 * @return PlantUMLConfigBuilder
+	 */
+	public PlantUMLClassDiagramConfigBuilder withUseSmetana(boolean paramRemoveFields) {
+		plantUMLConfig.setUseSmetana(paramRemoveFields);
+		return this;
+	}
+
+	/**
 	 * With class loader.
 	 *
 	 * @param paramDestinationClassLoader the param destination class loader

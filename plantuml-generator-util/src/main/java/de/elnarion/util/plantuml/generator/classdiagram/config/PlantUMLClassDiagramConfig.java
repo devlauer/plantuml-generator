@@ -14,6 +14,8 @@ public class PlantUMLClassDiagramConfig {
 	private final List<ClassifierType> methodClassifierToIgnore = new ArrayList<>();
 	/** The additional plant uml configs. */
 	private final List<String> additionalPlantUmlConfigs = new ArrayList<>();
+	/** The use plantuml smetana renderer in favor of GraphViz. */
+	private boolean useSmetana = false;
 	/** The destination classloader. */
 	private ClassLoader destinationClassloader = this.getClass().getClassLoader();
 	/** The scan packages. */
@@ -283,6 +285,23 @@ public class PlantUMLClassDiagramConfig {
 	 */
 	public List<String> getAdditionalPlantUmlConfigs() {
 		return additionalPlantUmlConfigs;
+	}
+
+	/**
+	 * Enables generating uml files enabling to use internal Smetana renderer in favor
+	 * of GraphViz <a href="https://plantuml.com/smetana02">Smetana</a>.
+	 */
+	public void setUseSmetana(boolean useSmetana) {
+		this.useSmetana = useSmetana;
+	}
+
+	/**
+	 * Checks if generating uml files using Smetana renderer enabled.
+	 *
+	 * @return true, if Smetana is enabled
+	 */
+	public boolean isUseSmetana() {
+		return useSmetana;
 	}
 
 	/**

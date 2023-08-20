@@ -20,6 +20,9 @@ import java.util.List;
 @Mojo(name = "generate", defaultPhase = LifecyclePhase.GENERATE_SOURCES, threadSafe = true, requiresDependencyResolution = ResolutionScope.COMPILE, requiresProject = true)
 public class PlantUMLGeneratorMojo extends AbstractPlantUMLGeneratorMojo {
 
+	/** The use Smetana renderer. */
+	@Parameter(property = PREFIX + "useSmetana", defaultValue = "false", required = false)
+	private boolean useSmetana = false;
 	/** The remove methods. */
 	@Parameter(property = PREFIX + "fieldBlacklistRegexp", defaultValue = "", required = false)
 	private final String fieldBlacklistRegexp = null;
@@ -96,6 +99,7 @@ public class PlantUMLGeneratorMojo extends AbstractPlantUMLGeneratorMojo {
 				configBuilder = new PlantUMLClassDiagramConfigBuilder(scanPackages, whitelistRegexp);
 			}
 			configBuilder.withClassLoader(loader).withHideClasses(hideClasses).withHideFieldsParameter(hideFields)
+					.withUseSmetana(useSmetana)
 					.withHideMethods(hideMethods).addFieldClassifiersToIgnore(fieldClassifierListToIgnore)
 					.addMethodClassifiersToIgnore(methodClassifierListToIgnore).withRemoveFields(removeFields)
 					.withRemoveMethods(removeMethods).withFieldBlacklistRegexp(fieldBlacklistRegexp)
@@ -111,6 +115,24 @@ public class PlantUMLGeneratorMojo extends AbstractPlantUMLGeneratorMojo {
 			getLog().error("Exception:" + e.getMessage());
 			getLog().error(e);
 		}
+	}
+
+	/**
+	 * Checks if Smetana is enabled.
+	 *
+	 * @return true, enabled.
+	 */
+	public boolean isUseSmetana() {
+		return useSmetana;
+	}
+
+	/**
+	 * Sets the Smetana.
+	 *
+	 * @param useSmetana set use Smetana
+	 */
+	public void setUseSmetana(boolean useSmetana) {
+		this.useSmetana = useSmetana;
 	}
 
 	/**

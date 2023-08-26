@@ -80,6 +80,7 @@ public class PlantUMLClassDiagramTextBuilder {
 	private void startUMLDiagram(final StringBuilder builder) {
 		builder.append("@startuml");
 		if(plantUMLConfig.isUseSmetana()) {
+			builder.append(System.lineSeparator());
 			builder.append("!pragma layout smetana");
 		}
 	}

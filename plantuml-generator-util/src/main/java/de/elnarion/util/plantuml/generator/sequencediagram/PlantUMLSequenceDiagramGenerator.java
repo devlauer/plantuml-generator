@@ -5,7 +5,6 @@ import de.elnarion.util.plantuml.generator.sequencediagram.exception.NotFoundExc
 import de.elnarion.util.plantuml.generator.sequencediagram.internal.CallerMethod;
 import de.elnarion.util.plantuml.generator.sequencediagram.internal.SequenceAnalyzer;
 import javassist.CannotCompileException;
-import javassist.ClassPool;
 
 /**
  * This class provides the ability to generate a sequence diagram from existing

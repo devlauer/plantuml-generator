@@ -2,7 +2,11 @@
 
 .Unreleased
 
-2.2.3 - 2023-08-26
+.2.2.4 - 2023-09-03
+* fix stackoverflow in sequence diagrams with circular or
+recursive method calls (issue #105)
+
+.2.2.3 - 2023-08-26
 * fix missing javadoc jar during release
 
 .2.2.2 - 2023-08-26

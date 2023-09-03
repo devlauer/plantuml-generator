@@ -1,7 +1,5 @@
 package de.elnarion.util.plantuml.generator.sequencediagram.internal;
 
-import de.elnarion.util.plantuml.generator.sequencediagram.config.PlantUMLSequenceDiagramConfig;
-import javassist.CtMethod;
 import javassist.NotFoundException;
 
 import java.util.ArrayList;
@@ -17,7 +15,6 @@ public class RecursivelyCalledMethod implements ICallerMethod {
     public RecursivelyCalledMethod(ICallerMethod paramRecursivelyCalledMethod) {
         this.recursivelyCalledMethod = paramRecursivelyCalledMethod;
     }
-
 
     @Override
     public String getMethodName() {
@@ -47,7 +44,7 @@ public class RecursivelyCalledMethod implements ICallerMethod {
     }
 
     @Override
-    public String generateCallSequenceDiagramText(String paramIndent) throws NotFoundException {
+    public String generateCallSequenceDiagramText(String paramIndent) {
         return "";
     }
 

@@ -1,5 +1,6 @@
 package de.elnarion.util.plantuml.generator.sequencediagram.internal;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,11 +11,11 @@ import java.util.List;
  */
 public class TreeNode<E,F> {
 
-    private E key;
-    private F value;
+    private final E key;
+    private final F value;
 
     private TreeNode<E,F> parent;
-    private List<TreeNode<E,F>> childNodes = new LinkedList<>();
+    private final List<TreeNode<E,F>> childNodes = new LinkedList<>();
 
 
     /**
@@ -72,6 +73,12 @@ public class TreeNode<E,F> {
             parents.addAll(parent.getParents());
         }
         return parents;
+    }
+
+    public List<TreeNode<E,F>> getAllChildNodes(){
+        List<TreeNode<E,F>> allChildNodes = new ArrayList<>(childNodes);
+        childNodes.forEach(e -> allChildNodes.addAll(e.getAllChildNodes()));
+        return allChildNodes;
     }
 
 }

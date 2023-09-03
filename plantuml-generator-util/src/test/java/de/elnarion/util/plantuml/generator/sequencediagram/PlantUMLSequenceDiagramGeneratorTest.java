@@ -304,6 +304,7 @@ class PlantUMLSequenceDiagramGeneratorTest {
 
 	@Test
 	void test0005CircularMethodCalls() throws NotFoundException, IOException {
+		// tag::circularMethodCalls[]
 		// ARRANGE
 		PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfigBuilder(SequenceStarterClass.class.getName(),"startSequence").withIgnoreStandardClasses(true).withUseShortClassName(true).withShowReturnTypes(true);
 		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
@@ -313,14 +314,16 @@ class PlantUMLSequenceDiagramGeneratorTest {
 
 		// ACT
 		String generatedDiagram = generator.generateDiagramText();
+
 		// ASSERT
 		assertAll(() -> assertNotNull(generatedDiagram), () -> assertEquals(expectedDiagramText.replaceAll("\\s+", ""),
 				generatedDiagram.replaceAll("\\s+", "")));
-
+		// end::circularMethodCalls[]
 	}
 
 	@Test
 	void test0005RecursiveMethodCalls() throws NotFoundException, IOException {
+		// tag::recursiveMethodCalls[]
 		// ARRANGE
 		PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfigBuilder(SequenceStarterClass.class.getName(),"recursiveCall").withIgnoreStandardClasses(true).withUseShortClassName(true).withShowReturnTypes(true);
 		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
@@ -330,11 +333,11 @@ class PlantUMLSequenceDiagramGeneratorTest {
 
 		// ACT
 		String generatedDiagram = generator.generateDiagramText();
-		System.out.println(generatedDiagram);
+
 		// ASSERT
 		assertAll(() -> assertNotNull(generatedDiagram), () -> assertEquals(expectedDiagramText.replaceAll("\\s+", ""),
 				generatedDiagram.replaceAll("\\s+", "")));
-
+		// end::recursiveMethodCalls[]
 	}
 
 }

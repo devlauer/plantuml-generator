@@ -49,7 +49,7 @@ public interface ICallerMethod {
      * @return the string
      * @throws NotFoundException the not found exception
      */
-    public String generateCallSequenceDiagramText(String paramIndent) throws NotFoundException;
+    String generateCallSequenceDiagramText(String paramIndent) throws NotFoundException;
 
     /**
      * Gets the return type.
@@ -57,5 +57,5 @@ public interface ICallerMethod {
      * @return the return type
      * @throws NotFoundException if type is not found
      */
-    public String getReturnType() throws NotFoundException;
+    String getReturnType() throws NotFoundException;
 }

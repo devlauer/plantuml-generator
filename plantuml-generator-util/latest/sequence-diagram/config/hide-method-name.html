@@ -255,7 +255,7 @@ PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfig
 		MovieService.class.getName(), "doSomeBusiness").withIgnoreJPAEntities(true).withHideMethodName(true); <i class="conum" data-value="1"></i><b>(1)</b>
 PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
 String expectedDiagramText = IOUtils.toString(
-		classLoader.getResource("sequence/0003_jpa_test_with_ignore_jpa_entities_and_hide_method_names.txt"),
+		Objects.requireNonNull(classLoader.getResource("sequence/0003_jpa_test_with_ignore_jpa_entities_and_hide_method_names.txt")),
 		StandardCharsets.UTF_8);
 
 // ACT

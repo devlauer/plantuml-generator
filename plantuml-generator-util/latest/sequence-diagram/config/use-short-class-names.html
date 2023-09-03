@@ -261,7 +261,7 @@ PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfig
 		"callSomething").withUseShortClassName(false); <i class="conum" data-value="1"></i><b>(1)</b>
 PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
 String expectedDiagramText = IOUtils.toString(
-		classLoader.getResource("sequence/0001_basic_caller_with_long_class_names.txt"),
+		Objects.requireNonNull(classLoader.getResource("sequence/0001_basic_caller_with_long_class_names.txt")),
 		StandardCharsets.UTF_8);
 
 // ACT

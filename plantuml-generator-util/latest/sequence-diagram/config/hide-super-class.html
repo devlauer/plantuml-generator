@@ -255,7 +255,7 @@ PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfig
 		CallerClassA.class.getName(), "testSomething").withHideSuperClass(true); <i class="conum" data-value="1"></i><b>(1)</b>
 PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
 String expectedDiagramText = IOUtils.toString(
-		classLoader.getResource("sequence/0002_basic_super_class_sequence_diagram_with_hide_super_class.txt"),
+		Objects.requireNonNull(classLoader.getResource("sequence/0002_basic_super_class_sequence_diagram_with_hide_super_class.txt")),
 		StandardCharsets.UTF_8);
 
 // ACT

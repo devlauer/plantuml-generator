@@ -258,7 +258,7 @@ If you specify it, it has to be the qualified class name
 PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfigBuilder(CallerA.class.getName(), <i class="conum" data-value="1"></i><b>(1)</b>
 		"callSomething"); <i class="conum" data-value="2"></i><b>(2)</b>
 PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build()); <i class="conum" data-value="3"></i><b>(3)</b>
-String expectedDiagramText = IOUtils.toString(classLoader.getResource("sequence/0001_basic_caller_test.txt"),
+String expectedDiagramText = IOUtils.toString(Objects.requireNonNull(classLoader.getResource("sequence/0001_basic_caller_test.txt")),
 		StandardCharsets.UTF_8);
 
 // ACT

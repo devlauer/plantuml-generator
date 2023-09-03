@@ -260,7 +260,7 @@ PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfig
 		"callSomething").withShowReturnTypes(true); <i class="conum" data-value="1"></i><b>(1)</b>
 PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
 String expectedDiagramText = IOUtils.toString(
-		classLoader.getResource("sequence/0001_basic_caller_test_with_return_types.txt"),
+		Objects.requireNonNull(classLoader.getResource("sequence/0001_basic_caller_test_with_return_types.txt")),
 		StandardCharsets.UTF_8);
 
 // ACT

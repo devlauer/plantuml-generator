@@ -258,7 +258,7 @@ PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfig
 		MovieService.class.getName(), "doSomeBusiness").withIgnoreStandardClasses(false); <i class="conum" data-value="1"></i><b>(1)</b>
 PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
 String expectedDiagramText = IOUtils.toString(
-		classLoader.getResource("sequence/0003_jpa_test_with_standard_classes.txt"), StandardCharsets.UTF_8);
+		Objects.requireNonNull(classLoader.getResource("sequence/0003_jpa_test_with_standard_classes.txt")), StandardCharsets.UTF_8);
 
 // ACT
 String generatedDiagram = generator.generateDiagramText();

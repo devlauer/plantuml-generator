@@ -2,7 +2,7 @@ package de.elnarion.util.plantuml.generator.sequencediagram;
 
 import de.elnarion.util.plantuml.generator.sequencediagram.config.PlantUMLSequenceDiagramConfig;
 import de.elnarion.util.plantuml.generator.sequencediagram.exception.NotFoundException;
-import de.elnarion.util.plantuml.generator.sequencediagram.internal.CallerMethod;
+import de.elnarion.util.plantuml.generator.sequencediagram.internal.ICallerMethod;
 import de.elnarion.util.plantuml.generator.sequencediagram.internal.SequenceAnalyzer;
 import javassist.CannotCompileException;
 
@@ -35,7 +35,7 @@ public class PlantUMLSequenceDiagramGenerator {
     public String generateDiagramText() throws NotFoundException {
         SequenceAnalyzer sequenceAnalyzer = new SequenceAnalyzer(config);
         try {
-            CallerMethod callerMethod = sequenceAnalyzer.analyzeCallSequence();
+            ICallerMethod callerMethod = sequenceAnalyzer.analyzeCallSequence();
             return generateDiagramTextFromCallerMethod(callerMethod);
         } catch (ClassNotFoundException | javassist.NotFoundException e) {
             throw new NotFoundException(e.getMessage(), e);
@@ -47,7 +47,7 @@ public class PlantUMLSequenceDiagramGenerator {
 
     }
 
-    private String generateDiagramTextFromCallerMethod(CallerMethod callerMethod)
+    private String generateDiagramTextFromCallerMethod(ICallerMethod callerMethod)
             throws ClassNotFoundException, javassist.NotFoundException {
         return "@startuml" +
                 System.lineSeparator() +

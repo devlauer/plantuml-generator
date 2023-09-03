@@ -9,7 +9,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
+import de.elnarion.test.sequence.t0005.SequenceStarterClass;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +24,7 @@ import de.elnarion.util.plantuml.generator.sequencediagram.exception.NotFoundExc
 
 class PlantUMLSequenceDiagramGeneratorTest {
 
-	private ClassLoader classLoader = this.getClass().getClassLoader();
+	private final ClassLoader classLoader = this.getClass().getClassLoader();
 
 	@Test
 	void test0001BasicSequenceDiagram() throws NotFoundException, IOException {
@@ -31,7 +33,7 @@ class PlantUMLSequenceDiagramGeneratorTest {
 		PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfigBuilder(CallerA.class.getName(), // <1>
 				"callSomething"); // <2>
 		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build()); // <3>
-		String expectedDiagramText = IOUtils.toString(classLoader.getResource("sequence/0001_basic_caller_test.txt"),
+		String expectedDiagramText = IOUtils.toString(Objects.requireNonNull(classLoader.getResource("sequence/0001_basic_caller_test.txt")),
 				StandardCharsets.UTF_8);
 
 		// ACT
@@ -44,8 +46,7 @@ class PlantUMLSequenceDiagramGeneratorTest {
 	}
 
 	@Test
-	void test0001BasicSequencDiagramWithNotFoundException()
-			 throws NotFoundException, IOException {
+	void test0001BasicSequenceDiagramWithNotFoundException() {
 		// tag::basecallersequencenotfound[]
 		// ASSERT via lambda
 		assertThrows(NotFoundException.class, ()->{
@@ -68,7 +69,7 @@ class PlantUMLSequenceDiagramGeneratorTest {
 				"callSomething").withUseShortClassName(false); // <1>
 		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
 		String expectedDiagramText = IOUtils.toString(
-				classLoader.getResource("sequence/0001_basic_caller_with_long_class_names.txt"),
+				Objects.requireNonNull(classLoader.getResource("sequence/0001_basic_caller_with_long_class_names.txt")),
 				StandardCharsets.UTF_8);
 
 		// ACT
@@ -88,7 +89,7 @@ class PlantUMLSequenceDiagramGeneratorTest {
 				"callSomething").withShowReturnTypes(true); // <1>
 		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
 		String expectedDiagramText = IOUtils.toString(
-				classLoader.getResource("sequence/0001_basic_caller_test_with_return_types.txt"),
+				Objects.requireNonNull(classLoader.getResource("sequence/0001_basic_caller_test_with_return_types.txt")),
 				StandardCharsets.UTF_8);
 
 		// ACT
@@ -108,7 +109,7 @@ class PlantUMLSequenceDiagramGeneratorTest {
 				"callSomething").withShowReturnTypes(true).withUseShortClassName(false);
 		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
 		String expectedDiagramText = IOUtils.toString(
-				classLoader.getResource("sequence/0001_basic_caller_test_with_return_types_and_long_class_names.txt"),
+				Objects.requireNonNull(classLoader.getResource("sequence/0001_basic_caller_test_with_return_types_and_long_class_names.txt")),
 				StandardCharsets.UTF_8);
 
 		// ACT
@@ -128,7 +129,7 @@ class PlantUMLSequenceDiagramGeneratorTest {
 				CallerClassA.class.getName(), "testSomething");
 		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
 		String expectedDiagramText = IOUtils.toString(
-				classLoader.getResource("sequence/0002_basic_super_class_sequence_diagram.txt"),
+				Objects.requireNonNull(classLoader.getResource("sequence/0002_basic_super_class_sequence_diagram.txt")),
 				StandardCharsets.UTF_8);
 
 		// ACT
@@ -148,7 +149,7 @@ class PlantUMLSequenceDiagramGeneratorTest {
 				CallerClassA.class.getName(), "testSomething").withHideSuperClass(true); // <1>
 		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
 		String expectedDiagramText = IOUtils.toString(
-				classLoader.getResource("sequence/0002_basic_super_class_sequence_diagram_with_hide_super_class.txt"),
+				Objects.requireNonNull(classLoader.getResource("sequence/0002_basic_super_class_sequence_diagram_with_hide_super_class.txt")),
 				StandardCharsets.UTF_8);
 
 		// ACT
@@ -168,7 +169,7 @@ class PlantUMLSequenceDiagramGeneratorTest {
 				MovieService.class.getName(), "doSomeBusiness");
 		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
 		String expectedDiagramText = IOUtils.toString(
-				classLoader.getResource("sequence/0003_jpa_test_without_options.txt"), StandardCharsets.UTF_8);
+				Objects.requireNonNull(classLoader.getResource("sequence/0003_jpa_test_without_options.txt")), StandardCharsets.UTF_8);
 
 		// ACT
 		String generatedDiagram = generator.generateDiagramText();
@@ -187,7 +188,7 @@ class PlantUMLSequenceDiagramGeneratorTest {
 				MovieService.class.getName(), "doSomeBusiness").withIgnoreStandardClasses(false); // <1>
 		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
 		String expectedDiagramText = IOUtils.toString(
-				classLoader.getResource("sequence/0003_jpa_test_with_standard_classes.txt"), StandardCharsets.UTF_8);
+				Objects.requireNonNull(classLoader.getResource("sequence/0003_jpa_test_with_standard_classes.txt")), StandardCharsets.UTF_8);
 
 		// ACT
 		String generatedDiagram = generator.generateDiagramText();
@@ -206,7 +207,7 @@ class PlantUMLSequenceDiagramGeneratorTest {
 				MovieService.class.getName(), "doSomeBusiness").withIgnoreJPAEntities(true); // <1>
 		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
 		String expectedDiagramText = IOUtils.toString(
-				classLoader.getResource("sequence/0003_jpa_test_with_ignore_jpa_entities.txt"), StandardCharsets.UTF_8);
+				Objects.requireNonNull(classLoader.getResource("sequence/0003_jpa_test_with_ignore_jpa_entities.txt")), StandardCharsets.UTF_8);
 
 		// ACT
 		String generatedDiagram = generator.generateDiagramText();
@@ -225,7 +226,7 @@ class PlantUMLSequenceDiagramGeneratorTest {
 				MovieService.class.getName(), "doSomeBusiness").withIgnoreJPAEntities(true).withHideMethodName(true); // <1>
 		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
 		String expectedDiagramText = IOUtils.toString(
-				classLoader.getResource("sequence/0003_jpa_test_with_ignore_jpa_entities_and_hide_method_names.txt"),
+				Objects.requireNonNull(classLoader.getResource("sequence/0003_jpa_test_with_ignore_jpa_entities_and_hide_method_names.txt")),
 				StandardCharsets.UTF_8);
 
 		// ACT
@@ -245,7 +246,7 @@ class PlantUMLSequenceDiagramGeneratorTest {
 				"interaction").withClassBlacklistRegexp(".*(Controller|Model)"); // <1>
 		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
 		String expectedDiagramText = IOUtils.toString(
-				classLoader.getResource("sequence/0004_sequence_diagram_with_blacklisted_classes.txt"),
+				Objects.requireNonNull(classLoader.getResource("sequence/0004_sequence_diagram_with_blacklisted_classes.txt")),
 				StandardCharsets.UTF_8);
 
 		// ACT
@@ -265,7 +266,7 @@ class PlantUMLSequenceDiagramGeneratorTest {
 				"interaction").withMethodBlacklistRegexp("getData"); // <1>
 		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
 		String expectedDiagramText = IOUtils.toString(
-				classLoader.getResource("sequence/0004_sequence_diagram_with_blacklisted_method.txt"),
+				Objects.requireNonNull(classLoader.getResource("sequence/0004_sequence_diagram_with_blacklisted_method.txt")),
 				StandardCharsets.UTF_8);
 
 		// ACT
@@ -289,7 +290,7 @@ class PlantUMLSequenceDiagramGeneratorTest {
 
 		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
 		String expectedDiagramText = IOUtils.toString(
-				classLoader.getResource("sequence/0004_sequence_diagram_with_custom_classloader.txt"),
+				Objects.requireNonNull(classLoader.getResource("sequence/0004_sequence_diagram_with_custom_classloader.txt")),
 				StandardCharsets.UTF_8);
 
 		// ACT
@@ -299,6 +300,41 @@ class PlantUMLSequenceDiagramGeneratorTest {
 		assertAll(() -> assertNotNull(generatedDiagram), () -> assertEquals(expectedDiagramText.replaceAll("\\s+", ""),
 				generatedDiagram.replaceAll("\\s+", "")));
 		// end::customclassloader[]
+	}
+
+	@Test
+	void test0005CircularMethodCalls() throws NotFoundException, IOException {
+		// ARRANGE
+		PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfigBuilder(SequenceStarterClass.class.getName(),"startSequence").withIgnoreStandardClasses(true).withUseShortClassName(true).withShowReturnTypes(true);
+		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
+		String expectedDiagramText = IOUtils.toString(
+				Objects.requireNonNull(classLoader.getResource("sequence/0005_sequence_diagram_with_circular_method_calls.txt")),
+				StandardCharsets.UTF_8);
+
+		// ACT
+		String generatedDiagram = generator.generateDiagramText();
+		// ASSERT
+		assertAll(() -> assertNotNull(generatedDiagram), () -> assertEquals(expectedDiagramText.replaceAll("\\s+", ""),
+				generatedDiagram.replaceAll("\\s+", "")));
+
+	}
+
+	@Test
+	void test0005RecursiveMethodCalls() throws NotFoundException, IOException {
+		// ARRANGE
+		PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfigBuilder(SequenceStarterClass.class.getName(),"recursiveCall").withIgnoreStandardClasses(true).withUseShortClassName(true).withShowReturnTypes(true);
+		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
+		String expectedDiagramText = IOUtils.toString(
+				Objects.requireNonNull(classLoader.getResource("sequence/0005_sequence_diagram_with_recursive_calls.txt")),
+				StandardCharsets.UTF_8);
+
+		// ACT
+		String generatedDiagram = generator.generateDiagramText();
+		System.out.println(generatedDiagram);
+		// ASSERT
+		assertAll(() -> assertNotNull(generatedDiagram), () -> assertEquals(expectedDiagramText.replaceAll("\\s+", ""),
+				generatedDiagram.replaceAll("\\s+", "")));
+
 	}
 
 }

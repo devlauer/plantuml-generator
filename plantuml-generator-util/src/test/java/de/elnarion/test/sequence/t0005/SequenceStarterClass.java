@@ -7,26 +7,22 @@ public class SequenceStarterClass {
     Random random = new Random();
 
     public void startSequence(){
-        recursiveStart();
+        circularStart();
     }
-    public void recursiveStart(){
+    public void circularStart(){
         if(random.nextBoolean()){
-            recursiveSubMethod();
+            new CalledClass().circularSubMethod();
         }
         else {
-            recursiveSubTwoMethod();
+            new CalledClass().circularSubTwoMethod();
         }
     }
 
-    public void recursiveSubMethod(){
+    public void recursiveCall(){
         if(random.nextBoolean()){
-            recursiveStart();
+            recursiveCall();
         }
     }
 
-    public void recursiveSubTwoMethod(){
-        if(random.nextBoolean()){
-            recursiveStart();
-        }
-    }
+
 }

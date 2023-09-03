@@ -1,0 +1,11 @@
+@startuml
+
+participant SequenceStarterClass
+
+activate SequenceStarterClass
+	SequenceStarterClass -> SequenceStarterClass : recursiveCall
+	activate SequenceStarterClass
+	deactivate SequenceStarterClass
+deactivate SequenceStarterClass
+
+@enduml

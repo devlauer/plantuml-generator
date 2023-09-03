@@ -6,6 +6,8 @@ import javassist.*;
 import javassist.expr.ExprEditor;
 import javassist.expr.MethodCall;
 
+import java.util.Optional;
+
 /**
  * Analyzes the call sequence of methods.
  */
@@ -44,14 +46,26 @@ public class SequenceAnalyzer {
     /**
      * Gets the caller method.
      *
-     * @param method       the method
-     * @param callingClass the calling class
+     * @param method                         the method
+     * @param callingClass                   the calling class
+     * @param paramParentMethodSignatureNode the tree node representing the parent method signature
      * @return the caller method
      * @throws CannotCompileException if the class cannot be compiled
      */
-    private CallerMethod getCallerMethod(CtMethod method, CallerClass callingClass) throws CannotCompileException, javassist.NotFoundException {
+    private ICallerMethod getCallerMethod(CtMethod method, CallerClass callingClass, TreeNode<String, ICallerMethod> paramParentMethodSignatureNode) throws CannotCompileException, javassist.NotFoundException {
+        String methodSignature = getMethodSignature(method);
+        ICallerMethod alreadyCalledMethodInTree = getICallerMethodFromTree(methodSignature, paramParentMethodSignatureNode);
+        if (alreadyCalledMethodInTree != null) {
+            TreeNode<String, ICallerMethod> currentNode = new TreeNode<>(methodSignature, alreadyCalledMethodInTree);
+            paramParentMethodSignatureNode.addChildNode(currentNode);
+            return new RecursivelyCalledMethod(alreadyCalledMethodInTree);
+        }
         CallerClass callerClass = new CallerClass(method.getDeclaringClass(), config, callingClass);
         CallerMethod callerMethod = new CallerMethod(method, callerClass, config);
+        TreeNode<String, ICallerMethod> currentNode = new TreeNode<>(methodSignature, callerMethod);
+        if(paramParentMethodSignatureNode!=null) {
+            paramParentMethodSignatureNode.addChildNode(currentNode);
+        }
         method.instrument(new ExprEditor() {
             @Override
             public void edit(MethodCall m) throws CannotCompileException {
@@ -59,13 +73,30 @@ public class SequenceAnalyzer {
                     CtMethod calleeMethod = m.getMethod();
                     CtClass calleeClass = calleeMethod.getDeclaringClass();
                     if (isIgnoreCall(calleeClass, calleeMethod)) return;
-                    callerMethod.getCallees().add(getCallerMethod(calleeMethod, callerClass));
+                    callerMethod.getCallees().add(getCallerMethod(calleeMethod, callerClass, currentNode));
                 } catch (javassist.NotFoundException e) {
                     // ignore - should not happen
                 }
             }
         });
         return callerMethod;
+    }
+
+    private ICallerMethod getICallerMethodFromTree(String methodSignature, TreeNode<String, ICallerMethod> paramParentMethodSignatureNode) {
+        if (paramParentMethodSignatureNode != null) {
+            if (paramParentMethodSignatureNode.getKey().equals(methodSignature)) {
+                return paramParentMethodSignatureNode.getValue();
+            } else {
+                Optional<TreeNode<String, ICallerMethod>> filterOptional = paramParentMethodSignatureNode.getParents().stream().filter(e -> e.getKey().equals(methodSignature)).findFirst();
+                if (filterOptional.isPresent())
+                    return filterOptional.get().getValue();
+            }
+        }
+        return null;
+    }
+
+    private static String getMethodSignature(CtMethod method) {
+        return method.getDeclaringClass().getName() + method.getName() + method.getSignature();
     }
 
     private CtMethod findStartingMethodInClassPool(ClassPool cp) throws javassist.NotFoundException {
@@ -127,9 +158,9 @@ public class SequenceAnalyzer {
      *
      * @return CallerMethod an object representing an abstract form of a method being called in a sequence, capable of generating uml sequence diagram code
      */
-    public CallerMethod analyzeCallSequence() throws NotFoundException, CannotCompileException {
+    public ICallerMethod analyzeCallSequence() throws NotFoundException, CannotCompileException {
         ClassPool cp = getClassLoaderSpecificClassPool();
         CtMethod method = findStartingMethodInClassPool(cp);
-        return getCallerMethod(method, null);
+        return getCallerMethod(method, null, null);
     }
 }

@@ -1,0 +1,27 @@
+@startuml
+
+participant SequenceStarterClass
+participant CalledClass
+
+activate SequenceStarterClass
+	SequenceStarterClass -> SequenceStarterClass : circularStart
+	activate SequenceStarterClass
+		SequenceStarterClass -> CalledClass : circularSubMethod
+		activate CalledClass
+			CalledClass -> SequenceStarterClass : circularStart
+			activate SequenceStarterClass
+			deactivate SequenceStarterClass
+			CalledClass --> SequenceStarterClass : void
+		deactivate CalledClass
+		SequenceStarterClass -> CalledClass : circularSubTwoMethod
+		activate CalledClass
+			CalledClass -> SequenceStarterClass : circularStart
+			activate SequenceStarterClass
+			deactivate SequenceStarterClass
+			CalledClass --> SequenceStarterClass : void
+		deactivate CalledClass
+		SequenceStarterClass --> SequenceStarterClass : void
+	deactivate SequenceStarterClass
+deactivate SequenceStarterClass
+
+@enduml

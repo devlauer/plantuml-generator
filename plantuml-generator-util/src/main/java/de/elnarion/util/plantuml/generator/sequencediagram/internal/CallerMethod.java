@@ -13,172 +13,143 @@ import java.util.stream.Collectors;
 /**
  * The Class CallerMethod.
  */
-public class CallerMethod {
+public class CallerMethod implements ICallerMethod {
 
-	/** The class name. */
-	private final CallerClass callerClass;
+    /**
+     * The class name.
+     */
+    private final ICallerClass callerClass;
 
-	/** The ct method. */
-	private final CtMethod ctMethod;
+    /**
+     * The ct method.
+     */
+    private final CtMethod ctMethod;
 
-	/** The config. */
-	private final PlantUMLSequenceDiagramConfig config;
+    /**
+     * The config.
+     */
+    private final PlantUMLSequenceDiagramConfig config;
 
-	/** The callees. */
-	private final List<CallerMethod> callees = new LinkedList<>();
+    /**
+     * The callees.
+     */
+    private final List<ICallerMethod> callees = new LinkedList<>();
 
-	/**
-	 * Instantiates a new caller method.
-	 *
-	 * @param paramMethod      the param method
-	 * @param paramCallerClass the param caller class
-	 * @param paramConfig      the param config
-	 */
-	public CallerMethod(CtMethod paramMethod, CallerClass paramCallerClass, PlantUMLSequenceDiagramConfig paramConfig) {
-		ctMethod = paramMethod;
-		config = paramConfig;
-		callerClass = paramCallerClass;
-	}
+    /**
+     * Instantiates a new caller method.
+     *
+     * @param paramMethod      the param method
+     * @param paramCallerClass the param caller class
+     * @param paramConfig      the param config
+     */
+    public CallerMethod(CtMethod paramMethod, CallerClass paramCallerClass, PlantUMLSequenceDiagramConfig paramConfig) {
+        ctMethod = paramMethod;
+        config = paramConfig;
+        callerClass = paramCallerClass;
+    }
 
-	/**
-	 * Gets the method name.
-	 *
-	 * @return the method name
-	 */
-	public String getMethodName() {
-		return ctMethod.getName();
-	}
+    @Override
+    public String getMethodName() {
+        return ctMethod.getName();
+    }
 
 
-	/**
-	 * Gets the callees.
-	 *
-	 * @return the callees
-	 */
-	public List<CallerMethod> getCallees() {
-		return callees;
-	}
+    @Override
+    public List<ICallerMethod> getCallees() {
+        return callees;
+    }
 
-	/**
-	 * Gets the caller class.
-	 *
-	 * @return the caller class
-	 */
-	public CallerClass getCallerClass() {
-		return callerClass;
-	}
+    @Override
+    public ICallerClass getCallerClass() {
+        return callerClass;
+    }
 
-	/**
-	 * Gets the diagram participants.
-	 *
-	 * @return the diagram participants
-	 */
-	public List<String> getDiagramParticipants() {
-		List<String> diagramParticipants = new LinkedList<>();
-		diagramParticipants.add(callerClass.getDiagramClassName());
-		diagramParticipants.addAll(callees.stream().map(CallerMethod::getDiagramParticipants).flatMap(List::stream)
-				.collect(Collectors.toList()));
-		return diagramParticipants;
-	}
+    @Override
+    public List<String> getDiagramParticipants() {
+        List<String> diagramParticipants = new LinkedList<>();
+        diagramParticipants.add(callerClass.getDiagramClassName());
+        diagramParticipants.addAll(callees.stream().map(ICallerMethod::getDiagramParticipants).flatMap(List::stream)
+                .collect(Collectors.toList()));
+        return diagramParticipants;
+    }
 
-	/**
-	 * Gets the diagram text.
-	 *
-	 * @return the diagram text
-	 * @throws ClassNotFoundException the class not found exception
-	 * @throws NotFoundException      the not found exception
-	 */
-	public Object getDiagramText() throws ClassNotFoundException, NotFoundException {
-		String participantsString = generateParticipantsText();
-		StringBuilder callerMethodDiagramTextBuilder = new StringBuilder();
-		callerMethodDiagramTextBuilder.append(System.lineSeparator());
-		callerMethodDiagramTextBuilder.append(participantsString);
-		callerMethodDiagramTextBuilder.append(System.lineSeparator());
-		callerMethodDiagramTextBuilder.append(System.lineSeparator());
-		callerMethodDiagramTextBuilder.append("activate ");
-		callerMethodDiagramTextBuilder.append(this.getCallerClass().getDiagramClassName());
-		callerMethodDiagramTextBuilder.append(System.lineSeparator());
-		String callSequenceDiagramText = generateCallSequenceDiagramText("\t");
-		callerMethodDiagramTextBuilder.append(callSequenceDiagramText);
-		callerMethodDiagramTextBuilder.append("deactivate ");
-		callerMethodDiagramTextBuilder.append(this.getCallerClass().getDiagramClassName());
-		callerMethodDiagramTextBuilder.append(System.lineSeparator());
-		callerMethodDiagramTextBuilder.append(System.lineSeparator());
-		return callerMethodDiagramTextBuilder.toString();
-	}
+    @Override
+    public Object getDiagramText() throws ClassNotFoundException, NotFoundException {
+        String participantsString = generateParticipantsText();
+        StringBuilder callerMethodDiagramTextBuilder = new StringBuilder();
+        callerMethodDiagramTextBuilder.append(System.lineSeparator());
+        callerMethodDiagramTextBuilder.append(participantsString);
+        callerMethodDiagramTextBuilder.append(System.lineSeparator());
+        callerMethodDiagramTextBuilder.append(System.lineSeparator());
+        callerMethodDiagramTextBuilder.append("activate ");
+        callerMethodDiagramTextBuilder.append(this.getCallerClass().getDiagramClassName());
+        callerMethodDiagramTextBuilder.append(System.lineSeparator());
+        String callSequenceDiagramText = generateCallSequenceDiagramText("\t");
+        callerMethodDiagramTextBuilder.append(callSequenceDiagramText);
+        callerMethodDiagramTextBuilder.append("deactivate ");
+        callerMethodDiagramTextBuilder.append(this.getCallerClass().getDiagramClassName());
+        callerMethodDiagramTextBuilder.append(System.lineSeparator());
+        callerMethodDiagramTextBuilder.append(System.lineSeparator());
+        return callerMethodDiagramTextBuilder.toString();
+    }
 
-	/**
-	 * Generate call sequence diagram text.
-	 *
-	 * @param paramIndent the param indent
-	 * @return the string
-	 * @throws NotFoundException the not found exception
-	 */
-	private String generateCallSequenceDiagramText(String paramIndent) throws NotFoundException {
-		StringBuilder callSequenceBuilder = new StringBuilder();
-		for (CallerMethod calleeMethod : callees) {
-			String callerClassName = this.getCallerClass().getDiagramClassName();
-			String calleeClassName = calleeMethod.getCallerClass().getDiagramClassName();
-			callSequenceBuilder.append(paramIndent);
-			callSequenceBuilder.append(callerClassName);
-			callSequenceBuilder.append(" -> ");
-			callSequenceBuilder.append(calleeClassName);
-			if (!config.isHideMethodName()) {
-				callSequenceBuilder.append(" : ");
-				callSequenceBuilder.append(calleeMethod.getMethodName());
-			}
-			callSequenceBuilder.append(System.lineSeparator());
+    @Override
+    public String generateCallSequenceDiagramText(String paramIndent) throws NotFoundException {
+        StringBuilder callSequenceBuilder = new StringBuilder();
+        for (ICallerMethod calleeMethod : callees) {
+            String callerClassName = this.getCallerClass().getDiagramClassName();
+            String calleeClassName = calleeMethod.getCallerClass().getDiagramClassName();
+            callSequenceBuilder.append(paramIndent);
+            callSequenceBuilder.append(callerClassName);
+            callSequenceBuilder.append(" -> ");
+            callSequenceBuilder.append(calleeClassName);
+            if (!config.isHideMethodName()) {
+                callSequenceBuilder.append(" : ");
+                callSequenceBuilder.append(calleeMethod.getMethodName());
+            }
+            callSequenceBuilder.append(System.lineSeparator());
 
-			callSequenceBuilder.append(paramIndent);
-			callSequenceBuilder.append("activate ");
-			callSequenceBuilder.append(calleeClassName);
-			callSequenceBuilder.append(System.lineSeparator());
+            callSequenceBuilder.append(paramIndent);
+            callSequenceBuilder.append("activate ");
+            callSequenceBuilder.append(calleeClassName);
+            callSequenceBuilder.append(System.lineSeparator());
 
-			callSequenceBuilder.append(calleeMethod.generateCallSequenceDiagramText(paramIndent + "\t"));
+            if(!(calleeMethod instanceof RecursivelyCalledMethod)) {
+                callSequenceBuilder.append(calleeMethod.generateCallSequenceDiagramText(paramIndent + "\t"));
+                callSequenceBuilder.append(paramIndent);
+                callSequenceBuilder.append("\t");
+                callSequenceBuilder.append(calleeClassName);
+                callSequenceBuilder.append(" --> ");
+                callSequenceBuilder.append(callerClassName);
+                if (config.isShowReturnTypes()) {
+                    callSequenceBuilder.append(" : ");
+                    callSequenceBuilder.append(calleeMethod.getReturnType());
+                }
+                callSequenceBuilder.append(System.lineSeparator());
+            }
 
-			callSequenceBuilder.append(paramIndent);
-			callSequenceBuilder.append("\t");
-			callSequenceBuilder.append(calleeClassName);
-			callSequenceBuilder.append(" --> ");
-			callSequenceBuilder.append(callerClassName);
-			if (config.isShowReturnTypes()) {
-				callSequenceBuilder.append(" : ");
-				callSequenceBuilder.append(calleeMethod.getReturnType());
-			}
-			callSequenceBuilder.append(System.lineSeparator());
+            callSequenceBuilder.append(paramIndent);
+            callSequenceBuilder.append("deactivate ");
+            callSequenceBuilder.append(calleeClassName);
+            callSequenceBuilder.append(System.lineSeparator());
+        }
+        return callSequenceBuilder.toString();
+    }
 
-			callSequenceBuilder.append(paramIndent);
-			callSequenceBuilder.append("deactivate ");
-			callSequenceBuilder.append(calleeClassName);
-			callSequenceBuilder.append(System.lineSeparator());
-		}
-		return callSequenceBuilder.toString();
-	}
+    @Override
+    public String getReturnType() throws NotFoundException {
+        if (config.isUseShortClassNames())
+            return ctMethod.getReturnType().getSimpleName();
+        return ctMethod.getReturnType().getName();
+    }
 
-	/**
-	 * Gets the return type.
-	 *
-	 * @return the return type
-	 * @throws NotFoundException if type is not found
-	 */
-	private String getReturnType() throws NotFoundException {
-		if (config.isUseShortClassNames())
-			return ctMethod.getReturnType().getSimpleName();
-		return ctMethod.getReturnType().getName();
-	}
-
-	/**
-	 * Generate participants text.
-	 *
-	 * @return the string
-	 */
-	private String generateParticipantsText() {
-		List<String> participants = getDiagramParticipants();
-		// preserve calling order
-		Set<String> distinctParticipants = new LinkedHashSet<>(participants);
-		List<String> diagramParticipants = distinctParticipants.stream().map(e -> "participant " + e)
-				.collect(Collectors.toList());
-		return String.join(System.lineSeparator(), diagramParticipants);
-	}
+    private String generateParticipantsText() {
+        List<String> participants = getDiagramParticipants();
+        // preserve calling order
+        Set<String> distinctParticipants = new LinkedHashSet<>(participants);
+        List<String> diagramParticipants = distinctParticipants.stream().map(e -> "participant " + e)
+                .collect(Collectors.toList());
+        return String.join(System.lineSeparator(), diagramParticipants);
+    }
 
 }

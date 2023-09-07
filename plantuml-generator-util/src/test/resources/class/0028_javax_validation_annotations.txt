@@ -1,0 +1,18 @@
+@startuml
+class de.elnarion.test.domain.t0028.Light {
+}
+
+class de.elnarion.test.domain.t0028.Seat {
+}
+
+class de.elnarion.test.domain.t0028.Vehicle {
+}
+
+class de.elnarion.test.domain.t0028.Wheel {
+}
+
+de.elnarion.test.domain.t0028.Vehicle "1" o-- "1..*"  de.elnarion.test.domain.t0028.Light :  lights
+de.elnarion.test.domain.t0028.Vehicle "1" o-- "1..10"  de.elnarion.test.domain.t0028.Seat :  seats
+de.elnarion.test.domain.t0028.Vehicle "1" o-- "1..6"  de.elnarion.test.domain.t0028.Wheel :  wheels
+
+@enduml

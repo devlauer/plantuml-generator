@@ -36,6 +36,8 @@ public class PlantUMLClassDiagramConfig {
 	private boolean removeMethods = false;
 	/** The add JPA annotations. */
 	private boolean addJPAAnnotations = false;
+	/** The add Javax Validation annotations. */
+	private boolean addJavaxValidationAnnotations = false;
 	/** The field blacklist regexp. */
 	private String fieldBlacklistRegexp = null;
 	/** The method blacklist regexp. */
@@ -276,6 +278,24 @@ public class PlantUMLClassDiagramConfig {
 	 */
 	public void setAddJPAAnnotations(boolean addJPAAnnotations) {
 		this.addJPAAnnotations = addJPAAnnotations;
+	}
+
+	/**
+	 * Checks if is adds the Javax Validation annotations.
+	 *
+	 * @return true, if is adds the Javax Validation annotations
+	 */
+	public boolean isAddJavaxValidationAnnotations() {
+		return addJavaxValidationAnnotations;
+	}
+
+	/**
+	 * Sets the adds the Javax Validation annotations.
+	 *
+	 * @param addJavaxValidationAnnotations the new adds the Javax Validation annotations
+	 */
+	public void setAddJavaxValidationAnnotations(boolean addJavaxValidationAnnotations) {
+		this.addJavaxValidationAnnotations = addJavaxValidationAnnotations;
 	}
 
 	/**

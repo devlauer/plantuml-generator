@@ -62,10 +62,13 @@ public class PlantUMLGeneratorMojo extends AbstractPlantUMLGeneratorMojo {
 	/** The remove methods. */
 	@Parameter(property = PREFIX + "removeMethods", defaultValue = "false", required = false)
 	private boolean removeMethods;
-	/** The remove methods. */
+	/** The JPA annotations. */
 	@Parameter(property = PREFIX + "addJPAAnnotations", defaultValue = "false", required = false)
 	private boolean addJPAAnnotations;
-	/** The remove methods. */
+	/** The Javax Validation annotations. */
+	@Parameter(property = PREFIX + "addJavaxValidationAnnotations", defaultValue = "false", required = false)
+	private boolean addJavaxValidationAnnotations;
+	/** The remove fields. */
 	@Parameter(property = PREFIX + "removeFields", defaultValue = "false", required = false)
 	private boolean removeFields;
 	@Parameter(property = PREFIX + "useShortClassNames", defaultValue = "false", required = false)
@@ -105,6 +108,7 @@ public class PlantUMLGeneratorMojo extends AbstractPlantUMLGeneratorMojo {
 					.withRemoveMethods(removeMethods).withFieldBlacklistRegexp(fieldBlacklistRegexp)
 					.withMethodBlacklistRegexp(methodBlacklistRegexp).withMaximumFieldVisibility(maxVisibilityFields)
 					.withMaximumMethodVisibility(maxVisibilityMethods).withJPAAnnotations(addJPAAnnotations)
+					.withJavaxValidationAnnotations(addJavaxValidationAnnotations)
 					.addAdditionalPlantUmlConfigs(getAdditionalPlantUmlConfigs())
 					.withUseShortClassNames(useShortClassNames)
 					.withUseShortClassNamesInFieldsAndMethods(useShortClassNamesInFieldsAndMethods);
@@ -261,4 +265,21 @@ public class PlantUMLGeneratorMojo extends AbstractPlantUMLGeneratorMojo {
 		this.addJPAAnnotations = addJPAAnnotations;
 	}
 
+	/**
+	 * Checks if is adds the Javax Validation annotations.
+	 *
+	 * @return true, if is adds the Javax Validation annotations
+	 */
+	public boolean isAddJavaxValidationAnnotations() {
+		return addJavaxValidationAnnotations;
+	}
+
+	/**
+	 * Sets the adds the Javax Validation annotations.
+	 *
+	 * @param addJavaxValidationAnnotations the new adds the Javax Validation annotations
+	 */
+	public void setAddJavaxValidationAnnotations(boolean addJavaxValidationAnnotations) {
+		this.addJavaxValidationAnnotations = addJavaxValidationAnnotations;
+	}
 }

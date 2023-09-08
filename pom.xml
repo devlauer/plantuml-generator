@@ -41,6 +41,11 @@
             <name>s-jepsen</name>
             <url>https://github.com/s-jepsen</url>
         </developer>
+        <developer>
+            <id>Maxouwell</id>
+            <name>Maxouwell</name>
+            <url>https://github.com/Maxouwell</url>
+        </developer>
     </developers>
     <licenses>
         <license>

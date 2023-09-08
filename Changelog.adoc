@@ -2,6 +2,10 @@
 
 .Unreleased
 
+.2.3.0 - 2023-09-08
+* Adding support for Javax Validation annotations for cardinality (pull request #109)
+* fix: only add annotations for JPA if configured
+
 .2.2.4 - 2023-09-03
 * fix stackoverflow in sequence diagrams with circular or
 recursive method calls (issue #105)

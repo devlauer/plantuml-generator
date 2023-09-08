@@ -430,11 +430,13 @@ public class ClassAnalyzer {
                 for (final Type typeArgument : actualTypeArguments) {
                     final Class<?> typeArgumentClass = getClassForType(typeArgument);
                     if (((typeArgumentClass != null) && includeClass(typeArgumentClass))) {
-                        // TODO : Check if it should not be behind a if(plantUMLConfig.isAddJPAAnnotations())
-                        List<String> annotations = new JPAAnalyzerHelper().addJPAFieldAnnotationsToList(paramField,
-                                paramDeclaredMethods, plantUMLConfig.getDestinationClassloader());
+                        List<String> annotations = new ArrayList<>();
+                        if (plantUMLConfig.isAddJPAAnnotations()) {
+                            annotations.addAll(new JPAAnalyzerHelper().addJPAFieldAnnotationsToList(paramField,
+                                    paramDeclaredMethods, plantUMLConfig.getDestinationClassloader()));
+                        }
                         String paramToMultiplicity = "0..*";
-                        if(plantUMLConfig.isAddJavaxValidationAnnotations()) {
+                        if (plantUMLConfig.isAddJavaxValidationAnnotations()) {
                             paramToMultiplicity = new JavaxValidationAnalyzerHelper().extractCardinality(paramField,
                                     paramDeclaredMethods, plantUMLConfig.getDestinationClassloader());
                         }

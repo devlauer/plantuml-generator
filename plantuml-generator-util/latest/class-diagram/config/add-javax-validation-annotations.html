@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>scanpackages :: PlantUML Generator</title>
-    <link rel="canonical" href="https://devlauer.github.io/plantuml-generator/plantuml-generator-util/latest/class-diagram/config/scanpackages.html">
-    <link rel="prev" href="../config.html">
-    <link rel="next" href="destination-classloader.html">
+    <title>addJavaxValidationAnnotations :: PlantUML Generator</title>
+    <link rel="canonical" href="https://devlauer.github.io/plantuml-generator/plantuml-generator-util/latest/class-diagram/config/add-javax-validation-annotations.html">
+    <link rel="prev" href="add-jpa-annotations.html">
+    <link rel="next" href="blacklist-regexp.html">
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../../../_/css/site.css">
     <link rel="stylesheet" href="../../../../_/css/prism.css">
@@ -55,7 +55,7 @@
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../config.html">Configuration</a>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="3">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="scanpackages.html">scanpackages</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -67,7 +67,7 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="add-jpa-annotations.html">addJPAAnnotations</a>
   </li>
-  <li class="nav-item" data-depth="3">
+  <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="add-javax-validation-annotations.html">addJavaxValidationAnnotations</a>
   </li>
   <li class="nav-item" data-depth="3">
@@ -216,32 +216,45 @@
     <li><a href="../../index.html">Utility</a></li>
     <li><a href="../../class-diagram.html">Class diagram generator</a></li>
     <li><a href="../config.html">Configuration</a></li>
-    <li><a href="scanpackages.html">scanpackages</a></li>
+    <li><a href="add-javax-validation-annotations.html">addJavaxValidationAnnotations</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/devlauer/plantuml-generator/edit/master/plantuml-generator-util/src/docs/asciidoc/modules/ROOT/pages/class-diagram/config/scanpackages.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="https://github.com/devlauer/plantuml-generator/edit/master/plantuml-generator-util/src/docs/asciidoc/modules/ROOT/pages/class-diagram/config/add-javax-validation-annotations.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">scanpackages</h1>
+<h1 class="page">addJavaxValidationAnnotations</h1>
 <div class="sect1">
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>With this configuration parameter it is possible to set a list of
-packages names which classes should be part of the generated diagram
-text.
-It can be combined with a
-<a href="blacklist-regexp.html" class="xref page">blacklist regular expression</a>
-to filter out some classes inside these packages.</p>
+<p>If you activate this configuration toggle via the builder method
+withJavaxValidationAnnotations the generator scans the selected classes for
+the following Javax Validation Annotations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>field annotations</p>
+<div class="ulist">
+<ul>
+<li>
+<p>javax.validation.constraints.Size</p>
+</li>
+<li>
+<p>javax.validation.constraints.NotEmpty</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>This configuration parameter can not be combined with the
-<a href="whitelist-regexp.html" class="xref page">whitelist regular expression</a>
-configuration parameter.</p>
+<p>If field annotations are found the generator will adapt the cardinality
+of AggregationRelationship to reflect the annotation.</p>
 </div>
 </div>
 </div>
@@ -249,7 +262,7 @@ configuration parameter.</p>
 <h2 id="_default_value"><a class="anchor" href="#_default_value"></a>Default value</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>If not specified the default value is an empty list (ignored).</p>
+<p>The default value of this configuration toggle is <strong>false</strong>.</p>
 </div>
 </div>
 </div>
@@ -261,9 +274,14 @@ configuration parameter.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap"><code class="language-java" data-lang=java>String result = getTestResultString();
-String expectedDiagramText = IOUtils.toString(Objects.requireNonNull(classLoader.getResource("class/0006_different_packages.txt")),
-        StandardCharsets.UTF_8);
+<pre class="nowrap" data-line="5"><code class="language-java" data-lang=java>String filename = "class/0028_javax_validation_annotations.txt";
+List&lt;String&gt; scanPackages = new ArrayList&lt;&gt;();
+scanPackages.add("de.elnarion.test.domain.t0028");
+PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages).withJavaxValidationAnnotations(true)
+        .build(); <i class="conum" data-value="1"></i><b>(1)</b>
+PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
+String result = generator.generateDiagramText();
+String expectedDiagramText = IOUtils.toString(Objects.requireNonNull(classLoader.getResource(filename)), StandardCharsets.UTF_8);
 assertNotNull(result);
 assertNotNull(expectedDiagramText);
 assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));</code></pre>
@@ -275,15 +293,7 @@ assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+
 <table>
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>add first package to scan to the list</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>add second package to scan to the list</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>add packages list to the configuration to be the base of the diagram</td>
+<td>activate the javax validation annotations toggle in the configuration</td>
 </tr>
 </table>
 </div>
@@ -294,7 +304,7 @@ assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+
 </div>
 <div class="imageblock kroki">
 <div class="content">
-<img src="../../_images/0006_different_packages_diagram-45782043aaab866609b945fdfd3d409749177c38.png" alt="0006_different_packages_diagram">
+<img src="../../_images/0028_javax_validation_annotations-a7a657ed03c202500a3b92cf1d8853dc3b682ee8.png" alt="0028_javax_validation_annotations">
 </div>
 </div>
 <div class="paragraph">
@@ -303,18 +313,21 @@ assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+
 <div class="listingblock">
 <div class="content">
 <pre class="nowrap"><code class="language-plantuml" data-lang=plantuml>@startuml
-
-class de.elnarion.test.domain.t0006.pck1.ClassA {
+class de.elnarion.test.domain.t0028.Light {
 }
 
-class de.elnarion.test.domain.t0006.pck1.ClassB {
+class de.elnarion.test.domain.t0028.Seat {
 }
 
-class de.elnarion.test.domain.t0006.pck2.ClassC {
+class de.elnarion.test.domain.t0028.Vehicle {
 }
 
-de.elnarion.test.domain.t0006.pck1.ClassA --&gt;  de.elnarion.test.domain.t0006.pck1.ClassB : classB
-de.elnarion.test.domain.t0006.pck1.ClassB --&gt;  de.elnarion.test.domain.t0006.pck2.ClassC : classc
+class de.elnarion.test.domain.t0028.Wheel {
+}
+
+de.elnarion.test.domain.t0028.Vehicle "1" o-- "1..*"  de.elnarion.test.domain.t0028.Light :  lights
+de.elnarion.test.domain.t0028.Vehicle "1" o-- "1..10"  de.elnarion.test.domain.t0028.Seat :  seats
+de.elnarion.test.domain.t0028.Vehicle "1" o-- "1..6"  de.elnarion.test.domain.t0028.Wheel :  wheels
 
 @enduml</code></pre>
 </div>
@@ -322,8 +335,8 @@ de.elnarion.test.domain.t0006.pck1.ClassB --&gt;  de.elnarion.test.domain.t0006.
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="../config.html">Configuration</a></span>
-  <span class="next"><a href="destination-classloader.html">destinationClassloader</a></span>
+  <span class="prev"><a href="add-jpa-annotations.html">addJPAAnnotations</a></span>
+  <span class="next"><a href="blacklist-regexp.html">blacklistRegexp</a></span>
 </nav>
 </article>
   </div>

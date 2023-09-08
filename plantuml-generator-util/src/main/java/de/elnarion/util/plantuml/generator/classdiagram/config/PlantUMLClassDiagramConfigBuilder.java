@@ -96,6 +96,17 @@ public class PlantUMLClassDiagramConfigBuilder {
 	}
 
 	/**
+	 * With Javax Validation annotations.
+	 *
+	 * @param paramAddJavaxValidationAnnotations the param add Javax Validation annotations
+	 * @return the plant UML class diagram config builder
+	 */
+	public PlantUMLClassDiagramConfigBuilder withJavaxValidationAnnotations(boolean paramAddJavaxValidationAnnotations) {
+		plantUMLConfig.setAddJavaxValidationAnnotations(paramAddJavaxValidationAnnotations);
+		return this;
+	}
+
+	/**
 	 * With hide fields parameter.
 	 *
 	 * @param paramHideFields the param hide fields

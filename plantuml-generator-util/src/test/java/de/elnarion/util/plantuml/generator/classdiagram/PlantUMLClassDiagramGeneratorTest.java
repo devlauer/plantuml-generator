@@ -749,4 +749,20 @@ class PlantUMLClassDiagramGeneratorTest {
         // end::usesmetana[]
     }
 
+    @Test
+    void test0028JavaxValidationAnnotations() throws Exception {
+        // tag::javaxvalidationannotations[]
+        String filename = "class/0028_javax_validation_annotations.txt";
+        List<String> scanPackages = new ArrayList<>();
+        scanPackages.add("de.elnarion.test.domain.t0028");
+        PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages).withJavaxValidationAnnotations(true)
+                .build(); // <1>
+        PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
+        String result = generator.generateDiagramText();
+        String expectedDiagramText = IOUtils.toString(Objects.requireNonNull(classLoader.getResource(filename)), StandardCharsets.UTF_8);
+        assertNotNull(result);
+        assertNotNull(expectedDiagramText);
+        assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
+        // end::javaxvalidationannotations[]
+    }
 }

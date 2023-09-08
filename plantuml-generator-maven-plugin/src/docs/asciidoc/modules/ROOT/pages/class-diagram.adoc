@@ -46,6 +46,15 @@ Currently implemented JPA Annotations are
 --
 +
 Index, UniqueConstraint, Tablename and Tableschema are show as tagged values in a separate compartment
+** *xref:class-diagram/config/add-javax-validation-annotations.adoc[addJavaxValidationAnnotations]* - a boolean to express if Javax Validation annotations should be
+used for cardinality in the diagram; optional - Default ``false`` +
+Currently implemented Javax Validation Annotations are
++
+--
+*** javax.validation.constraints.Size,
+*** javax.validation.constraints.NotEmpty
+--
++
 ** *xref:class-diagram/config/asciidoc-diagram-block-delimiter.adoc[asciidocDiagramBlockDelimiter]* - defines the block delimiter of the  
 asciidoc diagram block - default is ``----``; optional 
 (only used when enableAsciidocWrapper is true);

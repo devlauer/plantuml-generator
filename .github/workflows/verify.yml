@@ -14,7 +14,7 @@ jobs:
     name: Verify source code changes on Java ${{ matrix.Java }} 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Get changed source files or maven poms of all modules
       id: changed-files-specific
       uses: tj-actions/changed-files@v37

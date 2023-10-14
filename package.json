@@ -5,7 +5,7 @@
 		"@antora/site-generator": "3.1.4"
 	},
 	"dependencies": {
-		"asciidoctor-kroki": "^0.17.0",
+		"asciidoctor-kroki": "^0.18.0",
 		"asciidoctor-plantuml": "^1.5.0"
 	},
 	"overrides": {

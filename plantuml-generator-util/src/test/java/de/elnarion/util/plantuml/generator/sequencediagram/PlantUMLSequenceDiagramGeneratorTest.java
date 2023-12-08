@@ -21,6 +21,8 @@ import de.elnarion.test.sequence.t0003.MovieService;
 import de.elnarion.test.sequence.t0004.User;
 import de.elnarion.util.plantuml.generator.sequencediagram.config.PlantUMLSequenceDiagramConfigBuilder;
 import de.elnarion.util.plantuml.generator.sequencediagram.exception.NotFoundException;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class PlantUMLSequenceDiagramGeneratorTest {
 
@@ -161,12 +163,13 @@ class PlantUMLSequenceDiagramGeneratorTest {
 		// end::superclassesandhidesuperclasses[]
 	}
 
-	@Test
-	void test0003JPASequenceDiagramWithoutOptions() throws IOException, NotFoundException {
+	@ParameterizedTest
+	@ValueSource(classes = { MovieService.class, de.elnarion.test.sequence.t0003jakarta.MovieService.class })
+	void test0003JPASequenceDiagramWithoutOptions(Class<?> classUnderTest) throws IOException, NotFoundException {
 		// tag::jpa[]
 		// ARRANGE
 		PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfigBuilder(
-				MovieService.class.getName(), "doSomeBusiness");
+				classUnderTest.getName(), "doSomeBusiness");
 		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
 		String expectedDiagramText = IOUtils.toString(
 				Objects.requireNonNull(classLoader.getResource("sequence/0003_jpa_test_without_options.txt")), StandardCharsets.UTF_8);
@@ -180,12 +183,13 @@ class PlantUMLSequenceDiagramGeneratorTest {
 		// end::jpa[]
 	}
 
-	@Test
-	void test0003JPASequenceDiagramWithStandardClasses() throws IOException, NotFoundException {
+	@ParameterizedTest
+	@ValueSource(classes = { MovieService.class, de.elnarion.test.sequence.t0003jakarta.MovieService.class })
+	void test0003JPASequenceDiagramWithStandardClasses(Class<?> classUnderTest) throws IOException, NotFoundException {
 		// tag::jpawithignorestandardclasses[]
 		// ARRANGE
 		PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfigBuilder(
-				MovieService.class.getName(), "doSomeBusiness").withIgnoreStandardClasses(false); // <1>
+				classUnderTest.getName(), "doSomeBusiness").withIgnoreStandardClasses(false); // <1>
 		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
 		String expectedDiagramText = IOUtils.toString(
 				Objects.requireNonNull(classLoader.getResource("sequence/0003_jpa_test_with_standard_classes.txt")), StandardCharsets.UTF_8);
@@ -199,12 +203,13 @@ class PlantUMLSequenceDiagramGeneratorTest {
 		// end::jpawithignorestandardclasses[]
 	}
 
-	@Test
-	void test0003JPASequenceDiagramWithIgnoreJPAEntities() throws IOException, NotFoundException {
+	@ParameterizedTest
+	@ValueSource(classes = { MovieService.class, de.elnarion.test.sequence.t0003jakarta.MovieService.class })
+	void test0003JPASequenceDiagramWithIgnoreJPAEntities(Class<?> classUnderTest) throws IOException, NotFoundException {
 		// tag::jpawithignoreentities[]
 		// ARRANGE
 		PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfigBuilder(
-				MovieService.class.getName(), "doSomeBusiness").withIgnoreJPAEntities(true); // <1>
+				classUnderTest.getName(), "doSomeBusiness").withIgnoreJPAEntities(true); // <1>
 		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
 		String expectedDiagramText = IOUtils.toString(
 				Objects.requireNonNull(classLoader.getResource("sequence/0003_jpa_test_with_ignore_jpa_entities.txt")), StandardCharsets.UTF_8);
@@ -218,12 +223,13 @@ class PlantUMLSequenceDiagramGeneratorTest {
 		// end::jpawithignoreentities[]
 	}
 
-	@Test
-	void test0003JPASequenceDiagramWithIgnoreJPAEntitiesAndHideMethodNames() throws IOException, NotFoundException {
+	@ParameterizedTest
+	@ValueSource(classes = { MovieService.class, de.elnarion.test.sequence.t0003jakarta.MovieService.class })
+	void test0003JPASequenceDiagramWithIgnoreJPAEntitiesAndHideMethodNames(Class<?> classUnderTest) throws IOException, NotFoundException {
 		// tag::jpawithignoreentitiesandhidemethodnames[]
 		// ARRANGE
 		PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfigBuilder(
-				MovieService.class.getName(), "doSomeBusiness").withIgnoreJPAEntities(true).withHideMethodName(true); // <1>
+				classUnderTest.getName(), "doSomeBusiness").withIgnoreJPAEntities(true).withHideMethodName(true); // <1>
 		PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
 		String expectedDiagramText = IOUtils.toString(
 				Objects.requireNonNull(classLoader.getResource("sequence/0003_jpa_test_with_ignore_jpa_entities_and_hide_method_names.txt")),

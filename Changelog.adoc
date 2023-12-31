@@ -1,6 +1,10 @@
 = Changelog
 
 .Unreleased
+* update javassist to 3.30.2-ga
+* update mockito-core to 5.8.0
+* update jakarta.persistence-api to 3.1.0
+* update maven-compiler-plugin to 3.12.1
 
 .2.4.0 - 2023-12-31
 * added support for Jakarta JPA Annotations (pull request #140)

@@ -1,0 +1,69 @@
+@startuml
+
+class de.elnarion.test.domain.t0021jakarta.Address <<Entity>>  {
+}
+
+
+class de.elnarion.test.domain.t0021jakarta.Employee <<MappedSuperclass>>  {
+	{field} +@Id empId : Integer
+	{field} #version : Integer
+}
+
+
+class de.elnarion.test.domain.t0021jakarta.FTEmployee <<Entity>>  <<Table>>  {
+ {TableIndexes=\n\tIndex (columnList=[salaray,empId],unique=[true] )\n\tIndex (columnList=[version],unique=[false] )\n}
+ {TableName=FTEmployee}
+ {TableUniqueConstraints=\n\tUniqueConstraint (columnNames=[empId,version] )\n\tUniqueConstraint (columnNames=[empId] )\n}
+--
+	{field} +salary : Integer
+}
+
+
+class de.elnarion.test.domain.t0021jakarta.Family <<Entity>>  {
+	{field} +description : String
+	{field} +@Id id : int
+}
+
+
+class de.elnarion.test.domain.t0021jakarta.Job <<Entity>>  {
+	{field} +@Id id : int
+	{field} +jobDescr : String
+	{field} +salery : double
+}
+
+
+class de.elnarion.test.domain.t0021jakarta.Person <<Entity>>  {
+	{field} +firstName : String
+	{field} +@Id id : String
+	{field} +lastName : String
+	{field} +@Transient nonsenseField : String
+}
+
+
+class de.elnarion.test.domain.t0021jakarta.Todo <<Entity>>  <<Table>>  {
+ {TableName=TABLENAME}
+ {TableSchema=SCHEMA}
+--
+	{field} +@Column("DESCR") description : String
+	{field} +@Column("IDX") @Id id : Long
+}
+
+
+enum de.elnarion.test.domain.t0021jakarta.TodoStateEnum {
+	{field} +CLOSED
+	{field} +IN_PROGRESS
+	{field} +OPEN
+}
+
+
+
+
+de.elnarion.test.domain.t0021jakarta.Employee -->  de.elnarion.test.domain.t0021jakarta.Address :  @ManyToOne\naddress
+de.elnarion.test.domain.t0021jakarta.FTEmployee --|>  de.elnarion.test.domain.t0021jakarta.Employee
+de.elnarion.test.domain.t0021jakarta.Family "1" o-- "0..*"  de.elnarion.test.domain.t0021jakarta.Person :  @OneToMany\nmembers
+de.elnarion.test.domain.t0021jakarta.Person "1" o-- "0..*"  de.elnarion.test.domain.t0021jakarta.Job :  @OneToMany\njobList
+de.elnarion.test.domain.t0021jakarta.Person -->  de.elnarion.test.domain.t0021jakarta.Family :  @ManyToOne\nfamily
+de.elnarion.test.domain.t0021jakarta.Todo -->  de.elnarion.test.domain.t0021jakarta.TodoStateEnum :  @Column("STATE")\nstate
+
+
+@enduml

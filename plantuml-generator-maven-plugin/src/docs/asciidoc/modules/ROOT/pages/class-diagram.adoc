@@ -42,7 +42,19 @@ Currently implemented JPA Annotations are
 *** javax.persistence.Table, 
 *** javax.persistence.MappedSuperclass, 
 *** javax.persistence.Index and
-*** javax.persistence.UniqueConstraint 
+*** javax.persistence.UniqueConstraint
+*** jakarta.persistence.Column,
+*** jakarta.persistence.Id,
+*** jakarta.persistence.Transient,
+*** jakarta.persistence.OneToOne,
+*** jakarta.persistence.OneToMany,
+*** jakarta.persistence.ManyToMany,
+*** jakarta.persistence.ManyToOne,
+*** jakarta.persistence.Entity,
+*** jakarta.persistence.Table,
+*** jakarta.persistence.MappedSuperclass,
+*** jakarta.persistence.Index and
+*** jakarta.persistence.UniqueConstraint
 --
 +
 Index, UniqueConstraint, Tablename and Tableschema are show as tagged values in a separate compartment

@@ -115,7 +115,12 @@ public class SequenceAnalyzer {
     private boolean isIgnoreCall(CtClass calleeClass, CtMethod calleeMethod) {
         boolean ignoreCall = config.isIgnoreStandardClasses() && isJavaStandardClass(calleeClass);
         // handle all ignore cases
-        if (config.isIgnoreJPAEntities() && calleeClass.hasAnnotation("javax.persistence.Entity")) ignoreCall = true;
+        if (config.isIgnoreJPAEntities()
+                && (calleeClass.hasAnnotation("javax.persistence.Entity")
+                    || calleeClass.hasAnnotation("jakarta.persistence.Entity"))
+        ) {
+            ignoreCall = true;
+        }
         if (config.getClassBlacklistRegexp() != null && isClassBlacklisted(calleeClass)) ignoreCall = true;
         if (config.getMethodBlacklistRegexp() != null && isMethodBlacklisted(calleeMethod)) ignoreCall = true;
         return ignoreCall;

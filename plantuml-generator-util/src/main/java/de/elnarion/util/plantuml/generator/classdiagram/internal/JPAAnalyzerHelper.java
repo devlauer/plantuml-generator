@@ -26,6 +26,7 @@ class JPAAnalyzerHelper {
 											  ClassLoader destinationClassloader) {
 		List<String> annotationStringList = new LinkedList<>();
 		if (destinationClassloader != null) {
+			// javax.persistance
 			addJPAFieldAnnotationClassToList(field, paramDeclaredMethods, annotationStringList, destinationClassloader,
 					"javax.persistence.Column");
 			addJPAFieldAnnotationClassToList(field, paramDeclaredMethods, annotationStringList, destinationClassloader,
@@ -40,6 +41,22 @@ class JPAAnalyzerHelper {
 					"javax.persistence.ManyToMany");
 			addJPAFieldAnnotationClassToList(field, paramDeclaredMethods, annotationStringList, destinationClassloader,
 					"javax.persistence.ManyToOne");
+
+			// jakarta.persistance
+			addJPAFieldAnnotationClassToList(field, paramDeclaredMethods, annotationStringList, destinationClassloader,
+					"jakarta.persistence.Column");
+			addJPAFieldAnnotationClassToList(field, paramDeclaredMethods, annotationStringList, destinationClassloader,
+					"jakarta.persistence.Id");
+			addJPAFieldAnnotationClassToList(field, paramDeclaredMethods, annotationStringList, destinationClassloader,
+					"jakarta.persistence.Transient");
+			addJPAFieldAnnotationClassToList(field, paramDeclaredMethods, annotationStringList, destinationClassloader,
+					"jakarta.persistence.OneToOne");
+			addJPAFieldAnnotationClassToList(field, paramDeclaredMethods, annotationStringList, destinationClassloader,
+					"jakarta.persistence.OneToMany");
+			addJPAFieldAnnotationClassToList(field, paramDeclaredMethods, annotationStringList, destinationClassloader,
+					"jakarta.persistence.ManyToMany");
+			addJPAFieldAnnotationClassToList(field, paramDeclaredMethods, annotationStringList, destinationClassloader,
+					"jakarta.persistence.ManyToOne");
 		}
 		return annotationStringList;
 	}
@@ -119,12 +136,21 @@ class JPAAnalyzerHelper {
 	protected void addJPAStereotype(final Class<?> paramClassObject, List<UMLStereotype> stereotypes, ClassLoader destinationClassloader) {
 		if (destinationClassloader != null) {
 			try {
+				// javax.persistance
 				addStereoTypesForAnnotationClass(paramClassObject, stereotypes, destinationClassloader,
 						"javax.persistence.Entity", "Entity");
 				addStereoTypesForAnnotationClass(paramClassObject, stereotypes, destinationClassloader,
 						"javax.persistence.Table", "Table");
 				addStereoTypesForAnnotationClass(paramClassObject, stereotypes, destinationClassloader,
 						"javax.persistence.MappedSuperclass", "MappedSuperclass");
+
+				// jakarta.persistance
+				addStereoTypesForAnnotationClass(paramClassObject, stereotypes, destinationClassloader,
+						"jakarta.persistence.Entity", "Entity");
+				addStereoTypesForAnnotationClass(paramClassObject, stereotypes, destinationClassloader,
+						"jakarta.persistence.Table", "Table");
+				addStereoTypesForAnnotationClass(paramClassObject, stereotypes, destinationClassloader,
+						"jakarta.persistence.MappedSuperclass", "MappedSuperclass");
 			} catch (ClassNotFoundException | SecurityException | IllegalArgumentException e) {
 				// ignore all exceptions
 			}
@@ -168,9 +194,17 @@ class JPAAnalyzerHelper {
 		if ("Table".equals(annotationName)) {
 			addAttributeIfExists(annotation, attributes, "name");
 			addAttributeIfExists(annotation, attributes, "schema");
+
+			// javax.persistance
 			addAttributeObjectListIfExists(annotation, attributes, "javax.persistence.Index", "indexes",
 					destinationClassloader);
 			addAttributeObjectListIfExists(annotation, attributes, "javax.persistence.UniqueConstraint",
+					"uniqueConstraints", destinationClassloader);
+
+			// jakarta.persistance
+			addAttributeObjectListIfExists(annotation, attributes, "jakarta.persistence.Index", "indexes",
+					destinationClassloader);
+			addAttributeObjectListIfExists(annotation, attributes, "jakarta.persistence.UniqueConstraint",
 					"uniqueConstraints", destinationClassloader);
 		}
 		UMLStereotype stereotype = new UMLStereotype(annotationName, attributes);

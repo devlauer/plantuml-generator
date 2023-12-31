@@ -12,15 +12,27 @@ the following JPA Annotations:
 ** javax.persistence.Entity
 ** javax.persistence.Table
 ** javax.persistence.MappedSuperclass
+** jakarta.persistence.Index
+** jakarta.persistence.UniqueConstraint
+** jakarta.persistence.Entity
+** jakarta.persistence.Table
+** jakarta.persistence.MappedSuperclass
 * field annotations
 ** javax.persistence.Column
 ** javax.persistence.Id
 ** javax.persistence.Transient
+** jakarta.persistence.Column
+** jakarta.persistence.Id
+** jakarta.persistence.Transient
 * relationship annotations
 ** javax.persistence.OneToOne
 ** javax.persistence.OneToMany
 ** javax.persistence.ManyToMany
 ** javax.persistence.ManyToOne
+** jakarta.persistence.OneToOne
+** jakarta.persistence.OneToMany
+** jakarta.persistence.ManyToMany
+** jakarta.persistence.ManyToOne
 
 If class annotations are found the generator adds a separate compartment
 to the head of the PlantUML class with all informations found in these

@@ -1,6 +1,8 @@
 = Changelog
 
 .Unreleased
+
+.2.4.0 - 2023-12-31
 * added support for Jakarta JPA Annotations (pull request #140)
 * update log4j-slf4j-impl to 2.22.1
 * update classgraph to 4.8.165

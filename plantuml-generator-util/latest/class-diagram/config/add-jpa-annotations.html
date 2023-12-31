@@ -43,6 +43,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
     <h3 class="title"><a href="../../index.html">Utility</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
@@ -256,6 +257,21 @@ the following JPA Annotations:</p>
 <li>
 <p>javax.persistence.MappedSuperclass</p>
 </li>
+<li>
+<p>jakarta.persistence.Index</p>
+</li>
+<li>
+<p>jakarta.persistence.UniqueConstraint</p>
+</li>
+<li>
+<p>jakarta.persistence.Entity</p>
+</li>
+<li>
+<p>jakarta.persistence.Table</p>
+</li>
+<li>
+<p>jakarta.persistence.MappedSuperclass</p>
+</li>
 </ul>
 </div>
 </li>
@@ -271,6 +287,15 @@ the following JPA Annotations:</p>
 </li>
 <li>
 <p>javax.persistence.Transient</p>
+</li>
+<li>
+<p>jakarta.persistence.Column</p>
+</li>
+<li>
+<p>jakarta.persistence.Id</p>
+</li>
+<li>
+<p>jakarta.persistence.Transient</p>
 </li>
 </ul>
 </div>
@@ -290,6 +315,18 @@ the following JPA Annotations:</p>
 </li>
 <li>
 <p>javax.persistence.ManyToOne</p>
+</li>
+<li>
+<p>jakarta.persistence.OneToOne</p>
+</li>
+<li>
+<p>jakarta.persistence.OneToMany</p>
+</li>
+<li>
+<p>jakarta.persistence.ManyToMany</p>
+</li>
+<li>
+<p>jakarta.persistence.ManyToOne</p>
 </li>
 </ul>
 </div>
@@ -327,14 +364,13 @@ between the different classes in the PlantUML diagram.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="nowrap" data-line="5"><code class="language-java" data-lang=java>String filename = "class/0021_jpa_annotations.txt";
-List&lt;String&gt; scanPackages = new ArrayList&lt;&gt;();
-scanPackages.add("de.elnarion.test.domain.t0021");
+<pre class="nowrap" data-line="4"><code class="language-java" data-lang=java>List&lt;String&gt; scanPackages = new ArrayList&lt;&gt;();
+scanPackages.add(packageUnderTest);
 PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages).withJPAAnnotations(true)
         .build(); <i class="conum" data-value="1"></i><b>(1)</b>
 PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
 String result = generator.generateDiagramText();
-String expectedDiagramText = IOUtils.toString(Objects.requireNonNull(classLoader.getResource(filename)), StandardCharsets.UTF_8);
+String expectedDiagramText = IOUtils.toString(Objects.requireNonNull(classLoader.getResource(expectedFileName)), StandardCharsets.UTF_8);
 assertNotNull(result);
 assertNotNull(expectedDiagramText);
 assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));</code></pre>

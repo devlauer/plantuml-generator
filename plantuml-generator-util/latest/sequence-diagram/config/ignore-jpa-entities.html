@@ -43,6 +43,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
     <h3 class="title"><a href="../../index.html">Utility</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
@@ -255,7 +256,7 @@ often only simple POJOs.</p>
 <div class="content">
 <pre class="nowrap" data-line="3"><code class="language-java" data-lang=java>// ARRANGE
 PlantUMLSequenceDiagramConfigBuilder builder = new PlantUMLSequenceDiagramConfigBuilder(
-		MovieService.class.getName(), "doSomeBusiness").withIgnoreJPAEntities(true); <i class="conum" data-value="1"></i><b>(1)</b>
+		classUnderTest.getName(), "doSomeBusiness").withIgnoreJPAEntities(true); <i class="conum" data-value="1"></i><b>(1)</b>
 PlantUMLSequenceDiagramGenerator generator = new PlantUMLSequenceDiagramGenerator(builder.build());
 String expectedDiagramText = IOUtils.toString(
 		Objects.requireNonNull(classLoader.getResource("sequence/0003_jpa_test_with_ignore_jpa_entities.txt")), StandardCharsets.UTF_8);

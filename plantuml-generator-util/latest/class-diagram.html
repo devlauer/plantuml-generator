@@ -8,7 +8,7 @@
     <link rel="prev" href="index.html">
     <link rel="next" href="class-diagram/config.html">
     <meta name="keywords" content="PlantUML, generator, class diagram, sequence diagram, class diagram">
-    <meta name="generator" content="Antora 3.1.4">
+    <meta name="generator" content="Antora 3.1.7">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="../../_/css/prism.css">
     <link rel="stylesheet" href="../../_/css/site-extra.css">      </head>
@@ -260,6 +260,45 @@
 <p>For more options to customize the diagram text and corresponding examples have a look at the
 <a href="class-diagram/config.html" class="xref page">configuration</a>
 documentation.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Since Version 2.4.1 the util is able to
+use the original method parameter names if the
+classes are compiled with parameter information
+enabled (<a href="https://openjdk.org/jeps/118" class="bare">https://openjdk.org/jeps/118</a>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="nowrap"><code class="language-undefined" data-lang=undefined>&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+            &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+            &lt;version&gt;${maven-compiler-plugin.version}&lt;/version&gt;
+            &lt;configuration&gt;
+                &lt;!-- plugin version &lt; 3.6.2 --&gt;
+                &lt;compilerArgument&gt;-parameters&lt;/compilerArgument&gt;
+                &lt;!-- Or, if you use the plugin version &gt;= 3.6.2 --&gt;
+                &lt;parameters&gt;true&lt;/parameters&gt;
+                &lt;testCompilerArgument&gt;-parameters&lt;/testCompilerArgument&gt;
+                &lt;source&gt;${java.version}&lt;/source&gt;
+                &lt;target&gt;${java.version}&lt;/target&gt;
+            &lt;/configuration&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="index.html">Utility</a></span>

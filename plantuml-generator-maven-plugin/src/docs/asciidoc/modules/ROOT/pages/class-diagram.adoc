@@ -122,3 +122,32 @@ by an markdown diagram block - default is ``false``; optional;
 ** *xref:class-diagram/config/use-smetana.adoc[useSmetana]* -
 simple toggle to activate smetana as layouting engine instead of GraphViz/Dot.
 
+[NOTE]
+====
+Since Version 2.4.1 the maven plugin is able to
+use the original method parameter names if the
+classes are compiled with parameter information
+enabled (https://openjdk.org/jeps/118):
+[source]
+--
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>${maven-compiler-plugin.version}</version>
+            <configuration>
+                <!-- plugin version < 3.6.2 -->
+                <compilerArgument>-parameters</compilerArgument>
+                <!-- Or, if you use the plugin version >= 3.6.2 -->
+                <parameters>true</parameters>
+                <testCompilerArgument>-parameters</testCompilerArgument>
+                <source>${java.version}</source>
+                <target>${java.version}</target>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+--
+
+====

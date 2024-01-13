@@ -264,8 +264,8 @@ public class ClassAnalyzer {
                     continue;
                 String returnType = AnalyzerUtil.getClassNameForFieldsAndMethods(method.getReturnType(),
                         plantUMLConfig);
-                final Class<?>[] parameterTypes = method.getParameterTypes();
-                final Map<String, String> parameters = convertToParameterStringMap(parameterTypes);
+                final Parameter[] parameters = method.getParameters();
+                final Map<String, String> parametersNameToTypeMap = convertToParameterStringMap(parameters);
                 final int modifier = method.getModifiers();
                 final VisibilityType visibilityType = AnalyzerUtil.getVisibility(modifier);
                 // check if method should be visible by maximum visibility
@@ -282,36 +282,40 @@ public class ClassAnalyzer {
                     stereotypes.add("synchronized");
                 }
                 final UMLMethod umlMethod = new UMLMethod(classifierType, visibilityType, returnType, methodName,
-                        parameters, stereotypes);
+                        parametersNameToTypeMap, stereotypes);
                 paramUmlClass.addMethod(umlMethod);
             }
         }
     }
 
     /**
-     * Converts an array of parameter types to a string map with synthetic parameter
-     * names and their mapped full qualified type name.
+     * Converts an array of parameter types to a string map with parameter
+     * names and their mapped full qualified type names.
      * <p>
-     * Parameter names are synthetic because in Java 7 the parameter names cannot be
-     * determined in all cases.
+     * If no parameter names are available in the class byte code the parameter names are synthesized.
      *
-     * @param paramParameterTypes - Class&lt;?&gt;[] - the array of all parameter
-     *                            types which should be processed
+     * @param paramParameters - Parameter&lt;?&gt;[] - the array of all parameters
+     *                        which should be processed
      * @return Map&lt;String,String&gt; - the result
      */
-    private Map<String, String> convertToParameterStringMap(final Class<?>[] paramParameterTypes) {
+    private Map<String, String> convertToParameterStringMap(final Parameter[] paramParameters) {
         final Map<String, String> parameters = new LinkedHashMap<>();
-        if (paramParameterTypes != null) {
+        if (paramParameters != null) {
             int counter = 1;
-            for (final Class<?> parameter : paramParameterTypes) {
-                String parameterName = parameter.getName();
+            for (final Parameter parameter : paramParameters) {
+                Class<?> parameterType = parameter.getType();
+                String parameterName = parameterType.getName();
                 if (parameterName.lastIndexOf('.') > 0) {
                     parameterName = parameterName.substring(parameterName.lastIndexOf('.') + 1);
                 }
-                parameterName = "param" + parameterName + counter;
-                String parameterType = AnalyzerUtil.getClassNameForFieldsAndMethods(parameter, plantUMLConfig);
-                parameters.put(parameterName, parameterType);
-                counter++;
+                if (parameter.isNamePresent()) {
+                    parameterName = parameter.getName();
+                } else {
+                    parameterName = "param" + parameterName + counter;
+                    counter++;
+                }
+                String parameterTypeName = AnalyzerUtil.getClassNameForFieldsAndMethods(parameterType, plantUMLConfig);
+                parameters.put(parameterName, parameterTypeName);
             }
         }
         return parameters;

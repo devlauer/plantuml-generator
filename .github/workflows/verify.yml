@@ -34,7 +34,7 @@ jobs:
       if: steps.changed-files-specific.outputs.any_changed == 'true'
       uses: actions/setup-java@v3      
       with:
-        distribution: 'temurin'
+        distribution: 'adopt'
         java-version: ${{ matrix.java }}
         cache: 'maven'
     - name: Analyze with SonarCloud

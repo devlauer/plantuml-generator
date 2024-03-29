@@ -180,7 +180,7 @@
   </div>
   <ul class="components">
     <li class="component">
-      <a class="title" href="../../../../plantuml-generator/latest/index.html">General</a>
+      <div class="title"><a href="../../../../plantuml-generator/latest/index.html">General</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../../plantuml-generator/latest/index.html">latest</a>
@@ -188,7 +188,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../../plantuml-generator-maven-plugin/latest/index.html">Maven Plugins</a>
+      <div class="title"><a href="../../../../plantuml-generator-maven-plugin/latest/index.html">Maven Plugins</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../../plantuml-generator-maven-plugin/latest/index.html">latest</a>
@@ -196,7 +196,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <a class="title" href="../../index.html">Utility</a>
+      <div class="title"><a href="../../index.html">Utility</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="../../index.html">latest</a>
@@ -288,7 +288,7 @@ with the list of packages to scan to the PlantUMLClassDiagramConfigBuilder</td>
 </div>
 <div class="imageblock kroki">
 <div class="content">
-<img src="../../_images/0012_jar_whitelist_diagram-9da92d8e517cdd87a888ceeb9e5f398a7f9ec388.png" alt="0012_jar_whitelist_diagram">
+<img src="../../_images/0012_jar_whitelist_diagram-71e890608bc7201613efeab87cec79784b9cf601.png" alt="0012_jar_whitelist_diagram">
 </div>
 </div>
 <div class="paragraph">
@@ -344,18 +344,20 @@ class org.apache.commons.io.monitor.FileAlterationObserver {
 	{field} -rootEntry : org.apache.commons.io.monitor.FileEntry
 	{field} {static} -serialVersionUID : long
 	{method} +addListener ( paramFileAlterationListener1 : org.apache.commons.io.monitor.FileAlterationListener ) : void
+	{method} -checkAndFire ( paramFileEntry1 : org.apache.commons.io.monitor.FileEntry , paramFileEntry;2 : [Lorg.apache.commons.io.monitor.FileEntry; , paramFile;3 : [Ljava.io.File; ) : void
 	{method} +checkAndNotify () : void
-	{method} -checkAndNotify ( paramFileEntry1 : org.apache.commons.io.monitor.FileEntry , paramFileEntry;2 : [Lorg.apache.commons.io.monitor.FileEntry; , paramFile;3 : [Ljava.io.File; ) : void
 	{method} -createFileEntry ( paramFileEntry1 : org.apache.commons.io.monitor.FileEntry , paramFile2 : java.io.File ) : org.apache.commons.io.monitor.FileEntry
 	{method} +destroy () : void
-	{method} -doCreate ( paramFileEntry1 : org.apache.commons.io.monitor.FileEntry ) : void
-	{method} -doDelete ( paramFileEntry1 : org.apache.commons.io.monitor.FileEntry ) : void
-	{method} -doListFiles ( paramFile1 : java.io.File , paramFileEntry2 : org.apache.commons.io.monitor.FileEntry ) : [Lorg.apache.commons.io.monitor.FileEntry;
-	{method} -doMatch ( paramFileEntry1 : org.apache.commons.io.monitor.FileEntry , paramFile2 : java.io.File ) : void
+	{method} -fireOnChange ( paramFileEntry1 : org.apache.commons.io.monitor.FileEntry , paramFile2 : java.io.File ) : void
+	{method} -fireOnCreate ( paramFileEntry1 : org.apache.commons.io.monitor.FileEntry ) : void
+	{method} -fireOnDelete ( paramFileEntry1 : org.apache.commons.io.monitor.FileEntry ) : void
 	{method} +getDirectory () : java.io.File
 	{method} +initialize () : void
+	{method} -listFileEntries ( paramFile1 : java.io.File , paramFileEntry2 : org.apache.commons.io.monitor.FileEntry ) : [Lorg.apache.commons.io.monitor.FileEntry;
 	{method} -listFiles ( paramFile1 : java.io.File ) : [Ljava.io.File;
 	{method} +removeListener ( paramFileAlterationListener1 : org.apache.commons.io.monitor.FileAlterationListener ) : void
+	{method} -sort ( paramFile;1 : [Ljava.io.File; ) : [Ljava.io.File;
+	{method}  {static} -toComparator ( paramIOCase1 : org.apache.commons.io.IOCase ) : java.util.Comparator
 	{method} +toString () : String
 }
 

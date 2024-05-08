@@ -40,9 +40,11 @@ public abstract class AbstractCommand  implements Runnable{
     List<String> additionalPlantUmlConfigs;
 
     // add option  to  pass classpath urls  for classloader , required, split by ','
-    @Option(names = "--source-file-path", split = ",", description = "Classpath URLs for classloader, split by , ", required = true)
+    @Option(names = "--source-file-path", split = ",", description = "source file path to compile , split by ',' ", required = false)
     List<String> sourceFilePath;
 
+    @Option(names = "--classpath-urls", split = ",", description = "Classpath URLs for classloader, split by , ", required = false)
+    List<String> classpathURLs;
 
     protected void writeDiagramToFile(String classDiagramText) throws Exception{
         if (isEnableAsciidocWrapper()) {
@@ -68,16 +70,40 @@ public abstract class AbstractCommand  implements Runnable{
     }
     protected ClassLoader getCompileClassLoader() throws Exception {
         try {
-            List<URL> classpathURLs = new ArrayList<>();
+            List<URL> cpURLS = new ArrayList<>();
 
-            compileJava2Class(sourceFilePath);
+            if(sourceFilePath!= null && sourceFilePath.size() > 0){
 
-            for (String filePath : sourceFilePath) {
-                File file = new File(filePath);
-                classpathURLs.add(file.toURI().toURL());
+                compileJava2Class(sourceFilePath);
+
+                for (String sourcefilePath : sourceFilePath) {
+                    File file = new File(sourcefilePath);
+                    cpURLS.add(file.toURI().toURL());
+                }
             }
 
-            URL[] urlArray = classpathURLs.toArray(new URL[0]);
+            if(classpathURLs != null &&  classpathURLs.size() >= 0){
+                for (String classPath : classpathURLs) {
+                    if (classPath.endsWith(".jar")){
+                        File file = new File(classPath);
+                        cpURLS.add(file.toURI().toURL());
+                    } else
+                    {
+                        File dir = new File(classPath);
+                        if(!dir.isDirectory()){
+                            // skip non directory
+                            continue;
+                        }else {
+                            File[] files = dir.listFiles((d, name) -> name.endsWith(".jar"));
+                            for (File file : files) {
+                                cpURLS.add(file.toURI().toURL());
+                            }
+                        }
+                    }
+                }
+            }
+
+            URL[] urlArray = cpURLS.toArray(new URL[0]);
 
             return new URLClassLoader(urlArray, Thread.currentThread().getContextClassLoader());
 
@@ -90,7 +116,7 @@ public abstract class AbstractCommand  implements Runnable{
         // Recursion get all java file in filePaths
         List<String> allJavaFiles = findAllJavaFiles(filePaths);
 
-        DynamicCompileUtils.compile(allJavaFiles);
+        DynamicCompileUtils.compile(allJavaFiles,classpathURLs);
     }
     private List<String> findAllJavaFiles(List<String> filePaths) {
         List<String> javaFiles = new ArrayList<>();

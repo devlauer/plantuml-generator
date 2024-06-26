@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * The type Javax Validation analyzer helper.
+ * The type Java Validation analyzer helper.
  */
 class JavaxValidationAnalyzerHelper {
 
@@ -23,6 +23,13 @@ class JavaxValidationAnalyzerHelper {
 
 		Annotation sizeAnnotation = findAnnotation(field, paramDeclaredMethods, destinationClassloader,
 				"javax.validation.constraints.Size");
+
+		//Trying with jakarta variant
+		if(null == sizeAnnotation) {
+			sizeAnnotation = findAnnotation(field, paramDeclaredMethods, destinationClassloader,
+					"jakarta.validation.constraints.Size");
+		}
+
 		if(null != sizeAnnotation) {
 			Integer min = getAnnotationIntValue(sizeAnnotation, "min");
 			Integer max = getAnnotationIntValue(sizeAnnotation, "max");
@@ -47,6 +54,12 @@ class JavaxValidationAnalyzerHelper {
 
 		Annotation notEmptyAnnotation = findAnnotation(field, paramDeclaredMethods, destinationClassloader,
 				"javax.validation.constraints.NotEmpty");
+
+		//Trying with jakarta variant
+		if(null == notEmptyAnnotation) {
+			notEmptyAnnotation = findAnnotation(field, paramDeclaredMethods, destinationClassloader,
+					"jakarta.validation.constraints.NotEmpty");
+		}
 
 		if(null != notEmptyAnnotation) {
 			return "1..*";

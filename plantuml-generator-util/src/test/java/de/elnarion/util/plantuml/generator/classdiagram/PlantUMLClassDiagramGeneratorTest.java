@@ -1,6 +1,5 @@
 package de.elnarion.util.plantuml.generator.classdiagram;
 
-import de.elnarion.test.sequence.t0003.MovieService;
 import de.elnarion.util.plantuml.generator.classdiagram.config.ClassifierType;
 import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiagramConfig;
 import de.elnarion.util.plantuml.generator.classdiagram.config.PlantUMLClassDiagramConfigBuilder;
@@ -11,7 +10,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.IOException;
 import java.net.URL;
@@ -753,17 +751,18 @@ class PlantUMLClassDiagramGeneratorTest {
         // end::usesmetana[]
     }
 
-    @Test
-    void test0028JavaxValidationAnnotations() throws Exception {
+    @ParameterizedTest
+    @CsvSource({"class/0028_javax_validation_annotations.txt,de.elnarion.test.domain.t0028",
+            "class/0028_jakarta_validation_annotations.txt,de.elnarion.test.domain.t0028jakarta"})
+    void test0028JavaxValidationAnnotations(String expectedFileName, String packageUnderTest) throws Exception {
         // tag::javaxvalidationannotations[]
-        String filename = "class/0028_javax_validation_annotations.txt";
         List<String> scanPackages = new ArrayList<>();
-        scanPackages.add("de.elnarion.test.domain.t0028");
+        scanPackages.add(packageUnderTest);
         PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages).withJavaxValidationAnnotations(true)
                 .build(); // <1>
         PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
         String result = generator.generateDiagramText();
-        String expectedDiagramText = IOUtils.toString(Objects.requireNonNull(classLoader.getResource(filename)), StandardCharsets.UTF_8);
+        String expectedDiagramText = IOUtils.toString(Objects.requireNonNull(classLoader.getResource(expectedFileName)), StandardCharsets.UTF_8);
         assertNotNull(result);
         assertNotNull(expectedDiagramText);
         assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));

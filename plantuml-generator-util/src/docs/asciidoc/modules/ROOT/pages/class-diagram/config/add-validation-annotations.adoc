@@ -1,18 +1,18 @@
-= addJavaxValidationAnnotations
+= addValidationAnnotations
 include::./_attributes.adoc[]
 
-include::partial$class-diagram/add-javax-validation-annotations.adoc[leveloffset=+1]
+include::partial$class-diagram/add-validation-annotations.adoc[leveloffset=+1]
 
 == Example
 Here is an example from the JUnit tests using this configuration parameter:
 
 [source,java,indent=0]
 ----
-include::example$testsrc/de/elnarion/util/plantuml/generator/classdiagram/{generatorclass}Test.java[tags=javaxvalidationannotations]
+include::example$testsrc/de/elnarion/util/plantuml/generator/classdiagram/{generatorclass}Test.java[tags=validationannotations]
 ----
 [sidebar]
 --
-<1> activate the javax validation annotations toggle in the configuration
+<1> activate the validation annotations toggle in the configuration
 --
 
 which is rendered this way:

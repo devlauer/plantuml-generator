@@ -48,7 +48,7 @@
 							<scanPackages>
 								<scanPackage>de.elnarion.test.domain.t0028</scanPackage>
 							</scanPackages>
-							<addJavaxValidationAnnotations>true</addJavaxValidationAnnotations>
+							<addValidationAnnotations>true</addValidationAnnotations>
 						</configuration>
 					</execution>
 				</executions>

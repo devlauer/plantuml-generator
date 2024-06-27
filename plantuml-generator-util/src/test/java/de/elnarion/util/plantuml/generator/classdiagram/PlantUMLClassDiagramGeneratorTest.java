@@ -754,11 +754,11 @@ class PlantUMLClassDiagramGeneratorTest {
     @ParameterizedTest
     @CsvSource({"class/0028_javax_validation_annotations.txt,de.elnarion.test.domain.t0028",
             "class/0028_jakarta_validation_annotations.txt,de.elnarion.test.domain.t0028jakarta"})
-    void test0028JavaxValidationAnnotations(String expectedFileName, String packageUnderTest) throws Exception {
-        // tag::javaxvalidationannotations[]
+    void test0028ValidationAnnotations(String expectedFileName, String packageUnderTest) throws Exception {
+        // tag::validationannotations[]
         List<String> scanPackages = new ArrayList<>();
         scanPackages.add(packageUnderTest);
-        PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages).withJavaxValidationAnnotations(true)
+        PlantUMLClassDiagramConfig config = new PlantUMLClassDiagramConfigBuilder(scanPackages).withValidationAnnotations(true)
                 .build(); // <1>
         PlantUMLClassDiagramGenerator generator = new PlantUMLClassDiagramGenerator(config);
         String result = generator.generateDiagramText();
@@ -766,6 +766,6 @@ class PlantUMLClassDiagramGeneratorTest {
         assertNotNull(result);
         assertNotNull(expectedDiagramText);
         assertEquals(expectedDiagramText.replaceAll("\\s+", ""), result.replaceAll("\\s+", ""));
-        // end::javaxvalidationannotations[]
+        // end::validationannotations[]
     }
 }

@@ -6,9 +6,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * The type Java Validation analyzer helper.
+ * The type Validation Annotation analyzer helper.
  */
-class JavaxValidationAnalyzerHelper {
+class ValidationAnnotationsAnalyzerHelper {
 
 	/**
 	 * Extract the cardinality from the supported annotations

@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>de.elnarion.util</groupId>
     <artifactId>plantuml-generator</artifactId>
-    <version>3.0.0</version>
+    <version>3.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>${project.groupId}:${project.artifactId}</name>
     <description>utility and maven plugin project for generating plantuml class diagrams out of java classes
@@ -57,7 +57,7 @@
         <connection>scm:git:ssh://git@github.com/devlauer/plantuml-generator.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/devlauer/plantuml-generator.git</developerConnection>
         <url>https://github.com/devlauer/plantuml-generator/tree/master</url>
-        <tag>plantuml-generator-3.0.0</tag>
+        <tag>HEAD</tag>
     </scm>
     <distributionManagement>
         <snapshotRepository>

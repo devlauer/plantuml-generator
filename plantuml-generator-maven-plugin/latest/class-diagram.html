@@ -7,7 +7,7 @@
     <link rel="canonical" href="https://devlauer.github.io/plantuml-generator/plantuml-generator-maven-plugin/latest/class-diagram.html">
     <link rel="prev" href="index.html">
     <link rel="next" href="class-diagram/examples.html">
-    <meta name="generator" content="Antora 3.1.7">
+    <meta name="generator" content="Antora 3.1.9">
     <link rel="stylesheet" href="../../_/css/site.css">
     <link rel="stylesheet" href="../../_/css/prism.css">
     <link rel="stylesheet" href="../../_/css/site-extra.css">      </head>
@@ -66,7 +66,7 @@
     <a class="nav-link" href="class-diagram/config/add-jpa-annotations.html">addJPAAnnotations</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="class-diagram/config/add-javax-validation-annotations.html">addJavaxValidationAnnotations</a>
+    <a class="nav-link" href="class-diagram/config/add-validation-annotations.html">addValidationAnnotations</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="class-diagram/config/asciidoc-diagram-block-delimiter.html">asciidocDiagramBlockDelimiter</a>
@@ -405,9 +405,9 @@ Currently implemented JPA Annotations are</p>
 </div>
 </li>
 <li>
-<p><strong><a href="class-diagram/config/add-javax-validation-annotations.html" class="xref page">addJavaxValidationAnnotations</a></strong> - a boolean to express if Javax Validation annotations should be
+<p><strong><a href="class-diagram/config/add-validation-annotations.html" class="xref page">addValidationAnnotations</a></strong> - a boolean to express if Validation annotations should be
 used for cardinality in the diagram; optional - Default <code>false</code><br>
-Currently implemented Javax Validation Annotations are</p>
+Currently implemented Validation Annotations are</p>
 <div class="openblock">
 <div class="content">
 <div class="ulist">
@@ -417,6 +417,12 @@ Currently implemented Javax Validation Annotations are</p>
 </li>
 <li>
 <p>javax.validation.constraints.NotEmpty</p>
+</li>
+<li>
+<p>jakarta.validation.constraints.Size</p>
+</li>
+<li>
+<p>jakarta.validation.constraints.NotEmpty</p>
 </li>
 </ul>
 </div>

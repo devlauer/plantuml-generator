@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>addJavaxValidationAnnotations :: PlantUML Generator</title>
-    <link rel="canonical" href="https://devlauer.github.io/plantuml-generator/plantuml-generator-maven-plugin/latest/class-diagram/config/add-javax-validation-annotations.html">
+    <title>addValidationAnnotations :: PlantUML Generator</title>
+    <link rel="canonical" href="https://devlauer.github.io/plantuml-generator/plantuml-generator-maven-plugin/latest/class-diagram/config/add-validation-annotations.html">
     <link rel="prev" href="add-jpa-annotations.html">
     <link rel="next" href="asciidoc-diagram-block-delimiter.html">
-    <meta name="generator" content="Antora 3.1.7">
+    <meta name="generator" content="Antora 3.1.9">
     <link rel="stylesheet" href="../../../../_/css/site.css">
     <link rel="stylesheet" href="../../../../_/css/prism.css">
     <link rel="stylesheet" href="../../../../_/css/site-extra.css">      </head>
@@ -66,7 +66,7 @@
     <a class="nav-link" href="add-jpa-annotations.html">addJPAAnnotations</a>
   </li>
   <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="add-javax-validation-annotations.html">addJavaxValidationAnnotations</a>
+    <a class="nav-link" href="add-validation-annotations.html">addValidationAnnotations</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="asciidoc-diagram-block-delimiter.html">asciidocDiagramBlockDelimiter</a>
@@ -256,24 +256,24 @@
     <li><a href="../../index.html">Maven Plugins</a></li>
     <li><a href="../../class-diagram.html">Class diagram generator mojo</a></li>
     <li>Configuration</li>
-    <li><a href="add-javax-validation-annotations.html">addJavaxValidationAnnotations</a></li>
+    <li><a href="add-validation-annotations.html">addValidationAnnotations</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/devlauer/plantuml-generator/edit/master/plantuml-generator-maven-plugin/src/docs/asciidoc/modules/ROOT/pages/class-diagram/config/add-javax-validation-annotations.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="https://github.com/devlauer/plantuml-generator/edit/master/plantuml-generator-maven-plugin/src/docs/asciidoc/modules/ROOT/pages/class-diagram/config/add-validation-annotations.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">addJavaxValidationAnnotations</h1>
+<h1 class="page">addValidationAnnotations</h1>
 <div class="sect1">
 <h2 id="_description"><a class="anchor" href="#_description"></a>Description</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>If you activate this configuration toggle via the builder method
-withJavaxValidationAnnotations the generator scans the selected classes for
-the following Javax Validation Annotations:</p>
+withValidationAnnotations the generator scans the selected classes for
+the following Validation Annotations:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -287,6 +287,12 @@ the following Javax Validation Annotations:</p>
 <li>
 <p>javax.validation.constraints.NotEmpty</p>
 </li>
+<li>
+<p>jakarta.validation.constraints.Size</p>
+</li>
+<li>
+<p>jakarta.validation.constraints.NotEmpty</p>
+</li>
 </ul>
 </div>
 </li>
@@ -295,6 +301,18 @@ the following Javax Validation Annotations:</p>
 <div class="paragraph">
 <p>If field annotations are found the generator will adapt the cardinality
 of AggregationRelationship to reflect the annotation.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+This feature was previously activated via the withJavaxValidationAnnotations builder method in version between 2.3.0 and 2.4.0.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -326,7 +344,7 @@ dependency hierarchy which build the classpath for all further generation:</p>
 		&lt;dependency&gt;
 			&lt;groupId&gt;commons-io&lt;/groupId&gt;
 			&lt;artifactId&gt;commons-io&lt;/artifactId&gt;
-			&lt;version&gt;2.16.0&lt;/version&gt;
+			&lt;version&gt;2.16.1&lt;/version&gt;
 		&lt;/dependency&gt;
 		&lt;dependency&gt;
 			&lt;groupId&gt;javax.validation&lt;/groupId&gt;
@@ -339,7 +357,7 @@ dependency hierarchy which build the classpath for all further generation:</p>
 <div class="paragraph">
 <p>From this classpath all classes of the package "de.elnarion.test.domain.t0028",
 which are also used by the
-<a href="../../../../plantuml-generator-util/latest/class-diagram/config/add-javax-validation-annotations.html" class="xref page">JUnit-tests of the PlantUML generator utility</a>,
+<a href="../../../../plantuml-generator-util/latest/class-diagram/config/add-validation-annotations.html" class="xref page">JUnit-tests of the PlantUML generator utility</a>,
 should be generated as class diagram with the following plugin configuration</p>
 </div>
 <div class="listingblock">
@@ -360,7 +378,7 @@ should be generated as class diagram with the following plugin configuration</p>
 							&lt;scanPackages&gt;
 								&lt;scanPackage&gt;de.elnarion.test.domain.t0028&lt;/scanPackage&gt;
 							&lt;/scanPackages&gt;
-							&lt;addJavaxValidationAnnotations&gt;true&lt;/addJavaxValidationAnnotations&gt;
+							&lt;addValidationAnnotations&gt;true&lt;/addValidationAnnotations&gt;
 						&lt;/configuration&gt;
 					&lt;/execution&gt;
 				&lt;/executions&gt;
@@ -368,13 +386,13 @@ should be generated as class diagram with the following plugin configuration</p>
 </div>
 </div>
 <div class="paragraph">
-<p>this configuration contains the addJavaxValidationAnnotations toggle with the value
+<p>this configuration contains the addValidationAnnotations toggle with the value
 true.
 This configuration is rendered this way:</p>
 </div>
 <div class="imageblock kroki">
 <div class="content">
-<img src="../../_images/0028_javax_validation_annotations-a7a657ed03c202500a3b92cf1d8853dc3b682ee8.png" alt="0028_javax_validation_annotations">
+<img src="../../_images/0028_javax_validation_annotations-9e510776a0ec5568277e9ac2eda1a9862f8c3670.png" alt="0028_javax_validation_annotations">
 </div>
 </div>
 <div class="paragraph">
@@ -397,7 +415,7 @@ class de.elnarion.test.domain.t0028.Wheel {
 
 de.elnarion.test.domain.t0028.Vehicle "1" o-- "1..*"  de.elnarion.test.domain.t0028.Light :  lights
 de.elnarion.test.domain.t0028.Vehicle "1" o-- "1..10"  de.elnarion.test.domain.t0028.Seat :  seats
-de.elnarion.test.domain.t0028.Vehicle "1" o-- "1..6"  de.elnarion.test.domain.t0028.Wheel :  wheels
+de.elnarion.test.domain.t0028.Vehicle "1" o-- "2..6"  de.elnarion.test.domain.t0028.Wheel :  wheels
 
 @enduml</code></pre>
 </div>

@@ -4,7 +4,7 @@
 *** xref:class-diagram/config/destination-classloader.adoc[]
 *** xref:class-diagram/config/additional-plantuml-configs.adoc[]
 *** xref:class-diagram/config/add-jpa-annotations.adoc[]
-*** xref:class-diagram/config/add-javax-validation-annotations.adoc[]
+*** xref:class-diagram/config/add-validation-annotations.adoc[]
 *** xref:class-diagram/config/blacklist-regexp.adoc[]
 *** xref:class-diagram/config/field-blacklist-regexp.adoc[]
 *** xref:class-diagram/config/field-classifier-to-ignore.adoc[]

@@ -3,7 +3,7 @@
 ** Configuration
 *** xref:class-diagram/config/additional-plantuml-configs.adoc[]
 *** xref:class-diagram/config/add-jpa-annotations.adoc[]
-*** xref:class-diagram/config/add-javax-validation-annotations.adoc[]
+*** xref:class-diagram/config/add-validation-annotations.adoc[]
 *** xref:class-diagram/config/asciidoc-diagram-block-delimiter.adoc[]
 *** xref:class-diagram/config/asciidoc-diagram-image-format.adoc[]
 *** xref:class-diagram/config/asciidoc-diagram-name.adoc[]

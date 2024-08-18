@@ -23,9 +23,9 @@
 			<version>2.16.1</version>
 		</dependency>
 		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>2.0.1.Final</version>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+			<version>3.1.0</version>
 		</dependency>
 	</dependencies>
 	<!-- end::dependencies[] -->
@@ -46,9 +46,9 @@
 						<configuration>
 							<outputFilename>testdiagram1.txt</outputFilename>
 							<scanPackages>
-								<scanPackage>de.elnarion.test.domain.t0028</scanPackage>
+								<scanPackage>de.elnarion.test.domain.t0028jakarta</scanPackage>
 							</scanPackages>
-							<addJavaxValidationAnnotations>true</addJavaxValidationAnnotations>
+							<addValidationAnnotations>true</addValidationAnnotations>
 						</configuration>
 					</execution>
 				</executions>

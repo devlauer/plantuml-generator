@@ -36,8 +36,8 @@ public class PlantUMLClassDiagramConfig {
 	private boolean removeMethods = false;
 	/** The add JPA annotations. */
 	private boolean addJPAAnnotations = false;
-	/** The add Javax Validation annotations. */
-	private boolean addJavaxValidationAnnotations = false;
+	/** The add Validation annotations. */
+	private boolean addValidationAnnotations = false;
 	/** The field blacklist regexp. */
 	private String fieldBlacklistRegexp = null;
 	/** The method blacklist regexp. */
@@ -281,21 +281,21 @@ public class PlantUMLClassDiagramConfig {
 	}
 
 	/**
-	 * Checks if is adds the Javax Validation annotations.
+	 * Checks if is adds the Validation annotations.
 	 *
-	 * @return true, if is adds the Javax Validation annotations
+	 * @return true, if Validation annotations are activated
 	 */
-	public boolean isAddJavaxValidationAnnotations() {
-		return addJavaxValidationAnnotations;
+	public boolean isAddValidationAnnotations() {
+		return addValidationAnnotations;
 	}
 
 	/**
 	 * Sets the adds the Javax Validation annotations.
 	 *
-	 * @param addJavaxValidationAnnotations the new adds the Javax Validation annotations
+	 * @param addValidationAnnotations the new adds the Javax Validation annotations
 	 */
-	public void setAddJavaxValidationAnnotations(boolean addJavaxValidationAnnotations) {
-		this.addJavaxValidationAnnotations = addJavaxValidationAnnotations;
+	public void setAddValidationAnnotations(boolean addValidationAnnotations) {
+		this.addValidationAnnotations = addValidationAnnotations;
 	}
 
 	/**

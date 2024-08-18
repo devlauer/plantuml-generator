@@ -10,3 +10,10 @@ maven depencency classpath with different configuration options.
 * xref:./sequence-diagram.adoc[PlantUMLSequenceDiagramGeneratorMojo] +
 This maven mojo can be used to generate sequence diagrams out of the
 maven depencency classpath with different configuration options.
+
+== Upgrade from 2.x to 3.x
+
+With the new version 3.x the configuration parameter
+*addJavaxValidationAnnotations* of the PlantUMLGeneratorMojo has changed to *addValidationAnnotations*
+and now supports javax and jakarta namespace for validations.
+So you need to change your configuration if you used this parameter.

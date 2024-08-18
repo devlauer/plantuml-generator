@@ -265,6 +265,8 @@
 </aside>
 <article class="doc">
 <h1 class="page">Maven Plugins</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
 <p>Currently there are two maven plugins supported by this project:</p>
 </div>
@@ -281,6 +283,19 @@ This maven mojo can be used to generate sequence diagrams out of the
 maven depencency classpath with different configuration options.</p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_upgrade_from_2_x_to_3_x"><a class="anchor" href="#_upgrade_from_2_x_to_3_x"></a>Upgrade from 2.x to 3.x</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With the new version 3.x the configuration parameter
+<strong>addJavaxValidationAnnotations</strong> of the PlantUMLGeneratorMojo has changed to <strong>addValidationAnnotations</strong>
+and now supports javax and jakarta namespace for validations.
+So you need to change your configuration if you used this parameter.</p>
+</div>
+</div>
 </div>
 <nav class="pagination">
   <span class="next"><a href="class-diagram.html">Class diagram generator mojo</a></span>

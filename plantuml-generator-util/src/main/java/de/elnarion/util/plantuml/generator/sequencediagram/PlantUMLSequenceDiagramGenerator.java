@@ -49,12 +49,13 @@ public class PlantUMLSequenceDiagramGenerator {
 
     private String generateDiagramTextFromCallerMethod(ICallerMethod callerMethod)
             throws ClassNotFoundException, javassist.NotFoundException {
-        return "@startuml" +
+        String plantumlContent = "@startuml" +
                 System.lineSeparator() +
                 callerMethod.getDiagramText() +
                 "@enduml" +
                 System.lineSeparator();
+        // some inner class name contains '$' , which cause syntax error in plantuml
+        // so replace it with '_'
+        return plantumlContent.replaceAll("\\$", "_");
     }
-
-
 }

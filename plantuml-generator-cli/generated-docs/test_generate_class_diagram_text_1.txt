@@ -1,0 +1,42 @@
+@startuml
+
+
+
+
+class de.elnarion.test.domain.t0001.BaseAbstractClass {
+	{method} +doSomething () : void
+	{method} +doSomethingElse () : void
+	{method} +doSomethingWithParameter ( paramString1 : String ) : void
+	{method} +doSomethingWithReturnValue () : String
+}
+
+
+interface de.elnarion.test.domain.t0001.BaseInterface {
+	{method}  {abstract} +doSomething () : void
+	{method}  {abstract} +doSomethingWithParameter ( paramString1 : String ) : void
+	{method}  {abstract} +doSomethingWithReturnValue () : String
+}
+
+
+class de.elnarion.test.domain.t0001.ChildA {
+}
+
+
+class de.elnarion.test.domain.t0001.ChildB {
+}
+
+
+class de.elnarion.test.domain.t0001.Util {
+}
+
+
+
+
+de.elnarion.test.domain.t0001.BaseAbstractClass ..|>  de.elnarion.test.domain.t0001.BaseInterface
+de.elnarion.test.domain.t0001.ChildA --|>  de.elnarion.test.domain.t0001.BaseAbstractClass
+de.elnarion.test.domain.t0001.ChildB -->  de.elnarion.test.domain.t0001.Util : util
+de.elnarion.test.domain.t0001.ChildB --|>  de.elnarion.test.domain.t0001.BaseAbstractClass
+
+hide de.elnarion.test.domain.ChildB
+
+@enduml

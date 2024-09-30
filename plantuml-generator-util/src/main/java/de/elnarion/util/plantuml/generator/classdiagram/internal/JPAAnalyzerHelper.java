@@ -143,7 +143,11 @@ class JPAAnalyzerHelper {
 						"javax.persistence.Table", "Table");
 				addStereoTypesForAnnotationClass(paramClassObject, stereotypes, destinationClassloader,
 						"javax.persistence.MappedSuperclass", "MappedSuperclass");
+			} catch (ClassNotFoundException | SecurityException | IllegalArgumentException e) {
+				// ignore all exceptions
+			}
 
+			try {
 				// jakarta.persistance
 				addStereoTypesForAnnotationClass(paramClassObject, stereotypes, destinationClassloader,
 						"jakarta.persistence.Entity", "Entity");

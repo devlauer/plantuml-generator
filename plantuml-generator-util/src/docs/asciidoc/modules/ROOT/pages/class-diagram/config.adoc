@@ -62,8 +62,8 @@ to add additional PlantUML configuration to the beginning of the generated
 PlantUML diagram
 * xref:./config/add-jpa-annotations.adoc[addJPAAnnotations] + 
 to add JPA annotations of the classes to the diagram
-* xref:./config/add-javax-validation-annotations.adoc[addJavaxValidationAnnotations] +
-to add Javax Validation annotations of the classes to the diagram
+* xref:./config/add-validation-annotations.adoc[addValidationAnnotations] +
+to add Validation annotations of the classes to the diagram
 * xref:./config/field-blacklist-regexp.adoc[withFieldBlacklistRegexp] + 
 to filter out fields of the shown classes in the diagram via a 
 regular expression

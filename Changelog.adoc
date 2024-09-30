@@ -1,6 +1,34 @@
 = Changelog
 
-.Unreleased
+.unreleased
+
+.3.0.0 - 2024-08-18
+* update maven-plugin-annotations to 3.14.0
+* update maven-plugin-plugin to 3.14.0
+* update maven to 3.9.9
+* update maven-gpg-plugin to 3.2.5
+* update maven-javadoc-plugin to 3.8.0
+* update maven-release-plugin to 3.1.1
+* update maven-surefire-plugin to 3.3.1
+* update maven-failsafe-plugin to 3.3.1
+* update junit5-monorepo to 5.11.0
+* add jakarta Validation annotation (pull request #206) - incompatible change of parameter add-javax-validation-annotations to add-validation-annotations
+* fix jakarta jpa information not fully present on diagrams (pull request #205)
+* update antora/site-generator to 3.1.9
+* update antora/cli to 3.1.9
+* update maven-jar-plugin to 3.4.2
+* update classgraph to 4.8.174
+* update nexus-staging-maven-plugin to 1.7.0
+* update maven-invoker-plugin to 3.7.0
+* update jakarta.persistence-api to 3.2.0
+* update mockito-core to 5.12.0
+* update maven-wrapper to 3.3.1
+* update archunit-junit5 to 1.3.0
+* update commons-io to 2.16.1
+* update maven-source-plugin to 3.3.1
+* update jacoco-maven-plugin to 0.8.12
+* update maven-compiler-plugin to 3.13.0
+* update log4j-slf4j-impl to 2.23.1
 
 .2.4.1 - 2024-01-13
 * enable original parameter names if available (#154)
@@ -48,7 +76,7 @@ recursive method calls (issue #105)
 
 .2.2.2 - 2023-08-26
 * update mockito-core to 5.5.0
-* fix missing line for smetana layouting option
+* fix missing line for smetana layout-ing option
 
 .2.2.1 - 2023-08-20
 * fix missing source jar during release

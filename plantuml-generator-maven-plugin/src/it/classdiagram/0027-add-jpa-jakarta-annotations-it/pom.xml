@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>de.elnarion.maven.plugin.it</groupId>
-	<artifactId>class-0003-add-jpa-annotations-it</artifactId>
+	<artifactId>class-0027-add-jpa-jakarta-annotations-it</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -20,12 +20,12 @@
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.16.1</version>
+			<version>2.17.0</version>
 		</dependency>
 		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>2.0.1.Final</version>
+			<groupId>jakarta.persistence</groupId>
+			<artifactId>jakarta.persistence-api</artifactId>
+			<version>3.2.0</version>
 		</dependency>
 	</dependencies>
 	<!-- end::dependencies[] -->
@@ -46,14 +46,22 @@
 						<configuration>
 							<outputFilename>testdiagram1.txt</outputFilename>
 							<scanPackages>
-								<scanPackage>de.elnarion.test.domain.t0028</scanPackage>
+								<scanPackage>de.elnarion.test.domain.t0021jakarta</scanPackage>
 							</scanPackages>
-							<addJavaxValidationAnnotations>true</addJavaxValidationAnnotations>
+							<addJPAAnnotations>true</addJPAAnnotations>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
 			<!-- end::mvn[] -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<release>17</release>
+					<debug>true</debug>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>

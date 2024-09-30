@@ -64,4 +64,11 @@ So you need to switch to the new packages.
 Furthermore the deprecated constructors of PlantUMLClassDiagramGenerator
 have been removed. 
 Use the PlantUMLClassDiagramConfigBuilder instead.
+
+=== Upgrade from 2.x to 3.x
+
+With the new version 3.x the configuration parameter
+*addJavaxValidationAnnotations* of the PlantUMLClassDiagramGenerator has changed to *addValidationAnnotations*
+and now supports javax and jakarta namespace for validations.
+So you need to change your configuration if you used this parameter.
  

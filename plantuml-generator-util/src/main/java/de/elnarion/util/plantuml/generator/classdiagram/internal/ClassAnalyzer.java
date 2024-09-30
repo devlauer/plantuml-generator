@@ -440,8 +440,8 @@ public class ClassAnalyzer {
                                     paramDeclaredMethods, plantUMLConfig.getDestinationClassloader()));
                         }
                         String paramToMultiplicity = "0..*";
-                        if (plantUMLConfig.isAddJavaxValidationAnnotations()) {
-                            paramToMultiplicity = new JavaxValidationAnalyzerHelper().extractCardinality(paramField,
+                        if (plantUMLConfig.isAddValidationAnnotations()) {
+                            paramToMultiplicity = new ValidationAnnotationsAnalyzerHelper().extractCardinality(paramField,
                                     paramDeclaredMethods, plantUMLConfig.getDestinationClassloader());
                         }
                         final UMLRelationship relationship = new UMLRelationship("1", paramToMultiplicity, paramField.getName(),

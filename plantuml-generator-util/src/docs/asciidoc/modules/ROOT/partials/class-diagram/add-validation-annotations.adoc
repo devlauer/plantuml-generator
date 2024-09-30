@@ -3,15 +3,19 @@ include::./_attributes.adoc[]
 = Description
 // tag::description[]
 If you activate this configuration toggle via the builder method
-withJavaxValidationAnnotations the generator scans the selected classes for
-the following Javax Validation Annotations:
+withValidationAnnotations the generator scans the selected classes for
+the following Validation Annotations:
 
 * field annotations
 ** javax.validation.constraints.Size
 ** javax.validation.constraints.NotEmpty
+** jakarta.validation.constraints.Size
+** jakarta.validation.constraints.NotEmpty
 
 If field annotations are found the generator will adapt the cardinality
 of AggregationRelationship to reflect the annotation.
+
+IMPORTANT: This feature was previously activated via the withJavaxValidationAnnotations builder method in version between 2.3.0 and 2.4.0.
 // end::description[]
 
 = Default value

@@ -96,13 +96,13 @@ public class PlantUMLClassDiagramConfigBuilder {
 	}
 
 	/**
-	 * With Javax Validation annotations.
+	 * With Validation annotations.
 	 *
-	 * @param paramAddJavaxValidationAnnotations the param add Javax Validation annotations
+	 * @param paramAddValidationAnnotations the param add Javax Validation annotations
 	 * @return the plant UML class diagram config builder
 	 */
-	public PlantUMLClassDiagramConfigBuilder withJavaxValidationAnnotations(boolean paramAddJavaxValidationAnnotations) {
-		plantUMLConfig.setAddJavaxValidationAnnotations(paramAddJavaxValidationAnnotations);
+	public PlantUMLClassDiagramConfigBuilder withValidationAnnotations(boolean paramAddValidationAnnotations) {
+		plantUMLConfig.setAddValidationAnnotations(paramAddValidationAnnotations);
 		return this;
 	}
 

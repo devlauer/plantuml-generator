@@ -3,3 +3,4 @@
 * Modules
 ** xref:plantuml-generator-util:ROOT:index.adoc[PlantUML Generator Utility]
 ** xref:plantuml-generator-maven-plugin:ROOT:index.adoc[PlantUML Generator Maven Plugin]
+** xref:plantuml-generator-cli:ROOT:index.adoc[PlantUML Generator Cli]

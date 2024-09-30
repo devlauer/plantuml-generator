@@ -1,0 +1,15 @@
+= Overview
+Welcome to the PlantUML Generator CLI documentation!
+
+The cli wrapper has been added to allow other languages (non-JAVA) to use plantuml-generator. Other languages can call plantuml-generator in the following way.
+
+== class
+generate class diagram , see  link:https://devlauer.github.io/plantuml-generator/plantuml-generator-util/latest/class-diagram/config.html[class options].
+``` bash
+java -jar plantuml-generator-cli.jar class --options
+```
+== sequence
+generate sequence diagram , see link:https://devlauer.github.io/plantuml-generator/plantuml-generator-util/latest/sequence-diagram/config.html[sequence options].
+```bash
+java -jar plantuml-generator-cli.jar sequence --options
+```

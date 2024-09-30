@@ -36,7 +36,7 @@ public abstract class AbstractCommand  implements Runnable{
     @Option(names = "--enable-markdown-wrapper", description = "Enable Markdown wrapper", defaultValue = "false")
     boolean enableMarkdownWrapper;
 
-    @Option(names = "--additional-configs", split = ",", description = "Additional PlantUML configurations", defaultValue = "")
+    @Option(names = "--additional-configs", split = ",", description = "Additional PlantUML configurations, split by ',' ", defaultValue = "")
     List<String> additionalPlantUmlConfigs;
 
     // add option  to  pass classpath urls  for classloader , required, split by ','

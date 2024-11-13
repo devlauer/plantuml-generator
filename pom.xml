@@ -72,6 +72,7 @@
     <modules>
         <module>plantuml-generator-util</module>
         <module>plantuml-generator-maven-plugin</module>
+        <module>plantuml-generator-cli</module>
     </modules>
     <dependencies>
         <dependency>

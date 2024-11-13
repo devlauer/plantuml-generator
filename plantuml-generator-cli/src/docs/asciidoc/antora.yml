@@ -1,0 +1,7 @@
+name: plantuml-generator-cli
+title: PlantUML Generator CLI
+asciidoc:
+    attributes:
+        compontentkeywords: "{sitekeywords}, cli"
+nav:
+  - modules/ROOT/nav.adoc

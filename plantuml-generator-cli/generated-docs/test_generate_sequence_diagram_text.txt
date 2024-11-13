@@ -1,0 +1,22 @@
+@startuml
+
+participant CallerClassA
+participant SuperClassA
+participant SuperClassB
+
+activate CallerClassA
+	CallerClassA -> SuperClassA : testSuperClassSomething
+	activate SuperClassA
+		SuperClassA -> SuperClassB : testSuperClassBSomething
+		activate SuperClassB
+			SuperClassB -> SuperClassB : testProtectedSomething
+			activate SuperClassB
+				SuperClassB --> SuperClassB
+			deactivate SuperClassB
+			SuperClassB --> SuperClassA
+		deactivate SuperClassB
+		SuperClassA --> CallerClassA
+	deactivate SuperClassA
+deactivate CallerClassA
+
+@enduml
